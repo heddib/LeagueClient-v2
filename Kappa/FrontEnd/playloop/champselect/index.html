@@ -1,0 +1,99 @@
+<module class="no-shadow" id="champselect">
+    <div data-ref="champBackground" id="champ-background"></div>
+    <div class="left">
+        <span data-ref="allyTitle">Allied Team</span>
+        <div data-ref="alliedTeam" class="team">
+        </div>
+        <x-banlist data-ref="allyBans">
+        </x-banlist>
+    </div>
+    <div class="center">
+        <div data-ref="skinsControls" id="skins-controls">
+            <div data-ref="skinLeftArrow" id="skin-left">
+                <svg>
+                    <polyline points="20 20 5 45 20 70" />
+                </svg>
+            </div>
+            <x-flexpadd></x-flexpadd>
+            <div data-ref="reroll" class="reroll-button">
+                <span>Reroll</span>
+            </div>
+            <x-flexpadd></x-flexpadd>
+            <div data-ref="skinRightArrow" id="skin-right">
+                <svg>
+                    <polyline points="5 20 20 45 5 70" />
+                </svg>
+            </div>
+        </div>
+        <div class="top">
+            <span class="exit-button paddButton"></span>
+            <span class="exit-button" data-ref="exitButton" data-event="click:onClose"></span>
+            <h1 data-ref="phaseTitle"></h1>
+        </div>
+        <div id="champs-grid">
+            <div data-ref="champs" id="champs-container"></div>
+        </div>
+        <div data-ref="champsControls" class="middle-1">
+            <input type="text" data-ref="searchBox" data-event="input:onSearchInput">
+            <button data-ref="lockIn" data-event="click:onLockInClick">Lock In</button>
+        </div>
+        <div class="middle-2">
+            <select data-ref="runesList" data-event="change:onRunesChange"></select>
+            <select data-ref="masteriesList" data-event="change:onMasteriesChange"></select>
+            <span class="edit-button" data-event="mouseup:onEditMasteriesClick"></span>
+        </div>
+        <div class="bottom shadow">
+            <container class="left" data-ref="chatContainer"></container>
+            <div class="right" id="spells-panel">
+                <div data-event="click:onSpell1Click">
+                    <img data-ref="spell1">
+                </div>
+                <div data-event="click:onSpell2Click">
+                    <img data-ref="spell2">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <span data-ref="enemyTitle">Enemy Team</span>
+        <div data-ref="enemyTeam" class="team">
+        </div>
+        <x-banlist data-ref="enemyBans" class="enemy-bans">
+        </x-banlist>
+    </div>
+    <!--<div id="champs-popup">
+        <div class="champs"></div>
+    </div>-->
+
+    <div id="spell-selector" data-ref="spellSelector">
+    </div>
+</module>
+
+<template data-template="spell-selectable">
+    <div class="spell-selectable">
+        <img src={{imgurl}}>
+    </div>
+</template>
+
+<template data-template="champicon">
+    <x-champicon style="background-image: url('{{imageurl}}')">
+        <svg>
+            <line x1="0" y1="0" x2="100" y2="100" />
+        </svg>
+    </x-champicon>
+</template>
+
+<template data-template="banicon">
+    <x-banicon>
+        <svg>
+            <line x1="0" y1="0" x2="100" y2="100" />
+        </svg>
+        <img src="{{imageurl}}">
+    </x-banicon>
+</template>
+
+<!--<template data-template="champpopupitem">
+  <x-champpopupitem>
+    <img src="{{imageurl}}">
+  </x-champpopupitem>
+</template>-->

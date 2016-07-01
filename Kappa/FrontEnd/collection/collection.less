@@ -1,0 +1,42 @@
+module.collection {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    > .header {
+        flex: 0 0 auto;
+        padding: 10px;
+        display: flex;
+        z-index: 99;
+    
+        > .tab-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 10px;
+            width: 100px;
+            height: 20px;
+            cursor: pointer;
+            opacity: .5;
+            transition-property: opacity;
+            transition-duration: 200ms;
+            transition-timing-function: ease-in-out;
+                
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+
+    > .center {
+        .flex-padd();
+        width: 400%;
+        display: flex;
+        position: relative;
+        transition: transform 250ms ease-in-out;
+
+        > container {
+            .flex-padd();
+        }
+    }
+}

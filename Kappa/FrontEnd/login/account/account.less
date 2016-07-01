@@ -1,0 +1,47 @@
+.saved-account {
+    .no-drag();
+
+    display: inline-flex;
+    flex-direction: column;
+    background: #3E3E44;
+    align-items: center;
+    margin-right: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 50%;
+    transition: box-shadow 150ms;
+    transform-origin: center;
+
+    &:hover {
+        box-shadow: 0 0 20px black;
+    }
+
+    &.loading {
+        animation: account-load 1000ms infinite;
+        animation-timing-function: linear;
+    }
+
+    > img {
+        width: 128px;
+        height: 128px;
+    }
+
+    > .shadow {
+        top: 0;
+        width: 128px;
+        height: 128px;
+        position: absolute;
+        box-shadow: inset 0 0 10px black;
+        border-radius: 50%;
+    }
+}
+
+@keyframes account-load {
+    0% {
+        transform: rotateZ(0deg);
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+    }
+}

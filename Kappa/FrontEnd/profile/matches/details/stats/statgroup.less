@@ -1,0 +1,45 @@
+module.matchstatgroup {
+    padding: 0 10px;
+    
+    > .header {
+        margin-bottom: 10px;
+        background: #616161;
+        padding: 3px 6px;
+        cursor: pointer;
+    }
+
+    > .list {
+        height: 0;
+        overflow: hidden;
+    }
+
+    &.active > .list {
+        height: auto;
+    }
+
+    .matchstatrow {
+        display: flex;
+        padding: 0 10px 10px 10px;
+
+        > .label {
+            flex: 0 0 150px;
+        }
+
+        > .numbers {
+            .flex-padd();
+            display: flex;
+
+            > .matchstat {
+                .flex-padd();
+                text-align: end;
+                font-family: Roboto mono;
+
+                &.me {
+                    color: limegreen;
+
+                    span { font-weight: bold; }
+                }
+            }
+        }
+    }
+}

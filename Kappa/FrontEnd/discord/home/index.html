@@ -1,0 +1,35 @@
+<module class="discordhome">
+    <div data-ref="loginPage" class="login-page">
+        <div class="login-box">
+            <form data-ref="loginForm">
+                <div class="login-row">
+                    <span>Email:</span>
+                    <input type="text" data-event="keydown:onLoginInput" name="email" />
+                </div>
+                <div class="login-row">
+                    <span>Password:</span>
+                    <input type="password" data-event="keydown:onLoginInput" name="password" />
+                </div>
+            </form>
+            <button type="button" data-event="click:onLoginClick" class="login-button">Login</button>
+        </div>
+    </div>
+    <div data-ref="homePage" class="home-page">
+        <div data-ref="friendsList" class="friends-list">
+        </div>
+    </div>
+</module>
+
+<template data-template="friend">
+    <x-discordfriend class="{{status}}">
+        <div class="avatar" style="background-image: url('{{avatar}}');"></div>
+        <div class="text">
+            <div class="username">
+                <span>{{username}}</span>
+            </div>
+            <div class="status">
+                <span>{{displayStatus}}</span>
+            </div>
+        </div>
+    </x-discord>
+</template>

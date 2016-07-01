@@ -1,0 +1,23 @@
+<module id="login">
+    <img data-ref="image" id="login-img">
+    <video data-ref="video" id="login-video" autoplay loop></video>
+    <div data-ref="accountlist" id="login-accounts"></div>
+    <div data-ref="form" id="login-form">
+        <div id="login-username">
+            <div>Username:</div>
+            <input data-ref="username" data-event="keydown:onKeyDown" type="text" />
+        </div>
+        <div id="login-password">
+            <div>Password:</div>
+            <input data-ref="password" data-event="keydown:onKeyDown" type="password" />
+        </div>
+        <div id="login-submit">
+            <button data-ref="submitbutt" data-event="click:onSubmitClick" type="button">Login</button>
+        </div>
+        <div data-ref="loader" id="loader"></div>
+    </div>
+
+    <div class="update-alert" data-ref="updateAlert">
+        <span>Update Ready</span>
+    </div>
+</module>

@@ -1,0 +1,77 @@
+module.discordhome {
+    input[type="text"], input[type="password"] {
+        font-family: Roboto;
+        padding: 2px 2px 2px 2px;
+        font-size: 16px;
+        /*  background: #e3e3e3;*/
+        outline: none;
+        border: none;
+        background: transparent;
+        border-bottom: 1px solid gray;
+        transition: border-bottom-color 200ms ease-in-out;
+        
+        &:focus {
+            border-bottom-color: lightgray;
+        }
+    }
+
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px white inset;
+    }
+
+    .login-box {
+        width: 400px;
+        background: @backgroundcolor;
+        margin-top: 100px;
+        padding: 10px;
+        box-sizing: border-box;
+        box-shadow: 0 0 20px black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        > form {
+            width: 100%;
+        }
+
+        .login-row {
+            margin-top: 10px;
+            
+            input {
+                width: 100%;
+                margin-top: 4px;
+            }
+        }
+
+        .login-button {
+            margin-top: 10px;
+        }
+    }
+
+    x-discordfriend {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        > .avatar {
+            width: 50px;
+            height: 50px;
+            background-size: cover;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        > .text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &.online .status {
+            color: #00BD00;
+        }
+
+        &.idle .status {
+            color: #E0D100;
+        }
+    }
+}

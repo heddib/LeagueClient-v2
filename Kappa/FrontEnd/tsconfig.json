@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "es6",
+        "outDir": "bin",
+        "jsx": "react"
+    },
+    "files": [
+        "discord/discord.d.ts",
+        "util/util.ts",
+        "test.ts",
+        "test2.ts",
+        "client.ts"
+    ]
+}

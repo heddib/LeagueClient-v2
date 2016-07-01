@@ -1,0 +1,121 @@
+#chatlist {
+    display: flex;
+    flex-direction: column;
+        
+    #my-profile {
+        flex: 0 0 auto;
+        padding: 10px;
+        display: flex;
+        align-items: flex-end;
+        
+        .profile-icon {
+            width: 80px;
+            height: 80px;
+            margin-right: 10px;
+        }
+        
+        .summoner-name {
+            font-size: 24px;
+            margin-bottom: -5px;
+        }
+    }
+    
+    #friends-list {
+        .no-scroll();
+        .flex-padd();
+        padding-top: 10px;
+        overflow-x: hidden;
+        overflow-y: auto; 
+
+        &:hover {
+            will-change: transform;
+        }
+    }
+    
+    #active-chat {
+        width: 100%;
+        height: 300px;
+        display: none;
+        flex-direction: column;
+        transform: translateY(0);
+        transition: transform 200ms ease-in-out;
+        background: @foregroundcolor;
+        
+        &.expanded {
+            display: flex;
+        }
+        
+        .title {
+            border: 1px solid gray;
+            border-left: 0;
+            border-right: 0;
+            padding: 4px;
+            position: relative;
+            
+            > .exit-button {
+                margin: -4px;
+                padding: 5px 0;
+                width: 100%;
+                position: absolute;
+                background-position-x: calc(100% - 6px);
+            }
+        }
+        
+        .message-list {
+            .flex-padd();
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            padding: 4px 0;
+        
+            > .message {
+                flex: 0 0 auto;
+                .no-select();
+                display: flex;
+                align-items: center;
+                margin: 2px 4px;
+                word-break: break-all;
+                font-size: 14px;
+                
+                .body {
+                    padding: 4px 8px;
+                    cursor: default;
+                    border-radius: 5px;
+                }
+
+                .date {
+                    flex: 0 0 auto;
+                    opacity: 0;
+                    transition: opacity 150ms;
+                }
+
+                &:hover > .date {
+                    opacity: 1;
+                }
+
+                &.received {
+                    flex-direction: row-reverse;
+
+                    .body {
+                        background: #0D338C;
+                    }
+                }
+
+                &.sent .body {
+                    background: green;
+                    padding: 2px 8px;
+                    cursor: default;
+                    border-radius: 5px;
+                }
+            }
+        }
+    
+        .chat-input > input {
+            width: 100%;
+            outline: none;
+            font-size: 14px;
+            border: 1px solid gray;
+        }
+    }
+}
+    

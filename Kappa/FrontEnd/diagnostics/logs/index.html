@@ -1,0 +1,52 @@
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="logs.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="http://underscorejs.org/underscore.js"></script>
+    <script src="http://backbonejs.org/backbone-min.js"></script>
+    <script src="http://warfares.github.io/pretty-json/pretty-json-min.js"></script>
+
+    <script src="../lib.js"></script>
+    <script src="logs.js"></script>
+</head>
+
+<body>
+    <x-header>
+        <div id="logo">
+            <h2 id="title">Logs</h2>
+        </div>
+        <x-flexpadd></x-flexpadd>
+        <div id="search">
+            <input type="text" id="search-input">
+        </div>
+    </x-header>
+    <x-body>
+        <div id="log"></div>
+    </x-body>
+    <div id="details">
+        <div class="header">
+            <div class="name">
+                <span id="details-name"></span>
+            </div>
+            <a class="small-link" id="expand-button">expand</a>
+            <a class="small-link" id="collapse-button">collapse</a>
+            <x-flexpadd></x-flexpadd>
+            <span class="simple-button" id="exit-button">
+                <svg width="16" height="16">
+                    <line x1="1" y1="1" x2="15" y2="15" stroke="black" stroke-width="2" />
+                    <line x1="15" y1="1" x2="1" y2="15" stroke="black" stroke-width="2" />
+                </svg>
+            </span>
+        </div>
+        <div id="details-args"></div>
+        <div id="details-content"></div>
+    </div>
+
+    <template data-template="logitem">
+        <x-logitem>
+            <span class="category">{{category}}</span>
+            <span class="name">{{summary}}</span>
+        </x-logitem>
+    </template>
+</body>

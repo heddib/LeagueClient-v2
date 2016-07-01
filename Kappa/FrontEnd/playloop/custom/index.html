@@ -1,0 +1,34 @@
+<module id="custom">
+    <div id="team-one">
+    </div>
+    <div class="between">
+        <button id="switch-teams">Switch Teams</button>
+    </div>
+    <div id="team-two">
+    </div>
+    <div class="bottom">
+        <container class="left" data-ref="chatContainer"></container>
+        <div class="right">
+            <div class="buttons">
+                <x-flexpadd></x-flexpadd>
+                <button id="quit-game">Quit Game</button>
+                <x-flexpadd></x-flexpadd>
+                <button id="start-game">Start Game</button>
+                <x-flexpadd id="start-game-padd"></x-flexpadd>
+            </div>
+            <div id="invites-panel">
+                <div>
+                    <span class="window-button plus-button" id="invite-button" data-ref="inviteButton"></span>
+                    <h2>Invited</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</module>
+
+<template data-template="customlobbymember">
+    <x-customlobbymember id="member-{{id}}">
+        <img class="icon">
+        <span>{{name}}</span>
+    </x-customlobbymember>
+</template>

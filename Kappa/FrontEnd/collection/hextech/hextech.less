@@ -1,0 +1,73 @@
+module.hextech {
+    display: flex;
+    > .left {
+        width: 410px;
+        display: flex;
+        flex-direction: column;
+
+        .loot-list {
+            .flex-padd();
+        }
+
+        .loot-footer {
+            display: flex;
+            justify-content: space-between;
+            box-sizing: border-box;
+            padding: 7px 10px;
+            font-size: 20px;
+        }
+
+        .loot-group {
+            .loot-group-title {
+                font-size: 20px;
+                margin: 10px;
+            }
+
+            .loot-group-body {
+                margin-top: 10px;
+            }
+        }
+
+        .loot-champskin() {
+            display: inline-flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            margin: 0 0 10px 10px;
+
+            > .loot-count {
+                font-size: 20px;
+                background: #343438;
+                text-shadow: 0 0 10px black;
+                margin: -5px;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+            }
+        }
+
+        .loot-champ {
+            .loot-champskin();
+            width: 90px;
+            height: 90;
+            background-position: center;
+            background-size: 114%;
+            border-radius: 50%;
+        }
+
+        .loot-skin {
+            .loot-champskin();
+            width: 190px;
+            height: 90px;
+            background-position: 50% 25%;
+            background-size: 426px;
+            border-radius: 10px;
+        }
+    }
+
+    > .center {
+        .flex-padd();
+    }
+}

@@ -1,0 +1,342 @@
+#champselect {
+    display: flex;
+    position: relative;
+    z-index: 1;
+
+    .body-side {
+        flex: 0 0 225px;
+        padding: 0 10px 10px 10px;
+        display: flex;
+        flex-direction: column;
+        
+        > span {
+            text-align: center;
+            font-size: 20px;
+            padding: 10px;
+            
+            &.blue {
+                text-shadow: 0 0 10px blue;
+            }
+            
+            &.red {
+                text-shadow: 0 0 10px red;
+            }
+        }
+    }
+    
+    > .left {
+        .body-side();
+    }
+    
+    > .center {
+        .flex-padd();
+        display: flex;
+        flex-direction: column;
+        
+        > .top {
+            text-align: center;
+            text-shadow: 0 0 10px black;
+            padding: 10px;
+            
+            > h1 {
+                font-size: 20px;
+            }
+
+            > .paddButton {
+                opacity: 0;
+                float: left;
+            }
+        }
+            
+        > #champs-grid {
+            .flex-padd();
+        }
+        
+        > .middle-1 {
+            flex: 0 0 auto;
+            padding: 10px 0;
+            display: flex;
+            
+            > input {
+                .flex-padd();
+                margin-right: 10px;
+                font-size: 16px;
+            }
+        }
+        
+        > .middle-2 {
+            flex: 0 0 auto;
+            display: flex;
+            padding-bottom: 10px;
+            
+            select {
+                .flex-padd();
+                
+                &:first-child {
+                margin-right: 10px;
+                }
+            }
+        }
+        
+        > .bottom {
+            flex: 0 0 170px;
+            display: flex;
+            
+            > .left {
+                .flex-padd();
+                padding-bottom: 10px;
+            }
+            
+            > .right {
+                flex: 0 0 auto;
+                display: flex;
+                flex-direction: column;
+                padding: 0 0 10px 10px;
+            }
+        }
+    }
+    
+    > .right {
+        .body-side();
+    }
+    
+    .team {
+        .flex-padd();
+        width: 100%;
+    }
+
+    #skins-controls {
+        .flex-padd();
+        display: flex;
+        align-items: center;
+        
+        &.hidden {
+            display: none;
+        }
+
+        .reroll-button {
+            font-size: 30px;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: radial-gradient(closest-side, black, transparent);
+            opacity: 0;
+            transition: opacity 250ms;
+
+            &:hover {
+                opacity: 1;
+            }
+
+            &.hidden {
+                display: none;
+            }
+        }
+        
+        .skin-control() {
+            cursor: pointer;
+            
+            > svg {
+                width: 25px;
+                height: 90px;
+                -webkit-filter: drop-shadow(0 0 5px black);
+                filter: drop-shadow(0 0 5px black);
+
+                > polyline {
+                    stroke: orange;
+                    fill: none;
+                    stroke-width: 3px;
+                }
+            }
+
+            &.hidden {
+                opacity: 0;
+            }
+        }
+
+        #skin-left {
+            .skin-control();
+        }
+
+        #skin-right {
+            .skin-control();
+        }
+    }
+    
+    #champs-grid {
+        overflow-y: auto;
+        overflow-x: hidden;
+        margin-right: -3px;
+
+        #champs-container {
+            margin: 0 -3px -1px 0;
+        }
+    }
+    
+    #spells-panel {
+        justify-content: space-around;
+        
+        > div {
+            cursor: pointer;
+            border: 2px solid lighten(@foregroundcolor, 10%);
+
+            > img {
+                width: 48px;
+                height: 48px;
+            }
+        }
+    }
+
+    x-banlist {
+        display: flex;
+        margin-right: -10px;
+        
+        > x-banicon {
+            width: calc(33.33333% - 10px);
+            margin: 0 10px 0 0;
+            pointer-events: none;
+        }
+        
+        &.enemy-bans {
+            flex-direction: row-reverse;
+        }
+    }
+    
+    #spell-selector {
+        position: fixed;
+        left: -1000px;
+        top: -1000px;
+        padding: 10px 0 0 10px;
+        background: #7D7D7D;
+        box-shadow: 0 0 50px black;
+        font-size: 0;//Stupid white space
+        
+        > .spell-selectable {
+            display: inline-block;
+            margin: 0 10px 10px 0;
+            cursor: pointer;
+        }
+    }
+
+    x-champicon {
+        display: inline-block;
+        cursor: pointer;
+        margin: 0 1px 1px 0;
+        width: 100px;
+        height: 100px;
+        box-sizing: border-box;
+        background-size: 350px;
+        background-position: 50% 25%;
+        transition: box-shadow 100ms;
+        
+        &:hover {
+            box-shadow: inset 0 0 10px black;
+        }
+
+        &.inactive {
+            pointer-events: none;
+        }
+        
+        &.active {
+            border: 1px solid orange;
+            box-shadow: inset 0 0 10px orange;
+        }
+        
+        > svg {
+            width: 100%;
+            height: 100%;
+            stroke: red;
+            stroke-width: 5;
+            margin-bottom: 1px;
+            display: none;
+        }
+
+        &.taken:not(.active) {
+            pointer-events: none;
+            
+            > svg {
+                display: initial;
+            }
+        }
+    }
+
+    x-banicon {
+        display: inline-block;
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+        pointer-events: none;
+        
+        > img {
+            margin: -7%;
+            width: 114%;
+        }
+        
+        > svg {
+            width: 100%;
+            height: 100%;
+            stroke: red;
+            stroke-width: 5;
+            position: absolute;
+        }
+    }
+
+    #champ-background {
+        background-position: center;
+        position: absolute;
+        width: 100%;
+        height: calc(100% + 75px);
+        top: -75px;
+        z-index: -1;
+        transition-property: opacity, transform;
+        transition-duration: 150ms;
+    }
+/*
+  x-champpopupitem {
+    display: inline-block;
+    border: 1px solid #56565f;
+    overflow: hidden;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: box-shadow 200ms;
+    width: calc(12.5% - 10px);
+    margin: 10px 0 0 10px;
+    
+    &:hover {
+      box-shadow: 0 0 10px #EEEEEE;
+    }
+    
+    &.active {
+      box-shadow: 0 0 6px orange;
+      border-color: orange;
+    }
+    
+    > img {
+      margin: -10% -7%;
+      width: 114%;
+    }
+  }
+  
+  #champs-popup {
+    position: absolute;
+    top: -75px;
+    left: 50%;
+    width: 100%;
+    height: 100vh;
+    transform: translate(-50%);
+    background: #343438;
+    padding: 10px 10px 10px 0;
+    box-sizing: border-box;
+    z-index: 1;
+    > .champs {
+      overflow: auto;
+      height: 100%;
+      margin-right: -10px;
+      padding-right: 10px;
+      padding-bottom: 10px;
+      box-sizing: border-box;
+    }
+  }*/
+}

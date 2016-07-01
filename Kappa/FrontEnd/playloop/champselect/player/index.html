@@ -1,0 +1,23 @@
+<module class="champselectplayer no-shadow">
+    <div data-ref="champImage" class="champ"></div>
+    <svg class="active-indicator">
+        <polyline points="5 20 20 45 5 70" />
+    </svg>
+    <div class="summoner-name">
+        <span data-ref="name"></span>
+    </div>
+    <div class="champion-name">
+        <span data-ref="champion"></span>
+    </div>
+    <x-flexpadd class="spacing"></x-flexpadd>
+    <div class="spells">
+        <img data-ref="spell1" />
+        <img data-ref="spell2" />
+        <div data-ref="role" class="role"></div>
+        <x-flexpadd></x-flexpadd>
+        <span class="trade-butt trade-button" data-event="click:onTradeClick">TRADE</span>
+        <span class="trade-butt cancel-button" data-event="click:onCancel">CANCEL</span>
+        <span class="trade-butt accept-button" data-event="click:onAccept">YES</span>
+        <span class="trade-butt decline-button" data-event="click:onDecline">NO</span>
+    </div>
+</module>

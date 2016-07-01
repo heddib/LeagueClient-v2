@@ -1,0 +1,32 @@
+<module class="playselect">
+    <div data-ref="body" class="main-content">
+        <div data-ref="standardTitle" class="queue-title">
+            <span>Standard Queues</span>
+        </div>
+        <div data-ref="standardQueues" class="queue-supergroup"></div>
+        <div data-ref="extraTitle" class="queue-title">
+            <span>Featured Queues</span>
+        </div>
+        <div data-ref="extraQueues" class="queue-supergroup"></div>
+        <x-flexpadd></x-flexpadd>
+        <div class="custom-games">
+            <button data-event="click:onCreateCustomClick">Create Custom Game</button>
+            <button data-event="click:onJoinCustomClick">Join Custom Game</button>
+        </div>
+    </div>
+    <div data-ref="loadingModal" class="loading-modal">
+        <span>Loading</span>
+    </div>
+</module>
+
+<template data-template="queue-group">
+    <div class="queue-group" style="background-image:url('{{image}}')">
+        <div class="list"></div>
+    </div>
+</template>
+
+<template data-template="queue">
+    <div class="queue">
+        <span>{{name}}</span>
+    </div>
+</template>

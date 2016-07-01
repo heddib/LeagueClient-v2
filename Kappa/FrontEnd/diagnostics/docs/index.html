@@ -1,0 +1,83 @@
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="docs.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="http://underscorejs.org/underscore.js"></script>
+    <script src="http://backbonejs.org/backbone-min.js"></script>
+    <script src="http://warfares.github.io/pretty-json/pretty-json-min.js"></script>
+
+    <script src="../lib.js"></script>
+    <script src="docs.js"></script>
+</head>
+
+<body>
+    <x-header>
+        <div id="logo">
+            <h2 id="title">Documentation</h2>
+        </div>
+        <x-flexpadd></x-flexpadd>
+        <div id="source">
+            <input type="text" id="source-input" value="http://localhost:25566/docs">
+        </div>
+        <x-flexpadd></x-flexpadd>
+    </x-header>
+    <x-body>
+        <div id="list"></div>
+    </x-body>
+    <div id="invoke">
+        <div class="header">
+            <button id="invoke-button">Invoke</button>
+            <div class="name">
+                <span id="invoke-name"></span>
+            </div>
+            <a class="small-link" id="expand-button">expand</a>
+            <a class="small-link" id="collapse-button">collapse</a>
+            <x-flexpadd></x-flexpadd>
+            <span class="simple-button" id="exit-button">
+                <svg width="16" height="16">
+                    <line x1="1" y1="1" x2="15" y2="15" stroke="black" stroke-width="2" />
+                    <line x1="15" y1="1" x2="1" y2="15" stroke="black" stroke-width="2" />
+                </svg>
+            </span>
+        </div>
+        <div id="invoke-list">
+
+
+        </div>
+        <div id="invoke-result"></div>
+    </div>
+
+    <template data-template="group">
+        <x-group>
+            <div class="main">
+                <span>{{name}}</span>
+            </div>
+            <div class="expander">
+                <div class="endpoint-list"></div>
+            </div>
+        </x-group>
+    </template>
+
+    <template data-template="endpoint">
+        <x-endpoint>
+            <div class="main">
+                <span>{{path}}</span>
+            </div>
+        </x-endpoint>
+    </template>
+
+    <template data-template="arg">
+        <x-argument>
+            <div class="type">
+                <span>{{type}}</span>
+            </div>
+            <div class="name">
+                <span>{{name}}:</span>
+            </div>
+            <div class="input">
+                <input type="text" class="arg-input">
+            </div>
+        </x-argument>
+    </template>
+</body>

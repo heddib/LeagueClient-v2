@@ -1,0 +1,123 @@
+module.matchsummary {
+    display: flex;
+    flex: 0 0 auto;
+    margin: 10px;
+    cursor: pointer;
+
+    &:hover > .card {
+        box-shadow: 0 0 10px;
+    }
+
+    > .card {
+        width: 250px;
+        height: 95px;
+        background-size: 426px;
+        background-position: 30% 25%;
+
+        display: flex;
+        flex: 0 0 auto;
+
+        > .spells {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            
+            > img {
+                width: 40px;
+                margin: 5px 5px 0;
+                box-shadow: 0 0 10px;
+            }
+        }
+
+        > .text {
+            align-self: flex-end;
+            display: flex;
+            flex-direction: column;
+            margin: 2px;
+            font-size: 16px;
+            text-shadow: 0 0 10px black;
+
+            > .result {
+                font-size: 20px;
+                font-weight: bold;
+                &.victory {
+                    color: #00c500;
+                }
+                &.defeat {
+                    color: red;
+                }
+            }
+        }
+    }
+
+    > .center {
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+
+        > .items {
+            font-size: 0;
+            display: flex;
+
+            > img {
+                width: 40px;
+                height: 40px;
+                margin-left: 10px;
+                &.hidden {
+                    opacity: 0;
+                }
+            }
+        }
+
+        > .stats {
+            display: flex;
+
+            .stat {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+
+                > .icon {
+                    width: 20px;
+                    height: 20px;
+                    margin-left: 5px;
+                    background-position: center;
+                    background-size: cover;
+                    background-position-y: 0;
+                }
+            }
+
+            > .kda {
+                flex: 4;
+                text-align: center;
+            }
+
+            > .minions {
+                .stat();
+                flex: 2;
+
+                > .icon {
+                    background-image: url("images/matches/minions.png");
+                }
+            }
+
+            > .gold {
+                .stat();
+                flex: 3;
+
+                > .icon {
+                    height: 18px;
+                    background-image: url("images/matches/gold.png");
+                }
+            }
+        }
+    }
+
+    > .info {
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-around;
+    }
+}

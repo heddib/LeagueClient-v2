@@ -1,0 +1,19 @@
+<module class="chatroom">
+    <div class="chat-history" data-ref="history" readonly></div>
+    <div class="chat-input">
+        <input type="text" event="keydown:onChatInput"/>
+    </div>
+</module>
+
+<template data-template="lobby-message">
+    <div class="lobby-message">
+        <span class="body">{{body}}</span>
+    </div>
+</template>
+
+<template data-template="message">
+    <div class="message">
+        <span class="from">{{from}}:</span>
+        <span class="body">{{body}}</span>
+    </div>
+</template>

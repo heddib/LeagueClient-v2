@@ -1,0 +1,245 @@
+#landing {
+    display: flex;
+    background: @backgroundcolor;
+    
+    > .center {
+        .flex-padd();
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        
+        > .background {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+        
+        > .header {
+            .drag();
+            flex: 0 0 auto;
+            padding: 20px;
+            display: flex;
+            z-index: 99;
+        
+            > .tab-button {
+                .no-drag();
+                .no-select();
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 6px 10px;
+                width: 100px;
+                cursor: pointer;
+                opacity: .5;
+                transition-property: opacity;
+                transition-duration: 200ms;
+                transition-timing-function: ease-in-out;
+                
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+        
+        > .center {
+            .flex-padd();
+        }
+    }
+    
+    > .right {
+        background: @backgroundcolor;
+        box-shadow: 0 0 10px black;
+        z-index: 99;
+        width: 280px;
+    }
+    
+    .shadow {
+        -webkit-filter: drop-shadow(0 0 10px);
+        filter: drop-shadow(0 0 10px);
+    }
+    
+    #main-scroller {
+        @tabcount: 5;
+
+        width: (@tabcount * 100%);
+        display: flex;
+        position: relative;
+        transition: opacity 150ms ease-in-out;
+
+        &.faded {
+            opacity: 0;
+        }
+        
+        > * {
+            flex: 0 0 (100% / @tabcount);
+        }
+
+        > #landing-home {
+            .shadow();
+        }
+    }
+
+    .background > img {
+        left: -370px;
+        position: relative;
+        height: 115%;
+        transform: rotateY(180deg);
+    }
+
+    #alerts-profile {
+        .no-drag();
+        .no-select();
+        
+        display: flex;
+        align-items: center;
+        -webkit-filter: drop-shadow(0 0 10px black);
+        transition: all 200ms;
+        cursor: pointer;
+        
+        &:hover {
+            background: fade(@backgroundcolor, 80%);
+            // box-shadow: 0 0 10px black;
+        }
+        
+        .balance {
+            margin: 0 10px;
+            min-width: 80px;
+            
+            > img {
+                width: 20px;
+                vertical-align: bottom;
+                margin-right: 5px;
+            }
+        }
+    }
+    
+    #tetris-frame {
+        flex: 1;
+    }
+
+    #play-button {
+        .no-drag();
+        padding: 6px 10px;
+        border: 2px solid gray;
+        width: 100px;
+        text-align: center;
+        cursor: pointer;
+        transition-property: border, box-shadow;
+        transition-duration: 200ms;
+        transition-timing-function: ease-in-out;
+        
+        &:hover {
+            border-color: #0ED3F7;
+            box-shadow: 0 0 10px #0ED3F7;
+        }
+    }
+    
+    #landing-home {
+        display: flex;
+        
+        > .left {
+            .flex-padd();
+            display: flex;
+            flex-direction: column;
+        }
+        
+        > .right {
+            flex: 2 2;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #invite-list {
+            .flex-padd();
+            display: flex;
+            flex-direction: column-reverse;
+            padding: 10px;
+        }
+        
+        //News\\
+            #news-list {
+                .flex-padd();
+                padding-right: 10px;
+                overflow: auto;
+                height: 100%;
+            }
+            
+            x-newsitem {
+                .no-select();
+                width: 400px;
+                height: 100px;
+                display: flex;
+                align-items: flex-start;
+                background: #3E3E44;
+                padding: 10px;
+                margin-bottom: 10px;
+                cursor: pointer;
+                
+                > img {
+                height: 100%
+                }
+                
+                > .text {
+                    padding-left: 10px;
+                    height: 100%;
+                    overflow: hidden;
+                    display: flex;
+                    flex-direction: column;
+                    
+                    > .title {
+                        margin-bottom: 4px;
+                    }
+                    > .description {
+                        font-size: 14px;
+                    }
+                }
+            }
+        //
+    }
+
+    #landing-content {
+        > module {
+            transition-property: opacity, transform;
+            transition-duration: 150ms;
+        
+            &:not(.no-shadow) {
+                .shadow();
+            }
+        }
+    }
+    
+    #shop-frame {
+        width: 1280px;
+        transform: scale((1000 / 1280));
+        transform-origin: 0 0;
+        height: 825px;
+        border: 0;
+    }
+}
+
+#tetris-container {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+
+    #tetris-score {
+        font-family: Roboto;
+        font-weight: bold;
+        font-size: 18pt;
+        background: white;
+        text-align: center;
+        border-bottom: none;
+        color: black;
+    }
+
+    #tetris-space {
+        height: 10px;
+    }
+
+    #tetris-canvas {
+        border-top: none;
+        background: white;
+    }
+}

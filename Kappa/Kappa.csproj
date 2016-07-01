@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3F367BEC-5D96-4E40-ABE4-E03D4BBBA8E6}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Kappa</RootNamespace>
+    <AssemblyName>Kappa</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;BUILD_UI</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;GAME_PREDICTION</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="agsXMPP">
+      <HintPath>..\..\..\..\Libraries\.NET\agsXMPP.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpZipLib, Version=0.81.0.1407, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Libraries\.NET\SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.HashFunction.Core, Version=1.8.2.2, Culture=neutral, PublicKeyToken=80c9288e394c1322, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.HashFunction.Core.1.8.2.2\lib\net45\System.Data.HashFunction.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.HashFunction.Interfaces, Version=1.0.0.2, Culture=neutral, PublicKeyToken=80c9288e394c1322, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.HashFunction.Interfaces.1.0.0.2\lib\net45\System.Data.HashFunction.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.HashFunction.xxHash, Version=1.8.2.2, Culture=neutral, PublicKeyToken=80c9288e394c1322, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.HashFunction.xxHash.1.8.2.2\lib\net45\System.Data.HashFunction.xxHash.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BackEnd\Maestro.cs" />
+    <Compile Include="BackEnd\Server\Assets\GameDataAssets.cs" />
+    <Compile Include="BackEnd\Server\Patcher\WADArchive.cs" />
+    <Compile Include="BackEnd\Server\Authentication\Account.cs" />
+    <Compile Include="BackEnd\Server\Collection\ChampionsService.cs" />
+    <Compile Include="BackEnd\Server\Collection\HextechService.cs" />
+    <Compile Include="BackEnd\Server\Collection\Model\ChampionInventory.cs" />
+    <Compile Include="BackEnd\Server\Collection\Model\HextechInventory.cs" />
+    <Compile Include="BackEnd\Server\Game\Model\ActiveGameState.cs" />
+    <Compile Include="BackEnd\Server\Game\Model\EndOfGameChampionMastery.cs" />
+    <Compile Include="BackEnd\Server\Game\Model\GameStatistics.cs" />
+    <Compile Include="BackEnd\Server\Game\Model\RerollState.cs" />
+    <Compile Include="BackEnd\Server\Meta\SettingsService.cs" />
+    <Compile Include="BackEnd\Server\Patcher\Model\PatcherState.cs" />
+    <Compile Include="BackEnd\Server\Patcher\PatcherService.cs" />
+    <Compile Include="BackEnd\Server\Patcher\ProjectPatcher.cs" />
+    <Compile Include="BackEnd\Server\Patcher\RAFArchive.cs" />
+    <Compile Include="BackEnd\Server\Patcher\ReleaseManifest.cs" />
+    <Compile Include="BackEnd\Server\Profile\MatchHistoryService.cs" />
+    <Compile Include="Riot\Domain\ChampionMastery\AllChampionMasteryObject.cs" />
+    <Compile Include="Riot\Domain\ChampionMastery\ChampionMasteryScoreAndChestObject.cs" />
+    <Compile Include="Riot\Domain\ChampionMastery\ChampionMasteryScoreObject.cs" />
+    <Compile Include="Riot\Domain\JSON\MatchHistory.cs" />
+    <Compile Include="Riot\Domain\Loot\LootItemListObject.cs" />
+    <Compile Include="Riot\Domain\Loot\QueryListObject.cs" />
+    <Compile Include="Riot\Domain\Loot\PlayerLootAndDefinitionsObject.cs" />
+    <Compile Include="Riot\Domain\Loot\RecipeListObject.cs" />
+    <Compile Include="Riot\Domain\Loot\PlayerLootObject.cs" />
+    <Compile Include="Riot\Domain\TeambuilderDraft\CallFailedObject.cs" />
+    <Compile Include="Riot\Domain\TeambuilderDraft\GameDataObject.cs" />
+    <Compile Include="Riot\Domain\TeambuilderDraft\GatekeeperExceptionObject.cs" />
+    <Compile Include="Riot\Domain\TeambuilderDraft\RemovedFromServiceObject.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="FrontEnd.cs" />
+    <Compile Include="BackEnd\Server\Assets\AssetsService.cs" />
+    <Compile Include="BackEnd\Server\Assets\Model\AssetsInfo.cs" />
+    <None Include="BackEnd\Server\Assets\Model\AudioAssets.cs" />
+    <Compile Include="BackEnd\Server\Authentication\AuthService.cs" />
+    <Compile Include="BackEnd\Server\Authentication\Model\AccountState.cs" />
+    <Compile Include="BackEnd\Server\Authentication\Model\AuthResult.cs" />
+    <Compile Include="Riot\Domain\TeambuilderDraft\BroadcastNotification.cs" />
+    <Compile Include="Riot\Domain\ClientDynamicConfigurationNotification.cs" />
+    <Compile Include="Riot\Domain\ClientSystemStatesNotification.cs" />
+    <Compile Include="Riot\Domain\Enums.cs" />
+    <Compile Include="Riot\Domain\Exceptions.cs" />
+    <Compile Include="Riot\Domain\FailedJoinPlayer.cs" />
+    <Compile Include="Riot\Domain\JSON\ChampionMasteryDTO.cs" />
+    <Compile Include="Riot\Domain\JSON\InvitationMetaData.cs" />
+    <Compile Include="Riot\Domain\JSON\LoginQueueDto.cs" />
+    <Compile Include="Riot\Domain\LcdsServiceProxyResponse.cs" />
+    <Compile Include="Riot\Domain\Participant.cs" />
+    <Compile Include="Riot\Domain\Types.cs" />
+    <Compile Include="BackEnd\HandledEventArgs.cs" />
+    <Compile Include="BackEnd\Server\Authentication\Model\SavedAccount.cs" />
+    <Compile Include="BackEnd\Server\Chat\ChatRoomService.cs" />
+    <Compile Include="BackEnd\Server\Chat\ChatService.cs" />
+    <Compile Include="BackEnd\Server\Chat\ChatUtils.cs" />
+    <Compile Include="BackEnd\Server\Chat\Model\ChatMessage.cs" />
+    <Compile Include="BackEnd\Server\Collection\Model\Skin.cs" />
+    <Compile Include="BackEnd\Server\Collection\SkinsService.cs" />
+    <Compile Include="BackEnd\Server\Diagnostics\DocumentationService.cs" />
+    <Compile Include="BackEnd\Server\Diagnostics\LogService.cs" />
+    <Compile Include="BackEnd\Server\Game\ActiveGameService.cs" />
+    <Compile Include="BackEnd\Server\Game\Model\CurrentPlayLoopState.cs" />
+    <Compile Include="BackEnd\Server\HttpService.cs" />
+    <Compile Include="BackEnd\Server\WebSocket.cs" />
+    <Compile Include="LeagueClient.cs" />
+    <Compile Include="Riot\Services\Http\HttpService.cs" />
+    <Compile Include="Riot\Services\Http\MatchHistoryService.cs" />
+    <Compile Include="Riot\Services\Http\PlayerPreferencesService.cs" />
+    <Compile Include="Riot\Services\Lcds\LootService.cs" />
+    <Compile Include="BackEnd\Server\Chat\Model\Friend.cs" />
+    <Compile Include="BackEnd\Server\Chat\Model\GameStatus.cs" />
+    <Compile Include="BackEnd\Server\Chat\Model\MucFriend.cs" />
+    <Compile Include="BackEnd\Server\Chat\Model\MucMessage.cs" />
+    <Compile Include="BackEnd\Server\Chat\Model\Status.cs" />
+    <Compile Include="BackEnd\Server\Collection\RunesService.cs" />
+    <Compile Include="BackEnd\Server\Collection\MasteriesService.cs" />
+    <Compile Include="BackEnd\Server\DebugService.cs" />
+    <Compile Include="BackEnd\Server\Game\ChampSelectService.cs" />
+    <Compile Include="BackEnd\Server\Game\CustomService.cs" />
+    <Compile Include="BackEnd\Server\Game\LobbyService.cs" />
+    <Compile Include="BackEnd\Server\Game\MatchmakingService.cs" />
+    <Compile Include="BackEnd\Server\Game\Model\ChampSelectState.cs" />
+    <Compile Include="BackEnd\Server\Game\Model\CustomState.cs" />
+    <Compile Include="BackEnd\Server\Game\Model\GameMember.cs" />
+    <Compile Include="BackEnd\Server\Game\Model\Inventory.cs" />
+    <Compile Include="BackEnd\Server\Game\Model\LobbyMember.cs" />
+    <Compile Include="BackEnd\Server\Game\Model\LobbyState.cs" />
+    <Compile Include="BackEnd\Server\Game\Model\MatchmakingState.cs" />
+    <Compile Include="BackEnd\Server\BackEndServer.cs" />
+    <Compile Include="BackEnd\Server\Meta\MetaService.cs" />
+    <Compile Include="BackEnd\Server\Game\InviteService.cs" />
+    <Compile Include="BackEnd\Server\Game\Model\AvailableQueue.cs" />
+    <Compile Include="BackEnd\Server\Game\Model\Invitation.cs" />
+    <None Include="BackEnd\Server\Game\Model\LobbyInvitee.cs" />
+    <Compile Include="BackEnd\Server\JSONService.cs" />
+    <Compile Include="BackEnd\Server\Summoner\Model\Me.cs" />
+    <Compile Include="BackEnd\Server\Summoner\SummonerService.cs" />
+    <Compile Include="BackEnd\Session.cs" />
+    <Compile Include="BackEnd\Server\Game\PlayLoopService.cs" />
+    <Compile Include="BackEnd\MessageHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BackEnd\Region.cs" />
+    <Compile Include="BackEnd\RiotUtils.cs" />
+    <Compile Include="BackEnd\RiotVersion.cs" />
+    <Compile Include="Riot\Services\AccountService.cs" />
+    <Compile Include="Riot\Services\ChampionTradeService.cs" />
+    <Compile Include="Riot\Services\ClientFacadeService.cs" />
+    <Compile Include="Riot\Services\GameInvitationService.cs" />
+    <Compile Include="Riot\Services\GameService.cs" />
+    <Compile Include="Riot\Services\InventoryService.cs" />
+    <Compile Include="Riot\Services\LcdsProxyService.cs" />
+    <Compile Include="Riot\Services\Lcds\ChampionMasteryService.cs" />
+    <Compile Include="Riot\Services\Lcds\LcdsService.cs" />
+    <Compile Include="Riot\Services\Lcds\LcdsServiceNames.cs" />
+    <Compile Include="Riot\Services\Lcds\LcdsServiceObject.cs" />
+    <Compile Include="Riot\Services\Lcds\TeambuilderDraftService.cs" />
+    <Compile Include="Riot\Services\LeaguesService.cs" />
+    <Compile Include="Riot\Services\LoginService.cs" />
+    <Compile Include="Riot\Services\MasteryBookService.cs" />
+    <Compile Include="Riot\Services\MatchmakingService.cs" />
+    <Compile Include="Riot\Services\PlayerStatsService.cs" />
+    <Compile Include="Riot\Services\RerollService.cs" />
+    <Compile Include="Riot\Services\Service.cs" />
+    <Compile Include="Riot\Services\SpellBookService.cs" />
+    <Compile Include="Riot\Services\SummonerIconService.cs" />
+    <Compile Include="Riot\Services\SummonerRuneService.cs" />
+    <Compile Include="Riot\Services\SummonerService.cs" />
+    <Compile Include="Riot\Services\SummonerTeamService.cs" />
+    <Compile Include="Settings\BaseSettings.cs" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\Parsing\Parsing.csproj">
+      <Project>{6CC2AB6C-8D74-4965-B19C-7526D32C2097}</Project>
+      <Name>Parsing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\RiotAPI\RiotAPI.csproj">
+      <Project>{68a7ca3c-c11e-4237-95e7-b6ca129dae61}</Project>
+      <Name>RiotAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\rtmp-sharp\rtmp-sharp.csproj">
+      <Project>{E787B02C-5050-43CF-B4C1-AAA1CB1C6BC6}</Project>
+      <Name>rtmp-sharp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BackEnd\Server\Meta\Model\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if $(ConfigurationName) == Debug (
+  xcopy "C:\Users\Max\Downloads\cef_binary_3.2704.1418.g08819a5_windows64\build\cefsimple\Release\*" "$(TargetDir)*" /y
+  move /y "$(TargetDir)cefsimple.exe" "$(TargetDir)client.exe"
+)</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

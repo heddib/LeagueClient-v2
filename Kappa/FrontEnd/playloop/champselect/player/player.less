@@ -1,0 +1,162 @@
+module.champselectplayer {
+    @padding: 5px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    padding: @padding;
+    height: 90px;
+    box-sizing: border-box;
+    position: relative;
+    box-shadow: 0 0 10px #000000;
+    z-index: 1;
+
+    > .champ {
+        z-index: -1;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        margin: -@padding;
+        top: 5px;
+        left: 5px;
+    
+        background-size: 426px;
+        background-position: 30% 25%;
+    }
+
+    > .active-indicator {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        width: 30px;
+        height: 100%;
+        -webkit-filter: drop-shadow(0 0 5px black);
+        filter: drop-shadow(0 0 5px black);
+        display: none;
+
+        > polyline {
+            stroke: orange;
+            fill: none;
+            stroke-width: 8px;
+        }
+    }
+
+    > .summoner-name {
+        font-size: 18px;
+    }
+    
+    > .champion-name {
+        font-size: 16px
+    }
+
+    > .spacing {
+        min-height: @padding;
+    }
+    
+    > .spells {
+        display: flex;
+        align-items: center;
+        
+        > img {
+            width: 32px;
+            height: 32px;
+            margin: 0 @padding 0 0;
+            box-shadow: 0 0 6px white;
+        }
+        
+        > .role {
+            width: 24px;
+            height: 24px;
+            -webkit-filter: drop-shadow(0 0 2px black);
+            filter: drop-shadow(0 0 2px black);
+        }
+
+        > .trade-butt {
+            display: none;
+            align-self: flex-end;
+            margin: -5px;
+            padding: 5px 9px;
+            cursor: pointer;
+            color: white;
+            text-shadow: 0 0 10px black;
+            -webkit-filter: drop-shadow(0 0 5px black);
+            filter: drop-shadow(0 0 5px black);
+            min-width: 35px;
+        }
+    }
+
+    &.trade-possible, &.trade-declined, &.trade-cancelled {
+        .trade-button {
+            display: initial;
+        }
+    }
+
+    &.trade-sent {
+        .cancel-button {
+            display: initial;
+        }
+    }
+
+    &.trade-received {
+        .accept-button, .decline-button {
+            display: initial;
+        }
+    }
+
+    &.reverse {
+        align-items: flex-end;
+
+        > .active-indicator {
+            right: inherit;
+            left: 0;
+            transform: rotateY(180deg);
+        }
+
+        > .champ {
+            background-position-x: 70%;
+        }
+
+        > .spells {
+            flex-direction: row-reverse;
+            > img {
+                margin: 0 0 0 @padding;
+            }
+        }
+    }
+
+    &.no-spells {
+        .spells {
+            display: none;
+        }
+    }
+
+    &.no-role {
+        .role {
+            display: none;
+        }
+    }
+
+    &.no-champ {
+        box-shadow: none;
+
+        > .champ {
+            display: none;
+        }
+    }
+
+    &.active {
+        > .active-indicator {
+            display: initial;
+        }
+    }
+
+    &.intent > .champ {
+        opacity: .6;
+    }
+
+    &.tradable > .champ {
+        cursor: pointer;
+        > .trade-button {
+            display: initial;
+        }
+    }
+}

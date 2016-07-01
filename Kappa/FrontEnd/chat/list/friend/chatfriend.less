@@ -1,0 +1,75 @@
+module.chatfriend {
+    display: flex;
+    transition: background 100ms;
+    background: @backgroundcolor;
+    margin: 0 10px 10px;
+    cursor: pointer;
+    -webkit-user-select: none;
+
+    > .icon {
+        > img {
+            width: 64px;
+            height: 64px;
+        }
+    }
+    > .text {
+        .flex-padd();
+        margin: 0 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-bottom: 4px;
+
+        > .name {
+            font-size: 17px;
+        }
+        > .message {
+            font-size: 14px;
+            opacity: .8;
+        }
+        > .status {
+            display: flex;
+            font-size: 14px;
+        }
+    }
+    > .invite-button {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 32px;
+        height: 32px;
+        display: none;
+        cursor: pointer;
+    }
+    &.inviting {
+        cursor: default;
+        
+        > .invite-button {
+            display: initial;
+        }
+    }
+    &:hover {
+        background: lighten(@backgroundcolor, 10%);
+    }
+    &.chat > .text > .status {
+        color: #00BD00;
+    }
+    &.dnd > .text > .status {
+        color: #E0D100;
+    }
+    &.away > .text > .status {
+        color: red;
+    }
+    &.mobile {
+        > .icon > img {
+            width: 48px;
+            height: 48px;
+        }
+        > .text {
+            opacity: .6;
+        }
+    }
+    &.unread {
+        box-shadow: 0 0 10px cadetblue;
+    }
+}

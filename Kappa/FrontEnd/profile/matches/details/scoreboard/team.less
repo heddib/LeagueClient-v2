@@ -1,0 +1,115 @@
+module.matchscoreboard-team {
+    display: flex;
+    padding-left: 10px;
+
+    .team-header {
+        display: flex;
+        margin: 5px;
+        text-shadow: 0 0 10px black;
+        font-size: 20px;
+        align-items: flex-end;
+
+        span {
+            font-weight: bold;
+        }
+
+        .team-label {
+            flex: 0 0 110px;
+        }
+
+        .team-name-spacer {
+            flex: 25;
+        }
+
+        .team-result {
+            flex: 0 0 224px;
+            font-size: 26px;
+        }
+
+        .team-kda {
+            flex: 20;
+            text-align: center;
+        }
+
+        .stat() {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            > .icon {
+                width: 20px;
+                height: 20px;
+                margin-left: 5px;
+                background-position: center;
+                background-size: cover;
+                background-position-y: 0;
+            }
+        }
+
+        > .team-minions {
+            .stat();
+            flex: 8;
+
+            > .icon {
+                background-image: url("images/matches/minions.png");
+            }
+        }
+
+        > .team-gold {
+            .stat();
+            flex: 15;
+
+            > .icon {
+                height: 18px;
+                background-image: url("images/matches/gold.png");
+            }
+        }
+    }
+
+    > .center {
+        .flex-padd();
+    }
+
+    > .right {
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 10px;
+
+        .objective {
+            margin: 10px;
+            display: flex;
+            align-items: center;
+
+            > span {
+                width: 20px;
+                text-align: end;
+            }
+
+            > .icon {
+                width: 32px;
+                height: 32px;
+                margin-left: 5px;
+                background-size: 32px;
+                background-image: url("images/matches/objectives.png");
+            }
+        }
+
+        .towers > .icon {
+            background-position: 0 0;
+        }
+
+        .inhibs > .icon {
+            background-position: 0 (100% / 3);
+        }
+
+        .barons > .icon {
+            background-position: 0 (200% / 3);
+        }
+
+        .dragons > .icon {
+            background-position: 0 100%;
+        }
+    }
+}

@@ -1,0 +1,3356 @@
+{
+    "_class": "com.riotgames.platform.statistics.EndOfGameStats",
+    "battleBoostIpEarned": 0,
+    "ranked": false,
+    "talentPointsGained": 0,
+    "skinIndex": 0,
+    "basePoints": 85,
+    "teamPlayerParticipantStats": [
+        {
+            "_class": "com.riotgames.platform.statistics.PlayerParticipantStatsSummary",
+            "skinName": "Bard",
+            "gameId": 2197378670,
+            "profileIconId": 1117,
+            "elo": 0,
+            "leaver": false,
+            "leaves": 7,
+            "teamId": 100,
+            "statistics": [
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2049,
+                    "statTypeName": "ITEM1",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3158,
+                    "statTypeName": "ITEM4",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 12051,
+                    "statTypeName": "PHYSICAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3285,
+                    "statTypeName": "ITEM2",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 14,
+                    "statTypeName": "MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 207,
+                    "statTypeName": "TOTAL_TIME_SPENT_DEAD",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_ENEMY_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 35556,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 137,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "WIN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TEAM_EARLY_SURRENDERED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 8231,
+                    "statTypeName": "TOTAL_HEAL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 13223,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_YOUR_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_EARLY_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 15495,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 29799,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 16,
+                    "statTypeName": "ASSISTS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2,
+                    "statTypeName": "WARD_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "LARGEST_CRITICAL_STRIKE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3364,
+                    "statTypeName": "ITEM6",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "SIGHT_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 11340,
+                    "statTypeName": "GOLD_EARNED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3100,
+                    "statTypeName": "ITEM3",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "LARGEST_MULTI_KILL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "BARRACKS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 15,
+                    "statTypeName": "LEVEL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 10317,
+                    "statTypeName": "MAGIC_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2,
+                    "statTypeName": "LARGEST_KILLING_SPREE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 185,
+                    "statTypeName": "TOTAL_TIME_CROWD_CONTROL_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 5619,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 22432,
+                    "statTypeName": "TOTAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 18,
+                    "statTypeName": "WARD_PLACED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2272,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3,
+                    "statTypeName": "CHAMPIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TURRETS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1011,
+                    "statTypeName": "ITEM5",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "VISION_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 64,
+                    "statTypeName": "TRUE_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3303,
+                    "statTypeName": "ITEM0",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 6,
+                    "statTypeName": "NUM_DEATHS",
+                    "futureData": null
+                }
+            ],
+            "eloChange": 0,
+            "level": 30,
+            "botPlayer": false,
+            "userId": 44601691,
+            "spell2Id": 4,
+            "losses": 224,
+            "summonerName": "much mor",
+            "championId": 432,
+            "wins": 233,
+            "spell1Id": 3
+        },
+        {
+            "_class": "com.riotgames.platform.statistics.PlayerParticipantStatsSummary",
+            "skinName": "Ryze",
+            "gameId": 2197378670,
+            "profileIconId": 1109,
+            "elo": 0,
+            "leaver": false,
+            "leaves": 2,
+            "teamId": 100,
+            "statistics": [
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1057,
+                    "statTypeName": "ITEM4",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 644,
+                    "statTypeName": "TRUE_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2424,
+                    "statTypeName": "TOTAL_HEAL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_ENEMY_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 17603,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 131481,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "WIN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3340,
+                    "statTypeName": "ITEM6",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TEAM_EARLY_SURRENDERED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 17574,
+                    "statTypeName": "TOTAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_YOUR_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 15179,
+                    "statTypeName": "GOLD_EARNED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_EARLY_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 9,
+                    "statTypeName": "ASSISTS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "LARGEST_CRITICAL_STRIKE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "SIGHT_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 6,
+                    "statTypeName": "VISION_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "WARD_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "LARGEST_MULTI_KILL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 18575,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "BARRACKS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 972,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3027,
+                    "statTypeName": "ITEM3",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3,
+                    "statTypeName": "LARGEST_KILLING_SPREE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 18,
+                    "statTypeName": "LEVEL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 22432,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1056,
+                    "statTypeName": "ITEM1",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 364,
+                    "statTypeName": "TOTAL_TIME_CROWD_CONTROL_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 108882,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 182,
+                    "statTypeName": "TOTAL_TIME_SPENT_DEAD",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3110,
+                    "statTypeName": "ITEM2",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3020,
+                    "statTypeName": "ITEM5",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 16,
+                    "statTypeName": "WARD_PLACED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 166,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 214,
+                    "statTypeName": "MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 4,
+                    "statTypeName": "NUM_DEATHS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 11945,
+                    "statTypeName": "PHYSICAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2,
+                    "statTypeName": "TURRETS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 4984,
+                    "statTypeName": "MAGIC_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3040,
+                    "statTypeName": "ITEM0",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 6,
+                    "statTypeName": "CHAMPIONS_KILLED",
+                    "futureData": null
+                }
+            ],
+            "eloChange": 0,
+            "level": 30,
+            "botPlayer": false,
+            "userId": 72790858,
+            "spell2Id": 12,
+            "losses": 248,
+            "summonerName": "Abajeet",
+            "championId": 13,
+            "wins": 279,
+            "spell1Id": 4
+        },
+        {
+            "_class": "com.riotgames.platform.statistics.PlayerParticipantStatsSummary",
+            "skinName": "Caitlyn",
+            "gameId": 2197378670,
+            "profileIconId": 1109,
+            "elo": 0,
+            "leaver": false,
+            "leaves": 3,
+            "teamId": 100,
+            "statistics": [
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3006,
+                    "statTypeName": "ITEM3",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 5013,
+                    "statTypeName": "MAGIC_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3031,
+                    "statTypeName": "ITEM2",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1664,
+                    "statTypeName": "LARGEST_CRITICAL_STRIKE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 78,
+                    "statTypeName": "TOTAL_TIME_SPENT_DEAD",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 201,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 229,
+                    "statTypeName": "MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 5,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_ENEMY_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "WIN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 12177,
+                    "statTypeName": "TOTAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TEAM_EARLY_SURRENDERED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_YOUR_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 528,
+                    "statTypeName": "TRUE_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_EARLY_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 181845,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 764,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 24356,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 6635,
+                    "statTypeName": "PHYSICAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 10,
+                    "statTypeName": "ASSISTS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3072,
+                    "statTypeName": "ITEM4",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 4662,
+                    "statTypeName": "TOTAL_HEAL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3046,
+                    "statTypeName": "ITEM5",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "SIGHT_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "WARD_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2,
+                    "statTypeName": "LARGEST_MULTI_KILL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3363,
+                    "statTypeName": "ITEM6",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 175,
+                    "statTypeName": "TOTAL_TIME_CROWD_CONTROL_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "BARRACKS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 25322,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 10,
+                    "statTypeName": "WARD_PLACED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2043,
+                    "statTypeName": "ITEM0",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 17,
+                    "statTypeName": "LEVEL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 4,
+                    "statTypeName": "LARGEST_KILLING_SPREE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3085,
+                    "statTypeName": "ITEM1",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 186231,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 7,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 10,
+                    "statTypeName": "CHAMPIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 436,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 16342,
+                    "statTypeName": "GOLD_EARNED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3948,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2,
+                    "statTypeName": "TURRETS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2,
+                    "statTypeName": "VISION_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2,
+                    "statTypeName": "NUM_DEATHS",
+                    "futureData": null
+                }
+            ],
+            "eloChange": 0,
+            "level": 30,
+            "botPlayer": false,
+            "userId": 58122548,
+            "spell2Id": 4,
+            "losses": 429,
+            "summonerName": "HeroRampage",
+            "championId": 51,
+            "wins": 457,
+            "spell1Id": 7
+        },
+        {
+            "_class": "com.riotgames.platform.statistics.PlayerParticipantStatsSummary",
+            "skinName": "Udyr",
+            "gameId": 2197378670,
+            "profileIconId": 1109,
+            "elo": 0,
+            "leaver": false,
+            "leaves": 8,
+            "teamId": 100,
+            "statistics": [
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 24610,
+                    "statTypeName": "PHYSICAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 144,
+                    "statTypeName": "TOTAL_TIME_SPENT_DEAD",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 12690,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1028,
+                    "statTypeName": "ITEM5",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 9539,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "WIN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3340,
+                    "statTypeName": "ITEM6",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TEAM_EARLY_SURRENDERED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 33235,
+                    "statTypeName": "TOTAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 906,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 12,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_ENEMY_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 664,
+                    "statTypeName": "TOTAL_TIME_CROWD_CONTROL_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2031,
+                    "statTypeName": "ITEM2",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 10921,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_EARLY_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 87,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 7187,
+                    "statTypeName": "MAGIC_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1437,
+                    "statTypeName": "TRUE_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 15007,
+                    "statTypeName": "GOLD_EARNED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 8,
+                    "statTypeName": "ASSISTS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2,
+                    "statTypeName": "WARD_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "LARGEST_CRITICAL_STRIKE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "SIGHT_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 862,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 12734,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "LARGEST_MULTI_KILL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "BARRACKS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 61,
+                    "statTypeName": "MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3,
+                    "statTypeName": "LARGEST_KILLING_SPREE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3742,
+                    "statTypeName": "ITEM4",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 17,
+                    "statTypeName": "LEVEL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 14,
+                    "statTypeName": "WARD_PLACED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 167437,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1412,
+                    "statTypeName": "ITEM0",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3142,
+                    "statTypeName": "ITEM1",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "VISION_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 4,
+                    "statTypeName": "NUM_DEATHS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 189711,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 75,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_YOUR_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 11779,
+                    "statTypeName": "TOTAL_HEAL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 7,
+                    "statTypeName": "CHAMPIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 4,
+                    "statTypeName": "TURRETS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3009,
+                    "statTypeName": "ITEM3",
+                    "futureData": null
+                }
+            ],
+            "eloChange": 0,
+            "level": 30,
+            "botPlayer": false,
+            "userId": 52519384,
+            "spell2Id": 4,
+            "losses": 468,
+            "summonerName": "rx7566iozak",
+            "championId": 77,
+            "wins": 471,
+            "spell1Id": 11
+        },
+        {
+            "_class": "com.riotgames.platform.statistics.PlayerParticipantStatsSummary",
+            "skinName": "Lux",
+            "gameId": 2197378670,
+            "profileIconId": 937,
+            "elo": 0,
+            "leaver": false,
+            "leaves": 0,
+            "teamId": 100,
+            "statistics": [
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 17129,
+                    "statTypeName": "TOTAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3157,
+                    "statTypeName": "ITEM0",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_ENEMY_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 847,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1026,
+                    "statTypeName": "ITEM3",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 33357,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1353,
+                    "statTypeName": "TRUE_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "WIN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3089,
+                    "statTypeName": "ITEM2",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3340,
+                    "statTypeName": "ITEM6",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TEAM_EARLY_SURRENDERED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 19688,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 15174,
+                    "statTypeName": "GOLD_EARNED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 6145,
+                    "statTypeName": "PHYSICAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 9630,
+                    "statTypeName": "MAGIC_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_YOUR_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3020,
+                    "statTypeName": "ITEM4",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_EARLY_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2409,
+                    "statTypeName": "TOTAL_HEAL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 156491,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2010,
+                    "statTypeName": "ITEM5",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 469,
+                    "statTypeName": "TOTAL_TIME_CROWD_CONTROL_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1793,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 14,
+                    "statTypeName": "ASSISTS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 204,
+                    "statTypeName": "MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "LARGEST_CRITICAL_STRIKE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "SIGHT_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2,
+                    "statTypeName": "LARGEST_MULTI_KILL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "WARD_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 177,
+                    "statTypeName": "TOTAL_TIME_SPENT_DEAD",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "BARRACKS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3285,
+                    "statTypeName": "ITEM1",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 5,
+                    "statTypeName": "LARGEST_KILLING_SPREE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 18,
+                    "statTypeName": "LEVEL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 13,
+                    "statTypeName": "WARD_PLACED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 9,
+                    "statTypeName": "CHAMPIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 30591,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "TURRETS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1917,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "VISION_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 5,
+                    "statTypeName": "NUM_DEATHS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 135009,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                }
+            ],
+            "eloChange": 0,
+            "level": 30,
+            "botPlayer": false,
+            "userId": 48181063,
+            "spell2Id": 14,
+            "losses": 282,
+            "summonerName": "master mor",
+            "championId": 99,
+            "wins": 347,
+            "spell1Id": 4
+        }
+    ],
+    "difficulty": "NONE",
+    "partyRewardsBonusIpEarned": 0,
+    "boostXpEarned": 0,
+    "invalid": false,
+    "roomName": "endGame2197378670",
+    "userId": 210492987,
+    "rpEarned": 0,
+    "experienceTotal": 163,
+    "gameId": 3500351104,
+    "loyaltyBoostXpEarned": 0,
+    "elo": 0,
+    "roomPassword": "RpTrVDAVUa1vvBvZ",
+    "firstWinBonus": 0,
+    "eloChange": 0,
+    "myTeamInfo": null,
+    "summonerName": null,
+    "customMsecsUntilReset": -1,
+    "leveledUp": false,
+    "gameType": "MATCHED_GAME",
+    "queueBonusEarned": 18,
+    "imbalancedTeamsNoPoints": false,
+    "experienceEarned": 0,
+    "reportGameId": 2197378670,
+    "gameLength": 2229,
+    "otherTeamInfo": null,
+    "customMinutesLeftToday": 120,
+    "coOpVsAiMinutesLeftToday": 180,
+    "pointsPenalties": [],
+    "otherTeamPlayerParticipantStats": [
+        {
+            "_class": "com.riotgames.platform.statistics.PlayerParticipantStatsSummary",
+            "skinName": "Braum",
+            "gameId": 2197378670,
+            "profileIconId": 1120,
+            "elo": 0,
+            "leaver": false,
+            "leaves": 8,
+            "teamId": 200,
+            "statistics": [
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 153,
+                    "statTypeName": "LARGEST_CRITICAL_STRIKE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 6699,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_ENEMY_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 9887,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 594,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3766,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 275,
+                    "statTypeName": "TOTAL_TIME_SPENT_DEAD",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 29018,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3171,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TEAM_EARLY_SURRENDERED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 358,
+                    "statTypeName": "TRUE_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3050,
+                    "statTypeName": "ITEM1",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_YOUR_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3117,
+                    "statTypeName": "ITEM3",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_EARLY_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 25519,
+                    "statTypeName": "TOTAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 6,
+                    "statTypeName": "ASSISTS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3364,
+                    "statTypeName": "ITEM6",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "SIGHT_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1033,
+                    "statTypeName": "ITEM4",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "CHAMPIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 12431,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "LARGEST_MULTI_KILL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 8,
+                    "statTypeName": "NUM_DEATHS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "BARRACKS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 4,
+                    "statTypeName": "WARD_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2303,
+                    "statTypeName": "ITEM0",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 60,
+                    "statTypeName": "MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "LOSE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2334,
+                    "statTypeName": "TOTAL_HEAL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 8905,
+                    "statTypeName": "GOLD_EARNED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "ITEM5",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 184,
+                    "statTypeName": "TOTAL_TIME_CROWD_CONTROL_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3800,
+                    "statTypeName": "ITEM2",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 13,
+                    "statTypeName": "LEVEL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "LARGEST_KILLING_SPREE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 17,
+                    "statTypeName": "WARD_PLACED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 11040,
+                    "statTypeName": "PHYSICAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TURRETS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "VISION_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 14120,
+                    "statTypeName": "MAGIC_DAMAGE_TAKEN",
+                    "futureData": null
+                }
+            ],
+            "eloChange": 0,
+            "level": 30,
+            "botPlayer": false,
+            "userId": 68400961,
+            "spell2Id": 4,
+            "losses": 411,
+            "summonerName": "GodDexter IN NA",
+            "championId": 201,
+            "wins": 355,
+            "spell1Id": 3
+        },
+        {
+            "_class": "com.riotgames.platform.statistics.PlayerParticipantStatsSummary",
+            "skinName": "Gragas",
+            "gameId": 2197378670,
+            "profileIconId": 989,
+            "elo": 0,
+            "leaver": false,
+            "leaves": 7,
+            "teamId": 200,
+            "statistics": [
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 432,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3158,
+                    "statTypeName": "ITEM2",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3068,
+                    "statTypeName": "ITEM3",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1402,
+                    "statTypeName": "ITEM0",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1028,
+                    "statTypeName": "ITEM5",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_ENEMY_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 511,
+                    "statTypeName": "LARGEST_CRITICAL_STRIKE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 24,
+                    "statTypeName": "MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TEAM_EARLY_SURRENDERED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 638,
+                    "statTypeName": "TRUE_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 100,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_YOUR_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_EARLY_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 101,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3211,
+                    "statTypeName": "ITEM4",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 358,
+                    "statTypeName": "TOTAL_TIME_SPENT_DEAD",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 8,
+                    "statTypeName": "ASSISTS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1557,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3364,
+                    "statTypeName": "ITEM6",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "SIGHT_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 37166,
+                    "statTypeName": "TOTAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "LARGEST_MULTI_KILL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "BARRACKS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 9,
+                    "statTypeName": "NUM_DEATHS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 9533,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 9,
+                    "statTypeName": "WARD_PLACED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 16,
+                    "statTypeName": "LEVEL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2,
+                    "statTypeName": "LARGEST_KILLING_SPREE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "LOSE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 8,
+                    "statTypeName": "WARD_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3025,
+                    "statTypeName": "ITEM1",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 145494,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 31051,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 11472,
+                    "statTypeName": "GOLD_EARNED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 10819,
+                    "statTypeName": "TOTAL_HEAL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 101881,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 21359,
+                    "statTypeName": "PHYSICAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3,
+                    "statTypeName": "CHAMPIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TURRETS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 714,
+                    "statTypeName": "TOTAL_TIME_CROWD_CONTROL_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 12562,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 11523,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 15169,
+                    "statTypeName": "MAGIC_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2,
+                    "statTypeName": "VISION_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                }
+            ],
+            "eloChange": 0,
+            "level": 30,
+            "botPlayer": false,
+            "userId": 68301615,
+            "spell2Id": 4,
+            "losses": 499,
+            "summonerName": "BetterThan small",
+            "championId": 79,
+            "wins": 508,
+            "spell1Id": 11
+        },
+        {
+            "_class": "com.riotgames.platform.statistics.PlayerParticipantStatsSummary",
+            "skinName": "Azir",
+            "gameId": 2197378670,
+            "profileIconId": 1109,
+            "elo": 0,
+            "leaver": false,
+            "leaves": 5,
+            "teamId": 200,
+            "statistics": [
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 117305,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_ENEMY_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 10135,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1056,
+                    "statTypeName": "ITEM0",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2280,
+                    "statTypeName": "TOTAL_HEAL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3340,
+                    "statTypeName": "ITEM6",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TEAM_EARLY_SURRENDERED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3116,
+                    "statTypeName": "ITEM1",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_EARLY_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 5,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_YOUR_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3115,
+                    "statTypeName": "ITEM3",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 11290,
+                    "statTypeName": "GOLD_EARNED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3135,
+                    "statTypeName": "ITEM2",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 8,
+                    "statTypeName": "ASSISTS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1012,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 17017,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 6993,
+                    "statTypeName": "PHYSICAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 14823,
+                    "statTypeName": "MAGIC_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "LARGEST_CRITICAL_STRIKE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "SIGHT_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 376,
+                    "statTypeName": "TOTAL_TIME_CROWD_CONTROL_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 236,
+                    "statTypeName": "TOTAL_TIME_SPENT_DEAD",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "WARD_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 377,
+                    "statTypeName": "TRUE_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "LARGEST_MULTI_KILL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 7,
+                    "statTypeName": "NUM_DEATHS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "BARRACKS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 16,
+                    "statTypeName": "LEVEL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 197,
+                    "statTypeName": "MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2,
+                    "statTypeName": "LARGEST_KILLING_SPREE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "LOSE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 8,
+                    "statTypeName": "WARD_PLACED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 127440,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 5,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3020,
+                    "statTypeName": "ITEM5",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "ITEM4",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 16005,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TURRETS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "VISION_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2,
+                    "statTypeName": "CHAMPIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 22194,
+                    "statTypeName": "TOTAL_DAMAGE_TAKEN",
+                    "futureData": null
+                }
+            ],
+            "eloChange": 0,
+            "level": 30,
+            "botPlayer": false,
+            "userId": 19923462,
+            "spell2Id": 21,
+            "losses": 967,
+            "summonerName": "piIipaIapoom",
+            "championId": 268,
+            "wins": 1006,
+            "spell1Id": 4
+        },
+        {
+            "_class": "com.riotgames.platform.statistics.PlayerParticipantStatsSummary",
+            "skinName": "Garen",
+            "gameId": 2197378670,
+            "profileIconId": 1120,
+            "elo": 0,
+            "leaver": false,
+            "leaves": 0,
+            "teamId": 200,
+            "statistics": [
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 83,
+                    "statTypeName": "TOTAL_TIME_CROWD_CONTROL_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_ENEMY_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 23973,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 13238,
+                    "statTypeName": "GOLD_EARNED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 4084,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1054,
+                    "statTypeName": "ITEM0",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3340,
+                    "statTypeName": "ITEM6",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TEAM_EARLY_SURRENDERED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1016,
+                    "statTypeName": "TRUE_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_YOUR_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3111,
+                    "statTypeName": "ITEM3",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3742,
+                    "statTypeName": "ITEM2",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_EARLY_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3044,
+                    "statTypeName": "ITEM5",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 34595,
+                    "statTypeName": "TOTAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 5,
+                    "statTypeName": "ASSISTS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1911,
+                    "statTypeName": "TOTAL_HEAL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 4112,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "LARGEST_CRITICAL_STRIKE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "SIGHT_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3065,
+                    "statTypeName": "ITEM4",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 146465,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 263,
+                    "statTypeName": "MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 8,
+                    "statTypeName": "NUM_DEATHS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "LARGEST_MULTI_KILL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "BARRACKS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3,
+                    "statTypeName": "WARD_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 139820,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 17,
+                    "statTypeName": "LEVEL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "LOSE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 5,
+                    "statTypeName": "LARGEST_KILLING_SPREE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 17357,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 8,
+                    "statTypeName": "WARD_PLACED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 11498,
+                    "statTypeName": "MAGIC_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3142,
+                    "statTypeName": "ITEM1",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2532,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 22080,
+                    "statTypeName": "PHYSICAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TURRETS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "VISION_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 7,
+                    "statTypeName": "CHAMPIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2532,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 265,
+                    "statTypeName": "TOTAL_TIME_SPENT_DEAD",
+                    "futureData": null
+                }
+            ],
+            "eloChange": 0,
+            "level": 30,
+            "botPlayer": false,
+            "userId": 68441301,
+            "spell2Id": 6,
+            "losses": 555,
+            "summonerName": "GodZack In NA",
+            "championId": 86,
+            "wins": 714,
+            "spell1Id": 14
+        },
+        {
+            "_class": "com.riotgames.platform.statistics.PlayerParticipantStatsSummary",
+            "skinName": "Jhin",
+            "gameId": 2197378670,
+            "profileIconId": 1013,
+            "elo": 0,
+            "leaver": false,
+            "leaves": 5,
+            "teamId": 200,
+            "statistics": [
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 6870,
+                    "statTypeName": "MAGIC_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 143,
+                    "statTypeName": "TOTAL_TIME_SPENT_DEAD",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 21365,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 4,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_ENEMY_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3155,
+                    "statTypeName": "ITEM0",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 8864,
+                    "statTypeName": "PHYSICAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3508,
+                    "statTypeName": "ITEM4",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 14140,
+                    "statTypeName": "GOLD_EARNED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3340,
+                    "statTypeName": "ITEM6",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "TEAM_EARLY_SURRENDERED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 6,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED_YOUR_JUNGLE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_EARLY_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 6680,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 18081,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 248,
+                    "statTypeName": "MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1053,
+                    "statTypeName": "ITEM5",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3046,
+                    "statTypeName": "ITEM3",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2,
+                    "statTypeName": "ASSISTS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3009,
+                    "statTypeName": "ITEM2",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 15862,
+                    "statTypeName": "TOTAL_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "SIGHT_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2,
+                    "statTypeName": "LARGEST_MULTI_KILL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "WARD_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 143213,
+                    "statTypeName": "PHYSICAL_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 2042,
+                    "statTypeName": "TOTAL_HEAL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3031,
+                    "statTypeName": "ITEM1",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 6,
+                    "statTypeName": "WARD_PLACED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "BARRACKS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 288,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_PLAYER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 16,
+                    "statTypeName": "LEVEL",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 64,
+                    "statTypeName": "TRUE_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "LOSE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 5,
+                    "statTypeName": "LARGEST_KILLING_SPREE",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 9,
+                    "statTypeName": "CHAMPIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 10,
+                    "statTypeName": "NEUTRAL_MINIONS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "GAME_ENDED_IN_SURRENDER",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3219,
+                    "statTypeName": "MAGIC_DAMAGE_DEALT_TO_CHAMPIONS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1,
+                    "statTypeName": "TURRETS_KILLED",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 3,
+                    "statTypeName": "NUM_DEATHS",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 0,
+                    "statTypeName": "VISION_WARDS_BOUGHT_IN_GAME",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 166,
+                    "statTypeName": "TOTAL_TIME_CROWD_CONTROL_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 150182,
+                    "statTypeName": "TOTAL_DAMAGE_DEALT",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 128,
+                    "statTypeName": "TRUE_DAMAGE_TAKEN",
+                    "futureData": null
+                },
+                {
+                    "_class": "com.riotgames.platform.statistics.RawStatDTO",
+                    "dataVersion": 0,
+                    "value": 1080,
+                    "statTypeName": "LARGEST_CRITICAL_STRIKE",
+                    "futureData": null
+                }
+            ],
+            "eloChange": 0,
+            "level": 30,
+            "botPlayer": false,
+            "userId": 67913150,
+            "spell2Id": 4,
+            "losses": 484,
+            "summonerName": "small student NA",
+            "championId": 202,
+            "wins": 479,
+            "spell1Id": 7
+        }
+    ],
+    "loyaltyBoostIpEarned": 0,
+    "boostIpEarned": 0,
+    "coOpVsAiMsecsUntilReset": -1,
+    "completionBonusPoints": 0,
+    "newSpells": [],
+    "timeUntilNextFirstWinBonus": 66340031,
+    "ipEarned": 103,
+    "sendStatsToTournamentProvider": false,
+    "gameMode": "CLASSIC",
+    "gameMutators": [
+        "NewSummonerBadgeSystem(0)"
+    ],
+    "odinBonusIp": 0,
+    "queueType": "NORMAL",
+    "myTeamStatus": null,
+    "ipTotal": 292536
+}

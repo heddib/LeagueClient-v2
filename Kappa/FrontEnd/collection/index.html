@@ -1,0 +1,18 @@
+<module class="collection">
+    <div class="header">
+        <div class="tab-button" data-ref="hextechButton" id><span>HEXTECH</span></div>
+        <div class="tab-button" data-ref="championsButton" id><span>CHAMPIONS</span></div>
+        <div class="tab-button" data-ref="masteriesButton"><span>MASTERIES</span></div>
+        <div class="tab-button" data-ref="runesButton"><span>RUNES</span></div>
+    </div>
+    <div class="center" data-ref="mainScroller">
+        <container data-ref="hextechContainer"></container>
+        <container data-ref="championsContainer"></container>
+        <container data-ref="masteriesContainer"></container>
+        <container data-ref="runesContainer"></container>
+    </div>
+</module>
+
+<template data-template="champion-icon">
+    <div class="champion-icon champ-{{key}}" style="background-image:url('{{iconurl}}')"></div>
+</scrtemplateipt>

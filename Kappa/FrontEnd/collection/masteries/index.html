@@ -1,0 +1,54 @@
+<module id="masteries-popup" class="popup">
+    <div class="header">
+        <span class="window-button exit-button" id="close-masteries"></span>
+    </div>
+    <div class="content">
+        <div class="left">
+            <div id="mastery-page-list">
+            </div>
+            <!--<input id="mastery-name-input" type="text">-->
+            <div class="button-group">
+                <button id="save-masteries">Save</button>
+                <button id="revert-masteries">Revert</button>
+            </div>
+            <div class="button-group">
+                <button id="reset-masteries">Reset</button>
+                <button id="delete-masteries">Delete</button>
+            </div>
+        </div>
+        <div class="body">
+            <div class="mastery-tree" id="ferocity-tree">
+
+            </div>
+            <div class="mastery-tree" id="cunning-tree">
+
+            </div>
+            <div class="mastery-tree" id="resolve-tree">
+
+            </div>
+        </div>
+    </div>
+</module>
+
+<template data-template="mastery-page">
+    <div class="mastery-page">
+        <span>{{name}}</span>
+    </div>
+</template>
+
+<template data-template="mastery-row">
+    <div class="mastery-row">
+
+    </div>
+</template>
+
+<template data-template="mastery-icon">
+    <div class="mastery-icon" id="mastery-icon-{{id}}">
+        <div class="popup">
+            <span class="title">{{title}}</span>
+            <span class="description">{{description}}</span>
+        </div>
+        <img src="{{iconurl}}">
+        <span class="mastery-icon-points"><span class="current-points">0</span>/{{ranks}}</span>
+    </div>
+</template>

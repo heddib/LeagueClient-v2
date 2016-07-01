@@ -1,0 +1,187 @@
+span,
+h1,
+h2,
+a {
+  font-family: Roboto;
+  margin: 0;
+}
+h1 {
+  font-size: 42px;
+}
+h2 {
+  font-size: 20px;
+}
+input[type="date"] {
+  border: 1px solid gray;
+}
+input[type="text"],
+input[type="password"] {
+  font-family: Roboto;
+  padding: 2px 2px 2px 2px;
+  font-size: 16px;
+  /*  background: #e3e3e3;*/
+  outline: none;
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid lightgray;
+  transition: border-bottom-color 200ms ease-in-out;
+}
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-bottom-color: gray;
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+button,
+input[type="button"] {
+  font-family: Roboto;
+  padding: 6px 20px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: #F3F3F3;
+  color: #313131;
+  border-radius: 3px;
+  border: 1px solid lightgray;
+  transition: background 150ms ease-in-out;
+}
+button:hover,
+input[type="button"]:hover {
+  background: #E0E0E0;
+}
+.simple-button {
+  float: right;
+  padding: 6px;
+  cursor: pointer;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 16px;
+  height: 16px;
+  position: relative;
+}
+.small-link {
+  font-size: 14px;
+  color: lightgray;
+  cursor: pointer;
+  border-bottom: 1px solid lightgray;
+}
+.small-link:hover {
+  color: gray;
+  border-color: gray;
+}
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-x: hidden;
+}
+x-header {
+  display: flex;
+  padding: 10px 20px;
+  background: white;
+  box-shadow: 0 0 10px;
+  margin: 0 -10px;
+}
+x-header #source {
+  flex: 2;
+}
+x-header #source input {
+  width: 100%;
+}
+x-body {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+x-body #list {
+  flex: 1;
+  overflow: auto;
+}
+#invoke {
+  box-shadow: 0 0 10px;
+  padding: 10px;
+  position: absolute;
+  box-sizing: border-box;
+  height: 100%;
+  width: 60%;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  background: white;
+}
+#invoke > .header {
+  display: flex;
+  align-items: center;
+}
+#invoke > .header > .name {
+  margin-left: 10px;
+}
+#invoke > .header > .name span {
+  font-size: 20px;
+}
+#invoke > .header > .small-link {
+  margin-left: 10px;
+}
+#invoke #invoke-result {
+  height: 50%;
+  margin-top: 10px;
+  border: 1px solid black;
+  font-family: monospace;
+  padding: 5px;
+  white-space: pre;
+  overflow-y: auto;
+}
+x-flexpadd,
+.flex-padd {
+  flex: 1;
+}
+x-group {
+  -webkit-user-select: none;
+  display: flex;
+  flex-direction: column;
+  padding: 10 10 0 10;
+}
+x-group > .main {
+  cursor: pointer;
+}
+x-group > .main > span {
+  font-size: 18px;
+}
+x-group > .expander {
+  height: 0;
+  overflow: hidden;
+  transition: height 150ms ease-in-out;
+}
+x-endpoint {
+  display: block;
+  cursor: pointer;
+  padding: 0 5 5 5;
+}
+x-argument {
+  display: flex;
+  align-items: center;
+}
+x-argument > .type > span {
+  font-family: Roboto Mono;
+}
+x-argument > .name {
+  margin: 10px;
+}
+x-argument > .input {
+  flex: 1;
+}
+x-argument > .input > input {
+  width: 100%;
+}
+.node-container .node-bracket {
+  font-weight: bold;
+  cursor: pointer;
+}
+.node-container ul {
+  margin: 0;
+}

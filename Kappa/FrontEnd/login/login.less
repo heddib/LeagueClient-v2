@@ -1,0 +1,92 @@
+#login {
+    .drag();
+
+    .update-alert {
+        .no-drag();
+        display: none;
+        cursor: pointer;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+
+        &.visible {
+            display: block;
+        }
+    }
+}
+
+#login-video {
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+}
+
+#login-img {
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+}
+
+#login-form {
+    .no-drag();
+    font-family: Roboto;
+    color: #EEEEEE;
+    background: @foregroundcolor;
+    width: 300px;
+    height: auto;
+    margin: 20vh 0 0 100px;
+    padding: 8px;
+    overflow: hidden;
+    
+    > div {
+        padding: 8px;
+        position: relative;
+        
+        > input[type="text"],
+        > input[type="password"] {
+            width: 100%;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+    }
+}
+
+#login-accounts {
+    font-family: Roboto;
+    width: 316px;
+    margin: 20vh 0 0 100px;
+}
+
+#loader {
+    position: absolute;
+    padding: 0 !important;
+    height: 0;
+    width: 20%;
+    left: calc(100% + 16px);
+    margin: 0px -8px;
+    background: rgb(0, 122, 204);
+    transition: height 200ms ease-in-out;
+    &.loading {
+        animation: load 1s linear infinite;
+        height: 20px;
+    }
+}
+
+@keyframes account-load {
+    0% {
+        transform: rotateZ(0deg);
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
+@keyframes load {
+    0% {
+        left: -20%;
+    }
+    100% {
+        left: calc(100% + 16px);
+    }
+}

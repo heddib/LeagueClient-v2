@@ -1,0 +1,52 @@
+{
+  "shardId": "NA1",
+  "gameId": 3524941154,
+  "playerId": 48181063,
+  "championId": 103,
+  "championLevel": 1,
+  "championPointsBeforeGame": 0,
+  "championPointsGained": 802,
+  "championPointsGainedIndividualContribution": 137,
+  "bonusChampionPointsGained": 0,
+  "playerGrade": "C+",
+  "championPointsSinceLastLevelBeforeGame": 0,
+  "championPointsUntilNextLevelBeforeGame": 1800,
+  "championPointsUntilNextLevelAfterGame": 998,
+  "championLevelUp": false,
+  "score": 135,
+  "levelUpList": [],
+  "memberGrades": [
+    {
+      "playerId": 24292034,
+      "championId": 41,
+      "grade": "S"
+    }
+  ]
+}
+
+
+{
+  "shardId": "NA1",
+  "gameId": 3524977535,
+  "playerId": 48181063,
+  "championId": 12,
+  "championLevel": 3,
+  "championPointsBeforeGame": 5203,
+  "championPointsGained": 925,
+  "championPointsGainedIndividualContribution": 169,
+  "bonusChampionPointsGained": 0,
+  "playerGrade": "B-",
+  "championPointsSinceLastLevelBeforeGame": 3403,
+  "championPointsUntilNextLevelBeforeGame": 797,
+  "championPointsUntilNextLevelAfterGame": 6471,
+  "championLevelUp": true,
+  "score": 136,
+  "levelUpList": [],
+  "memberGrades": [
+    {
+      "playerId": 21007694,
+      "championId": 101,
+      "grade": "S"
+    }
+  ]
+}

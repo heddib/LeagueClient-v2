@@ -1,0 +1,51 @@
+module.champions-page {
+    .flex-padd();
+    display: flex;
+
+    > .left {
+        width: 200px;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding: 0 0 10px 10px;
+    }
+
+    > .center {
+        .flex-padd();
+        overflow-y: auto;
+    }
+
+    .search-box {
+        width: 100%;
+        font-size: 18px;
+        padding: 6px;
+    }
+
+    .champs-grid {
+        margin: -5px 0px 5px 5px;
+    }
+
+    .champion-icon {
+        width: 87.5px;
+        height: 87.5px;
+        box-sizing: border-box;
+        margin: 5px;
+        display: inline-block;
+        background-size: 114%;
+        background-position: center;
+        border: 1px solid grey;
+
+        &.tile {
+            width: 186.25px;
+            height: 186.25px;
+            margin: 5px;
+            display: inline-block;
+            background-size: 190px;
+            background-position: center;
+        }
+
+        &.hidden {
+            display: none;
+        }
+    }
+}

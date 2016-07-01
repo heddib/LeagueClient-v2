@@ -1,0 +1,51 @@
+<module class="hextech shadow">
+    <div class="left">
+        <div data-ref="lootList" class="loot-list">
+        </div>
+        <div class="loot-footer">
+            <div class="loot-essence">
+                <span data-ref="blue"></span>
+                <span>Blue essence</span>
+            </div>
+            <div class="loot-essence">
+                <span data-ref="orange"></span>
+                <span>Orange essence</span>
+            </div>
+        </div>
+        <div class="loot-footer">
+            <div class="loot-text loot-chests">
+                <span data-ref="chests"></span>
+                <span>Chests</span>
+            </div>
+            <div class="loot-text loot-keys">
+                <span data-ref="keys"></span>
+                <span>Keys</span>
+            </div>
+            <div class="loot-text loot-keyfragments">
+                <span data-ref="keyfragments"></span>
+                <span>Key fragments</span>
+            </div>
+        </div>
+    </div>
+    <div class="center">
+    </div>
+</module>
+
+<template data-template="loot-group">
+    <div class="loot-group">
+        <span class="loot-group-title">{{groupname}}</span>
+        <div class="loot-group-body"></div>
+    </div>
+</template>
+
+<template data-template="loot-champ">
+    <div class="loot-champ loot-{{type}}" style="background-image:url('{{iconurl}}')">
+        <span class="loot-count">{{count}}</span>
+    </div>
+</template>
+
+<template data-template="loot-skin">
+    <div class="loot-skin loot-{{type}}" style="background-image:url('{{iconurl}}')">
+        <span class="loot-count">{{count}}</span>
+    </div>
+</template>

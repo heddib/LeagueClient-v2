@@ -1,0 +1,32 @@
+module.matchstats {
+    display: flex;
+    flex-direction: column;
+
+    > .header {
+        display: flex;
+        padding: 10px 20px;
+        
+        > .label-spacer {
+            flex: 0 0 150px;
+        }
+    }
+
+    > .stat-table {
+        .flex-padd();
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+            width: 0;
+        }
+    }
+
+    .matchstats-head {
+        .flex-padd();
+        height: 75px;
+        margin: 3px;
+        background-position: center;
+        background-size: 114%;
+        border-radius: 50%;
+        box-shadow: 0 0 10px black;
+    }
+}

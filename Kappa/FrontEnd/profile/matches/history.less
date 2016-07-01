@@ -1,0 +1,35 @@
+module.matchhistory {
+    display: flex;
+
+    > .center {
+        .flex-padd();
+        display: flex;
+        flex-direction: column;
+
+        > .title {
+            font-size: 20px;
+            padding: 10px 20px;
+        }
+
+        > .list {
+            .flex-padd();
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+    }
+
+    > .details-popup {
+        position: absolute;
+        top: -52px;
+        left: 0;
+        width: 100%;
+        height: calc(100% + 52px);
+        z-index: 99;
+        background: @backgroundcolor;
+
+        &:not(.shown) {
+            display: none;
+        }
+    }
+}
