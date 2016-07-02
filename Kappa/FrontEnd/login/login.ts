@@ -7,9 +7,7 @@ import * as Service from './service';
 
 import Account      from './account/account';
 
-
 const html = Module.import('login');
-const VERSION = 'v0.8';
 
 export default class Page extends Module {
     private authHandlers: Function[] = [];
@@ -48,17 +46,6 @@ export default class Page extends Module {
                     this.accounts.push(account);
                     this.refs.accountlist.add(account.node);
                 }
-            }
-        });
-
-        this.updateCheck();
-    }
-
-    private updateCheck() {
-        http('https://api.github.com/repos/mfro/kappa/releases/latest').get(http => {
-            if (http.json.tag_name != VERSION) {
-                this.refs.updateAlert.addClass('visible');
-                this.refs.updateAlert.on('click', e => Meta.link(http.json.html_url));
             }
         });
     }

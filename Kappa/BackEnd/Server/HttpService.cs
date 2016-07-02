@@ -63,7 +63,9 @@ namespace Kappa.BackEnd.Server {
                 [".jpg"] = "image/jpeg",
                 [".png"] = "image/png",
                 [".webm"] = "video/webm",
-                [".ogg"] = "audio/ogg"
+                [".ogg"] = "audio/ogg",
+
+                [".ttf"] = "application/octet-stream"
                 //MPEG requires specialized codes :(
                 //[".mp4"] = "video/mp4",
                 //[".mp3"] = "audio/mp3",

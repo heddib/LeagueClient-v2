@@ -24,8 +24,42 @@ module.profile-overview {
             margin-left: 10px;
 
             > .name {
-                font-size: 46px;
+                font-size: 40px;
+                font-weight: 900;
+            }
+
+            > .stats {
+                display: flex;
             }
         }
+    }
+
+    .kudos {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50px;
+        font-weight: 100;
+
+        > .icon {
+            width: 28px;
+            height: 28px;
+        }
+    }
+
+    .friendlies > .icon {
+        background-image: url("images/kudos/friendly.png");
+    }
+
+    .helpfuls > .icon {
+        background-image: url("images/kudos/helpful.png");
+    }
+
+    .teamworks > .icon {
+        background-image: url("images/kudos/teamwork.png");
+    }
+
+    .honorables > .icon {
+        background-image: url("images/kudos/honorable.png");
     }
 }

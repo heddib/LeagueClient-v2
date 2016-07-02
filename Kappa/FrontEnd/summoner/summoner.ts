@@ -35,6 +35,10 @@ export function get(name: string): Async<PublicSummoner> {
     });
 }
 
+export function kudos(id: number): Async<Summoner.SummonerKudos> {
+    return Service.kudos(id);
+}
+
 load(storage.get('icons'));
 function load(map) {
     if (map) {

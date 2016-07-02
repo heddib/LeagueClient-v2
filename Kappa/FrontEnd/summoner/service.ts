@@ -12,6 +12,10 @@ export function get(name: string) {
     return Kappa.invoke<PublicSummoner>(service + '/get', [name]);
 }
 
+export function kudos(id: number) {
+    return Kappa.invoke<Summoner.SummonerKudos>(service + '/kudos', [id]);
+}
+
 export function icon(ids: number[]) {
     return Kappa.invoke<{ [id: number]: number }>(service + '/icon', [ids]);
 }

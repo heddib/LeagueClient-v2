@@ -6,8 +6,7 @@
         flex: 0 0 auto;
         display: flex;
         justify-content: center;
-        margin: 10px 0 10px 10px;
-        // height: 163px;
+        margin: 20px 0 20px 10px;
     }
     
     > #team-one {
@@ -51,15 +50,25 @@
 x-customlobbymember {
     display: inline-flex;
     flex-direction: column;
-    margin-right: 10px;
     align-items: center;
-    background: @foregroundcolor;
-    // box-shadow: 0 0 10px black;
-    padding: 8px 8px 4px;
+    margin-right: 10px;
+    position: relative;
+    font-size: 18px;
+    font-weight: bold;
     
     > img {
-        margin-bottom: 4px;
         height: 128px;
+        border-radius: 50%;
+    }
+
+    > span {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 2px 0;
+        text-align: center;
+        text-shadow: 0 0 10px black;
+        -webkit-filter: drop-shadow(0 0 10px black);
     }
 
     &.blank {

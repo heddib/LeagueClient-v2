@@ -81,25 +81,6 @@ export default class Landing extends Module {
 
         let profile = new ProfilePage();
         profile.render(this.$('#landing-profile'));
-
-        // Kappa.invoke('/debug/draft', []);
-        // this.lobby();
-
-        // let canvas = this.$('#tetris-canvas');
-        // Tetris.init(canvas[0], () => document.activeElement == document.body || canvas.hasFocus);
-        // Tetris.on('scorechange', score => this.$('#tetris-score').text = score);
-        // Tetris.start();
-        // this.$('#tetris-score').css('width', canvas[0].width + 'px');
-
-        /* News  {
-            var list = this.$('#news-list');
-            for (var i = 0; i < Math.min(Client.News.length, 10); i++) {
-                let news = Client.News[i];
-                var node = this.template('news', news);
-                node.on('click', e => this.sharp.openLink(news.link));
-                list.add(node);
-            }
-        }*/
     }
 
     public dispose() {

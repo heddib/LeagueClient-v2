@@ -1,18 +1,5 @@
 #login {
     .drag();
-
-    .update-alert {
-        .no-drag();
-        display: none;
-        cursor: pointer;
-        position: absolute;
-        top: 20px;
-        left: 20px;
-
-        &.visible {
-            display: block;
-        }
-    }
 }
 
 #login-video {
@@ -69,16 +56,6 @@
     &.loading {
         animation: load 1s linear infinite;
         height: 20px;
-    }
-}
-
-@keyframes account-load {
-    0% {
-        transform: rotateZ(0deg);
-    }
-
-    100% {
-        transform: rotateZ(360deg);
     }
 }
 

@@ -56,5 +56,17 @@ namespace Kappa.BackEnd.Server.Summoner {
             var summ = await this.session.SummonerService.GetSummonerByName(name);
             return summ;
         }
+
+        [Endpoint("/kudos")]
+        public async Task<SummonerKudos> GetKudos(long id) {
+            var raw = await this.session.ClientFacadeService.GetKudosTotals(id);
+            return new SummonerKudos {
+                // the first one is unknown
+                Friendlies = raw[1],
+                Helpfuls = raw[2],
+                Teamworks = raw[3],
+                Honorables = raw[4]
+            };
+        }
     }
 }

@@ -1451,6 +1451,15 @@ namespace ActiveGame {
     }
 }
 
+namespace Summoner {
+    export interface SummonerKudos {
+        friendlies: number;
+        helpfuls: number;
+        teamworks: number;
+        honorables: number;
+    }
+}
+
 //Patcher Service:
 interface PatcherState {
     phase: string;

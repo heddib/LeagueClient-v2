@@ -106,6 +106,7 @@
     <Compile Include="BackEnd\Server\Patcher\RAFArchive.cs" />
     <Compile Include="BackEnd\Server\Patcher\ReleaseManifest.cs" />
     <Compile Include="BackEnd\Server\Profile\MatchHistoryService.cs" />
+    <Compile Include="BackEnd\Server\Summoner\Model\SummonerKudos.cs" />
     <Compile Include="Riot\Domain\ChampionMastery\AllChampionMasteryObject.cs" />
     <Compile Include="Riot\Domain\ChampionMastery\ChampionMasteryScoreAndChestObject.cs" />
     <Compile Include="Riot\Domain\ChampionMastery\ChampionMasteryScoreObject.cs" />

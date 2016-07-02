@@ -50,8 +50,6 @@ function onLoaded() {
 }
 
 function onPatched() {
-    console.log('patched');
-
     var page = new LoginPage();
     page.load.on(() => Electron.show());
     page.auth.on(state => onAuthed(state));

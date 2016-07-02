@@ -18,6 +18,22 @@ var template = (
                     <span data-ref="name"></span>
                 </div>
                 <div class="stats">
+                    <div class="kudos friendlies">
+                        <span class="icon"/>
+                        <span data-ref="friendlies"/>
+                    </div>
+                    <div class="kudos helpfuls">
+                        <span class="icon"/>
+                        <span data-ref="helpfuls"/>
+                    </div>
+                    <div class="kudos teamworks">
+                        <span class="icon"/>
+                        <span data-ref="teamworks"/>
+                    </div>
+                    <div class="kudos honorables">
+                        <span class="icon"/>
+                        <span data-ref="honorables"/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -40,6 +56,13 @@ export default class OverviewPage extends Module {
                     let key = Assets.ddragon.champs.keys[mastery.championId];
                     let champ = Assets.ddragon.champs.data[key];
                 }
+            });
+
+            Summoner.kudos(me.summonerId).then(kudos => {
+                this.refs.friendlies.text = kudos.friendlies;
+                this.refs.helpfuls.text = kudos.helpfuls;
+                this.refs.teamworks.text = kudos.teamworks;
+                this.refs.honorables.text = kudos.honorables;
             });
         });
     }

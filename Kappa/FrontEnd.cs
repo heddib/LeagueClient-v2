@@ -12,9 +12,7 @@ using Kappa.BackEnd;
 
 namespace Kappa {
     public class FrontEnd : HttpService {
-        private static readonly List<string>
-            ContentFileTypes = new List<string> { ".css", ".html", ".js" },
-            AssetFileTypes = new List<string> { ".svg", ".png", ".jpg", ".webm", ".ogg" };
+        private static readonly List<string> ContentFileTypes = new List<string> { ".css", ".html", ".js" };
 
         private static readonly string FrontEndExecutable = "client.exe";
 
@@ -56,12 +54,9 @@ namespace Kappa {
 
         [Conditional("BUILD_UI")]
         public void Build(string contentRoot, string assetsRoot) {
-            var loose = (from ext in AssetFileTypes
-                         from file in Directory.EnumerateFiles(contentRoot, "*" + ext, SearchOption.AllDirectories)
-                         select file)
-                 .Concat(from ext in ContentFileTypes
-                         from file in Directory.EnumerateFiles(assetsRoot, "*" + ext, SearchOption.AllDirectories)
-                         select file);
+            var loose = from ext in ContentFileTypes
+                        from file in Directory.EnumerateFiles(assetsRoot, "*" + ext, SearchOption.AllDirectories)
+                        select file;
             foreach (string file in loose) Console.WriteLine(file);
 
             string src = Path.Combine(contentRoot, "client.less");
@@ -92,8 +87,6 @@ namespace Kappa {
             var tsc = start("tsc", "-p .");
             tsc.WaitForExit();
 
-            //CompileJSX(contentRoot);
-
             var rollup = start("rollup", @"-o bin\compiled.js -f iife bin\client.js");
             rollup.WaitForExit();
 
@@ -115,34 +108,17 @@ namespace Kappa {
             }
 
             var contentFiles = Files(contentRoot, ContentFileTypes);
-            var assetFiles = Files(assetsRoot, AssetFileTypes);
+            var assetFiles = Files(assetsRoot);
 
             this.content.Create(contentFiles.ToList());
             this.assets.Create(assetFiles.ToList());
         }
 
-        private static IEnumerable<FileAlias> Files(string root, IEnumerable<string> exts) {
-            return from ext in exts
+        private static IEnumerable<FileAlias> Files(string root, IEnumerable<string> exts = null) {
+            return from ext in exts ?? new[] { "" }
                    from file in Directory.EnumerateFiles(root, "*" + ext, SearchOption.AllDirectories)
                    let alias = file.Contains(@"\bin\") ? file.Substring(Path.Combine(root, "bin").Length) : file.Substring(root.Length)
                    select new FileAlias(file, alias.Replace("\\", "/"));
-        }
-
-        private static void CompileJSX(string root) {
-            foreach (string jsx in Directory.EnumerateFiles(root, "*.jsx", SearchOption.AllDirectories)) {
-                var content = File.ReadAllText(jsx);
-                var startRegex = new Regex(@"Module\.template\(\s*<");
-                var endRegex = new Regex(@">\s*\)");
-                int start = 0;
-                while ((start = startRegex.Match(content, start).Index) > 0) {
-                    start = content.IndexOf("(", start, StringComparison.Ordinal) + 1;
-                    int end = endRegex.Match(content, start).Index + 1;
-                    var template = content.Substring(start, end - start).Trim();
-                    content = content.Substring(0, start) + '`' + template + '`' + content.Substring(end);
-                }
-
-                File.WriteAllText(Path.ChangeExtension(jsx, "js"), content);
-            }
         }
 
         private class FileAlias {
