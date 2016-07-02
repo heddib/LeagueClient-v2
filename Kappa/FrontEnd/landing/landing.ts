@@ -1,6 +1,7 @@
 import * as Kappa     from './../kappa';
 import { Swish, $ }   from './../ui/swish';
 import Module         from './../ui/module';
+import * as Tabs      from './../ui/tabs';
 
 import * as Assets    from './../assets/assets';
 import * as Summoner  from './../summoner/summoner';
@@ -33,6 +34,7 @@ export default class Landing extends Module {
     private loadedShop: boolean;
     private chatlist: ChatList;
     private patcher: PatcherPage;
+    private tabChange: (index: number) => void;
 
     public constructor(accountState) {
         super(html);
@@ -42,16 +44,16 @@ export default class Landing extends Module {
 
         this.refs.background.src = back;
 
-        this.$('#play-button').on('mouseup', e => this.showTab(0));
-        this.$('#home-button').on('click', e => this.showTab(1));
-        this.$('#profile-button').on('click', e => this.showTab(2));
-        this.$('#collection-button').on('click', e => this.showTab(3));
-        this.$('#store-button').on('click', e => {
+        let tabs = []
+        for (var i = 0; i < 5; i++) tabs[i] = this.refs['tab' + i];
+        this.tabChange = Tabs.create(tabs, 1, (old, now) => this.onTabChange(old, now));
+
+        // Store tab
+        this.refs.tab4.on('click', e => {
             if (!this.loadedShop) {
                 Summoner.store().then(url => this.$('#shop-frame').src = url);
                 this.loadedShop = true;
             }
-            this.showTab(4)
         });
         this.$('#alerts-profile').on('click', e => Summoner.store().then(url => Meta.link(url)));
 
@@ -70,8 +72,6 @@ export default class Landing extends Module {
                 }
             });
         }
-
-        this.showTab(1);
 
         this.chatlist = new ChatList();
         this.chatlist.render(this.$('#friends-area'));
@@ -108,20 +108,14 @@ export default class Landing extends Module {
         }
     }
 
-    private tab: number;
-    private showTab(index: number) {
-        if (this.tab == index) return;
+    private onTabChange(old: number, now: number) {
+        this.refs.background.removeClass('tab-' + old);
+        this.refs.background.addClass('tab-' + now);
 
-        for (var i = 0; i < 10; i++) {
-            this.refs.background.removeClass('tab-' + i);
-        }
-        this.refs.background.addClass('tab-' + index);
-
-        this.tab = index;
         this.refs.mainScroller.addClass('faded');
         setTimeout(() => {
             this.refs.mainScroller.removeClass('faded');
-            this.refs.mainScroller.css('left', -100 * index + '%');
+            this.refs.mainScroller.css('left', -100 * now + '%');
         }, 150);
     }
 
@@ -190,6 +184,6 @@ export default class Landing extends Module {
 
         mod.close.on(e => this.playSelect());
 
-        if (show) this.showTab(0);
+        if (show) this.tabChange(0);
     }
 }

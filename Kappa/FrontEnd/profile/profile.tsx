@@ -1,5 +1,6 @@
 import { Swish }      from './../ui/swish';
 import Module         from './../ui/module';
+import * as Tabs      from './../ui/tabs';
 import * as Assets    from './../assets/assets';
 import * as Summoner  from './../summoner/summoner';
 import * as Champions from './../collection/champions/service';
@@ -11,9 +12,9 @@ var template = (
     <module class="profile">
         <div class="background" data-ref="background"/>
         <div class="header">
-            <div class="tab-button" data-ref="overviewButton" id><span>OVERVIEW</span></div>
-            <div class="tab-button" data-ref="matchesButton" id><span>MATCH HISTORY</span></div>
-            <div class="tab-button" data-ref="rankedButton"><span>RANKED</span></div>
+            <div class="tab-button" data-ref="tab0" id><span>OVERVIEW</span></div>
+            <div class="tab-button" data-ref="tab1" id><span>MATCH HISTORY</span></div>
+            <div class="tab-button" data-ref="tab2"><span>RANKED</span></div>
         </div>
         <div class="center" data-ref="mainScroller">
             <container data-ref="overviewContainer"></container>
@@ -24,12 +25,14 @@ var template = (
 );
 
 export default class ProfilePage extends Module {
+    private tabChange: (index: number) => void;
+
     public constructor() {
         super(template);
 
-        this.refs.overviewButton.on('click', e => this.tab(0));
-        this.refs.matchesButton.on('click', e => this.tab(1));
-        this.refs.rankedButton.on('click', e => this.tab(2));
+        let tabs = []
+        for (var i = 0; i < 3; i++) tabs[i] = this.refs['tab' + i];
+        this.tabChange = Tabs.create(tabs, 0, (old, now) => this.onTabChange(old, now));
 
         let champs = new OverviewPage();
         champs.render(this.refs.overviewContainer);
@@ -44,10 +47,10 @@ export default class ProfilePage extends Module {
         });
     }
 
-    private tab(index: number) {
-        this.refs.background.setClass(index > 0, 'blurred');
+    private onTabChange(old: number, now: number) {
+        this.refs.background.setClass(now > 0, 'blurred');
 
-        let ratio = index / this.refs.mainScroller.children.length;
+        let ratio = now / this.refs.mainScroller.children.length;
         this.refs.mainScroller.css('transform', 'translateX(' + (-ratio * 100) + '%)');
     }
 }

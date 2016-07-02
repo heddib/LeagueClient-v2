@@ -9,7 +9,7 @@ import * as Champions from './../collection/champions/service';
 var template = (
     <module class="profile-overview">
         <x-flexpadd/>
-        <div class="profile">
+        <div class="profile shadow">
             <div class="icon">
                 <img data-ref="summonerIcon"/>
             </div>

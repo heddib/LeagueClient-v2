@@ -88,7 +88,7 @@ export default class Lobby extends Module {
         var start = new Date();
         for (let i = 0; i < state.members.length; i++) {
             Summoner.get(state.members[i].name).then(s => {
-                this.renderSlot(state.members[i], state.me, s.profileIconId)
+                this.renderSlot(state.members[i], state.members.length, state.me, s.profileIconId)
             });
         }
     }
@@ -135,7 +135,7 @@ export default class Lobby extends Module {
         this.$('#chat-area').add(this.chatRoom.node);
     }
 
-    private renderSlot(member: LobbyMember, me: LobbyMember, icon: number) {
+    private renderSlot(member: LobbyMember, lobbySize: number, me: LobbyMember, icon: number) {
         var data = {
             id: member.id,
             // class: mySlot == slot.slotId ? 'me' : 'friend',
@@ -161,10 +161,8 @@ export default class Lobby extends Module {
 
         if (!data.role1) {
             node.addClass('no-roles');
-        } else {
-            if (data.role1 == "FILL") {
-                node.$('.role2').css('display', 'none');
-            }
+        } else if (data.role1 == "FILL" || lobbySize == 5) {
+            node.$('.role2').css('display', 'none');
         }
     }
 

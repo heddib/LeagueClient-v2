@@ -58,6 +58,7 @@ function onPatched() {
 }
 
 function onAuthed(accountState) {
+    console.log('authed');
     var page = new Landing(accountState);
 
     show(page);
