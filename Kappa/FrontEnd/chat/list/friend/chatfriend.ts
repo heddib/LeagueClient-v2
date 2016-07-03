@@ -38,8 +38,7 @@ export default class ChatFriend extends Module {
     }
 
     public icon(id: number) {
-        if (id)
-            this.refs.icon.src = Assets.image('profile', id);
+        if (id) this.refs.icon.src = Assets.summoner.icon(id);
     }
 
     public update(data?) {

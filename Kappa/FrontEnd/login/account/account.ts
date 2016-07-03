@@ -14,7 +14,7 @@ export default class Account extends Module {
     public constructor(account) {
         super(html);
 
-        this.refs.icon.src = Assets.image('profile', account.icon);
+        this.refs.icon.src = Assets.summoner.icon(account.icon);
         // this.refs.name.text = account.name;
         this._account = account;
     }

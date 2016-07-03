@@ -33,11 +33,11 @@ export default class ChampSelectPlayer extends Module {
     }
 
     public update(player: GameMember, index: number, enemy: boolean) {
-        let key = Assets.ddragon.champs.keys[player.champion];
+        let champ = Assets.gamedata.champions.first(c => c.id == player.champion);
         this.refs.name.text = player.name || 'Summoner ' + (index + 1);
-        this.refs.champion.text = key ? Assets.ddragon.champs.data[key].name : '';
-        this.refs.spell1.src = Assets.image('spell', player.spell1);
-        this.refs.spell2.src = Assets.image('spell', player.spell2);
+        this.refs.champion.text = champ ? champ.name : '';
+        this.refs.spell1.src = Assets.summoner.spell(player.spell1);
+        this.refs.spell2.src = Assets.summoner.spell(player.spell2);
         this.refs.role.addClass('role-' + player.role);
 
         this.node.setClass(player.active, 'active');
@@ -52,7 +52,7 @@ export default class ChampSelectPlayer extends Module {
         this.node.addClass('trade-' + player.trade.toLowerCase());
 
         if (player.champion && (!this.last || this.last.champion != player.champion)) {
-            let url = Assets.splash.centered(player.champion, 0);
+            let url = Assets.champion.splash(player.champion, 0);
             this.refs.champImage.css('background-image', 'url("' + url + '")');
         }
         this.last = player;

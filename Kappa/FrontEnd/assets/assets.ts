@@ -32,16 +32,6 @@ Service.info().then(i => {
     login.video = Service.loginVideo();
     login.image = Service.loginImage()
 
-    var dataurl = `${ddragon_cdn}/${info.version}/data/${info.locale}/`;
-    http(dataurl + 'championFull.json').get(e => ddragon.champs = e.json);
-    http(dataurl + 'profileicon.json').get(e => ddragon.icons = e.json);
-    http(dataurl + 'summoner.json').get(e => ddragon.spells = e.json);
-    http(dataurl + 'language.json').get(e => ddragon.languages = e.json);
-    http(dataurl + 'rune.json').get(e => ddragon.runes = e.json);
-    http(dataurl + 'mastery.json').get(e => ddragon.masteries = e.json);
-    http(dataurl + 'item.json').get(e => ddragon.items = e.json);
-    http(dataurl + 'map.json').get(e => ddragon.maps = e.json);
-
     handlers.forEach(a => a());
 });
 
@@ -89,95 +79,134 @@ Service.info().then(i => {
     }
 }
 
-interface DataDragon {
-    champs: ChampionListDto;
-    icons: ProfileIconListDto;
-    spells: SpellListDto;
-    runes: ItemListDto;
-    masteries: MasteryListDto;
-    items: ItemListDto;
-    maps: MapListDto;
-    languages: any;
-}
+export const gamedata: {
+    masteries: GameData.MasteriesInfo,
+    runes: GameData.RuneDetails[],
+    items: GameData.ItemDetails[],
+    champions: GameData.ChampionSummary[]
+    summoners: GameData.SummonerSpellDetails[]
+} = <any>{};
 
-export const ddragon: DataDragon = <any>{};
+Service.masteries().then(m => gamedata.masteries = m);
+Service.runes().then(m => gamedata.runes = m);
+Service.items().then(m => gamedata.items = m);
+Service.champions().then(m => gamedata.champions = m);
+Service.summonerspells().then(m => gamedata.summoners = m);
 
 export const login = {
     video: null,
     image: null
 };
 
-export const splash = {
-    centered: function (champ: number, skin: number) {
+export const champion = {
+    icon: function (champ: number) {
+        champ = Math.floor(champ);
+        return `/kappa/assets/game-data/${info.version}/champion/icon/${champ}.png`;
+    },
+    splash: function (champ: number, skin: number) {
         champ = Math.floor(champ);
         skin = Math.floor(skin);
         if (skin < 1000) skin += champ * 1000;
         return `/kappa/assets/game-data/${info.version}/champion/splash/${skin}.jpg`;
+    },
+    tile: function (champ: number, skin: number) {
+        champ = Math.floor(champ);
+        skin = Math.floor(skin);
+        if (skin < 1000) skin += champ * 1000;
+        return `/kappa/assets/game-data/${info.version}/champion/tile/${skin}.jpg`;
+    },
+    card: function (champ: number, skin: number) {
+        champ = Math.floor(champ);
+        skin = Math.floor(skin);
+        if (skin < 1000) skin += champ * 1000;
+        return `/kappa/assets/game-data/${info.version}/champion/card/${skin}.jpg`;
+    },
+};
+
+export const masteries = {
+    icon: function (id: number) {
+        return `/kappa/assets/game-data/${info.version}/masteries/icon/${id}.png`;
     }
 };
+
+export const items = {
+    icon: function (id: number) {
+        return `/kappa/assets/game-data/${info.version}/items/icon/${id}.png`;
+    }
+};
+
+export const summoner = {
+    icon: function (id: number) {
+        return `${ddragon_cdn}/${info.version}/img/profileicon/${id}.png`;
+        // return `/kappa/assets/game-data/${info.version}/profileicon/${id}.jpg`
+    },
+    spell: function (id: number) {
+        return `/kappa/assets/game-data/${info.version}/summonerspell/${id}.jpg`
+    }
+}
 
 export function onload(callback: Function) {
     if (info) callback();
     else handlers.push(callback);
 }
 
-export function image(type: string, name: string | number, arg?) {
-    const fallback = '';
-    if (!name) return fallback;
-    var path;
-    var noVersion = false;
-    switch (type) {
-        case 'item':
-            path = 'img/item/' + name + '.png';
-            break;
-        case 'champ':
-        case 'champ_icon':
-            if (typeof name == 'number')
-                name = ddragon.champs.keys[name];
-            if (!name) return fallback;
-            path = 'img/champion/' + name + '.png';
-            break;
-        case 'champ_splash':
-            if (typeof name == 'number')
-                name = ddragon.champs.keys[name];
-            if (!name) return fallback;
-            path = 'img/champion/splash/' + name + '_' + arg + '.jpg';
-            noVersion = true;
-            break;
-        case 'champ_profile':
-            if (typeof name == 'number')
-                name = ddragon.champs.keys[name];
-            if (!name) return fallback;
-            path = 'img/champion/loading/' + name + '_' + arg + '.jpg';
-            noVersion = true;
-            break;
-        case 'map':
-            path = 'img/map/map' + name + '.png';
-            break;
-        case 'mastery':
-            path = 'img/mastery/' + name + '.png';
-            break;
-        case 'profile':
-            path = 'img/profileicon/' + name + '.png';
-            break;
-        case 'rune':
-            path = 'img/rune/' + name + '.png';
-            break;
-        case 'spell':
-            if (typeof name == 'number') {
-                for (var key in ddragon.spells.data)
-                    if (ddragon.spells.data[key].key == name)
-                        name = ddragon.spells.data[key].id;
-            }
-            if (!name) return fallback;
-            path = 'img/spell/' + name + '.png';
-            break;
-    }
-    if (noVersion)
-        return `${ddragon_cdn}/${path}`;
-    else
-        return `${ddragon_cdn}/${info.version}/${path}`;
-}
+// export function image(type: string, name: string | number, arg?) {
+//     const fallback = '';
+//     if (!name) return fallback;
+//     var path;
+//     var noVersion = false;
+//     switch (type) {
+//         case 'item':
+//             path = 'img/item/' + name + '.png';
+//             break;
+//         case 'champ':
+//         case 'champ_icon':
+//             if (typeof name == 'number')
+//                 name = gamedata.champs.keys[name];
+//             if (!name) return fallback;
+//             path = 'img/champion/' + name + '.png';
+//             break;
+//         case 'champ_splash':
+//             if (typeof name == 'number')
+//                 name = gamedata.champs.keys[name];
+//             if (!name) return fallback;
+//             path = 'img/champion/splash/' + name + '_' + arg + '.jpg';
+//             noVersion = true;
+//             break;
+//         case 'champ_profile':
+//             if (typeof name == 'number')
+//                 name = gamedata.champs.keys[name];
+//             if (!name) return fallback;
+//             path = 'img/champion/loading/' + name + '_' + arg + '.jpg';
+//             noVersion = true;
+//             break;
+//         case 'map':
+//             path = 'img/map/map' + name + '.png';
+//             break;
+//         case 'mastery':
+//             path = 'img/mastery/' + name + '.png';
+//             break;
+//         case 'profile':
+//             path = 'img/profileicon/' + name + '.png';
+//             break;
+//         case 'rune':
+//             path = 'img/rune/' + name + '.png';
+//             break;
+//         case 'spell':
+//             if (typeof name == 'number') {
+//                 for (var key in gamedata.spells.data)
+//                     if (gamedata.spells.data[key].key == name)
+//                         name = gamedata.spells.data[key].id;
+//             }
+//             if (!name) return fallback;
+//             path = 'img/spell/' + name + '.png';
+//             break;
+//     }
+//     if (noVersion)
+//         return `${ddragon_cdn}/${path}`;
+//     else
+//         return `${ddragon_cdn}/${info.version}/${path}`;
+// }
 
 export function getQueueType(key: string | number) {
     if (typeof key == 'number')

@@ -88,10 +88,10 @@ export default class CustomLobby extends Module {
             name: member.name,
         });
         if (member.champ) {
-            node.$('.icon').src = Assets.image('champ', member.champ)
+            node.$('.icon').src = Assets.champion.icon(member.champ)
         } else {
             Summoner.get(member.name).then(s => {
-                node.$('.icon').src = Assets.image('profile', s.profileIconId)
+                node.$('.icon').src = Assets.summoner.icon(s.profileIconId)
             });
         }
 

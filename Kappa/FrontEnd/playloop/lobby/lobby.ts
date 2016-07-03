@@ -140,7 +140,7 @@ export default class Lobby extends Module {
             id: member.id,
             // class: mySlot == slot.slotId ? 'me' : 'friend',
             name: member.name,
-            iconURL: Assets.image('profile', icon),
+            iconURL: Assets.summoner.icon(icon),
             role1: member.role1,
             role2: member.role2,
         };

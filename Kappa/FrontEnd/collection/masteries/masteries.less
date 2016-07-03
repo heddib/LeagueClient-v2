@@ -1,139 +1,147 @@
 #masteries-popup {
-  flex-direction: column;
-    
-  #delete-masteries {
-    opacity: 0;
-  }
-  
-  > .header {
-    background: @foregroundcolor;
-  }
-  
-  > .content {
-    display: flex;
-    padding: 0 5px;
-    background: @backgroundcolor;
-    
-    > .left {
-      display: flex;
-      flex-direction: column;
-      padding: 10px 5px;
-      
-      > #mastery-page-list {
-        margin-bottom: 10px;
+    flex-direction: column;
         
-        > .mastery-page {
-          .no-select();
-          background: #646469;
-          padding: 4px 4px;
-          text-align: center;
-          cursor: pointer;
-          margin-bottom: 10px;
-          
-          &:hover {
-            box-shadow: 0 0 5px black;
-          }
-          &.active {
-            box-shadow: 0 0 5px orange !important;
-          }
-        }
-      }
-      
-      > .button-group {
-        display: flex;
-        justify-content: center;
-        margin: 0 -4px;
-        
-        > button {
-          width: 90px;
-          margin: 4px;
-        }
-      }
+    #delete-masteries {
+        opacity: 0;
     }
     
-    > .body {
-      display: flex;
-      
-      > .mastery-tree {
+    > .header {
+        background: @foregroundcolor;
+    }
+    
+    > .content {
+        display: flex;
+        padding: 0 5px;
+        background: @backgroundcolor;
+        
+        > .left {
         display: flex;
         flex-direction: column;
         padding: 10px 5px;
         
-        > .mastery-row {
-          display: flex;
-          justify-content: center;
-          
-          > .mastery-icon {
-            .no-select();
-            cursor: default;
-            width: 60px;
-            height: 60px;
-            position: relative;
-            margin: 5px;
+        > #mastery-page-list {
+            margin-bottom: 10px;
             
-            &.blank {
-              opacity: 0;
+            > .mastery-page {
+                .no-select();
+                background: #646469;
+                padding: 4px 4px;
+                text-align: center;
+                cursor: pointer;
+                margin-bottom: 10px;
+                
+                &:hover {
+                    box-shadow: 0 0 5px black;
+                }
+                &.active {
+                    box-shadow: 0 0 5px orange !important;
+                }
             }
-            
-            > .mastery-icon-points {
-              position: absolute;
-              right: -5px;
-              bottom: -5px;
-              background: rgb(100, 100, 105);
-              padding: 0px 3px;
-              box-shadow: 0 0 10px black;
-            }
-            
-            &.single, &.blank {
-              > .mastery-icon-points {
-                display: none;
-              }
-            }
-
-            > img {
-              box-shadow: 0 0 10px black;
-              border: 2px solid @backgroundcolor;
-              width: 100%;
-              height: 100%;
-              box-sizing: border-box;
-            }
-            
-            &.active {
-              > .mastery-icon-points {
-                box-shadow: 0 0 10px orange;
-              }
-              > img {
-                box-shadow: 0 0 10px orange;
-                border-color: orange;
-              }
-            }
-            
-            > .popup {
-              position: absolute;
-              top: 50%;
-              left: 120%;
-              width: 300px;
-              transform: translateY(-50%);
-              background: #343438;
-              box-shadow: 0 0 10px;
-              min-height: 50px;
-              padding: 4px 8px;
-              display: none;
-              flex-direction: column;
-              z-index: 1;
-              justify-content: space-around;
-              
-              > .description {
-                font-size: 14px;
-              }
-            }
-            
-            &:hover > .popup {
-              display: flex;
-            }
-          }
         }
-      }
+        
+        > .button-group {
+            display: flex;
+            justify-content: center;
+            margin: 0 -4px;
+            
+            > button {
+                width: 90px;
+                margin: 4px;
+                }
+            }
+        }
+        
+        > .body {
+            display: flex;
+            
+            > .mastery-tree {
+                display: flex;
+                flex-direction: column;
+                padding: 10px 5px;
+                
+                > .mastery-row {
+                    display: flex;
+                    justify-content: space-between;
+                    
+                    &.single {
+                        justify-content: center;
+                    }
+                    
+                    > .mastery-icon {
+                        .no-select();
+                        cursor: default;
+                        width: 60px;
+                        height: 60px;
+                        position: relative;
+                        margin: 5px;
+                        
+                        &.blank {
+                            opacity: 0;
+                        }
+                        
+                        > .mastery-icon-points {
+                            position: absolute;
+                            right: -5px;
+                            bottom: -5px;
+                            background: rgb(100, 100, 105);
+                            padding: 0px 3px;
+                            box-shadow: 0 0 10px black;
+                        }
+                        
+                        &.single, &.blank {
+                            > .mastery-icon-points {
+                                display: none;
+                            }
+                        }
+
+                        > img {
+                            box-shadow: 0 0 10px black;
+                            border: 2px solid @backgroundcolor;
+                            width: 100%;
+                            height: 100%;
+                            box-sizing: border-box;
+                        }
+                        
+                        &.active {
+                            > .mastery-icon-points {
+                                box-shadow: 0 0 10px orange;
+                            }
+                            > img {
+                                box-shadow: 0 0 10px orange;
+                                border-color: orange;
+                            }
+                        }
+                        
+                        > .popup {
+                            position: absolute;
+                            top: 50%;
+                            right: 120%;
+                            width: 300px;
+                            transform: translateY(-50%);
+                            background: #343438;
+                            box-shadow: 0 0 10px;
+                            min-height: 50px;
+                            padding: 4px 8px;
+                            display: none;
+                            flex-direction: column;
+                            z-index: 1;
+                            justify-content: space-around;
+
+                            > .title {
+                                font-weight: bold;
+                            }
+                            
+                            > .description {
+                                font-size: 14px;
+                            }
+                        }
+                        
+                        &:hover > .popup {
+                            display: flex;
+                        }
+                    }
+                }
+            }
+        }
     }
-  }
 }

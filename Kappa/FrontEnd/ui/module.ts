@@ -84,7 +84,7 @@ abstract class Module extends EventSource implements IDisposable {
     }
 }
 
-class AnonymousModule extends Module {
+export class AnonymousModule extends Module {
     public get refs() { return super.refs; }
 }
 

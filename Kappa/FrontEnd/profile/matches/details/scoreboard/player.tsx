@@ -63,9 +63,9 @@ export default class Player extends Module {
             if (ident.player.accountId == me.accountId) this.node.addClass('me');
         });
 
-        this.refs.spell1.src = Assets.image('spell', src.spell1Id);
-        this.refs.spell2.src = Assets.image('spell', src.spell2Id);
-        this.refs.champ.css('background-image', 'url("' + Assets.image('champ', src.championId) + '")');
+        this.refs.spell1.src = Assets.summoner.spell(src.spell1Id);
+        this.refs.spell2.src = Assets.summoner.spell(src.spell2Id);
+        this.refs.champ.setBackgroundImage(Assets.champion.icon(src.championId));
         this.refs.level.text = src.stats.champLevel;
         this.refs.name.text = ident.player.summonerName;
 
@@ -75,7 +75,7 @@ export default class Player extends Module {
 
         for (var i = 0; i < 7; i++) {
             if (src.stats['item' + i])
-                this.refs['item' + i].src = Assets.image('item', src.stats['item' + i]);
+                this.refs['item' + i].src = Assets.items.icon(src.stats['item' + i]);
             else
                 this.refs['item' + i].addClass('hidden')
         }

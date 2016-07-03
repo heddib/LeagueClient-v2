@@ -2,12 +2,14 @@
 using Kappa.Settings;
 using MFroehlich.League.Assets;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Kappa.BackEnd.Server.Patcher;
+using Kappa.Riot.Domain.JSON.lol_game_data;
 
 namespace Kappa.BackEnd.Server.Assets {
     [Docs("group", "Assets")]
@@ -18,6 +20,15 @@ namespace Kappa.BackEnd.Server.Assets {
 
         private Task<WADArchive> lolGameData;
 
+        private Task data;
+
+        internal MasteriesInfo MasteriesInfo { get; private set; }
+        internal List<RuneDetails> RuneDetails { get; private set; }
+        internal List<ItemDetails> ItemDetails { get; private set; }
+
+        internal List<ChampionSummary> ChampionSummaries { get; private set; }
+        internal List<SummonerSpellDetails> SummonerSpells { get; private set; }
+
         public AssetsService(PatcherService patcher) : base("/assets") {
             loginVideo = GetStorage("login.webm");
             loginImage = GetStorage("login.png");
@@ -25,6 +36,101 @@ namespace Kappa.BackEnd.Server.Assets {
 
             lolGameData = patcher.PatchWAD("rcp-be-lol-game-data");
             Session.Init.ContinueWith(t => OnInitialized());
+
+            //var locales = new[] { "default", "en_US", "cs_CZ", "de_DE", "el_GR", "en_AU", "en_GB", "en_PH", "en_PL", "en_SG", "es_AR", "es_ES", "es_MX", "fr_FR", "hu_HU", "id_ID", "it_IT", "ja_JP", "ko_KR", "ms_MY", "pl_PL", "pt_BR", "ro_RO", "ru_RU", "th_TH", "tr_TR", "vn_VN", "zh_CN", "zh_MY", "zh_TW"
+            //}.Select(l => l.ToLower()).ToArray();
+
+            data = lolGameData.ContinueWith(t => {
+                MasteriesInfo = t.Result.ExtractJSON<MasteriesInfo>(GameDataAssets.Masteries);
+                RuneDetails = t.Result.ExtractJSON<Dictionary<string, RuneDetails>>(GameDataAssets.Runes).Values.ToList();
+                ItemDetails = t.Result.ExtractJSON<List<ItemDetails>>(GameDataAssets.Items);
+
+                SummonerSpells = t.Result.ExtractJSON<List<SummonerSpellDetails>>(GameDataAssets.SummonerSpells);
+                ChampionSummaries = t.Result.ExtractJSON<List<ChampionSummary>>(GameDataAssets.ChampionSummary);
+
+                /*
+                                var all = new Dictionary<ulong, WADArchive.WADFile>(t.Result.AllFiles);
+                                GameDataAssets.Locale = "%locale%";
+
+                                Func<string, string> test = str => {
+                                    foreach (string locale in locales) {
+                                        var tmp = str.Replace(GameDataAssets.Locale, locale);
+                                        var hash = WADArchive.Hash(tmp);
+
+                                        if (!all.Remove(hash) && locale == "default")
+                                            Debug.WriteLine(tmp);
+                                    }
+                                    return str.Replace(GameDataAssets.Locale, "default");
+                                };
+
+                                Func<string, string> get = str => {
+                                    test(str);
+                                    var tmp = str.Replace(GameDataAssets.Locale, "default");
+                                    var file = t.Result.GetFile(tmp);
+                                    using (var stream = t.Result.File.OpenRead())
+                                    using (var zip = new GZipStream(stream, CompressionMode.Decompress))
+                                    using (var mem = new MemoryStream()) {
+                                        stream.Seek(file.Offset, SeekOrigin.Begin);
+                                        zip.CopyToLength(mem, file.Size);
+                                        return Encoding.UTF8.GetString(mem.ToArray());
+                                    }
+                                };
+
+                                Func<string, object> getJSON = str => JSONParser.Parse(get(str));
+
+                                var champs = JSONDeserializer.Deserialize<List<ChampionSummary>>(getJSON(GameDataAssets.ChampionSummary));
+                                var runes = get(GameDataAssets.SummonerSpells);
+                                var slots = get(GameDataAssets.Masteries);
+                                var items = get(GameDataAssets.Items);
+                                foreach (var champ in champs) {
+                                    var details = JSONDeserializer.Deserialize<ChampionDetails>(getJSON(GameDataAssets.ChampionDetails(champ.Id)));
+
+                                    foreach (var skin in details.Skins) {
+                                        test(GameDataAssets.ChampionSplash(skin.Id));
+                                        test(GameDataAssets.ChampionTile(skin.Id));
+                                        test(GameDataAssets.ChampionCard(skin.Id));
+
+                                        if (skin.SplashVideoPath != null)
+                                            test(GameDataAssets.SplashVideo(skin.Id));
+
+                                        if (skin.ChromaPath != null)
+                                            test(GameDataAssets.ChromaImage(skin.Id));
+                                    }
+
+                                    test(GameDataAssets.ChampionIcon(champ.Id));
+                                    test(GameDataAssets.ChampionSfx(champ.Id));
+                                    test(GameDataAssets.ChampionQuote(champ.Id));
+                                }
+
+                                foreach (var spell in DataDragon.SpellData.Value.data.Values) {
+                                    test(GameDataAssets.SummonerSpellIcon(spell.key));
+                                }
+
+                                foreach (var icon in DataDragon.IconData.Value.data.Values) {
+                                    test(GameDataAssets.ProfileIcon(icon.id));
+                                }
+
+                                foreach (var mastery in DataDragon.MasteryData.Value.data.Values) {
+                                    test(GameDataAssets.MasteryIcon(mastery.id));
+                                }
+
+                                foreach (var item in DataDragon.ItemData.Value.data.Values) {
+                                    var id = int.Parse(item.image.full.Substring(0, item.image.full.IndexOf(".", StringComparison.Ordinal)));
+                                    test(GameDataAssets.ItemIcon(id));
+                                }
+
+                                for (var i = 0; i < 58; i++) {
+                                    test(GameDataAssets.WardSkin(i));
+                                    test(GameDataAssets.WardSkinShadow(i));
+                                }
+
+                                Debug.WriteLine(all.Count);
+
+                                foreach (var file in all) {
+                                    var files = Directory.EnumerateFiles(@"C:\Users\Max\Desktop\LCU\output.pbe\rcp-be-lol-game-data", $"*{file.Value.PathHash.ToString()}*").ToList();
+                                    File.Copy(files.Single(), Path.Combine(@"C:\Users\max\desktop\tmp", Path.GetFileName(files.Single())));
+                                }*/
+            });
         }
 
         private async void OnInitialized() {
@@ -68,6 +174,14 @@ namespace Kappa.BackEnd.Server.Assets {
                 url = GameDataAssets.ChampionIcon(id);
             }
 
+            if (path.StartsWith("/champion/tile/") && int.TryParse(split[2], out id)) {
+                url = GameDataAssets.ChampionTile(id);
+            }
+
+            if (path.StartsWith("/champion/card/") && int.TryParse(split[2], out id)) {
+                url = GameDataAssets.ChampionCard(id);
+            }
+
             if (path.StartsWith("/champion/splash/") && int.TryParse(split[2], out id)) {
                 url = GameDataAssets.ChampionSplash(id);
             }
@@ -92,6 +206,10 @@ namespace Kappa.BackEnd.Server.Assets {
                 url = GameDataAssets.ProfileIcon(id);
             }
 
+            if (path.StartsWith("/summonerspell/") && int.TryParse(split[1], out id)) {
+                url = GameDataAssets.SummonerSpellIcon(id);
+            }
+
             if (url == null) return false;
             var file = lolGameData.Result.GetFile(url);
 
@@ -109,6 +227,41 @@ namespace Kappa.BackEnd.Server.Assets {
         [Endpoint("/info")]
         public AssetsInfo GetInfo() {
             return new AssetsInfo(DataDragon.LatestVersion, Region.Locale);
+        }
+
+        [Endpoint("/masteries")]
+        public async Task<MasteriesInfo> GetMasteriesInfo() {
+            await data;
+            return MasteriesInfo;
+        }
+
+        [Endpoint("/runes")]
+        public async Task<List<RuneDetails>> GetRuneDetails() {
+            await data;
+            return RuneDetails;
+        }
+
+        [Endpoint("/items")]
+        public async Task<List<ItemDetails>> GetItemDetails() {
+            await data;
+            return ItemDetails;
+        }
+
+        [Endpoint("/champions")]
+        public async Task<List<ChampionSummary>> GetChampionSummaries() {
+            await data;
+            return ChampionSummaries;
+        }
+
+        [Endpoint("/summonerspells")]
+        public async Task<List<SummonerSpellDetails>> GetSummonerSpells() {
+            await data;
+            return SummonerSpells;
+        }
+
+        [Endpoint("/champion")]
+        public async Task<ChampionDetails> GetChampionDetails(int id) {
+            return (await lolGameData).ExtractJSON<ChampionDetails>(GameDataAssets.ChampionDetails(id));
         }
 
         private async Task UpdateLoginAnimation() {

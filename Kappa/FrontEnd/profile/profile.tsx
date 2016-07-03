@@ -42,7 +42,7 @@ export default class ProfilePage extends Module {
 
         Summoner.me.single(me => {
             Champions.mastery(me.summonerId).then(list => {
-                this.refs.background.setBackgroundImage(Assets.splash.centered(list[0].championId, 0));
+                this.refs.background.setBackgroundImage(Assets.champion.splash(list[0].championId, 0));
             });
         });
     }

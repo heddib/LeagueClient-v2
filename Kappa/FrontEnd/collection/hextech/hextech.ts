@@ -18,10 +18,6 @@ export default class HextechPage extends Module {
     }
 
     private draw() {
-        let champdata: { [id: number]: ChampionDto } = {};
-        for (var key in Assets.ddragon.champs.data)
-            champdata[Assets.ddragon.champs.data[key].key] = Assets.ddragon.champs[key];
-
         this.refs.chests.text = this.inventory.chests;
         this.refs.keys.text = this.inventory.keys;
         this.refs.keyfragments.text = this.inventory.keyFragments
@@ -37,7 +33,7 @@ export default class HextechPage extends Module {
         for (let raw in this.inventory.champs) {
             let id = parseInt(raw);
             let node = this.template('loot-champ', {
-                iconurl: Assets.image('champ', id),
+                iconurl: Assets.champion.icon(id),
                 count: this.inventory.champs[id],
                 type: 'permanent'
             });
@@ -47,7 +43,7 @@ export default class HextechPage extends Module {
         for (let raw in this.inventory.champShards) {
             let id = parseInt(raw);
             let node = this.template('loot-champ', {
-                iconurl: Assets.image('champ', id),
+                iconurl: Assets.champion.icon(id),
                 count: this.inventory.champShards[id],
                 type: 'shard'
             });
@@ -62,7 +58,7 @@ export default class HextechPage extends Module {
         for (let raw in this.inventory.skins) {
             let id = parseInt(raw);
             let node = this.template('loot-skin', {
-                iconurl: Assets.splash.centered(id / 1000, id % 1000),
+                iconurl: Assets.champion.splash(id / 1000, id % 1000),
                 count: this.inventory.skins[raw],
                 type: 'permanent'
             });
@@ -72,7 +68,7 @@ export default class HextechPage extends Module {
         for (let raw in this.inventory.skinShards) {
             let id = parseInt(raw);
             let node = this.template('loot-skin', {
-                iconurl: Assets.splash.centered(id / 1000, id % 1000),
+                iconurl: Assets.champion.splash(id / 1000, id % 1000),
                 count: this.inventory.skinShards[raw],
                 type: 'shard'
             });

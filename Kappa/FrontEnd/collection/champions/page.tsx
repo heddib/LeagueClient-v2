@@ -35,13 +35,11 @@ export default class ChampionsPage extends Module {
         this.refs.search.on('input', e => this.updateFilter());
 
         Service.inventory().then(all => {
-            var champs = Assets.ddragon.champs.data;
-            for (let key in champs) {
-                let id = parseInt(champs[key].key);
+            for (let champ of Assets.gamedata.champions) {
                 let mod = Module.create(icon);
-                mod.node.setBackgroundImage(Assets.image('champ', id));
+                mod.node.setBackgroundImage(Assets.champion.icon(champ.id));
                 mod.render(this.refs.champs);
-                this.champs[id] = mod;
+                this.champs[champ.id] = mod;
             }
         });
     }
@@ -55,7 +53,7 @@ export default class ChampionsPage extends Module {
         }
 
         for (var id in this.champs) {
-            var info = Assets.ddragon.champs.data[Assets.ddragon.champs.keys[id]];
+            let info = Assets.gamedata.champions.first(c => c.id == +id);
             var match = search.test(info.name);
             this.champs[id].node.setClass(!match, 'hidden');
         }

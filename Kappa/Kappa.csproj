@@ -110,6 +110,12 @@
     <Compile Include="Riot\Domain\ChampionMastery\AllChampionMasteryObject.cs" />
     <Compile Include="Riot\Domain\ChampionMastery\ChampionMasteryScoreAndChestObject.cs" />
     <Compile Include="Riot\Domain\ChampionMastery\ChampionMasteryScoreObject.cs" />
+    <Compile Include="Riot\Domain\JSON\lol_game_data\ChampionDetails.cs" />
+    <Compile Include="Riot\Domain\JSON\lol_game_data\ChampionSummary.cs" />
+    <Compile Include="Riot\Domain\JSON\lol_game_data\ItemDetails.cs" />
+    <Compile Include="Riot\Domain\JSON\lol_game_data\MasteriesInfo.cs" />
+    <Compile Include="Riot\Domain\JSON\lol_game_data\RuneDetails.cs" />
+    <Compile Include="Riot\Domain\JSON\lol_game_data\SummonerSpellDetails.cs" />
     <Compile Include="Riot\Domain\JSON\MatchHistory.cs" />
     <Compile Include="Riot\Domain\Loot\LootItemListObject.cs" />
     <Compile Include="Riot\Domain\Loot\QueryListObject.cs" />

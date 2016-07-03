@@ -49,6 +49,7 @@ namespace Kappa.BackEnd {
         internal LoginQueueDto LoginQueue { get; private set; }
         internal Maestro Maestro { get; private set; }
         internal Me Me { get; private set; }
+        internal AssetsService Assets { get; }
 
         private List<IMessageBlock> blocks = new List<IMessageBlock>();
         private RtmpClient rtmp;
@@ -98,7 +99,7 @@ namespace Kappa.BackEnd {
             var matches = new Server.Profile.MatchHistoryService(this);
 
             this.summoner = new SummonerService(this);
-            var assets = new AssetsService(patcher);
+            this.Assets = new AssetsService(patcher);
 
             this.chat = new ChatService(this);
             var rooms = new ChatRoomService(this, chat);

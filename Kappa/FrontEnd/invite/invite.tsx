@@ -5,7 +5,20 @@ import * as Assets   from './../assets/assets';
 import * as Summoner from './../summoner/summoner';
 import * as Service  from './service';
 
-const html = Module.import('invite');
+const template = (
+    <module class="invitation">
+        <img class="icon"/>
+        <div class="text">
+            <span data-ref="name"></span>
+            <span data-ref="game"></span>
+        </div>
+        <x-flexpadd></x-flexpadd>
+        <div class="buttons">
+            <span data-ref="accept" class="accept-button"></span>
+            <span data-ref="deny" class="exit-button"></span>
+        </div>
+    </module>
+);
 
 let invites = {};
 var events = new EventModule();
@@ -44,13 +57,13 @@ export class Control extends Module {
     public lobby = this.create<any>();
 
     public constructor(invite) {
-        super(html);
+        super(template);
 
         this.refs.name.text = invite.from.name;
         this.refs.game.text = Assets.getQueueType(invite.game.queue).display;
 
         Summoner.get(invite.from.name).then(s => {
-            this.node.$('.icon').src = Assets.image('profile', s.profileIconId)
+            this.node.$('.icon').src = Assets.summoner.icon(s.profileIconId)
         });
 
         this.refs.deny.on('mouseup', e => decline(invite));

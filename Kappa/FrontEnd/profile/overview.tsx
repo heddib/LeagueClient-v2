@@ -48,13 +48,12 @@ export default class OverviewPage extends Module {
         super(template);
 
         Summoner.me.single(me => {
-            this.refs.summonerIcon.src = Assets.image('profile', me.icon);
+            this.refs.summonerIcon.src = Assets.summoner.icon(me.icon);
             this.refs.name.text = me.name;
 
             Champions.mastery(me.summonerId).then(list => {
                 for (let mastery of list) {
-                    let key = Assets.ddragon.champs.keys[mastery.championId];
-                    let champ = Assets.ddragon.champs.data[key];
+                    let champ = Assets.gamedata.champions.first(c => c.id == mastery.championId);
                 }
             });
 

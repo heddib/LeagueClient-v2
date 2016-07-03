@@ -22,10 +22,52 @@ import PatcherPage    from './../patcher/game';
 import PlaySelect     from './../playselect/playselect';
 import ProfilePage    from './../profile/profile';
 
+const template = (
+    <module class="landing">
+        <div class="center">
+            <div class="background">
+                <img data-ref="background"/>
+            </div>
+            <div class="header">
+                <div class="play-button" data-ref="tab0"><span data-ref="playButton">PLAY</span></div>
 
-declare var Tetris;
+                <div class="tab-button" data-ref="tab1"><span>HOME</span></div>
+                <div class="tab-button" data-ref="tab2"><span>PROFILE</span></div>
+                <div class="tab-button" data-ref="tab3"><span>COLLECTION</span></div>
+                <div class="tab-button" data-ref="tab4"><span>STORE</span></div>
 
-const html = Module.import('landing');
+                <x-flexpadd></x-flexpadd>
+
+                <div class="alerts-profile" data-ref="balances">
+                    <div class="balance">
+                        <img src="images/rp.png" /><span data-ref="rp"></span>
+                    </div>
+                    <div class="balance">
+                        <img src="images/ip.png" /><span data-ref="ip"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="center" data-ref="mainScroller">
+                <container class="content" data-ref="content"/>
+                <div class="home">
+                    <div class="left">
+                        <div class="invite-list" data-ref="inviteList"></div>
+                    </div>
+                    <x-flexpadd></x-flexpadd>
+                    <div class="right">
+                        <container data-ref="discordContainer"/>
+                    </div>
+                </div>
+                <container data-ref="profileContainer" class="profile"/>
+                <container data-ref="collectionContainer" class="collection"/>
+                <div class="landing-shop">
+                    <iframe class="shop-frame" data-ref="shopFrame"></iframe>
+                </div>
+            </div>
+        </div>
+        <container class="right" data-ref="friendsContainer"/>
+    </module>
+);
 const back = 'images/landing_background.png';
 
 Util.preload(back);
@@ -37,7 +79,7 @@ export default class Landing extends Module {
     private tabChange: (index: number) => void;
 
     public constructor(accountState) {
-        super(html);
+        super(template);
 
         Invite.update.on(e => this.drawInvites(e));
         this.drawInvites(Invite.list());
@@ -51,11 +93,11 @@ export default class Landing extends Module {
         // Store tab
         this.refs.tab4.on('click', e => {
             if (!this.loadedShop) {
-                Summoner.store().then(url => this.$('#shop-frame').src = url);
+                Summoner.store().then(url => this.refs.shopFrame.src = url);
                 this.loadedShop = true;
             }
         });
-        this.$('#alerts-profile').on('click', e => Summoner.store().then(url => Meta.link(url)));
+        this.refs.balances.on('click', e => Summoner.store().then(url => Meta.link(url)));
 
         this.subscribe(Summoner.me, this.onMe);
 
@@ -74,13 +116,13 @@ export default class Landing extends Module {
         }
 
         this.chatlist = new ChatList();
-        this.chatlist.render(this.$('#friends-area'));
+        this.chatlist.render(this.refs.friendsContainer);
 
         let collection = new CollectionPage();
-        collection.render(this.$('#landing-collection'));
+        collection.render(this.refs.collectionContainer);
 
         let profile = new ProfilePage();
-        profile.render(this.$('#landing-profile'));
+        profile.render(this.refs.profileContainer);
     }
 
     public dispose() {
@@ -94,17 +136,17 @@ export default class Landing extends Module {
     }
 
     private onMe(me) {
-        this.$('#ip-balance').text = me.ip;
-        this.$('#rp-balance').text = me.rp;
+        this.refs.ip.text = me.ip;
+        this.refs.rp.text = me.rp;
     }
 
     private drawInvites(list) {
-        this.$('#invite-list').empty();
+        this.refs.inviteList.empty();
         for (let invite of list) {
             var control = new Invite.Control(invite);
             control.custom.on(e => this.custom());
             control.lobby.on(e => this.lobby());
-            control.render(this.$('#invite-list'));
+            control.render(this.refs.inviteList);
         }
     }
 
@@ -124,21 +166,21 @@ export default class Landing extends Module {
         select.select.on(e => this.lobby());
         select.custom.on(e => this.custom());
         this.showModule(select, false)
-        this.$('#play-button > span').text = 'PLAY';
+        this.refs.playButton.text = 'PLAY';
     }
 
     private lobby() {
         var mod = new Lobby(this.chatlist);
         mod.start.on(e => this.champselect());
         this.showModule(mod, true);
-        this.$('#play-button > span').text = 'LOBBY';
+        this.refs.playButton.text = 'LOBBY';
     }
 
     private custom() {
         var mod = new Custom(this.chatlist);
         mod.start.on(e => this.champselect());
         this.showModule(mod, true);
-        this.$('#play-button > span').text = 'CUSTOM';
+        this.refs.playButton.text = 'CUSTOM';
     }
 
     private champselect() {
@@ -147,24 +189,24 @@ export default class Landing extends Module {
         mod.cancel.on(e => this.lobby());
         mod.custom.on(e => this.custom());
         this.showModule(mod, true);
-        this.$('#play-button > span').text = 'GAME';
+        this.refs.playButton.text = 'GAME';
     }
 
     private ingame() {
         var mod = new InGame();
-        this.$('#play-button > span').text = 'GAME';
+        this.refs.playButton.text = 'GAME';
         this.showModule(mod, true);
     }
 
     private module: Module;
     private showModule(mod: Module, show: boolean) {
         let fadein = () => {
-            this.$('#landing-content').empty();
+            this.refs.content.empty();
             this.module = mod;
-            this.module.render(this.$('#landing-content'));
+            this.module.render(this.refs.content);
             setTimeout(() => {
                 this.module.node.removeClass('faded-in');
-                this.module.render(this.$('#landing-content'));
+                this.module.render(this.refs.content);
             }, 0);
         };
 

@@ -40,7 +40,7 @@ export default class ChatList extends Module implements IInviteProvider {
 
         Summoner.me.on(me => {
             this.refs.myName.text = me.name;
-            this.refs.myIcon.src = Assets.image('profile', me.icon);
+            this.refs.myIcon.src = Assets.summoner.icon(me.icon);
         });
     }
 

@@ -1,8 +1,5 @@
 import { Swish }     from './../ui/swish';
 import Module        from './../ui/module';
-import * as PlayLoop from './../playloop/playloop';
-import * as Custom   from './../playloop/custom/service';
-import * as Lobby    from './../playloop/lobby/service';
 import * as Service from './service';
 
 const template = (
@@ -33,8 +30,8 @@ export default class GamePatcherPage extends Module {
                 return;
             }
 
-            var percent = state.current / state.total * 100;
-            this.refs.loader.css('width', percent + "%");
+            var ratio = state.current / state.total;
+            this.refs.loader.css('transform', `translateX(-${(1 - ratio) * 100}%)`)
 
             setTimeout(() => this.update(), 1000);
         });

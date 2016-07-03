@@ -1,8 +1,5 @@
 import { Swish }     from './../ui/swish';
 import Module        from './../ui/module';
-import * as PlayLoop from './../playloop/playloop';
-import * as Custom   from './../playloop/custom/service';
-import * as Lobby    from './../playloop/lobby/service';
 import * as Service from './service';
 
 const template = (

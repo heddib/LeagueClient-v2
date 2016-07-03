@@ -15,17 +15,8 @@ import Player         from './player/player';
 
 const html = Module.import('playloop/champselect');
 const musics = {
-    1: 'blindpick',
-    5: 'blindpick',
-    7: 'blindpick',
-    11: 'blindpick',
-    14: 'blindpick',
-    15: 'blindpick',
-    16: 'blindpick',
-    17: 'blindpick',
     2: 'draftpick',
     18: 'draftpick',
-    4: 'randompick',
 };
 
 export default class ChampSelect extends Module {
@@ -61,15 +52,13 @@ export default class ChampSelect extends Module {
 
         this.refs.champs.empty();
 
-        var allChamps = Assets.ddragon.champs.data;
-        for (let key in allChamps) {
-            let id = parseInt(allChamps[key].key);
+        for (let champ of Assets.gamedata.champions) {
             let node = this.template('champicon', {
-                imageurl: Assets.splash.centered(id, 0)
+                imageurl: Assets.champion.splash(champ.id, 0)
             });
             node.css('display', 'none');
-            node.on('click', e => this.onChampClick(id));
-            this.champs[id] = node;
+            node.on('click', e => this.onChampClick(champ.id));
+            this.champs[champ.id] = node;
             this.refs.champs.add(node);
             // node = this.template('champpopupitem', {
             //   imageurl: `http://l3cdn.riotgames.com/releases/live/projects/lol_air_client/releases/0.0.1.186/files/assets/images/champions/${key}_Splash_Tile_0.jpg`
@@ -176,8 +165,8 @@ export default class ChampSelect extends Module {
             PlayLoop.current().then(state => {
                 if (state.queueId != 0)
                     this.refs.exitButton.css('display', 'none');
-                console.log(musics[state.queueConfigId]);
-                this.music = Audio.music('champselect', musics[state.queueConfigId]);
+                let music = musics[state.queueConfigId] || 'defaultpick';
+                this.music = Audio.music('champselect', music);
             });
         }
 
@@ -206,7 +195,7 @@ export default class ChampSelect extends Module {
         this.$('x-banlist').empty();
         for (var i = 0; i < state.alliedBans.length; i++) {
             var node = this.template('banicon', {
-                imageurl: Assets.image('champ', state.alliedBans[i])
+                imageurl: Assets.champion.icon(state.alliedBans[i])
             });
             this.taken.push(state.alliedBans[i]);
             node.addClass('taken');
@@ -214,7 +203,7 @@ export default class ChampSelect extends Module {
         }
         for (var i = 0; i < state.enemyBans.length; i++) {
             var node = this.template('banicon', {
-                imageurl: Assets.image('champ', state.enemyBans[i])
+                imageurl: Assets.champion.icon(state.enemyBans[i])
             });
             this.taken.push(state.enemyBans[i]);
             node.addClass('taken');
@@ -292,15 +281,14 @@ export default class ChampSelect extends Module {
     private fillChampGrid() {
         var selector = this.refs.spellSelector;
         selector.empty();
-        var spells = Assets.ddragon.spells.data;
-        for (let key in spells) {
-            let id = parseInt(spells[key].key);
-            if (this.lastState.inventory.availableSpells.indexOf(id) < 0) continue;
+
+        for (let spell of Assets.gamedata.summoners) {
+            if (this.lastState.inventory.availableSpells.indexOf(spell.id) < 0) continue;
             else {
                 let node = this.template('spell-selectable', {
-                    imgurl: Assets.image('spell', key)
+                    imgurl: Assets.summoner.spell(spell.id)
                 });
-                node.on('click', e => this.onSpellSelectClick(spells[key].key));
+                node.on('click', e => this.onSpellSelectClick(spell.id));
                 selector.add(node);
             }
         }
@@ -316,11 +304,9 @@ export default class ChampSelect extends Module {
 
         let active = this.lastState.me.active || this.lastState.me.champion == 0 || this.lastState.me.intent;
 
-        for (let key in Assets.ddragon.champs.data) {
-            let info = Assets.ddragon.champs.data[key];
-            let node: Swish = this.champs[info.key];
-            let match = info.name.match(search);
-            let id = parseInt(info.key);
+        for (let champ of Assets.gamedata.champions) {
+            let node: Swish = this.champs[champ.id];
+            let match = champ.name.match(search);
 
             let check;
             if (this.lastState.phase == 'BANNING' && this.lastState.me.active)
@@ -330,22 +316,22 @@ export default class ChampSelect extends Module {
 
             if (!check) return;
 
-            if (!match || check.indexOf(id) < 0)
+            if (!match || check.indexOf(champ.id) < 0)
                 node.css('display', 'none');
             else
                 node.css('display', null);
 
             node.setClass(!active, 'inactive');
-            node.setClass(this.lastState.me.champion == id, 'active');
-            node.setClass(this.taken.indexOf(id) >= 0, 'taken');
+            node.setClass(this.lastState.me.champion == champ.id, 'active');
+            node.setClass(this.taken.indexOf(champ.id) >= 0, 'taken');
         }
     }
 
     private updateSpells(spell1, spell2) {
         this.spell1 = spell1;
         this.spell2 = spell2;
-        this.refs.spell1.src = Assets.image('spell', spell1);
-        this.refs.spell2.src = Assets.image('spell', spell2);
+        this.refs.spell1.src = Assets.summoner.spell(spell1);
+        this.refs.spell2.src = Assets.summoner.spell(spell2);
     }
 
     private drawSkins(me: GameMember) {
@@ -360,7 +346,7 @@ export default class ChampSelect extends Module {
                 skins.unshift({ id: me.champion * 1000, selected: !skins.any(s => s.selected) });
 
             let i = skins.firstIndex(s => s.selected);
-            let url = Assets.splash.centered(Math.floor(skins[i].id / 1000), skins[i].id % 1000);
+            let url = Assets.champion.splash(Math.floor(skins[i].id / 1000), skins[i].id % 1000);
             let tmp = document.createElement('img');
             tmp.src = url;
             tmp.onload = () => {

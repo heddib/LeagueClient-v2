@@ -71,7 +71,7 @@ export default class MatchStats extends Module {
 
             for (let part of ordered) {
                 let node = Module.create(head);
-                node.node.setBackgroundImage(Assets.image('champ', part.championId));
+                node.node.setBackgroundImage(Assets.champion.icon(part.championId));
                 node.render(this.refs.header);
             }
 

@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Data.HashFunction;
 using System.IO;
+using System.IO.Compression;
 using System.Runtime.InteropServices;
 using System.Text;
+using Kappa.BackEnd.Server.Assets;
 using MFroehlich.Parsing;
+using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Patcher {
     public class WADArchive {
@@ -33,9 +36,32 @@ namespace Kappa.BackEnd.Server.Patcher {
         }
 
         public WADFile GetFile(string path) {
+            return AllFiles[Hash(path)];
+        }
+
+        public string Extract(WADFile file) {
+            if (file.Zipped == 0) {
+                using (var stream = File.OpenRead())
+                using (var mem = new MemoryStream()) {
+                    stream.Seek(file.Offset, SeekOrigin.Begin);
+                    stream.CopyToLength(mem, file.Size);
+                    return Encoding.UTF8.GetString(mem.ToArray());
+                }
+            }
+
+            using (var stream = File.OpenRead())
+            using (var zip = new GZipStream(stream, CompressionMode.Decompress))
+            using (var mem = new MemoryStream()) {
+                stream.Seek(file.Offset, SeekOrigin.Begin);
+                zip.CopyToLength(mem, file.Size);
+                return Encoding.UTF8.GetString(mem.ToArray());
+            }
+        }
+
+        public static ulong Hash(string path) {
             var bytes = xxHash.ComputeHash(Encoding.UTF8.GetBytes(path));
             var hash = BitConverter.ToUInt64(bytes, 0);
-            return AllFiles[hash];
+            return hash;
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]

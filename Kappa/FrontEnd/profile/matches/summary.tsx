@@ -80,9 +80,9 @@ export default class MatchSummary extends Module {
             var ident = game.participantIdentities.first(p => p.player.accountId == me.accountId);
             var part = game.participants.first(p => p.participantId == ident.participantId);
 
-            this.refs.spell1.src = Assets.image('spell', part.spell1Id);
-            this.refs.spell2.src = Assets.image('spell', part.spell2Id);
-            this.refs.card.css('background-image', `url("${Assets.splash.centered(part.championId, 0)}")`);
+            this.refs.spell1.src = Assets.summoner.spell(part.spell1Id);
+            this.refs.spell2.src = Assets.summoner.spell(part.spell2Id);
+            this.refs.card.css('background-image', `url("${Assets.champion.splash(part.championId, 0)}")`);
             this.refs.result.text = part.stats.win ? 'Victory' : 'Defeat';
             this.refs.result.addClass(this.refs.result.text.toLowerCase());
 
@@ -107,7 +107,7 @@ export default class MatchSummary extends Module {
 
             for (var i = 0; i < 7; i++) {
                 if (part.stats['item' + i])
-                    this.refs['item' + i].src = Assets.image('item', part.stats['item' + i]);
+                    this.refs['item' + i].src = Assets.items.icon(part.stats['item' + i]);
                 else
                     this.refs['item' + i].addClass('hidden')
             }

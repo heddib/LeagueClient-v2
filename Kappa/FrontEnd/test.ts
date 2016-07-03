@@ -1460,6 +1460,122 @@ namespace Summoner {
     }
 }
 
+namespace GameData {
+    export interface ChampionDetails {
+        title: string;
+        shortBio: string;
+        tacticalInfo: TacticalInfo;
+        playstyleInfo: PlaystyleInfo;
+        squarePath: string;
+        portraitPath: string;
+        skins: SkinDetails[];
+        passive: SpellDetails;
+        spells: SpellDetails[];
+        id: number;
+        name: string;
+        alias: string;
+        roles: string[];
+    }
+    export interface TacticalInfo {
+        style: number;
+        difficulty: number;
+        damageType: string;
+    }
+    export interface PlaystyleInfo {
+        damage: number;
+        durability: number;
+        crowdControl: number;
+        mobility: number;
+        utility: number;
+    }
+    export interface SpellDetails {
+        name: string;
+        description: string;
+    }
+    export interface SkinDetails {
+        id: number;
+        name: string;
+        splashPath: string;
+        tilePath: string;
+        cardPath: string;
+        splashVideoPath: string;
+        chromaPath: string;
+    }
+    export interface ChampionSummary {
+        id: number;
+        name: string;
+        alias: string;
+        roles: string[];
+    }
+    export interface ItemDetails {
+        id: number;
+        name: string;
+        description: string;
+        price: number;
+        priceTotal: number;
+    }
+    export interface MasteriesInfo {
+        type: string;
+        tree: MasteryTree;
+        data: { [id: string]: Mastery };
+    }
+    export interface MasteryTree {
+        groups: MasteryGroup[];
+    }
+    export interface MasteryGroup {
+        id: number;
+        name: string;
+        version: number;
+        rows: MasteryRow[];
+    }
+    export interface MasteryRow {
+        id: number;
+        pointsToActivate: number;
+        maxPointsInRow: number;
+        masteries: number[];
+    }
+    export interface Mastery {
+        id: number;
+        column: string;
+        maxRank: number;
+        minLevel: number;
+        minTier: number;
+        name: string;
+        description: string[];
+        image: MasteryImageInfo;
+    }
+    export interface MasteryImageInfo {
+        icon: string;
+    }
+    export interface RuneDetails {
+        id: number;
+        name: string;
+        description: string;
+        image: string;
+        stats: { [id: string]: number };
+        rune: RuneInfo;
+    }
+    export interface RuneInfo {
+        tier: number;
+        type: string;
+    }
+    export interface RuneSlots {
+        slots: { [id: string]: RuneSlot };
+    }
+    export interface RuneSlot {
+        id: number;
+        type: string;
+        unlockLevel: number;
+    }
+    export interface SummonerSpellDetails {
+        id: number;
+        name: string;
+        description: string;
+        summonerLevel: number;
+        gameModes: string[];
+    }
+}
+
 //Patcher Service:
 interface PatcherState {
     phase: string;
