@@ -3,7 +3,7 @@ import * as Service    from './service';
 let queueCache;
 
 export function queues() {
-    return new Async<AvailableQueue[]>((resolve, reject) => {
+    return new Async<Domain.AvailableQueue[]>((resolve, reject) => {
         if (queueCache) resolve(queueCache);
         Service.getAvailableQueues().then(queues => {
             queueCache = queues;

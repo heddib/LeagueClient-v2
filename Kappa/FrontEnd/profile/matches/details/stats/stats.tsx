@@ -60,7 +60,7 @@ const stats = {
 }
 
 export default class MatchStats extends Module {
-    public constructor(details: MatchHistory.MatchDetails) {
+    public constructor(details: Domain.MatchHistory.MatchDetails) {
         super(template);
 
         let ordered = details.participants;

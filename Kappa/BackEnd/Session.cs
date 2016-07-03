@@ -26,6 +26,7 @@ using Kappa.BackEnd.Server;
 using Kappa.BackEnd.Server.Assets;
 using Kappa.BackEnd.Server.Authentication;
 using Kappa.BackEnd.Server.Patcher;
+using Kappa.BackEnd.Server.Replay;
 using Kappa.Riot.Domain.JSON;
 using Kappa.Riot.Services.Http;
 using RtmpSharp.Net;
@@ -88,6 +89,10 @@ namespace Kappa.BackEnd {
             MatchHistoryService = new MatchHistoryService(this);
 
             var patcher = new PatcherService(this);
+            this.chat = new ChatService(this);
+
+            this.Maestro = new Maestro(chat, patcher);
+
             var settings = new SettingsService(this);
 
             var hextech = new HextechService(this);
@@ -101,7 +106,6 @@ namespace Kappa.BackEnd {
             this.summoner = new SummonerService(this);
             this.Assets = new AssetsService(patcher);
 
-            this.chat = new ChatService(this);
             var rooms = new ChatRoomService(this, chat);
             var login = new AuthService(this);
 
@@ -111,7 +115,8 @@ namespace Kappa.BackEnd {
             var meta = new MetaService(this);
             var debug = new DebugService(this);
 
-            this.Maestro = new Maestro(chat, patcher);
+            var replay = new ReplayService(this);
+
 
             patcher.FinishWAD();
         }

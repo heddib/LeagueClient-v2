@@ -145,6 +145,8 @@ namespace Kappa.BackEnd.Server.Patcher {
                 File.WriteAllText(Path.Combine(gameTarget, "solutionmanifest"), rawManifest);
             }
 
+            //if (File.Exists(Path.Combine(gameTarget, "S_OK"))) return;
+
             int index = manifest.IndexOf(locale.ToLower());
             int count = int.Parse(manifest[index + 2]);
             var required = new Dictionary<string, string>();
@@ -163,7 +165,7 @@ namespace Kappa.BackEnd.Server.Patcher {
                 foreach (var name in required.Keys) writer.WriteLine(name);
             }
 
-            var patchers = required.Select(pair => new ProjectPatcher(region, RADS, pair.Key, pair.Value)).ToList();
+            var patchers = required.Select(pair => new ProjectPatcher(region, RADS, pair.Key, pair.Value, gameTarget)).ToList();
             var tasks = patchers.Select(p => p.Patch()).ToList();
 
             gameState.Total = patchers.Sum(p => p.TotalBytes);
@@ -178,20 +180,20 @@ namespace Kappa.BackEnd.Server.Patcher {
                 tasks.RemoveAll(t => t.IsCompleted);
             }
 
-            foreach (var patcher in patchers) {
-                var copy = from f in patcher.Manifest.AllFiles.Values
-                           where f.MetaData.Type == ReleaseManifest.FileType.COPY_TO_SLN
-                           select f;
+            //foreach (var patcher in patchers) {
+            //    var copy = from f in patcher.Manifest.AllFiles.Values
+            //               where f.MetaData.Type == ReleaseManifest.FileType.COPY_TO_SLN
+            //               select f;
 
-                foreach (var file in copy) {
-                    var path = Path.Combine(gameTarget, "deploy", file.FullName);
-                    Directory.CreateDirectory(Path.GetDirectoryName(path));
-                    using (var src = patcher.GetStream(file, false))
-                    using (var dst = File.OpenWrite(path)) {
-                        src.CopyTo(dst);
-                    }
-                }
-            }
+            //    foreach (var file in copy) {
+            //        var path = Path.Combine(gameTarget, "deploy", file.FullName);
+            //        Directory.CreateDirectory(Path.GetDirectoryName(path));
+            //        using (var src = patcher.GetStream(file, false))
+            //        using (var dst = File.OpenWrite(path)) {
+            //            src.CopyTo(dst);
+            //        }
+            //    }
+            //}
 
             using (File.Create(Path.Combine(gameTarget, "S_OK"))) { }
         }

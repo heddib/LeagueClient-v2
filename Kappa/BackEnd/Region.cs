@@ -8,6 +8,7 @@ namespace Kappa.BackEnd {
         }
 
         public string MainServer { get; private set; }
+        public string SpectatorBase { get; private set; }
         public string ChatServer { get; private set; }
         public string Platform { get; private set; }
 
@@ -38,6 +39,7 @@ namespace Kappa.BackEnd {
 
         public static readonly Region NA = new Region {
             MainServer = "prod.na2.lol.riotgames.com",
+            SpectatorBase = "http://spectator.na2.lol.riotgames.com/",
             LoginQueueURL = "https://lq.na2.lol.riotgames.com/",
             Platform = "NA1",
 

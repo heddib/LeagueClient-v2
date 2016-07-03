@@ -3,19 +3,15 @@ using Kappa.Riot.Domain.TeambuilderDraft;
 using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Game.Model {
-    public class LobbyMember : JSONSerializable {
-        [JSONField("name")]
+    [JSONSerializable]
+    public class LobbyMember {
         public string Name { get; set; }
 
-        [JSONField("id")]
         public object Id { get; set; }
 
-        [JSONField("champ")]
-        public int Champion { get; set; }
-        [JSONField("role1")]
-        public Position? Role1 { get; set; }
+        public int Champ { get; set; }
 
-        [JSONField("role2")]
+        public Position? Role1 { get; set; }
         public Position? Role2 { get; set; }
 
         private LobbyMember(object id) {
@@ -36,7 +32,7 @@ namespace Kappa.BackEnd.Server.Game.Model {
             Name = m.SummonerName;
             var bot = m as BotParticipant;
             if (bot != null)
-                Champion = bot.Champion.ChampionId;
+                Champ = bot.Champion.ChampionId;
         }
     }
 }

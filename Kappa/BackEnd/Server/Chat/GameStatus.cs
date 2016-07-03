@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Kappa.BackEnd.Server.Chat.Model {
+namespace Kappa.BackEnd.Server.Chat {
     public class GameStatus : IComparable<GameStatus> {
         public string Key { get; }
         public string Display { get; }

@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Kappa.BackEnd.Server.Assets.Model {
-    public class AudioAssets : JSONSerializable {
-        [JSONField("urls")]
+    [JSONSerializable]
+    public class AudioAssets {
         public Dictionary<string, string> Urls { get; set; }
 
         public AudioAssets(RiotVersion version) {

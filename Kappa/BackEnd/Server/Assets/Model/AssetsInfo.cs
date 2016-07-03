@@ -1,10 +1,9 @@
 ﻿using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Assets.Model {
-    public class AssetsInfo : JSONSerializable {
-        [JSONField("version")]
+    [JSONSerializable]
+    public class AssetsInfo {
         public string Version { get; }
-        [JSONField("locale")]
         public string Locale { get; }
 
         public AssetsInfo(string version, string locale) {

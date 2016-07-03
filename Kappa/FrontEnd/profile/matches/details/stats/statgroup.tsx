@@ -24,7 +24,7 @@ var number = (
 );
 
 export default class MatchStatGroup extends Module {
-    public constructor(name: string, stats: { [id: string]: string }, parts: MatchHistory.Participant[], myPartId: number) {
+    public constructor(name: string, stats: { [id: string]: string }, parts: Domain.MatchHistory.Participant[], myPartId: number) {
         super(template);
 
         let active = true;

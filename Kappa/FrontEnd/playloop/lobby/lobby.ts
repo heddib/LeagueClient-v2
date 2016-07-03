@@ -70,7 +70,7 @@ export default class Lobby extends Module {
         }
     }
 
-    private onLobbyState(state: LobbyState) {
+    private onLobbyState(state: Domain.LobbyState) {
         if (!state.members) return;
 
         if (!this.room && state.chatroom != guid.empty) {
@@ -93,7 +93,7 @@ export default class Lobby extends Module {
         }
     }
 
-    private onMatchmakingState(state: MatchmakingState) {
+    private onMatchmakingState(state: Domain.MatchmakingState) {
         if (state.afkCheck) {
             if (this.$('#afk-check').css('display')) {
                 Audio.effect('lobby', 'pop');
@@ -135,7 +135,7 @@ export default class Lobby extends Module {
         this.$('#chat-area').add(this.chatRoom.node);
     }
 
-    private renderSlot(member: LobbyMember, lobbySize: number, me: LobbyMember, icon: number) {
+    private renderSlot(member: Domain.LobbyMember, lobbySize: number, me: Domain.LobbyMember, icon: number) {
         var data = {
             id: member.id,
             // class: mySlot == slot.slotId ? 'me' : 'friend',

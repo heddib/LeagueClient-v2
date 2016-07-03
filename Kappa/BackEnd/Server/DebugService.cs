@@ -24,6 +24,16 @@ namespace Kappa.BackEnd.Server {
             this.session = session;
             this.session.Authed += Session_Authed;
 
+            new Thread(() => {
+                //const string name = "MrStealYOWIFE";
+                //var summ = await Session.RiotAPI.SummonerAPI.ByName(name);
+                //var game = await Session.RiotAPI.CurrentGameAPI.BySummoner(summ.Values.First().id);
+                //var file = @"C:\users\max\desktop\2232035041.lol";
+                //var replay = new Replay.Replay(file);
+                //var replay = Replay.Replay.Record(game.gameId, game.observers.encryptionKey, file);
+
+                //session.Maestro.ReplayGame("localhost", BackEndServer.HttpPort, replay.MetaData.EncryptionKey, replay.MetaData.GameKey.GameId);
+            }).Start();
             //new Thread(RunMaestro) { IsBackground = true }.Start();
             /*
             var dict = new Dictionary<string, string> {

@@ -2,14 +2,10 @@
 using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Game.Model {
-    public class RerollState : JSONSerializable {
-        [JSONField("cost")]
+    [JSONSerializable]
+    public class RerollState  {
         public int Cost { get; set; }
-
-        [JSONField("points")]
         public int Points { get; set; }
-
-        [JSONField("maxPoints")]
         public int MaxPoints { get; set; }
 
         public RerollState(PointSummary points) {

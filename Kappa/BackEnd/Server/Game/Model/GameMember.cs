@@ -13,35 +13,23 @@ namespace Kappa.BackEnd.Server.Game.Model {
         CANCELLED,
     }
 
-    public class GameMember : JSONSerializable {
-        [JSONField("name")]
+    [JSONSerializable]
+    public class GameMember {
         public string Name { get; set; }
 
-        [JSONField("champion")]
         public int Champion { get; set; }
 
-        [JSONField("spell1")]
         public int Spell1 { get; set; }
-
-        [JSONField("spell2")]
         public int Spell2 { get; set; }
 
-        [JSONField("id")]
         public object Id { get; set; }
 
-        [JSONField("active")]
         public bool Active { get; set; }
 
-        [JSONField("trade")]
-        public TradeState TradeState { get; set; }
-
-        [JSONField("reroll")]
+        public TradeState Trade { get; set; }
         public RerollState Reroll { get; set; }
 
-        [JSONField("intent")]
         public bool Intent { get; set; }
-
-        [JSONField("role")]
         public Position Role { get; set; }
 
         private GameMember(object id) {
@@ -68,19 +56,19 @@ namespace Kappa.BackEnd.Server.Game.Model {
 
             switch (trade?.State) {
             case TBDTradeState.INVALID:
-                TradeState = TradeState.INVALID;
+                Trade = TradeState.INVALID;
                 break;
             case TBDTradeState.BUSY:
-                TradeState = TradeState.BUSY;
+                Trade = TradeState.BUSY;
                 break;
             case TBDTradeState.AVAILABLE:
-                TradeState = TradeState.POSSIBLE;
+                Trade = TradeState.POSSIBLE;
                 break;
             case TBDTradeState.SENT:
-                TradeState = TradeState.SENT;
+                Trade = TradeState.SENT;
                 break;
             case TBDTradeState.RECEIVED:
-                TradeState = TradeState.RECEIVED;
+                Trade = TradeState.RECEIVED;
                 break;
             }
         }
@@ -94,19 +82,19 @@ namespace Kappa.BackEnd.Server.Game.Model {
 
             switch (trade?.State) {
             case null:
-                TradeState = canTrade ? TradeState.POSSIBLE : TradeState.INVALID;
+                Trade = canTrade ? TradeState.POSSIBLE : TradeState.INVALID;
                 break;
             case "PENDING":
-                TradeState = trade.RequesterInternalSummonerName == player.SummonerInternalName ? TradeState.RECEIVED : TradeState.SENT;
+                Trade = trade.RequesterInternalSummonerName == player.SummonerInternalName ? TradeState.RECEIVED : TradeState.SENT;
                 break;
             case "CANCELED":
-                TradeState = TradeState.CANCELLED;
+                Trade = TradeState.CANCELLED;
                 break;
             case "DECLINED":
-                TradeState = TradeState.POSSIBLE;
+                Trade = TradeState.POSSIBLE;
                 break;
             default:
-                TradeState = TradeState.INVALID;
+                Trade = TradeState.INVALID;
                 break;
             }
         }

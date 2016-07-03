@@ -6,7 +6,7 @@ export function getAvailableQueues() {
 }
 
 export function current() {
-    return Kappa.invoke<CurrentPlayLoopState>(service + '/current', []);
+    return Kappa.invoke<Domain.CurrentPlayLoopState>(service + '/current', []);
 }
 
 export function abandon() {

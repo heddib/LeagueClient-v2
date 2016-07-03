@@ -6,7 +6,7 @@ import * as Assets    from './../../../assets/assets';
 const html = Module.import('playloop/champselect/player');
 
 export default class ChampSelectPlayer extends Module {
-    private last: GameMember;
+    private last: Domain.GameMember;
 
     public trade = this.create<{}>();
     public cancel = this.create<{}>();
@@ -32,7 +32,7 @@ export default class ChampSelectPlayer extends Module {
         this.dispatch(this.respond, false);
     }
 
-    public update(player: GameMember, index: number, enemy: boolean) {
+    public update(player: Domain.GameMember, index: number, enemy: boolean) {
         let champ = Assets.gamedata.champions.first(c => c.id == player.champion);
         this.refs.name.text = player.name || 'Summoner ' + (index + 1);
         this.refs.champion.text = champ ? champ.name : '';

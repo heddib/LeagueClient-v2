@@ -4,7 +4,7 @@ import Storage         from './../util/storage';
 
 const storage = new Storage('summoner');
 
-let summoners: { [name: string]: Async<PublicSummoner> } = {};
+let summoners: { [name: string]: Async<Domain.Summoner.PublicSummoner> } = {};
 let icons: { [id: number]: number } = {};
 
 Service.me.on((m) => me.set(m));
@@ -26,8 +26,8 @@ export function icon(ids: number[]) {
     });
 }
 
-export function get(name: string): Async<PublicSummoner> {
-    return new Async<PublicSummoner>((resolve, reject) => {
+export function get(name: string): Async<Domain.Summoner.PublicSummoner> {
+    return new Async<Domain.Summoner.PublicSummoner>((resolve, reject) => {
         if (!summoners[name])
             summoners[name] = Service.get(name);
 
@@ -35,7 +35,7 @@ export function get(name: string): Async<PublicSummoner> {
     });
 }
 
-export function kudos(id: number): Async<Summoner.SummonerKudos> {
+export function kudos(id: number): Async<Domain.Summoner.SummonerKudos> {
     return Service.kudos(id);
 }
 

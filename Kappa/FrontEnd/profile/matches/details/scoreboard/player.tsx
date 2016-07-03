@@ -56,7 +56,7 @@ var template = (
 export default class Player extends Module {
     public selected = this.create<any>();
 
-    public constructor(src: MatchHistory.Participant, ident: MatchHistory.ParticipantIdentity) {
+    public constructor(src: Domain.MatchHistory.Participant, ident: Domain.MatchHistory.ParticipantIdentity) {
         super(template);
 
         Summoner.me.single(me => {

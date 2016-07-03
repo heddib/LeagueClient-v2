@@ -35,8 +35,8 @@ namespace Kappa.BackEnd.Server.Patcher {
             }
         }
 
-        public WADFile GetFile(string path) {
-            return AllFiles[Hash(path)];
+        public bool TryGetFile(string path, out WADFile file) {
+            return AllFiles.TryGetValue(Hash(path), out file);
         }
 
         public string Extract(WADFile file) {
@@ -58,7 +58,7 @@ namespace Kappa.BackEnd.Server.Patcher {
             }
         }
 
-        public static ulong Hash(string path) {
+        private static ulong Hash(string path) {
             var bytes = xxHash.ComputeHash(Encoding.UTF8.GetBytes(path));
             var hash = BitConverter.ToUInt64(bytes, 0);
             return hash;

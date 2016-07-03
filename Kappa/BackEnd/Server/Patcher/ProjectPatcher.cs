@@ -22,16 +22,20 @@ namespace Kappa.BackEnd.Server.Patcher {
         private string root;
         private string target;
 
+        private string solutionTarget;
+
         private Dictionary<string, RAFArchive> archives = new Dictionary<string, RAFArchive>();
 
         private ReleaseManifest old;
 
         private long patchingDone;
 
-        public ProjectPatcher(Region region, string rads, string project, string version) {
+        public ProjectPatcher(Region region, string rads, string project, string version, string slnTarget) {
             this.region = region;
             this.project = project;
             this.version = version;
+
+            this.solutionTarget = slnTarget;
 
             this.root = Path.Combine(rads, "projects", project);
 
@@ -84,10 +88,17 @@ namespace Kappa.BackEnd.Server.Patcher {
                 stream = GetArchive(man.MetaData.Version).Write(man);
             else {
                 string dst;
-                if (man.MetaData.Type == FileType.MANAGEDFILE)
+                switch (man.MetaData.Type) {
+                case FileType.MANAGEDFILE:
                     dst = Path.Combine(this.root, "managedfiles", man.MetaData.Version, man.FullName);
-                else
+                    break;
+                case FileType.COPY_TO_SLN:
+                    dst = Path.Combine(solutionTarget, "deploy", man.FullName);
+                    break;
+                default:
                     dst = Path.Combine(this.root, "releases", version, "deploy", man.FullName);
+                    break;
+                }
 
                 Directory.CreateDirectory(Path.GetDirectoryName(dst));
 

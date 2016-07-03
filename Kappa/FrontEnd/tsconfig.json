@@ -9,7 +9,6 @@
         "discord/discord.d.ts",
         "util/util.ts",
         "test.ts",
-        "test2.ts",
         "client.ts"
     ]
 }

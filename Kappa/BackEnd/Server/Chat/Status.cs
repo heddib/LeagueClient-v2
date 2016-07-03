@@ -1,13 +1,13 @@
-﻿using agsXMPP.protocol.client;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Xml;
 using System.Xml.Linq;
+using agsXMPP.protocol.client;
 using Kappa.BackEnd.Server.Summoner.Model;
 
-namespace Kappa.BackEnd.Server.Chat.Model {
+namespace Kappa.BackEnd.Server.Chat {
     public class Status {
         public enum StatusType {
             CHAT,
@@ -67,7 +67,8 @@ namespace Kappa.BackEnd.Server.Chat.Model {
             if (me != null) {
                 dict["profileIcon"] = me.ProfileIcon;
                 dict["level"] = me.Level;
-            } else {
+            }
+            else {
                 dict["profileIcon"] = 2;
                 dict["level"] = 30;
             }

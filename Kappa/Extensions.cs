@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Kappa.BackEnd;
 using Kappa.BackEnd.Server.Patcher;
 using MFroehlich.Parsing.JSON;
 
@@ -85,11 +86,6 @@ namespace Kappa {
             var tcs = new TaskCompletionSource<int>();
             p.Exited += (s, e) => tcs.SetResult(p.ExitCode);
             return tcs.Task;
-        }
-
-        public static T ExtractJSON<T>(this WADArchive archive, string file) {
-            var str = archive.Extract(archive.GetFile(file));
-            return JSONDeserializer.Deserialize<T>(JSONParser.Parse(str));
         }
     }
 }

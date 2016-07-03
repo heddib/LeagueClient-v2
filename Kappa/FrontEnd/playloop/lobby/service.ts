@@ -23,13 +23,13 @@ Kappa.subscribe(service + '/matchmaking/champselect', s => {
 
 var events = new EventModule();
 
-export const lobbyState = new AsyncValue<LobbyState>();
+export const lobbyState = new AsyncValue<Domain.LobbyState>();
 
 export const matchmakingStart = events.create<{}>();
 export const matchmakingStop = events.create<{}>();
 export const champselectStart = events.create<{}>();
 
-export const queueState = new AsyncValue<MatchmakingState>();
+export const queueState = new AsyncValue<Domain.MatchmakingState>();
 
 export function create(id: number) {
     return Kappa.invoke(service + '/lobby/create', [id]);

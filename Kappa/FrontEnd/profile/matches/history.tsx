@@ -19,8 +19,8 @@ var template = (
 );
 
 export default class MatchHistory extends Module {
-    private history: MatchHistory.PlayerHistory;
-    private deltas: MatchHistory.PlayerDeltas;
+    private history: Domain.MatchHistory.PlayerHistory;
+    private deltas: Domain.MatchHistory.PlayerDeltas;
 
     public constructor() {
         super(template);
@@ -29,7 +29,7 @@ export default class MatchHistory extends Module {
             this.history = history;
             this.check();
         }).catch(error => {
-            let msg = <span>An error has occured</span>;
+            let msg = <span class="service-error-msg">An error has occured</span>;
             this.refs.list.add(msg);
         });
         Service.deltas().then(deltas => {

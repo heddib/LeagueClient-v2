@@ -7,17 +7,9 @@ using Kappa.Riot.Domain;
 using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Game.Model {
-    public class ActiveGameState : JSONSerializable {
-        [JSONField("ingame")]
+    [JSONSerializable]
+    public class ActiveGameState {
         public bool InGame { get; set; }
-
-        [JSONField("launched")]
         public bool Launched { get; set; }
-
-        [JSONField("stats")]
-        public EndOfGameStats Stats { get; set; }
-
-        [JSONField("championmastery")]
-        public EndOfGameChampionMastery ChampionMastery { get; set; }
     }
 }

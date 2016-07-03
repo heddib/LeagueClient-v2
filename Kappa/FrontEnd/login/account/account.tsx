@@ -6,6 +6,9 @@ const template = (
     <module class="saved-account" data-event="mouseup:onMouseUp">
         <div class="shadow"/>
         <div class="border"/>
+        <div class="name">
+            <span data-ref="name"/>
+        </div>
     </module>
 );
 
@@ -20,6 +23,7 @@ export default class Account extends Module {
         super(template);
 
         this.node.setBackgroundImage(Assets.summoner.icon(account.icon));
+        this.refs.name.text = account.name;
         this._account = account;
     }
 

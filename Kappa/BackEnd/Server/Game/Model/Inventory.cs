@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 
 namespace Kappa.BackEnd.Server.Game.Model {
-    public class Inventory : JSONSerializable {
-        [JSONField("pickableChamps")]
-        public List<int> PickableChampions { get; set; }
-
-        [JSONField("bannableChamps")]
-        public List<int> BannableChampions { get; set; }
-
-        [JSONField("availableSpells")]
+    [JSONSerializable]
+    public class Inventory {
+        public List<int> PickableChamps { get; set; }
+        public List<int> BannableChamps { get; set; }
         public List<int> AvailableSpells { get; set; }
     }
 }

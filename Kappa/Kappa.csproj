@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="BackEnd\Maestro.cs" />
     <Compile Include="BackEnd\Server\Assets\GameDataAssets.cs" />
+    <Compile Include="BackEnd\Server\Collection\Model\MasteryBook.cs" />
     <Compile Include="BackEnd\Server\Patcher\WADArchive.cs" />
     <Compile Include="BackEnd\Server\Authentication\Account.cs" />
     <Compile Include="BackEnd\Server\Collection\ChampionsService.cs" />
@@ -97,7 +98,6 @@
     <Compile Include="BackEnd\Server\Collection\Model\HextechInventory.cs" />
     <Compile Include="BackEnd\Server\Game\Model\ActiveGameState.cs" />
     <Compile Include="BackEnd\Server\Game\Model\EndOfGameChampionMastery.cs" />
-    <Compile Include="BackEnd\Server\Game\Model\GameStatistics.cs" />
     <Compile Include="BackEnd\Server\Game\Model\RerollState.cs" />
     <Compile Include="BackEnd\Server\Meta\SettingsService.cs" />
     <Compile Include="BackEnd\Server\Patcher\Model\PatcherState.cs" />
@@ -106,7 +106,11 @@
     <Compile Include="BackEnd\Server\Patcher\RAFArchive.cs" />
     <Compile Include="BackEnd\Server\Patcher\ReleaseManifest.cs" />
     <Compile Include="BackEnd\Server\Profile\MatchHistoryService.cs" />
+    <Compile Include="BackEnd\Server\Replay\Replay.cs" />
+    <Compile Include="BackEnd\Server\Replay\ReplayService.cs" />
+    <Compile Include="BackEnd\Server\Replay\SpectatorService.cs" />
     <Compile Include="BackEnd\Server\Summoner\Model\SummonerKudos.cs" />
+    <Compile Include="Http\QuickHttp.cs" />
     <Compile Include="Riot\Domain\ChampionMastery\AllChampionMasteryObject.cs" />
     <Compile Include="Riot\Domain\ChampionMastery\ChampionMasteryScoreAndChestObject.cs" />
     <Compile Include="Riot\Domain\ChampionMastery\ChampionMasteryScoreObject.cs" />
@@ -166,10 +170,10 @@
     <Compile Include="Riot\Services\Http\PlayerPreferencesService.cs" />
     <Compile Include="Riot\Services\Lcds\LootService.cs" />
     <Compile Include="BackEnd\Server\Chat\Model\Friend.cs" />
-    <Compile Include="BackEnd\Server\Chat\Model\GameStatus.cs" />
+    <Compile Include="BackEnd\Server\Chat\GameStatus.cs" />
     <Compile Include="BackEnd\Server\Chat\Model\MucFriend.cs" />
     <Compile Include="BackEnd\Server\Chat\Model\MucMessage.cs" />
-    <Compile Include="BackEnd\Server\Chat\Model\Status.cs" />
+    <Compile Include="BackEnd\Server\Chat\Status.cs" />
     <Compile Include="BackEnd\Server\Collection\RunesService.cs" />
     <Compile Include="BackEnd\Server\Collection\MasteriesService.cs" />
     <Compile Include="BackEnd\Server\DebugService.cs" />

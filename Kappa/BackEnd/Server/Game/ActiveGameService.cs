@@ -37,40 +37,40 @@ namespace Kappa.BackEnd.Server.Game {
         private bool OnSimpleDialogMessage(SimpleDialogMessage msg) {
             if (msg.TitleCode != "championMastery") return false;
 
-            var arg = JSONParser.ParseObject((string) msg.Params[0]);
-            var data = JSONDeserializer.Deserialize<EogChampionMasteryDTO>(arg);
+            //var arg = JSONParser.ParseObject((string) msg.Params[0]);
+            //var data = JSONDeserializer.Deserialize<EogChampionMasteryDTO>(arg);
 
-            if (data.LevelUpList.Any()) { }
+            //if (data.LevelUpList.Any()) { }
 
-            var stats = new EndOfGameChampionMastery {
-                Champion = data.ChampionId,
-                Grade = data.PlayerGrade,
-                Before = new ChampionMasteryState {
-                    Level = data.ChampionLevelUp ? data.ChampionLevel - 1 : data.ChampionLevel,
-                    PointsInLevel = data.ChampionPointsSinceLastLevelBeforeGame + data.ChampionPointsUntilNextLevelBeforeGame,
-                    PointsSinceLevel = data.ChampionPointsSinceLastLevelBeforeGame,
-                    TotalPoints = data.ChampionPointsBeforeGame
-                },
-                After = new ChampionMasteryState {
-                    Level = data.ChampionLevel,
-                    PointsInLevel = data.ChampionPointsUntilNextLevelAfterGame + (data.ChampionPointsGained - data.ChampionPointsUntilNextLevelBeforeGame) + 1,
-                    PointsSinceLevel = data.ChampionPointsGained - data.ChampionPointsUntilNextLevelBeforeGame + 1,
-                    TotalPoints = data.ChampionPointsBeforeGame + data.ChampionPointsGained
-                }
-            };
-            if (!data.ChampionLevelUp) {
-                stats.After.PointsInLevel = stats.Before.PointsInLevel;
-                stats.After.PointsSinceLevel = data.ChampionPointsSinceLastLevelBeforeGame + data.ChampionPointsGained;
-            }
-            state.ChampionMastery = stats;
-            OnStateChanged();
+            //var stats = new EndOfGameChampionMastery {
+            //    Champion = data.ChampionId,
+            //    Grade = data.PlayerGrade,
+            //    Before = new ChampionMasteryState {
+            //        Level = data.ChampionLevelUp ? data.ChampionLevel - 1 : data.ChampionLevel,
+            //        PointsInLevel = data.ChampionPointsSinceLastLevelBeforeGame + data.ChampionPointsUntilNextLevelBeforeGame,
+            //        PointsSinceLevel = data.ChampionPointsSinceLastLevelBeforeGame,
+            //        TotalPoints = data.ChampionPointsBeforeGame
+            //    },
+            //    After = new ChampionMasteryState {
+            //        Level = data.ChampionLevel,
+            //        PointsInLevel = data.ChampionPointsUntilNextLevelAfterGame + (data.ChampionPointsGained - data.ChampionPointsUntilNextLevelBeforeGame) + 1,
+            //        PointsSinceLevel = data.ChampionPointsGained - data.ChampionPointsUntilNextLevelBeforeGame + 1,
+            //        TotalPoints = data.ChampionPointsBeforeGame + data.ChampionPointsGained
+            //    }
+            //};
+            //if (!data.ChampionLevelUp) {
+            //    stats.After.PointsInLevel = stats.Before.PointsInLevel;
+            //    stats.After.PointsSinceLevel = data.ChampionPointsSinceLastLevelBeforeGame + data.ChampionPointsGained;
+            //}
+            //state.ChampionMastery = stats;
+            //OnStateChanged();
 
             return true;
         }
 
         private bool OnEndOfGameStats(EndOfGameStats stats) {
-            state.Stats = stats;
-            OnStateChanged();
+            //state.Stats = stats;
+            //OnStateChanged();
             return true;
         }
 
@@ -116,9 +116,11 @@ namespace Kappa.BackEnd.Server.Game {
 
                 do {
                     var inProgress = await Check();
-                    if (inProgress?.PlayerCredentials == null) continue;
+                    if (inProgress?.PlayerCredentials == null) {
+                        await Task.Delay(500);
+                    }
 
-                    process = session.Maestro.LaunchGameClient(inProgress.PlayerCredentials);
+                    process = session.Maestro.JoinGame(inProgress.PlayerCredentials);
                     state.Launched = true;
                     OnStateChanged();
                     break;

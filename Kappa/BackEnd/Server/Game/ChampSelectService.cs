@@ -92,7 +92,7 @@ namespace Kappa.BackEnd.Server.Game {
                         var available = from c in t.Result
                                         where c.EnemyOwned
                                         select c.ChampionId;
-                        state.Inventory.BannableChampions = available.ToList();
+                        state.Inventory.BannableChamps = available.ToList();
                         OnStateChanged();
                     });
                 }
@@ -150,7 +150,7 @@ namespace Kappa.BackEnd.Server.Game {
                         var available = from c in t.Result
                                         where c.Owned || c.FreeToPlay
                                         select c.ChampionId;
-                        state.Inventory.PickableChampions = available.ToList();
+                        state.Inventory.PickableChamps = available.ToList();
                         OnStateChanged();
                     });
                 }
@@ -253,8 +253,8 @@ namespace Kappa.BackEnd.Server.Game {
                 var src = draftData.AfkCheckState.Inventory;
                 this.inventory = new Model.Inventory {
                     AvailableSpells = src.SpellIds,
-                    PickableChampions = src.LastSelectedSkins.Keys.Select(int.Parse).ToList(),
-                    BannableChampions = src.AllChampionIds
+                    PickableChamps = src.LastSelectedSkins.Keys.Select(int.Parse).ToList(),
+                    BannableChamps = src.AllChampionIds
                 };
             }
 
@@ -425,7 +425,7 @@ namespace Kappa.BackEnd.Server.Game {
                 var member = state.Allies.Single(a => a.Id.Equals(id));
                 var iName = standardMembers[id].SummonerInternalName;
 
-                switch (member.TradeState) {
+                switch (member.Trade) {
                 case TradeState.RECEIVED:
                     trades.Remove(iName);
                     await this.session.ChampionTradeService.AcceptTrade(iName, selections[iName].ChampionId);
@@ -444,7 +444,7 @@ namespace Kappa.BackEnd.Server.Game {
                     UpdateGameMembers();
                     break;
                 default:
-                    throw new InvalidOperationException("Attempted trade when trade state is " + member.TradeState);
+                    throw new InvalidOperationException("Attempted trade when trade state is " + member.Trade);
                 }
                 break;
 
@@ -464,7 +464,7 @@ namespace Kappa.BackEnd.Server.Game {
                 var member = state.Allies.Single(a => a.Id.Equals(id));
                 var iName = standardMembers[id].SummonerInternalName;
 
-                switch (member.TradeState) {
+                switch (member.Trade) {
                 case TradeState.RECEIVED://Decline
                 case TradeState.SENT://Cancel
                     trades.Remove(iName);
@@ -472,7 +472,7 @@ namespace Kappa.BackEnd.Server.Game {
                     UpdateGameMembers();
                     break;
                 default:
-                    throw new InvalidOperationException("Attempted decline when trade state is " + member.TradeState);
+                    throw new InvalidOperationException("Attempted decline when trade state is " + member.Trade);
                 }
                 break;
 

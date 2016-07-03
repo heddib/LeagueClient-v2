@@ -10,6 +10,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Kappa.BackEnd.Server.Patcher;
 using Kappa.Riot.Domain.JSON.lol_game_data;
+using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Assets {
     [Docs("group", "Assets")]
@@ -41,12 +42,12 @@ namespace Kappa.BackEnd.Server.Assets {
             //}.Select(l => l.ToLower()).ToArray();
 
             data = lolGameData.ContinueWith(t => {
-                MasteriesInfo = t.Result.ExtractJSON<MasteriesInfo>(GameDataAssets.Masteries);
-                RuneDetails = t.Result.ExtractJSON<Dictionary<string, RuneDetails>>(GameDataAssets.Runes).Values.ToList();
-                ItemDetails = t.Result.ExtractJSON<List<ItemDetails>>(GameDataAssets.Items);
+                MasteriesInfo = ExtractJSON<MasteriesInfo>(t.Result, GameDataAssets.Masteries);
+                RuneDetails = ExtractJSON<Dictionary<string, RuneDetails>>(t.Result, GameDataAssets.Runes).Values.ToList();
+                ItemDetails = ExtractJSON<List<ItemDetails>>(t.Result, GameDataAssets.Items);
 
-                SummonerSpells = t.Result.ExtractJSON<List<SummonerSpellDetails>>(GameDataAssets.SummonerSpells);
-                ChampionSummaries = t.Result.ExtractJSON<List<ChampionSummary>>(GameDataAssets.ChampionSummary);
+                SummonerSpells = ExtractJSON<List<SummonerSpellDetails>>(t.Result, GameDataAssets.SummonerSpells);
+                ChampionSummaries = ExtractJSON<List<ChampionSummary>>(t.Result, GameDataAssets.ChampionSummary);
 
                 /*
                                 var all = new Dictionary<ulong, WADArchive.WADFile>(t.Result.AllFiles);
@@ -153,6 +154,7 @@ namespace Kappa.BackEnd.Server.Assets {
             }
 
             #region lol-game-data
+
             if (!lolGameData.IsCompleted) {
                 context.Response.StatusCode = 500;
                 return true;
@@ -211,7 +213,9 @@ namespace Kappa.BackEnd.Server.Assets {
             }
 
             if (url == null) return false;
-            var file = lolGameData.Result.GetFile(url);
+            WADArchive.WADFile file;
+            if (!lolGameData.Result.TryGetFile(url, out file))
+                return false;
 
             context.Response.Headers.Add("Cache-Control", "max-age=31536000, public");
             context.Response.ContentType = GetMimeType(context.Request.Url.LocalPath);
@@ -261,7 +265,7 @@ namespace Kappa.BackEnd.Server.Assets {
 
         [Endpoint("/champion")]
         public async Task<ChampionDetails> GetChampionDetails(int id) {
-            return (await lolGameData).ExtractJSON<ChampionDetails>(GameDataAssets.ChampionDetails(id));
+            return ExtractJSON<ChampionDetails>(await lolGameData, locale => GameDataAssets.ChampionDetails(id, locale));
         }
 
         private async Task UpdateLoginAnimation() {
@@ -296,6 +300,18 @@ namespace Kappa.BackEnd.Server.Assets {
                     Session.Log($"Login animation up to date ({theme})");
                 }
             }
+        }
+
+        private static T ExtractJSON<T>(WADArchive archive, Func<string, string> path) {
+            WADArchive.WADFile file;
+
+            if (archive.TryGetFile(path(Region.Locale.ToLowerInvariant()), out file))
+                return JSONDeserializer.Deserialize<T>(JSONParser.Parse(archive.Extract(file)));
+
+            if (archive.TryGetFile(path(GameDataAssets.DefaultLocale), out file))
+                return JSONDeserializer.Deserialize<T>(JSONParser.Parse(archive.Extract(file)));
+
+            throw new KeyNotFoundException($"File {path(GameDataAssets.DefaultLocale)} not found");
         }
 
         private class Settings : BaseSettings {

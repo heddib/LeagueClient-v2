@@ -52,9 +52,9 @@ const iconTemplate = (
     </div>
 );
 
-let currentBook: MasteryBookDTO;
-let currentPage: MasteryBookPageDTO;
-let talents: { [id: number]: TalentEntry } = {};
+let currentBook: Domain.Masteries.MasteryBookDTO;
+let currentPage: Domain.Masteries.MasteryBookPageDTO;
+let talents: { [id: number]: Domain.Masteries.TalentEntry } = {};
 let callbacks: Function[] = [];
 
 let masteries: Masteries;
@@ -73,7 +73,7 @@ export function show(callback?: Function) {
     masteries.node.addClass('shown');
 }
 
-export function select(page: MasteryBookPageDTO) {
+export function select(page: Domain.Masteries.MasteryBookPageDTO) {
     currentBook.bookPages.forEach(b => b.current = false);
     page.current = true;
     Service.select(page);
@@ -105,7 +105,7 @@ class Masteries extends Module.default {
         });
     }
 
-    private onBook(book: MasteryBookDTO) {
+    private onBook(book: Domain.Masteries.MasteryBookDTO) {
         currentBook = book;
 
         for (var group of Assets.gamedata.masteries.tree.groups) {
@@ -115,7 +115,7 @@ class Masteries extends Module.default {
             this.createTree(group, $(node));
         }
 
-        let active: MasteryBookPageDTO;
+        let active: Domain.Masteries.MasteryBookPageDTO;
         for (let i = 0; i < currentBook.bookPages.length; i++) {
             let page = currentBook.bookPages[i];
             if (page.current)
@@ -137,7 +137,7 @@ class Masteries extends Module.default {
         }
     }
 
-    private renderPage(page?: MasteryBookPageDTO) {
+    private renderPage(page?: Domain.Masteries.MasteryBookPageDTO) {
         if (page) {
             select(page);
             currentPage = page;
@@ -171,7 +171,7 @@ class Masteries extends Module.default {
         }
     }
 
-    private onMasteryChange(info: GameData.Mastery, tree: GameData.MasteryGroup, row: number, delta: number) {
+    private onMasteryChange(info: Domain.GameData.Mastery, tree: Domain.GameData.MasteryGroup, row: number, delta: number) {
         let entry = talents[info.id];
         let changed = (entry ? entry.rank : 0) + delta;
 
@@ -209,7 +209,7 @@ class Masteries extends Module.default {
             if (count >= 30) return;
         }
 
-        talents[info.id] = { rank: changed, talentId: info.id } as TalentEntry;
+        talents[info.id] = { rank: changed, talentId: info.id } as Domain.Masteries.TalentEntry;
 
         this.renderPage();
     }
@@ -239,7 +239,7 @@ class Masteries extends Module.default {
             callbacks.shift()();
     }
 
-    private createTree(src: GameData.MasteryGroup, dst: Swish) {
+    private createTree(src: Domain.GameData.MasteryGroup, dst: Swish) {
         for (let y = 0; y < src.rows.length; y++) {
             let row = Module.default.create(rowTemplate);
             row.node.setClass(src.rows[y].maxPointsInRow == 1, 'single');

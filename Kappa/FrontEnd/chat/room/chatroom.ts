@@ -7,8 +7,8 @@ const html = Module.import('chat/room');
 
 export default class ChatRoom extends Module {
     private room: string;
-    private list: MucFriend[] = [];
-    private messages: MucMessage[] = [];
+    private list: Domain.MucFriend[] = [];
+    private messages: Domain.MucMessage[] = [];
 
     public constructor(id: string) {
         super(html);
@@ -32,21 +32,21 @@ export default class ChatRoom extends Module {
         super.dispose();
     }
 
-    private onJoin(user: MucFriend) {
+    private onJoin(user: Domain.MucFriend) {
         var node = this.template('lobby-message', {
             body: user.name + ' joined'
         });
         this.append(node);
     }
 
-    private onLeave(user: MucFriend) {
+    private onLeave(user: Domain.MucFriend) {
         var node = this.template('lobby-message', {
             body: user.name + ' left'
         });
         this.append(node);
     }
 
-    private onMessage(msg: MucMessage) {
+    private onMessage(msg: Domain.MucMessage) {
         var node = this.template('message', msg);
         this.append(node);
     }

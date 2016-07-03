@@ -3,11 +3,9 @@ using Kappa.Riot.Domain;
 using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Collection.Model {
-    public class ChampionInventory : JSONSerializable {
-        [JSONField("owned")]
+    [JSONSerializable]
+    public class ChampionInventory {
         public List<int> Owned { get; set; } = new List<int>();
-
-        [JSONField("free")]
         public List<int> Free { get; set; } = new List<int>();
 
         public ChampionInventory(IEnumerable<ChampionDTO> src) {

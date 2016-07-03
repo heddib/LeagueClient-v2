@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -18,7 +19,7 @@ namespace Kappa.BackEnd.Server.Patcher {
 
             var req = WebRequest.CreateHttp(region.ReleaseManifest(name, version));
             using (var res = req.GetResponse())
-            using (var file = File.OpenWrite(local)) {
+            using (var file = File.Create(local)) {
                 res.GetResponseStream().CopyTo(file);
             }
 

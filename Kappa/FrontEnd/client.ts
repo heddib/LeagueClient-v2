@@ -24,6 +24,10 @@ window.addEventListener('load', () => {
 
     $('#exit-button').on('mouseup', e => Kappa.close());
     $('#min-button').on('mouseup', e => Kappa.minimize());
+
+    $(document.body).on('contextmenu', e => {
+        e.preventDefault();
+    });
 });
 
 let module: Module;
@@ -52,7 +56,6 @@ function onPatched() {
 }
 
 function onAuthed(accountState) {
-    console.log('authed');
     var page = new Landing(accountState);
 
     show(page);

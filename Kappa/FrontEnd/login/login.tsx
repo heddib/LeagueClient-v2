@@ -7,7 +7,27 @@ import * as Service from './service';
 
 import Account      from './account/account';
 
-const html = Module.import('login');
+const template = (
+    <module id="login">
+        <img data-ref="image" id="login-img"/>
+        <video data-ref="video" id="login-video" autoplay loop></video>
+        <div data-ref="accountlist" id="login-accounts"></div>
+        <div data-ref="form" id="login-form">
+            <div id="login-username">
+                <div>Username: </div>
+                <input data-ref="username" data-event="keydown:onKeyDown" type="text" />
+            </div>
+            <div id="login-password">
+                <div>Password: </div>
+                <input data-ref="password" data-event="keydown:onKeyDown" type="password" />
+            </div>
+            <div id="login-submit">
+                <button data-ref="submitbutt" data-event="click:onSubmitClick" type="button">Login</button>
+            </div>
+            <div data-ref="loader" id="loader"></div>
+        </div>
+    </module>
+);
 
 export default class Page extends Module {
     private authHandlers: Function[] = [];
@@ -15,11 +35,11 @@ export default class Page extends Module {
 
     private accounts: Account[] = [];
 
-    public auth = this.create<{}>();
-    public load = this.create<{}>();
+    public auth = this.create<any>();
+    public load = this.create<any>();
 
     public constructor() {
-        super(html);
+        super(template);
 
         this.refs.password.focus();
 

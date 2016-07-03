@@ -37,14 +37,28 @@ namespace Kappa.BackEnd {
             }.Start();
         }
 
-        internal Process LaunchGameClient(PlayerCredentialsDto creds) {
-            string str = $"{creds.ServerIp} {creds.ServerPort} {creds.EncryptionKey} {creds.SummonerId}";
+        private Process Launch(string args) {
             var info = new ProcessStartInfo {
                 FileName = patcher.ExecutablePath,
-                Arguments = $"\"{MaestroPort}\" \"LoLPatcher.exe\" \"\" \"{str}\"",
+                Arguments = $"\"{MaestroPort}\" \"LoLPatcher.exe\" \"\" \"{args}\"",
                 WorkingDirectory = Path.GetDirectoryName(patcher.ExecutablePath)
             };
             return Process.Start(info);
+        }
+
+        internal Process JoinGame(PlayerCredentialsDto creds) {
+            string str = $"{creds.ServerIp} {creds.ServerPort} {creds.EncryptionKey} {creds.SummonerId}";
+            return Launch(str);
+        }
+
+        internal Process ReplayGame(string host, int port, string key, long gameId) {
+            string str = $"replay {host}:{port} {key} {gameId} NA1";
+            return Launch(str);
+        }
+
+        internal Process SpectateGame(string host, int port, string key, long gameId) {
+            string str = $"spectator {host}:{port} {key} {gameId} NA1";
+            return Launch(str);
         }
 
         private void ConnectLoop() {

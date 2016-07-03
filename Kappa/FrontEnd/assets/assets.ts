@@ -47,14 +47,14 @@ Service.info().then(i => info = i);
         new Queue('ONEFORALL_5x5', 70, 'One for All'),
         new Queue('FIRSTBLOOD_1x1', 72, 'Snowdown Showdown'),
         new Queue('FIRSTBLOOD_2x2', 73, 'Snowdown Showdown'),
-        new Queue('SR_6x6', 75, 'Summoner\'s Rift Hexakill'),
+        new Queue('SR_6x6', 75, 'Hexakill'),
         new Queue('URF_5x5', 76, 'URF'),
         new Queue('BOT_URF_5x5', 83, 'URF Co-op vs AI'),
         new Queue('NIGHTMARE_BOT_5x5_RANK1', 91, 'Doom Bots Rank 1'),
         new Queue('NIGHTMARE_BOT_5x5_RANK2', 92, 'Doom Bots Rank 2'),
         new Queue('NIGHTMARE_BOT_5x5_RANK5', 93, 'Doom Bots Rank 5'),
         new Queue('ASCENSION_5x5', 96, 'Ascension'),
-        new Queue('HEXAKILL', 98, 'Twisted Treeline Hexakill'),
+        new Queue('HEXAKILL', 98, 'Hexakill'),
         new Queue('BILGEWATER_ARAM_5x5', 100, 'Butcher\'s Bridge ARAM'),
         new Queue('KING_PORO_5x5', 300, 'King Poro'),
         new Queue('COUNTER_PICK', 310, 'Nemesis Draft'),
@@ -71,11 +71,11 @@ Service.info().then(i => info = i);
 }
 
 export const gamedata: {
-    masteries: GameData.MasteriesInfo,
-    runes: GameData.RuneDetails[],
-    items: GameData.ItemDetails[],
-    champions: GameData.ChampionSummary[]
-    summoners: GameData.SummonerSpellDetails[]
+    masteries: Domain.GameData.MasteriesInfo,
+    runes: Domain.GameData.RuneDetails[],
+    items: Domain.GameData.ItemDetails[],
+    champions: Domain.GameData.ChampionSummary[]
+    summoners: Domain.GameData.SummonerSpellDetails[]
 } = <any>{};
 
 Service.masteries().then(m => gamedata.masteries = m);

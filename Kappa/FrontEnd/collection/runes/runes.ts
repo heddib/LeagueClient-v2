@@ -4,9 +4,8 @@ import * as Assets   from './../../assets/assets';
 
 import * as Service  from './service';
 
-let currentBook: SpellBookDTO;
-let currentPage: SpellBookPageDTO;
-let talents: { [id: number]: TalentEntry } = {};
+let currentBook: Domain.Runes.SpellBookDTO;
+let currentPage: Domain.Runes.SpellBookPageDTO;
 let callbacks: Function[] = [];
 
 let root: Swish, popup: Swish;
@@ -50,7 +49,7 @@ export function show(callback?: Function) {
     popup.addClass('shown');
 }
 
-export function select(page: SpellBookPageDTO) {
+export function select(page: Domain.Runes.SpellBookPageDTO) {
     currentBook.bookPages.forEach(b => b.current = false);
     page.current = true;
     Service.select(page);

@@ -30,8 +30,8 @@ export default class ChampSelect extends Module {
 
     private room: ChatRoom;
 
-    private masteries: { [id: number]: MasteryBookPageDTO } = {};
-    private runes: { [id: number]: SpellBookPageDTO } = {};
+    private masteries: { [id: number]: Domain.Masteries.MasteryBookPageDTO } = {};
+    private runes: { [id: number]: Domain.Runes.SpellBookPageDTO } = {};
     private champs: { [id: number]: Swish } = {};
 
     private doDispose = true;
@@ -154,11 +154,11 @@ export default class ChampSelect extends Module {
     private alliedPlayers: Player[] = [];
     private enemyPlayers: Player[] = [];
 
-    private lastState: ChampSelectState;
+    private lastState: Domain.ChampSelectState;
     private taken: number[];
-    private skins: { [id: number]: Skin[] };
+    private skins: { [id: number]: Domain.Skin[] };
 
-    private onState(state: ChampSelectState) {
+    private onState(state: Domain.ChampSelectState) {
         if (!state.allies) return;
 
         if (!this.music) {
@@ -332,11 +332,11 @@ export default class ChampSelect extends Module {
         this.refs.spell2.src = Assets.summoner.spell(spell2);
     }
 
-    private drawSkins(me: GameMember) {
+    private drawSkins(me: Domain.GameMember) {
         let canRoll = me.reroll && me.reroll.points >= me.reroll.cost;
         this.refs.reroll.setClass(!canRoll, 'hidden');
 
-        let callback = (map: { [id: number]: Skin[] }) => {
+        let callback = (map: { [id: number]: Domain.Skin[] }) => {
             let skins = map[me.champion];
             let init = !skins.any(s => s.id % 1000 == 0);
 

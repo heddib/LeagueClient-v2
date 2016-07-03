@@ -2,11 +2,9 @@
 using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Collection.Model {
-    public class Skin : JSONSerializable {
-        [JSONField("id")]
+    [JSONSerializable]
+    public class Skin {
         public int Id { get; set; }
-
-        [JSONField("selected")]
         public bool Selected { get; set; }
 
         public Skin(ChampionSkinDTO skin) {

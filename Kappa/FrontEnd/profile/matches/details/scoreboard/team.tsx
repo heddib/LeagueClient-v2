@@ -52,7 +52,7 @@ const WinStrings = {
 };
 
 export default class MatchScoreboardTeam extends Module {
-    public constructor(team: MatchHistory.Team, players: MatchHistory.Participant[], idents: MatchHistory.ParticipantIdentity[]) {
+    public constructor(team: Domain.MatchHistory.Team, players: Domain.MatchHistory.Participant[], idents: Domain.MatchHistory.ParticipantIdentity[]) {
         super(template);
 
         this.refs.result.text = WinStrings[team.win];

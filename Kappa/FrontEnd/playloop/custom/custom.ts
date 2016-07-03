@@ -42,7 +42,7 @@ export default class CustomLobby extends Module {
             this.invite.stop();
     }
 
-    private onState(state: CustomState) {
+    private onState(state: Domain.CustomState) {
         if (!state.owner) return;
 
         var one = this.$('#team-one');
@@ -82,7 +82,7 @@ export default class CustomLobby extends Module {
         }
     }
 
-    private drawMember(member: LobbyMember, team) {
+    private drawMember(member: Domain.LobbyMember, team) {
         let node = this.template('customlobbymember', {
             id: member.id,
             name: member.name,

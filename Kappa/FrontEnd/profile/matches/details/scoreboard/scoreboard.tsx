@@ -11,11 +11,11 @@ var template = (
 );
 
 export default class MatchScoreboard extends Module {
-    public constructor(details: MatchHistory.MatchDetails) {
+    public constructor(details: Domain.MatchHistory.MatchDetails) {
         super(template);
 
-        let isBlue = (t: MatchHistory.Participant | MatchHistory.Team) => t.teamId == 100;
-        let isRed = (t: MatchHistory.Participant | MatchHistory.Team) => t.teamId == 200;
+        let isBlue = (t: Domain.MatchHistory.Participant | Domain.MatchHistory.Team) => t.teamId == 100;
+        let isRed = (t: Domain.MatchHistory.Participant | Domain.MatchHistory.Team) => t.teamId == 200;
 
         var blue = new Team(details.teams.first(isBlue), details.participants.where(isBlue), details.participantIdentities);
         var red = new Team(details.teams.first(isRed), details.participants.where(isRed), details.participantIdentities);

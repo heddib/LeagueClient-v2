@@ -25,7 +25,7 @@ var template = (
 export default class MatchDetails extends Module {
     private tabChange: (index: number) => void;
 
-    public constructor(details: MatchHistory.MatchDetails) {
+    public constructor(details: Domain.MatchHistory.MatchDetails) {
         super(template);
 
         let tabs = []

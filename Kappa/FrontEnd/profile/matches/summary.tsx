@@ -73,7 +73,7 @@ var template = (
 export default class MatchSummary extends Module {
     public selected = this.create<any>();
 
-    public constructor(game: MatchHistory.MatchDetails, delta: MatchHistory.GameDeltaInfo) {
+    public constructor(game: Domain.MatchHistory.MatchDetails, delta: Domain.MatchHistory.GameDeltaInfo) {
         super(template);
 
         Summoner.me.single(me => {

@@ -36,11 +36,11 @@ namespace Kappa.BackEnd.Server.Collection {
                 var item = items[loot.LootName];
                 switch (item.Type) {
                 case LootItemType.CHAMPION:
-                    inventory.Champions.Add(item.StoreItemId, loot.Count);
+                    inventory.Champs.Add(item.StoreItemId, loot.Count);
                     break;
 
                 case LootItemType.CHAMPION_RENTAL:
-                    inventory.ChampionShards.Add(item.StoreItemId, loot.Count);
+                    inventory.ChampShards.Add(item.StoreItemId, loot.Count);
                     break;
 
                 case LootItemType.SKIN:

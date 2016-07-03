@@ -51,8 +51,8 @@ namespace Kappa.BackEnd.Server.Game {
             if (search.JoinedQueues.Count > 0) {
                 queueStart = DateTime.Now;
                 state = new Model.MatchmakingState {
-                    EstimatedDuration = search.JoinedQueues.First().WaitTime,
-                    ActualDuration = state?.ActualDuration ?? 0,
+                    Estimate = search.JoinedQueues.First().WaitTime,
+                    Actual = state?.Actual ?? 0,
                 };
                 OnStateChanged();
             }
@@ -76,7 +76,7 @@ namespace Kappa.BackEnd.Server.Game {
             case GameState.JOINING_CHAMP_SELECT:
                 if (changed) {
                     afkCheckEnd = DateTime.Now.AddSeconds(data.JoinTimerDuration);
-                    state.ActualDuration += (long) (DateTime.Now - queueStart).TotalMilliseconds;
+                    state.Actual += (long) (DateTime.Now - queueStart).TotalMilliseconds;
                 }
 
                 state.AfkCheck = new AfkCheck {
@@ -122,8 +122,8 @@ namespace Kappa.BackEnd.Server.Game {
                 break;
             case Phase.MATCHMAKING:
                 state = new Model.MatchmakingState {
-                    ActualDuration = draftData.MatchmakingState.TimeInMatchmaking,
-                    EstimatedDuration = draftData.MatchmakingState.EstimatedMatchmakingTime
+                    Actual = draftData.MatchmakingState.TimeInMatchmaking,
+                    Estimate = draftData.MatchmakingState.EstimatedMatchmakingTime
                 };
                 OnStateChanged();
                 break;
