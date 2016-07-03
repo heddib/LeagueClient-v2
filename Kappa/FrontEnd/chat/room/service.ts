@@ -15,9 +15,9 @@ Kappa.subscribe(service + '/message', msg => {
     events.dispatch(message, msg);
 });
 
-export const join = events.create<Domain.MucFriend>();
-export const leave = events.create<Domain.MucFriend>();
-export const message = events.create<Domain.MucMessage>();
+export const join = events.create<Domain.Chat.MucFriend>();
+export const leave = events.create<Domain.Chat.MucFriend>();
+export const message = events.create<Domain.Chat.MucMessage>();
 
 export function send(room: string, msg: string) {
     return Kappa.invoke(service + '/message', [room, msg]);

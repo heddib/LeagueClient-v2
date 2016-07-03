@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Kappa.BackEnd;
 using MFroehlich.League.RiotAPI;
 using MFroehlich.Parsing.JSON;
-using Kappa.Riot.Domain.JSON;
+using Kappa.Riot.Domain.JSON.MatchHistory;
 
 namespace Kappa.Riot.Services.Http {
     public class MatchHistoryService {

@@ -70,7 +70,7 @@ export default class Lobby extends Module {
         }
     }
 
-    private onLobbyState(state: Domain.LobbyState) {
+    private onLobbyState(state: Domain.Game.LobbyState) {
         if (!state.members) return;
 
         if (!this.room && state.chatroom != guid.empty) {
@@ -88,12 +88,12 @@ export default class Lobby extends Module {
         var start = new Date();
         for (let i = 0; i < state.members.length; i++) {
             Summoner.get(state.members[i].name).then(s => {
-                this.renderSlot(state.members[i], state.members.length, state.me, s.profileIconId)
+                this.renderSlot(state.members[i], state.members.length, state.me, s.icon)
             });
         }
     }
 
-    private onMatchmakingState(state: Domain.MatchmakingState) {
+    private onMatchmakingState(state: Domain.Game.MatchmakingState) {
         if (state.afkCheck) {
             if (this.$('#afk-check').css('display')) {
                 Audio.effect('lobby', 'pop');
@@ -135,7 +135,7 @@ export default class Lobby extends Module {
         this.$('#chat-area').add(this.chatRoom.node);
     }
 
-    private renderSlot(member: Domain.LobbyMember, lobbySize: number, me: Domain.LobbyMember, icon: number) {
+    private renderSlot(member: Domain.Game.LobbyMember, lobbySize: number, me: Domain.Game.LobbyMember, icon: number) {
         var data = {
             id: member.id,
             // class: mySlot == slot.slotId ? 'me' : 'friend',

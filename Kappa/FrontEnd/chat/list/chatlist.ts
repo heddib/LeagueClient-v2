@@ -112,7 +112,7 @@ export default class ChatList extends Module implements IInviteProvider {
         }
     }
 
-    private onMessage(user, msg: Domain.ChatMessage) {
+    private onMessage(user, msg: Domain.Chat.ChatMessage) {
         this.chatHistories[user].push(msg);
 
         if (msg.received && !msg.archived) {

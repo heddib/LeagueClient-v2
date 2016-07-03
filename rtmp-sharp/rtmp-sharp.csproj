@@ -7,7 +7,7 @@
     <ProjectGuid>{E787B02C-5050-43CF-B4C1-AAA1CB1C6BC6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>rtmp_sharp</RootNamespace>
+    <RootNamespace>RtmpSharp</RootNamespace>
     <AssemblyName>rtmp-sharp</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Kappa.BackEnd.Server.Collection.Model;
 using Kappa.Riot.Domain.ChampionMastery;

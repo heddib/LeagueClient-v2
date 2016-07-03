@@ -5,9 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Runtime.InteropServices;
 using System.Text;
-using Kappa.BackEnd.Server.Assets;
 using MFroehlich.Parsing;
-using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Patcher {
     public class WADArchive {

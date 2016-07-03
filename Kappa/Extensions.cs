@@ -7,9 +7,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using Kappa.BackEnd;
-using Kappa.BackEnd.Server.Patcher;
-using MFroehlich.Parsing.JSON;
 
 namespace Kappa {
     public static class Extensions {

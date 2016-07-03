@@ -13,7 +13,6 @@ namespace Kappa.BackEnd.Server.Game.Model {
 
         public AvailableQueue() { }
         public AvailableQueue(GameQueueConfig config) {
-            Debug.WriteLine($"{config.CacheName}: {config.GameTypeConfigId}");
             this.config = config;
         }
     }

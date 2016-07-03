@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Kappa.Riot.Domain;
-using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Replay {
     public class ReplayService : JSONService {
         private List<long> saved = new List<long>();
         private string directory;
+
         private Session session;
         private SpectatorService spectator;
 
@@ -38,8 +33,6 @@ namespace Kappa.BackEnd.Server.Replay {
         }
 
         private bool OnPlayerCredentials(PlayerCredentialsDto creds) {
-            var json = JSONSerializer.Serialize(creds);
-            Debug.WriteLine(JSON.Stringify(json));
             return true;
         }
 

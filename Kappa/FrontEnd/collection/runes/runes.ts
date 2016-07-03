@@ -4,8 +4,8 @@ import * as Assets   from './../../assets/assets';
 
 import * as Service  from './service';
 
-let currentBook: Domain.Runes.SpellBookDTO;
-let currentPage: Domain.Runes.SpellBookPageDTO;
+let currentBook: Domain.Collection.RuneBook;
+let currentPage: Domain.Collection.RunePage;
 let callbacks: Function[] = [];
 
 let root: Swish, popup: Swish;
@@ -40,8 +40,12 @@ Defer.auth(() => {
     })
 });
 
+export function selected() {
+    return currentBook.selected;
+}
+
 export function list() {
-    return currentBook.bookPages;
+    return currentBook.pages;
 }
 
 export function show(callback?: Function) {
@@ -49,9 +53,9 @@ export function show(callback?: Function) {
     popup.addClass('shown');
 }
 
-export function select(page: Domain.Runes.SpellBookPageDTO) {
-    currentBook.bookPages.forEach(b => b.current = false);
-    page.current = true;
+export function select(page: Domain.Collection.RunePage) {
+    currentBook.selected = page.id;
+
     Service.select(page);
 }
 /*

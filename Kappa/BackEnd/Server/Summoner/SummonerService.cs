@@ -52,9 +52,9 @@ namespace Kappa.BackEnd.Server.Summoner {
         }
 
         [Endpoint("/get")]
-        public async Task<PublicSummoner> GetSummoner(string name) {
+        public async Task<Model.SummonerSummary> GetSummoner(string name) {
             var summ = await this.session.SummonerService.GetSummonerByName(name);
-            return summ;
+            return new Model.SummonerSummary(summ);
         }
 
         [Endpoint("/kudos")]

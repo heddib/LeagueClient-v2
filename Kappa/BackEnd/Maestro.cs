@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -8,9 +6,7 @@ using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Xml;
-using Kappa.BackEnd.Server;
 using Kappa.BackEnd.Server.Chat;
 using Kappa.BackEnd.Server.Patcher;
 using Kappa.Riot.Domain;
@@ -148,6 +144,7 @@ namespace Kappa.BackEnd {
             }
         }
 
+        // ReSharper disable UnusedMember.Local
         private enum MaestroMessageType {
             EXIT = 3,
             ACK = 5,
@@ -161,5 +158,6 @@ namespace Kappa.BackEnd {
             CHATMESSAGE_TO_GAME = 11,
             CHATMESSAGE_FROM_GAME = 12,
         }
+        // ReSharper restore UnusedMember.Local
     }
 }

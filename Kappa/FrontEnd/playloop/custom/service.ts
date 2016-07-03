@@ -3,7 +3,7 @@ const service = '/playloop/custom';
 
 var events = new EventModule();
 
-export const state = new AsyncValue<Domain.CustomState>();
+export const state = new AsyncValue<Domain.Game.CustomState>();
 export const champselect = events.create<{}>();
 
 Kappa.subscribe(service + '/state', s => {

@@ -6,7 +6,7 @@ import * as Service   from './service';
 const html = Module.import('collection/hextech');
 
 export default class HextechPage extends Module {
-    private inventory: Domain.HextechInventory;
+    private inventory: Domain.Collection.HextechInventory;
 
     public constructor() {
         super(html);

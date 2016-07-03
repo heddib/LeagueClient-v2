@@ -42,7 +42,7 @@ export default class CustomLobby extends Module {
             this.invite.stop();
     }
 
-    private onState(state: Domain.CustomState) {
+    private onState(state: Domain.Game.CustomState) {
         if (!state.owner) return;
 
         var one = this.$('#team-one');
@@ -82,7 +82,7 @@ export default class CustomLobby extends Module {
         }
     }
 
-    private drawMember(member: Domain.LobbyMember, team) {
+    private drawMember(member: Domain.Game.LobbyMember, team) {
         let node = this.template('customlobbymember', {
             id: member.id,
             name: member.name,
@@ -91,7 +91,7 @@ export default class CustomLobby extends Module {
             node.$('.icon').src = Assets.champion.icon(member.champ)
         } else {
             Summoner.get(member.name).then(s => {
-                node.$('.icon').src = Assets.summoner.icon(s.profileIconId)
+                node.$('.icon').src = Assets.summoner.icon(s.icon)
             });
         }
 

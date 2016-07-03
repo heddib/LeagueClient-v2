@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading;
-using Kappa.Http;
+using Kappa.Util;
 using MFroehlich.Parsing;
 using MFroehlich.Parsing.JSON;
 
@@ -88,7 +88,9 @@ namespace Kappa.BackEnd.Server.Replay {
                             using (var chunk = GetChunk(gameId, i)) {
                                 var pos = new Position();
                                 pos.Offset = tmp.Position;
+
                                 chunk.CopyTo(tmp);
+
                                 pos.Length = tmp.Position - pos.Offset;
                                 chunks.Add(pos);
                             }
@@ -105,7 +107,9 @@ namespace Kappa.BackEnd.Server.Replay {
                             using (var frame = GetKeyframe(gameId, i)) {
                                 var pos = new Position();
                                 pos.Offset = tmp.Position;
+
                                 frame.CopyTo(tmp);
+
                                 pos.Length = tmp.Position - pos.Offset;
                                 frames.Add(pos);
                             }

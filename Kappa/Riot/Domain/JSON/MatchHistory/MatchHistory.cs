@@ -1,12 +1,8 @@
-﻿using MFroehlich.League.RiotAPI;
+﻿using System.Collections.Generic;
+using MFroehlich.League.RiotAPI;
 using MFroehlich.Parsing.JSON;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Kappa.Riot.Domain.JSON {
+namespace Kappa.Riot.Domain.JSON.MatchHistory {
     public class PlayerDeltas : JSONSerializable {
         [JSONField("originalAccountId")]
         public long OriginalAccountId { get; set; }

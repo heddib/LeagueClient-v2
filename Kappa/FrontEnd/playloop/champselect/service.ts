@@ -3,7 +3,7 @@ const service = '/playloop/champselect';
 
 var events = new EventModule();
 
-export const state = new AsyncValue<Domain.ChampSelectState>();
+export const state = new AsyncValue<Domain.Game.ChampSelectState>();
 export const start = events.create<{}>();
 export const returnToLobby = events.create<{}>();
 export const returnToQueue = events.create<{}>();

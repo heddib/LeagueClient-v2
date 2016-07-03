@@ -63,7 +63,7 @@ export class Control extends Module {
         this.refs.game.text = Assets.getQueueType(invite.game.queue).display;
 
         Summoner.get(invite.from.name).then(s => {
-            this.node.$('.icon').src = Assets.summoner.icon(s.profileIconId)
+            this.node.$('.icon').src = Assets.summoner.icon(s.icon);
         });
 
         this.refs.deny.on('mouseup', e => decline(invite));

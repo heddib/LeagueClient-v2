@@ -30,8 +30,8 @@ export default class ChampSelect extends Module {
 
     private room: ChatRoom;
 
-    private masteries: { [id: number]: Domain.Masteries.MasteryBookPageDTO } = {};
-    private runes: { [id: number]: Domain.Runes.SpellBookPageDTO } = {};
+    private masteries: { [id: number]: Domain.Collection.MasteryPage } = {};
+    private runes: { [id: number]: Domain.Collection.RunePage } = {};
     private champs: { [id: number]: Swish } = {};
 
     private doDispose = true;
@@ -123,14 +123,14 @@ export default class ChampSelect extends Module {
 
         while (select.options.length > 0) select.remove(0);
         for (let i = 0; i < masteries.length; i++) {
-            this.masteries[masteries[i].pageId] = masteries[i];
+            this.masteries[masteries[i].id] = masteries[i];
 
             let option = document.createElement('option');
-
-            option.value = masteries[i].pageId.toString();
+            option.value = masteries[i].id.toString();
             option.text = masteries[i].name;
             select.add(option);
-            if (masteries[i].current)
+
+            if (masteries[i].id == Masteries.selected())
                 select.selectedIndex = i;
         }
 
@@ -139,14 +139,14 @@ export default class ChampSelect extends Module {
 
         while (select.options.length > 0) select.remove(0);
         for (let i = 0; i < runes.length; i++) {
-            this.runes[runes[i].pageId] = runes[i];
+            this.runes[runes[i].id] = runes[i];
 
             let option = document.createElement('option');
 
-            option.value = runes[i].pageId.toString();
+            option.value = runes[i].id.toString();
             option.text = runes[i].name;
             select.add(option);
-            if (runes[i].current)
+            if (runes[i].id == Runes.selected())
                 select.selectedIndex = i;
         }
     }
@@ -154,11 +154,11 @@ export default class ChampSelect extends Module {
     private alliedPlayers: Player[] = [];
     private enemyPlayers: Player[] = [];
 
-    private lastState: Domain.ChampSelectState;
+    private lastState: Domain.Game.ChampSelectState;
     private taken: number[];
-    private skins: { [id: number]: Domain.Skin[] };
+    private skins: { [id: number]: Domain.Collection.Skin[] };
 
-    private onState(state: Domain.ChampSelectState) {
+    private onState(state: Domain.Game.ChampSelectState) {
         if (!state.allies) return;
 
         if (!this.music) {
@@ -332,11 +332,11 @@ export default class ChampSelect extends Module {
         this.refs.spell2.src = Assets.summoner.spell(spell2);
     }
 
-    private drawSkins(me: Domain.GameMember) {
+    private drawSkins(me: Domain.Game.GameMember) {
         let canRoll = me.reroll && me.reroll.points >= me.reroll.cost;
         this.refs.reroll.setClass(!canRoll, 'hidden');
 
-        let callback = (map: { [id: number]: Domain.Skin[] }) => {
+        let callback = (map: { [id: number]: Domain.Collection.Skin[] }) => {
             let skins = map[me.champion];
             let init = !skins.any(s => s.id % 1000 == 0);
 

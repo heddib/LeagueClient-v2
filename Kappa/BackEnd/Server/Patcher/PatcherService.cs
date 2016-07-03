@@ -49,9 +49,9 @@ namespace Kappa.BackEnd.Server.Patcher {
         public async void OnInitialized() {
             new Thread(PatchWAD) { Name = "WAD Patcher", IsBackground = true }.Start();
 
-
             gameState = new PatcherState { Phase = PatcherPhase.PATCHING };
             launcherState = new PatcherState { Phase = PatcherPhase.PATCHING };
+
             try {
                 await PatchGame(Region.Current, Region.Locale);
             } catch (Exception x) {
@@ -59,6 +59,7 @@ namespace Kappa.BackEnd.Server.Patcher {
                 Directory.Delete(RADS, true);
                 await PatchGame(Region.Current, Region.Locale);
             }
+
             gameState.Phase = PatcherPhase.NONE;
             Debug.WriteLine("Patching completed");
         }
@@ -101,7 +102,7 @@ namespace Kappa.BackEnd.Server.Patcher {
 
                                     break;
                                 } catch (ZipException) {
-                                    Session.Log($"{wad.Name} WAD download failed, trying again...");
+                                    Session.Log($"{wad.Name} wad download failed, trying again...");
                                 }
                             }
 
@@ -109,7 +110,7 @@ namespace Kappa.BackEnd.Server.Patcher {
                             settings.Save();
                         }
 
-                        Session.Log($"Loaded WAD {wad.Name} v{latest}");
+                        Session.Log($"Loaded wad {wad.Name} v{latest}");
                         wad.Supply(new WADArchive(localFile));
                     }
                 } catch (InvalidOperationException) {
@@ -144,8 +145,6 @@ namespace Kappa.BackEnd.Server.Patcher {
 
                 File.WriteAllText(Path.Combine(gameTarget, "solutionmanifest"), rawManifest);
             }
-
-            //if (File.Exists(Path.Combine(gameTarget, "S_OK"))) return;
 
             int index = manifest.IndexOf(locale.ToLower());
             int count = int.Parse(manifest[index + 2]);

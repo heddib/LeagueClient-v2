@@ -1,5 +1,5 @@
-﻿using System.Text;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Text;
 using MFroehlich.Parsing.JSON;
 using RtmpSharp.IO.AMF3;
 

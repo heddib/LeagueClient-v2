@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Kappa.Riot.Domain.JSON;
+﻿using System.Threading.Tasks;
+using Kappa.Riot.Domain.JSON.MatchHistory;
 
 namespace Kappa.BackEnd.Server.Profile {
     [Docs("group", "Profile")]

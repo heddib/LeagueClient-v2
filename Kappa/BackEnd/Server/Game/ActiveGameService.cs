@@ -1,13 +1,10 @@
 ﻿using Kappa.Riot.Domain;
-using MFroehlich.Parsing.JSON;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Kappa.BackEnd.Server.Game.Model;
 using Kappa.BackEnd.Server.Patcher;
-using Kappa.Riot.Domain.JSON;
 using Kappa.Riot.Services.Http;
 
 namespace Kappa.BackEnd.Server.Game {
@@ -118,6 +115,7 @@ namespace Kappa.BackEnd.Server.Game {
                     var inProgress = await Check();
                     if (inProgress?.PlayerCredentials == null) {
                         await Task.Delay(500);
+                        continue;
                     }
 
                     process = session.Maestro.JoinGame(inProgress.PlayerCredentials);

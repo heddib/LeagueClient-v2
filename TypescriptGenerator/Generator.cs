@@ -6,11 +6,55 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Kappa.BackEnd;
 using MFroehlich.League.DataDragon;
 
 namespace TypescriptGenerator {
-    public class Generator {
+    public class Generator : IDisposable {
+        private const int IndentSize = 4;
+
+        private StringBuilder build = new StringBuilder();
+        private TextWriter writer;
+
+        private int indent;
+
+        public Generator(string path, string space = null) {
+            writer = File.CreateText(path);
+
+            if (space != null) {
+                Start($"namespace {space}");
+                indent = IndentSize;
+            }
+        }
+
+        public void WriteField(string name, string type) {
+            WriteLine($"{name}: {type};");
+        }
+
+        public void Start(string name) {
+            WriteLine($"{name} {{");
+            indent += IndentSize;
+        }
+
+        public void Stop() {
+            indent -= IndentSize;
+            WriteLine("}");
+        }
+
+        private void WriteLine(string line) {
+            build.Clear();
+            build.Append(' ', indent);
+
+            writer.Write(build);
+            writer.WriteLine(line);
+        }
+
+        public void Dispose() {
+            while (indent > 0) Stop();
+            writer.Dispose();
+        }
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -29,56 +73,65 @@ namespace TypescriptGenerator {
             //}
             //return;
 
-            Generate(typeof(Session).Assembly, "", "test.ts");
+            var ass = typeof(Session).Assembly;
+            var filename = Path.Combine(@"C:\Users\Max\Desktop", "test2.ts");
+
+            using (var generator = new Generator(filename, "Domain")) {
+                var namespaces = from t in ass.GetTypes()
+                                 where t.Namespace != null
+                                 where t.Namespace.Contains("Model")
+                                 let name = t.Namespace.Split('.')[3]
+                                 group t by name into space
+                                 orderby space.Key
+                                 select space;
+
+                foreach (var space in namespaces) {
+                    Generate(generator, space.Key, space);
+                }
+
+                var gamedata = ass.GetTypes().Where(t => t.Namespace == "Kappa.Riot.Domain.JSON.lol_game_data");
+                Generate(generator, "GameData", gamedata);
+
+                var history = ass.GetTypes().Where(t => t.Namespace == "Kappa.Riot.Domain.JSON.MatchHistory");
+                Generate(generator, "MatchHistory", history);
+            }
         }
 
-        private static void Generate(Assembly ass, string space, string fileName) {
-            using (var raw = File.OpenWrite(Path.Combine(@"C:\Users\Max\Desktop", fileName)))
-            using (var file = new StreamWriter(raw)) {
-                foreach (var type in ass.GetTypes()) {
-                    if (type.IsSubclassOf(typeof(BaseSettings))) continue;
-                    if (!type.Namespace?.Contains(space) ?? false) continue;
+        private static void Generate(Generator file, string space, IEnumerable<Type> types) {
+            file.Start($"export namespace {space}");
 
-                    var jsonAtt = type.GetCustomAttribute<JSONSerializableAttribute>();
+            foreach (var type in types.OrderBy(t => t.Name)) {
+                if (type.IsSubclassOf(typeof(BaseSettings))) continue;
 
-                    if (type.IsEnum) {
+                var jsonAtt = type.GetCustomAttribute<JSONSerializableAttribute>();
 
-                    }
-                    else if (typeof(JSONSerializable).IsAssignableFrom(type)) {
-                        file.WriteLine("export interface " + type.Name + " {");
-                        foreach (var member in Member.GetMembers(type)) {
-                            var att = member.GetAttributes<JSONFieldAttribute>().ToList();
-                            if (!att.Any()) { }
-                            file.WriteLine($"  {att.FirstOrDefault()?.FieldName ?? member.Name}: {GetJsType(member.MemberType)};");
-                        }
-                        file.WriteLine("}");
-                    }
-                    else if (jsonAtt != null) {
-                        file.WriteLine("export interface " + type.Name + " {");
-                        foreach (var member in Member.GetMembers(type)) {
-                            string name = member.Name;
-                            if (jsonAtt.CorrectPascalCase)
-                                name = char.ToLower(name[0]) + name.Substring(1);
+                if (type.IsEnum) { }
+                else if (typeof(JSONSerializable).IsAssignableFrom(type)) {
+                    file.Start($"export interface {type.Name}");
+                    foreach (var member in Member.GetMembers(type)) {
+                        string name = member.Name;
+                        var att = member.GetAttributes<JSONFieldAttribute>().ToList();
+                        if (att.Any()) name = att.First().FieldName;
 
-                            file.WriteLine($"  {name}: {GetJsType(member.MemberType)};");
-                        }
-                        file.WriteLine("}");
+                        file.WriteField(name, GetJsType(member.MemberType));
                     }
-                    else if (type.Name == "GameParticipant" || type.GetCustomAttributes<SerializedNameAttribute>().Any()) {
-                        var parent = type.BaseType;
-                        var matches = parent.Name == "GameParticipant" || parent.GetCustomAttributes<SerializedNameAttribute>().Any();
-                        file.WriteLine($"interface {type.Name}{(matches ? " extends " + parent.Name : "")} {{");
-                        foreach (var member in Member.GetMembers(type)) {
-                            var att = member.GetAttributes<SerializedNameAttribute>().ToList();
-                            if (!att.Any()) {
-                                continue;
-                            }
-                            file.WriteLine($"    {att.First().SerializedName}: {GetJsType(member.MemberType)};");
-                        }
-                        file.WriteLine("}");
-                    }
+                    file.Stop();
                 }
+                else if (jsonAtt != null) {
+                    file.Start($"export interface {type.Name}");
+                    foreach (var member in Member.GetMembers(type)) {
+                        string name = member.Name;
+                        if (jsonAtt.CorrectPascalCase)
+                            name = char.ToLower(name[0]) + name.Substring(1);
+
+                        file.WriteField(name, GetJsType(member.MemberType));
+                    }
+                    file.Stop();
+                }
+
             }
+
+            file.Stop();
         }
 
         private static string GetJsType(Type type) {
@@ -119,7 +172,7 @@ namespace TypescriptGenerator {
                     return $"{{ [id: {GetJsType(args[0])}]: {GetJsType(args[1])} }}";
                 }
                 if (type.GetGenericTypeDefinition() == typeof(Nullable<>)) {
-                    return GetJsType(type.GetGenericArguments()[0]) + "?";
+                    return GetJsType(type.GetGenericArguments()[0]);// + "?";
                 }
                 return "";
             }

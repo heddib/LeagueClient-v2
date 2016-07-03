@@ -23,9 +23,11 @@ namespace Kappa.BackEnd.Server.Assets {
 
         private Task data;
 
+        internal RuneSlots RunesInfo { get; private set; }
         internal MasteriesInfo MasteriesInfo { get; private set; }
         internal List<RuneDetails> RuneDetails { get; private set; }
         internal List<ItemDetails> ItemDetails { get; private set; }
+
 
         internal List<ChampionSummary> ChampionSummaries { get; private set; }
         internal List<SummonerSpellDetails> SummonerSpells { get; private set; }
@@ -49,6 +51,7 @@ namespace Kappa.BackEnd.Server.Assets {
                 SummonerSpells = ExtractJSON<List<SummonerSpellDetails>>(t.Result, GameDataAssets.SummonerSpells);
                 ChampionSummaries = ExtractJSON<List<ChampionSummary>>(t.Result, GameDataAssets.ChampionSummary);
 
+                RunesInfo = ExtractJSON<RuneSlots>(t.Result, GameDataAssets.RuneSlot);
                 /*
                                 var all = new Dictionary<ulong, WADArchive.WADFile>(t.Result.AllFiles);
                                 GameDataAssets.Locale = "%locale%";
@@ -243,6 +246,12 @@ namespace Kappa.BackEnd.Server.Assets {
         public async Task<List<RuneDetails>> GetRuneDetails() {
             await data;
             return RuneDetails;
+        }
+
+        [Endpoint("/runeslots")]
+        public async Task<RuneSlots> GetRuneSlots() {
+            await data;
+            return RunesInfo;
         }
 
         [Endpoint("/items")]

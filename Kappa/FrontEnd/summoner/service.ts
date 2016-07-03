@@ -9,7 +9,7 @@ Kappa.subscribe(service + '/me', m => {
 })
 
 export function get(name: string) {
-    return Kappa.invoke<Domain.Summoner.PublicSummoner>(service + '/get', [name]);
+    return Kappa.invoke<Domain.Summoner.SummonerSummary>(service + '/get', [name]);
 }
 
 export function kudos(id: number) {

@@ -172,9 +172,9 @@ namespace Kappa.BackEnd {
         internal async Task<T> Peek<T>(Predicate<T> filter = null) where T : class {
             var block = new MessageBlock<T>(filter);
             blocks.Add(block);
-            Debug.WriteLine("Peek: " + typeof(T).Name);
+
             var t = await block.Get();
-            Debug.WriteLine("Peek resolved: " + typeof(T).Name);
+
             return t;
         }
 

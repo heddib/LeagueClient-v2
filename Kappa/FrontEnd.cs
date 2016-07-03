@@ -7,7 +7,6 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using Kappa.BackEnd;
 
 namespace Kappa {

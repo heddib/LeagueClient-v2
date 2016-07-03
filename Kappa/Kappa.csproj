@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="BackEnd\Maestro.cs" />
     <Compile Include="BackEnd\Server\Assets\GameDataAssets.cs" />
+    <Compile Include="BackEnd\Server\Collection\Model\RuneBook.cs" />
     <Compile Include="BackEnd\Server\Collection\Model\MasteryBook.cs" />
     <Compile Include="BackEnd\Server\Patcher\WADArchive.cs" />
     <Compile Include="BackEnd\Server\Authentication\Account.cs" />
@@ -110,7 +111,9 @@
     <Compile Include="BackEnd\Server\Replay\ReplayService.cs" />
     <Compile Include="BackEnd\Server\Replay\SpectatorService.cs" />
     <Compile Include="BackEnd\Server\Summoner\Model\SummonerKudos.cs" />
-    <Compile Include="Http\QuickHttp.cs" />
+    <Compile Include="BackEnd\Server\Summoner\Model\SummonerSummary.cs" />
+    <Compile Include="Riot\Domain\BroadcastNotification.cs" />
+    <Compile Include="Util\QuickHttp.cs" />
     <Compile Include="Riot\Domain\ChampionMastery\AllChampionMasteryObject.cs" />
     <Compile Include="Riot\Domain\ChampionMastery\ChampionMasteryScoreAndChestObject.cs" />
     <Compile Include="Riot\Domain\ChampionMastery\ChampionMasteryScoreObject.cs" />
@@ -120,7 +123,7 @@
     <Compile Include="Riot\Domain\JSON\lol_game_data\MasteriesInfo.cs" />
     <Compile Include="Riot\Domain\JSON\lol_game_data\RuneDetails.cs" />
     <Compile Include="Riot\Domain\JSON\lol_game_data\SummonerSpellDetails.cs" />
-    <Compile Include="Riot\Domain\JSON\MatchHistory.cs" />
+    <Compile Include="Riot\Domain\JSON\MatchHistory\MatchHistory.cs" />
     <Compile Include="Riot\Domain\Loot\LootItemListObject.cs" />
     <Compile Include="Riot\Domain\Loot\QueryListObject.cs" />
     <Compile Include="Riot\Domain\Loot\PlayerLootAndDefinitionsObject.cs" />
@@ -138,7 +141,6 @@
     <Compile Include="BackEnd\Server\Authentication\AuthService.cs" />
     <Compile Include="BackEnd\Server\Authentication\Model\AccountState.cs" />
     <Compile Include="BackEnd\Server\Authentication\Model\AuthResult.cs" />
-    <Compile Include="Riot\Domain\TeambuilderDraft\BroadcastNotification.cs" />
     <Compile Include="Riot\Domain\ClientDynamicConfigurationNotification.cs" />
     <Compile Include="Riot\Domain\ClientSystemStatesNotification.cs" />
     <Compile Include="Riot\Domain\Enums.cs" />

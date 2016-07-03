@@ -3,7 +3,7 @@ using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Collection.Model {
     [JSONSerializable]
-    public class HextechInventory : JSONSerializable {
+    public class HextechInventory {
         public Dictionary<int, int> ChampShards { get; set; } = new Dictionary<int, int>();
         public Dictionary<int, int> Champs { get; set; } = new Dictionary<int, int>();
 

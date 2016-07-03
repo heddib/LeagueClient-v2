@@ -27,4 +27,7 @@ namespace Kappa.Riot.Domain {
 
     [Serializable, SerializedName("com.riotgames.platform.game.PlayerAlreadyInGameException")]
     public class PlayerAlreadyInGameException : RiotException { }
+
+    [Serializable, SerializedName("com.riotgames.platform.game.InvalidGameStateException")]
+    public class InvalidGameStateException : RiotException { }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -8,8 +7,6 @@ using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using Kappa.BackEnd.Server.Assets;
-using Kappa.Riot.Domain;
 using Kappa.Riot.Domain.TeambuilderDraft;
 using MFroehlich.Parsing;
 using MFroehlich.Parsing.JSON;

@@ -17,8 +17,8 @@ export default class InGamePage extends Module {
         this.subscribe(Service.state, this.onState);
     }
 
-    private onState(state: Domain.ActiveGame.ActiveGameState) {
-        if (!state.ingame) {
+    private onState(state: Domain.Game.ActiveGameState) {
+        if (!state.inGame) {
             this.dispatch(this.close, {});
             return;
         }
