@@ -2,25 +2,30 @@ import { Swish }    from './../../ui/swish';
 import Module       from './../../ui/module';
 import * as Assets  from './../../assets/assets';
 
-const html = Module.import('login/account');
+const template = (
+    <module class="saved-account" data-event="mouseup:onMouseUp">
+        <div class="shadow"/>
+        <div class="border"/>
+    </module>
+);
 
 export default class Account extends Module {
     private disabled: boolean;
     private _account: any;
 
     public get account() { return this._account; }
-    public select = this.create<{}>();
+    public select = this.create<any>();
 
     public constructor(account) {
-        super(html);
+        super(template);
 
-        this.refs.icon.src = Assets.summoner.icon(account.icon);
-        // this.refs.name.text = account.name;
+        this.node.setBackgroundImage(Assets.summoner.icon(account.icon));
         this._account = account;
     }
 
     public reset() {
         this.disabled = false;
+        this.node.removeClass('loading');
     }
 
     public disable(load: boolean) {
@@ -33,11 +38,5 @@ export default class Account extends Module {
     private onMouseUp(e: MouseEvent) {
         if (this.disabled) return;
         this.dispatch(this.select, this._account);
-    }
-
-    private onAnimationLoop() {
-        if (!this.disabled) {
-            this.node.removeClass('loading');
-        }
     }
 }

@@ -62,7 +62,7 @@ namespace Kappa.BackEnd.Server.Game {
         private GameDTO lastGameDto;
 
         private bool OnGameDTO(GameDTO data) {
-            var changed = lastGameDto?.GameState != data.GameState;
+            var changed = lastGameDto?.Id != data.Id || lastGameDto?.GameState != data.GameState;
             lastGameDto = data;
 
             var config = session.Me.GameTypeConfigs.Single(c => c.Id == data.GameTypeConfigId);
@@ -130,7 +130,7 @@ namespace Kappa.BackEnd.Server.Game {
                 }
                 state.Phase = Model.ChampSelectPhase.PICKING;
 
-            MAIN_CHAMP_SELECT:
+                MAIN_CHAMP_SELECT:
                 if (state.Chatroom == Guid.Empty) {
                     state.Chatroom = rooms.JoinChampSelect(data);
                 }
@@ -224,11 +224,14 @@ namespace Kappa.BackEnd.Server.Game {
                 if (player.SummonerId == session.Me.SummonerId) {
                     me = member;
                 }
-            } else if (part is BotParticipant) {
+            }
+            else if (part is BotParticipant) {
                 member = new GameMember((BotParticipant) part, lastGameDto.PickTurn);
-            } else if (part is ObfuscatedParticipant) {
+            }
+            else if (part is ObfuscatedParticipant) {
                 member = new GameMember((ObfuscatedParticipant) part, lastGameDto.PickTurn);
-            } else {
+            }
+            else {
                 throw new NotImplementedException(part.GetType().FullName);
             }
             standardMembers[member.Id] = part;
@@ -352,9 +355,11 @@ namespace Kappa.BackEnd.Server.Game {
 
                 if (action == null || action.ActorCellId != draftData.ChampSelectState.MyCellId) {
                     result = await this.session.TeambuilderDraftService.SignalChampionPickIntent(id);
-                } else if (action.Type == ChampSelectActionType.BAN) {
+                }
+                else if (action.Type == ChampSelectActionType.BAN) {
                     result = await this.session.TeambuilderDraftService.SelectChampionBan(id);
-                } else {
+                }
+                else {
                     result = await this.session.TeambuilderDraftService.SelectChampionPick(id);
                 }
                 messages.HandleMessage(result);

@@ -30,12 +30,10 @@ export default class Page extends Module {
             }
         });
 
-        Assets.onload(() => {
-            this.refs.image.on('load', () => this.dispatch(this.load, {}));
-            this.refs.video.on('play', () => this.dispatch(this.load, {}));
-            this.refs.video.on('error', e => this.refs.image.src = Assets.login.image);
-            this.refs.video.src = Assets.login.video;
-        });
+        this.refs.image.on('load', () => this.dispatch(this.load, {}));
+        this.refs.video.on('play', () => this.dispatch(this.load, {}));
+        this.refs.video.on('error', e => this.refs.image.src = Assets.login.image);
+        this.refs.video.src = Assets.login.video;
 
         Service.saved().then(accounts => {
             if (accounts && accounts.length > 0) {

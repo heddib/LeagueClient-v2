@@ -24,16 +24,7 @@ let info;
 let queuesById: { [id: number]: Queue } = {};
 let queuesByKey: { [key: string]: Queue } = {};
 
-let handlers: Function[] = [];
-
-Service.info().then(i => {
-    info = i;
-
-    login.video = Service.loginVideo();
-    login.image = Service.loginImage()
-
-    handlers.forEach(a => a());
-});
+Service.info().then(i => info = i);
 
 /* Init Queues */ {
     let all_queues = [
@@ -94,8 +85,8 @@ Service.champions().then(m => gamedata.champions = m);
 Service.summonerspells().then(m => gamedata.summoners = m);
 
 export const login = {
-    video: null,
-    image: null
+    video: Service.loginVideo(),
+    image: Service.loginImage()
 };
 
 export const champion = {
@@ -144,69 +135,6 @@ export const summoner = {
         return `/kappa/assets/game-data/${info.version}/summonerspell/${id}.jpg`
     }
 }
-
-export function onload(callback: Function) {
-    if (info) callback();
-    else handlers.push(callback);
-}
-
-// export function image(type: string, name: string | number, arg?) {
-//     const fallback = '';
-//     if (!name) return fallback;
-//     var path;
-//     var noVersion = false;
-//     switch (type) {
-//         case 'item':
-//             path = 'img/item/' + name + '.png';
-//             break;
-//         case 'champ':
-//         case 'champ_icon':
-//             if (typeof name == 'number')
-//                 name = gamedata.champs.keys[name];
-//             if (!name) return fallback;
-//             path = 'img/champion/' + name + '.png';
-//             break;
-//         case 'champ_splash':
-//             if (typeof name == 'number')
-//                 name = gamedata.champs.keys[name];
-//             if (!name) return fallback;
-//             path = 'img/champion/splash/' + name + '_' + arg + '.jpg';
-//             noVersion = true;
-//             break;
-//         case 'champ_profile':
-//             if (typeof name == 'number')
-//                 name = gamedata.champs.keys[name];
-//             if (!name) return fallback;
-//             path = 'img/champion/loading/' + name + '_' + arg + '.jpg';
-//             noVersion = true;
-//             break;
-//         case 'map':
-//             path = 'img/map/map' + name + '.png';
-//             break;
-//         case 'mastery':
-//             path = 'img/mastery/' + name + '.png';
-//             break;
-//         case 'profile':
-//             path = 'img/profileicon/' + name + '.png';
-//             break;
-//         case 'rune':
-//             path = 'img/rune/' + name + '.png';
-//             break;
-//         case 'spell':
-//             if (typeof name == 'number') {
-//                 for (var key in gamedata.spells.data)
-//                     if (gamedata.spells.data[key].key == name)
-//                         name = gamedata.spells.data[key].id;
-//             }
-//             if (!name) return fallback;
-//             path = 'img/spell/' + name + '.png';
-//             break;
-//     }
-//     if (noVersion)
-//         return `${ddragon_cdn}/${path}`;
-//     else
-//         return `${ddragon_cdn}/${info.version}/${path}`;
-// }
 
 export function getQueueType(key: string | number) {
     if (typeof key == 'number')

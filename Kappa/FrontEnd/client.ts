@@ -19,18 +19,12 @@ window['Discord'] = Discord;
 window['Settings'] = Settings;
 window['Kappa'] = Kappa;
 
-function check() {
-    count++;
-    if (count == 2) {
-        PatcherPage.required().then(required => (required ? onLoaded : onPatched)());
+window.addEventListener('load', () => {
+    PatcherPage.required().then(required => (required ? onLoaded : onPatched)());
 
-        $('#exit-button').on('mouseup', e => Kappa.close());
-        $('#min-button').on('mouseup', e => Kappa.minimize());
-    }
-}
-
-Assets.onload(check);
-window.addEventListener('load', check);
+    $('#exit-button').on('mouseup', e => Kappa.close());
+    $('#min-button').on('mouseup', e => Kappa.minimize());
+});
 
 let module: Module;
 function show(mod: Module) {

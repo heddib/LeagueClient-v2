@@ -148,7 +148,7 @@ namespace Kappa.BackEnd.Server.Assets {
                 HandleFile(context, loginVideo);
                 return true;
             case "/login/image":
-                HandleFile(context, loginVideo);
+                HandleFile(context, loginImage);
                 return true;
             }
 

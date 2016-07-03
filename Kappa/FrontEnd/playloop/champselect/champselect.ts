@@ -177,9 +177,7 @@ export default class ChampSelect extends Module {
 
         if (state.phase == 'FINALIZING') {
             this.drawSkins(state.me);
-        }
-
-        if (this.lastState && state.turn != this.lastState.turn) {
+        } else if (this.lastState && state.turn != this.lastState.turn) {
             if (state.me.active && !this.lastState.me.active)
                 Audio.effect('champselect', 'you');
             else if (this.lastState.phase == 'BANNING')
@@ -342,21 +340,21 @@ export default class ChampSelect extends Module {
             let skins = map[me.champion];
             let init = !skins.any(s => s.id % 1000 == 0);
 
-            if (init)
+            if (init) {
+                Audio.champ_sfx(me.champion);
                 skins.unshift({ id: me.champion * 1000, selected: !skins.any(s => s.selected) });
+            }
 
             let i = skins.firstIndex(s => s.selected);
             let url = Assets.champion.splash(Math.floor(skins[i].id / 1000), skins[i].id % 1000);
-            let tmp = document.createElement('img');
-            tmp.src = url;
-            tmp.onload = () => {
+            Util.preload(url).then(() => {
                 this.refs.champBackground.css('background-image', 'url("' + url + '")');
                 if (!init) return;
                 this.refs.champBackground.removeClass('faded-out');
                 this.refs.skinsControls.removeClass('hidden');
                 this.refs.champs.parent.css('display', 'none');
                 this.refs.champsControls.css('display', 'none');
-            };
+            });
 
             this.refs.skinLeftArrow.setClass(i == 0, 'hidden');
             this.refs.skinRightArrow.setClass(i + 1 == skins.length, 'hidden');
