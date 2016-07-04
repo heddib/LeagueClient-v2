@@ -1,6 +1,7 @@
 import { Swish }     from './../../ui/swish';
 import Module        from './../../ui/module';
 import * as Assets   from './../../assets/assets';
+import * as Summoner from './../../summoner/summoner';
 import MatchDetails  from './details/match';
 import MatchSummary  from './summary';
 
@@ -22,29 +23,32 @@ export default class MatchHistory extends Module {
     private history: Domain.MatchHistory.PlayerHistory;
     private deltas: Domain.MatchHistory.PlayerDeltas;
 
-    public constructor() {
+    public constructor(summ: Domain.Summoner.SummonerSummary) {
         super(template);
 
-        Service.history().then(history => {
+        Service.history(summ.accountId).then(history => {
             this.history = history;
-            this.check();
+            this.update();
         }).catch(error => {
             let msg = <span class="service-error-msg">An error has occured</span>;
             this.refs.list.add(msg);
         });
-        Service.deltas().then(deltas => {
-            this.deltas = deltas;
-            this.check();
-        });
+
+        Summoner.me.single(m => {
+            if (m.accountId != summ.accountId) return;
+
+            Service.deltas().then(deltas => {
+                this.deltas = deltas;
+                if (this.history) this.update();
+            });
+        })
     }
 
-    private check() {
-        if (!this.history || !this.deltas) return;
-
+    private update() {
         this.history.games.games.sort((a, b) => b.gameCreation - a.gameCreation);
 
         for (let match of this.history.games.games) {
-            let delta = this.deltas.deltas.first(d => d.gameId == match.gameId);
+            let delta = this.deltas ? this.deltas.deltas.first(d => d.gameId == match.gameId) : null;
             let summary = new MatchSummary(match, delta);
             summary.selected.on(() => this.details(match.gameId));
             summary.render(this.refs.list);

@@ -44,25 +44,23 @@ var template = (
 );
 
 export default class OverviewPage extends Module {
-    public constructor() {
+    public constructor(summ: Domain.Summoner.SummonerSummary) {
         super(template);
 
-        Summoner.me.single(me => {
-            this.refs.summonerIcon.src = Assets.summoner.icon(me.icon);
-            this.refs.name.text = me.name;
+        this.refs.summonerIcon.src = Assets.summoner.icon(summ.icon);
+        this.refs.name.text = summ.name;
 
-            Champions.mastery(me.summonerId).then(list => {
-                for (let mastery of list) {
-                    let champ = Assets.gamedata.champions.first(c => c.id == mastery.championId);
-                }
-            });
+        Champions.mastery(summ.summonerId).then(list => {
+            for (let mastery of list) {
+                let champ = Assets.gamedata.champions.first(c => c.id == mastery.championId);
+            }
+        });
 
-            Summoner.kudos(me.summonerId).then(kudos => {
-                this.refs.friendlies.text = kudos.friendlies;
-                this.refs.helpfuls.text = kudos.helpfuls;
-                this.refs.teamworks.text = kudos.teamworks;
-                this.refs.honorables.text = kudos.honorables;
-            });
+        Summoner.kudos(summ.summonerId).then(kudos => {
+            this.refs.friendlies.text = kudos.friendlies;
+            this.refs.helpfuls.text = kudos.helpfuls;
+            this.refs.teamworks.text = kudos.teamworks;
+            this.refs.honorables.text = kudos.honorables;
         });
     }
 }

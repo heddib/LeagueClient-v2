@@ -1,29 +1,44 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using MFroehlich.Parsing;
 using MFroehlich.Parsing.JSON;
 
 namespace Kappa.Util {
     public class QuickHttp {
-        public HttpStatusCode StatusCode { get; }
-        public byte[] Content { get; }
+        private HttpWebRequest req;
 
-        public QuickHttp(HttpWebResponse res) {
-            using (res) {
-                StatusCode = res.StatusCode;
-                using (var stream = res.GetResponseStream())
-                    Content = stream.ReadFully();
+        private QuickHttp(string url, string method) {
+            req = WebRequest.CreateHttp(url);
+            req.Method = method;
+        }
+
+        public QuickHttp Send(string data) => Send(data.GetBytes());
+        public QuickHttp Send(byte[] data) {
+            using (var stream = req.GetRequestStream())
+                stream.Write(data);
+            return this;
+        }
+
+        public async Task<byte[]> Bytes() {
+            WebResponse res;
+
+            try {
+                res = await req.GetResponseAsync();
+            } catch (WebException x) {
+                res = x.Response;
+            }
+
+            using (res)
+            using (var stream = res.GetResponseStream()) {
+                return stream.ReadFully();
             }
         }
 
-        public string AsString() => Encoding.UTF8.GetString(Content);
-        public JSONObject AsJSON() => JSONParser.ParseObject(Content);
+        public async Task<string> String() => Encoding.UTF8.GetString(await Bytes());
+        public async Task<JSONArray> JSONArray() => JSONParser.ParseArray(await Bytes());
+        public async Task<JSONObject> JSONObject() => JSONParser.ParseObject(await Bytes());
 
-        public static QuickHttp Get(string url) => Get(new Uri(url));
-        public static QuickHttp Get(Uri uri) {
-            var req = WebRequest.CreateHttp(uri);
-            return new QuickHttp((HttpWebResponse) req.GetResponse());
-        }
+        public static QuickHttp Request(string method, string url) => new QuickHttp(url, method);
     }
 }

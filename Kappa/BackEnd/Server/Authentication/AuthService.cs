@@ -5,11 +5,13 @@ using Kappa.Settings;
 using MFroehlich.Parsing.JSON;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Kappa.Util;
 
 namespace Kappa.BackEnd.Server.Authentication {
     [Docs("group", "Authentication")]
@@ -49,29 +51,17 @@ namespace Kappa.BackEnd.Server.Authentication {
             string payload = "user=" + user + ",password=" + pass;
             string query = "payload=" + payload;
 
-            var req = WebRequest.Create(Region.Current.LoginQueueURL + "login-queue/rest/queue/authenticate");
-            req.Method = "POST";
+            var url = Region.Current.LoginQueueURL + "login-queue/rest/queue/authenticate";
+            var json = await QuickHttp.Request("POST", url).Send(query).JSONObject();
 
-            string str;
-            using (var outputStream = req.GetRequestStream()) {
-                outputStream.Write(Encoding.ASCII.GetBytes(query), 0, Encoding.ASCII.GetByteCount(query));
+            this.auth = new AuthResult(JSONDeserializer.Deserialize<LoginQueueDto>(json), user, pass);
 
-                using (var res = await req.GetResponseAsync())
-                using (var mem = new MemoryStream()) {
-                    res.GetResponseStream().CopyTo(mem);
-                    str = Encoding.UTF8.GetString(mem.ToArray());
-                }
+            if (json.ContainsKey("lqt") || this.auth.Content.Token == null) {
+                Debug.WriteLine(json.ToJSON());
             }
 
-            var json = JSONParser.ParseObject(str);
-            var dto = JSONDeserializer.Deserialize<LoginQueueDto>(json);
-
-            var result = new AuthResult(dto, user, pass);
-
-            switch (result.Content.Status) {
+            switch (this.auth.Content.Status) {
             case "LOGIN":
-                this.auth = result;
-
                 if (save) {
                     if (!settings.Accounts.ContainsKey(user)) {
                         settings.Accounts[user] = new Account();
@@ -83,16 +73,41 @@ namespace Kappa.BackEnd.Server.Authentication {
                 break;
 
             case "QUEUE":
-                Debug.WriteLine("QUEUE: " + result.Content.Backlog);
+                Debug.WriteLine("QUEUE: " + this.auth.Content.Backlog);
                 break;
             }
 
-            return result;
+            return this.auth;
         }
+
+        //[Endpoint("/queue")]
+        //public async Task<QueuePosition> Queue() {
+        //    var url = Region.Current.LoginQueueURL + $"login-queue/rest/queues/lol/ticker/{auth.Content.Champ}";
+        //    var json = await QuickHttp.Request("GET", url).JSONObject();
+        //    var raw = (string) json[auth.Content.Node.ToString()];
+        //    var num = int.Parse(raw, NumberStyles.HexNumber);
+
+        //    var index = Math.Max(0, auth.Content.Node - num);
+
+        //    if (index == 0) {
+        //        var tokenUrl = Region.Current.LoginQueueURL + "login-queue/rest/queue/token";
+        //        var tokenJson = await QuickHttp.Request("POST", tokenUrl).Send("").String();
+        //        Debug.WriteLine(tokenJson);
+        //    }
+
+        //    return new QueuePosition { Position = index };
+        //}
 
         [Endpoint("/login")]
         public async Task<AccountState> Login() {
-            await session.Login(auth);
+            for (var i = 0; i < 5; i++) {
+                try {
+                    await session.Login(auth);
+                    break;
+                } catch (ArgumentException) {
+                    if (i == 4) return null;
+                }
+            }
             BackEndServer.Async("/kappa/defer/auth", new JSONObject());
             return new AccountState(auth);
         }

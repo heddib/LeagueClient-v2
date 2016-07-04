@@ -102,7 +102,7 @@ namespace Kappa.BackEnd.Server.Game {
 
             var procs = Process.GetProcessesByName("League of Legends");
             if (procs.Length > 0) {
-                process = procs[0];
+                procs[0].Exited += (s, e) => OnGameClosed();
             }
             else {
                 try {
@@ -110,31 +110,29 @@ namespace Kappa.BackEnd.Server.Game {
                 } catch {
                     Debug.WriteLine("Preferences sync failed");
                 }
+                PlatformGameLifecycleDTO game;
 
                 do {
-                    var inProgress = await Check();
-                    if (inProgress?.PlayerCredentials == null) {
-                        await Task.Delay(500);
-                        continue;
-                    }
+                    game = await Check();
 
-                    process = session.Maestro.JoinGame(inProgress.PlayerCredentials);
-                    state.Launched = true;
-                    OnStateChanged();
-                    break;
-                } while (true);
+                    if (game == null) return;
+                } while (game.PlayerCredentials == null);
+
+                session.Maestro.JoinGame(game.PlayerCredentials);
+                state.Launched = true;
+                OnStateChanged();
             }
-
-            process.Exited += async (sender, args) => {
-                state.Launched = false;
-                await UploadPreferences();
-                await Check();
-            };
         }
 
         internal void Reset() {
             state = new ActiveGameState();
             OnStateChanged();
+        }
+
+        private async void OnGameClosed() {
+            state.Launched = false;
+            await UploadPreferences();
+            await Check();
         }
 
         private async Task DownloadPreferences() {

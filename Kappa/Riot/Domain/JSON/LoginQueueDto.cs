@@ -43,7 +43,7 @@ namespace Kappa.Riot.Domain.JSON {
     public int Backlog { get; set; }
 
     [JSONField("champ")]
-    public int Champ { get; set; }
+    public string Champ { get; set; }
   }
 
   public class InGameCredentials : JSONSerializable {

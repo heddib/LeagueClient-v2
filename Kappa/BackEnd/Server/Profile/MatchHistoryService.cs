@@ -11,8 +11,8 @@ namespace Kappa.BackEnd.Server.Profile {
         }
 
         [Endpoint("/history")]
-        public async Task<PlayerHistory> GetHistory() {
-            var thing = await session.MatchHistoryService.GetMatchHistory(session.Me.AccountId);
+        public async Task<PlayerHistory> GetHistory(long account) {
+            var thing = await session.MatchHistoryService.GetMatchHistory(account);
             return thing;
         }
 

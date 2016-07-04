@@ -27,6 +27,7 @@ namespace Kappa.BackEnd.Server.Authentication.Model {
         JSONValue JSONValuable.ToJSON() {
             return new JSONObject {
                 ["status"] = Content?.Status,
+                ["reason"] = Content?.Reason
             };
         }
     }

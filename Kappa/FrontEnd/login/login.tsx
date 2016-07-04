@@ -106,17 +106,23 @@ export default class Page extends Module {
     }
 
     private onAuth(auth, callback: Function) {
-        if (auth.status == 'LOGIN') {
-            Service.login()
-                .then(state => this.dispatch(this.auth, state))
-                .catch(e => setTimeout(() => this.onAuth(auth, callback), 500));
-        } else {
-            console.log('Login: ' + auth.status);
-            if (auth.status == 'BUSY' || auth.status == 'QUEUE') {
-                setTimeout(() => callback(), 500);
-            } else {
-                console.log(auth);
-            }
+        switch (auth.status) {
+            case 'LOGIN': this.onLogin(auth); break;
+            case 'FAILED': this.onFailed(auth); break;
+            case 'QUEUE': this.onQueue(auth); break;
         }
+    }
+
+    private onLogin(auth) {
+        Service.login().then(state => this.dispatch(this.auth, state));
+    }
+
+    private onQueue(auth) {
+        this.loader(false);
+        this.accounts.forEach(a => a.reset());
+    }
+
+    private onFailed(auth) {
+        console.log('Failed: ' + auth.reason);
     }
 }

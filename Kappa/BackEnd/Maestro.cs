@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -21,6 +22,8 @@ namespace Kappa.BackEnd {
 
         private TcpListener server;
 
+        public event EventHandler GameClientClosed;
+
         public Maestro(ChatService chat, PatcherService patcher) {
             this.patcher = patcher;
             this.chat = chat;
@@ -33,28 +36,28 @@ namespace Kappa.BackEnd {
             }.Start();
         }
 
-        private Process Launch(string args) {
+        private void Launch(string args) {
             var info = new ProcessStartInfo {
                 FileName = patcher.ExecutablePath,
                 Arguments = $"\"{MaestroPort}\" \"LoLPatcher.exe\" \"\" \"{args}\"",
                 WorkingDirectory = Path.GetDirectoryName(patcher.ExecutablePath)
             };
-            return Process.Start(info);
+            Process.Start(info);
         }
 
-        internal Process JoinGame(PlayerCredentialsDto creds) {
+        internal void JoinGame(PlayerCredentialsDto creds) {
             string str = $"{creds.ServerIp} {creds.ServerPort} {creds.EncryptionKey} {creds.SummonerId}";
-            return Launch(str);
+            Launch(str);
         }
 
-        internal Process ReplayGame(string host, int port, string key, long gameId) {
+        internal void ReplayGame(string host, int port, string key, long gameId) {
             string str = $"replay {host}:{port} {key} {gameId} NA1";
-            return Launch(str);
+            Launch(str);
         }
 
-        internal Process SpectateGame(string host, int port, string key, long gameId) {
+        internal void SpectateGame(string host, int port, string key, long gameId) {
             string str = $"spectator {host}:{port} {key} {gameId} NA1";
-            return Launch(str);
+            Launch(str);
         }
 
         private void ConnectLoop() {
@@ -100,6 +103,11 @@ namespace Kappa.BackEnd {
 
                             goto default;
 
+                        case MaestroMessageType.GAMECLIENT_STOPPED:
+                        case MaestroMessageType.GAMECLIENT_CRASHED:
+                            this.GameClientClosed?.Invoke(this, new EventArgs());
+                            break;
+
                         default:
                             var ack = new MaestroMessageHeader(MaestroMessageType.ACK, 0);
                             stream.WriteStruct(ack);
@@ -119,12 +127,20 @@ namespace Kappa.BackEnd {
         private void SendUpdate(Stream dst) {
             var str = new StringBuilder();
             str.Append("<>");
-            str.Append("<>");
             str.Append("<type>updBuddyList</type>");
             foreach (var friend in chat.Friends) str.Append($"<buddy>{friend.Name}</buddy>");
             str.Append("</>");
             var header = new MaestroMessageHeader(MaestroMessageType.CHATMESSAGE_TO_GAME, str.Length);
             var payload = str.ToString().GetBytes();
+            dst.WriteStruct(header);
+            dst.Write(payload);
+
+            str.Clear();
+            str.Append("<>");
+            str.Append("<type>updIgnoreList</type>");
+            str.Append("</>");
+            header = new MaestroMessageHeader(MaestroMessageType.CHATMESSAGE_TO_GAME, str.Length);
+            payload = str.ToString().GetBytes();
             dst.WriteStruct(header);
             dst.Write(payload);
         }
@@ -149,10 +165,13 @@ namespace Kappa.BackEnd {
             EXIT = 3,
             ACK = 5,
             HEARTBEAT = 4,
-            GAMESTART = 0,
-            GAMEEND = 1,
-            GAMECRASHED = 2,
 
+            GAMESTART = 0,
+
+            GAMECLIENT_STOPPED = 1,
+            GAMECLIENT_CRASHED = 2,
+
+            GAMECLIENT_ABANDONED = 7,
             GAMECLIENT_LAUNCHED = 8,
             GAMECLIENT_CONNECTED = 10,
             CHATMESSAGE_TO_GAME = 11,

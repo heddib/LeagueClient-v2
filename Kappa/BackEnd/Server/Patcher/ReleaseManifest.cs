@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -13,16 +14,30 @@ namespace Kappa.BackEnd.Server.Patcher {
         public Dictionary<string, ManifestFile> AllFiles { get; }
 
         public static ReleaseManifest Download(Region region, string name, string version, string target) {
-            var local = Path.Combine(target, "releasemanifest");
-            Directory.CreateDirectory(target);
+            var dst = Path.Combine(target, "releasemanifest");
+            var tmp = Path.Combine(target, "releasemanifest.tmp");
 
-            var req = WebRequest.CreateHttp(region.ReleaseManifest(name, version));
-            using (var res = req.GetResponse())
-            using (var file = File.Create(local)) {
-                res.GetResponseStream().CopyTo(file);
+            while (true) {
+                Directory.CreateDirectory(target);
+
+                var req = WebRequest.CreateHttp(region.ReleaseManifest(name, version));
+                using (var res = req.GetResponse())
+                using (var file = File.Create(tmp)) {
+                    res.GetResponseStream().CopyTo(file);
+                }
+
+                try {
+                    var manifest = new ReleaseManifest(tmp);
+
+                    File.Delete(dst);
+                    File.Move(tmp, dst);
+
+                    return manifest;
+                } catch {
+                    Debug.WriteLine("Error downloading manifest, trying again...");
+                    // Error while downloading //
+                }
             }
-
-            return new ReleaseManifest(local);
         }
 
         public ReleaseManifest(string file) {

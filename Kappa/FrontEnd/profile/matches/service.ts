@@ -1,8 +1,8 @@
 import * as Kappa      from './../../kappa'
 const service = '/profile/matches';
 
-export function history() {
-    return Kappa.invoke<Domain.MatchHistory.PlayerHistory>(service + '/history', []);
+export function history(account: number) {
+    return Kappa.invoke<Domain.MatchHistory.PlayerHistory>(service + '/history', [account]);
 }
 
 export function deltas() {

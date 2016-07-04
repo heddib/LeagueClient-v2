@@ -90,7 +90,8 @@ export default class MatchSummary extends Module {
             this.refs.minions.text = part.stats.totalMinionsKilled;
             this.refs.gold.text = (part.stats.goldEarned / 1000).toFixed(1) + 'k';
 
-            this.refs.ip.text = delta.platformDelta.ipDelta;
+            if (delta)
+                this.refs.ip.text = delta.platformDelta.ipDelta;
 
             switch (game.gameMode) {
                 case 'ARAM':

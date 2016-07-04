@@ -181,12 +181,12 @@ namespace Kappa.BackEnd.Server.Replay {
 
         private static JSONObject GetMetaData(long gameId) {
             var uri = new Uri(BaseUri, $"getGameMetaData/{Region.Current.Platform}/{gameId}/1/token");
-            return QuickHttp.Get(uri).AsJSON();
+            return QuickHttp.Request("GET", uri.AbsoluteUri).JSONObject().Result;
         }
 
         private static ChunkInfo GetChunkInfo(long gameId) {
             var uri = new Uri(BaseUri, $"getLastChunkInfo/{Region.Current.Platform}/{gameId}/1/token");
-            return JSONDeserializer.Deserialize<ChunkInfo>(QuickHttp.Get(uri).AsJSON());
+            return JSONDeserializer.Deserialize<ChunkInfo>(QuickHttp.Request("GET", uri.AbsoluteUri).JSONObject().Result);
         }
 
         private static Stream GetChunk(long gameId, int id) {

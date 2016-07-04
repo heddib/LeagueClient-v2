@@ -17,15 +17,18 @@ var template = (
             <div class="tab-button" data-ref="tab2"><span>RANKED</span></div>
         </div>
         <div class="center" data-ref="mainScroller">
-            <container data-ref="overviewContainer"></container>
-            <container data-ref="matchesContainer"></container>
-            <container data-ref="rankedContainer"></container>
+            <container data-ref="overviewContainer"/>
+            <container data-ref="matchesContainer"/>
+            <container data-ref="rankedContainer"/>
         </div>
     </module>
 );
 
 export default class ProfilePage extends Module {
     private tabChange: (index: number) => void;
+
+    private overview: OverviewPage;
+    private matches: MatchesPage;
 
     public constructor() {
         super(template);
@@ -34,16 +37,26 @@ export default class ProfilePage extends Module {
         for (var i = 0; i < 3; i++) tabs[i] = this.refs['tab' + i];
         this.tabChange = Tabs.create(tabs, 0, (old, now) => this.onTabChange(old, now));
 
-        let champs = new OverviewPage();
-        champs.render(this.refs.overviewContainer);
-
-        let hextech = new MatchesPage();
-        hextech.render(this.refs.matchesContainer);
-
         Summoner.me.single(me => {
-            Champions.mastery(me.summonerId).then(list => {
-                this.refs.background.setBackgroundImage(Assets.champion.splash(list[0].championId, 0));
-            });
+            Summoner.get(me.name).then(s => this.load(s));
+        });
+    }
+
+    private load(summ: Domain.Summoner.SummonerSummary) {
+        if (this.overview) this.overview.dispose();
+        if (this.matches) this.matches.dispose();
+
+        this.refs.overviewContainer.empty();
+        this.refs.matchesContainer.empty();
+
+        this.overview = new OverviewPage(summ);
+        this.overview.render(this.refs.overviewContainer);
+
+        this.matches = new MatchesPage(summ);
+        this.matches.render(this.refs.matchesContainer);
+
+        Champions.mastery(summ.summonerId).then(list => {
+            this.refs.background.setBackgroundImage(Assets.champion.splash(list[0].championId, 0));
         });
     }
 
