@@ -11,17 +11,21 @@ export default class HextechPage extends Module {
     public constructor() {
         super(html);
 
-        Service.inventory().then(inv => {
-            this.inventory = inv;
-            this.draw();
-        });
+        Service.inventory().then(inv => this.update(inv));
+        this.subscribe(Service.update, inv => this.update(inv));
+    }
+
+    private update(update: Domain.Collection.HextechInventory) {
+        this.inventory = update;
+
+        this.draw();
     }
 
     private draw() {
         this.refs.chests.text = this.inventory.chests;
         this.refs.keys.text = this.inventory.keys;
         this.refs.keyfragments.text = this.inventory.keyFragments
-        
+
         this.refs.blue.text = this.inventory.blueEssence;
         this.refs.orange.text = this.inventory.orangeEssence;
 

@@ -27,13 +27,19 @@ namespace Kappa.BackEnd.Server.Chat {
             return type + "~" + obfuscatedName;
         }
 
-        public static Jid GetChatroomJID(string subject, string type, bool isPublic, string pass = null) {
+        public static Jid GetChatroomJID(string subject, string type, string domain) {
             string obf = GetObfuscatedChatroomName(subject, type);
-            string raw;
-            if (!isPublic) raw = obf + "@sec.pvp.net";
-            else if (pass == null) raw = obf + "@lvl.pvp.net";
-            else raw = obf + "@conference.pvp.net";
+            string raw = obf + $"@{domain}.pvp.net";
+
             return new Jid(raw);
+        }
+
+        public static Jid GetChatroomJID(string subject, string type, bool isPublic, string pass = null) {
+            string domain;
+            if (!isPublic) domain = "sec";
+            else if (pass == null) domain = "lvl";
+            else domain = "conference";
+            return GetChatroomJID(subject, type, domain);
         }
     }
 }

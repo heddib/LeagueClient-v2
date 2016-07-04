@@ -206,12 +206,12 @@
     }
     
     #spell-selector {
+        .drop-shadow(50px);
         position: fixed;
         left: -1000px;
         top: -1000px;
         padding: 10px 0 0 10px;
         background: #7D7D7D;
-        box-shadow: 0 0 50px black;
         font-size: 0;//Stupid white space
         
         > .spell-selectable {
@@ -294,50 +294,4 @@
         transition-property: opacity, transform;
         transition-duration: 150ms;
     }
-/*
-  x-champpopupitem {
-    display: inline-block;
-    border: 1px solid #56565f;
-    overflow: hidden;
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: box-shadow 200ms;
-    width: calc(12.5% - 10px);
-    margin: 10px 0 0 10px;
-    
-    &:hover {
-      box-shadow: 0 0 10px #EEEEEE;
-    }
-    
-    &.active {
-      box-shadow: 0 0 6px orange;
-      border-color: orange;
-    }
-    
-    > img {
-      margin: -10% -7%;
-      width: 114%;
-    }
-  }
-  
-  #champs-popup {
-    position: absolute;
-    top: -75px;
-    left: 50%;
-    width: 100%;
-    height: 100vh;
-    transform: translate(-50%);
-    background: #343438;
-    padding: 10px 10px 10px 0;
-    box-sizing: border-box;
-    z-index: 1;
-    > .champs {
-      overflow: auto;
-      height: 100%;
-      margin-right: -10px;
-      padding-right: 10px;
-      padding-bottom: 10px;
-      box-sizing: border-box;
-    }
-  }*/
 }

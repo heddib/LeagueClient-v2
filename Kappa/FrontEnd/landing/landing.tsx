@@ -145,7 +145,7 @@ export default class Landing extends Module {
         for (let invite of list) {
             var control = new Invite.Control(invite);
             control.custom.on(e => this.custom());
-            control.lobby.on(e => this.lobby());
+            control.lobby.on(e => this.lobby(false));
             control.render(this.refs.inviteList);
         }
     }
@@ -163,14 +163,14 @@ export default class Landing extends Module {
 
     private playSelect() {
         var select = new PlaySelect();
-        select.select.on(e => this.lobby());
+        select.select.on(e => this.lobby(false));
         select.custom.on(e => this.custom());
         this.showModule(select, false)
         this.refs.playButton.text = 'PLAY';
     }
 
-    private lobby() {
-        var mod = new Lobby(this.chatlist);
+    private lobby(queue: boolean) {
+        var mod = new Lobby(queue, this.chatlist);
         mod.start.on(e => this.champselect());
         this.showModule(mod, true);
         this.refs.playButton.text = 'LOBBY';
@@ -186,8 +186,8 @@ export default class Landing extends Module {
     private champselect() {
         var mod = new ChampSelect();
         mod.start.on(() => this.ingame());
-        mod.cancel.on(e => this.lobby());
         mod.custom.on(e => this.custom());
+        mod.cancel.on(queue => this.lobby(queue));
         this.showModule(mod, true);
         this.refs.playButton.text = 'GAME';
     }
@@ -204,6 +204,7 @@ export default class Landing extends Module {
             this.refs.content.empty();
             this.module = mod;
             this.module.render(this.refs.content);
+            
             setTimeout(() => {
                 this.module.node.removeClass('faded-in');
                 this.module.render(this.refs.content);
@@ -216,10 +217,7 @@ export default class Landing extends Module {
             this.module.dispose();
             this.module.node.addClass('faded-out');
             let done = false;
-            this.module.node.on('transitionend', () => {
-                if (!done) fadein();
-                done = true;
-            });
+            setTimeout(() => fadein(), 150);
         } else {
             fadein();
         }

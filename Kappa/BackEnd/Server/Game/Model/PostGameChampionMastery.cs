@@ -2,7 +2,7 @@
 
 namespace Kappa.BackEnd.Server.Game.Model {
     [JSONSerializable]
-    public class EndOfGameChampionMastery {
+    public class PostGameChampionMastery {
         public ChampionMasteryState Before { get; set; }
         public ChampionMasteryState After { get; set; }
 

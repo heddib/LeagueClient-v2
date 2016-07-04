@@ -31,10 +31,10 @@
                 margin-bottom: 10px;
                 
                 &:hover {
-                    box-shadow: 0 0 5px black;
+                    .drop-shadow(5px);
                 }
                 &.active {
-                    box-shadow: 0 0 5px orange !important;
+                    .drop-shadow(5px) !important;
                 }
             }
         }
@@ -84,12 +84,12 @@
         }
         
         > .mastery-icon-points {
+            .drop-shadow(10px);
             position: absolute;
             right: -5px;
             bottom: -5px;
             background: rgb(100, 100, 105);
             padding: 0px 3px;
-            box-shadow: 0 0 10px black;
         }
         
         &.single, &.blank {
@@ -99,7 +99,7 @@
         }
 
         > img {
-            box-shadow: 0 0 10px black;
+            .drop-shadow(10px);
             border: 2px solid @backgroundcolor;
             width: 100%;
             height: 100%;
@@ -108,22 +108,22 @@
         
         &.active {
             > .mastery-icon-points {
-                box-shadow: 0 0 10px orange;
+                .drop-shadow(10px; orange);
             }
             > img {
-                box-shadow: 0 0 10px orange;
+                .drop-shadow(10px; orange);
                 border-color: orange;
             }
         }
         
         > .popup {
+            .drop-shadow(10px; #EEEEEE);
             position: absolute;
             top: 50%;
             right: 120%;
             width: 300px;
             transform: translateY(-50%);
             background: #343438;
-            box-shadow: 0 0 10px;
             min-height: 50px;
             padding: 4px 8px;
             display: none;

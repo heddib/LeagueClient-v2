@@ -1,11 +1,17 @@
 #ingame {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding-bottom: @mainHeaderSize;
+
+    > .page {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
     
-    .label {
-        font-size: 60px;
+    > .waiting-page {
+        padding-bottom: @mainHeaderSize;
+
+        .label {
+            font-size: 60px;
+        }
     }
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using agsXMPP.protocol.x.muc;
+using Kappa.Riot.Domain;
 using Kappa.Riot.Domain.TeambuilderDraft;
 
 namespace Kappa.BackEnd.Server.Chat {
@@ -46,8 +47,24 @@ namespace Kappa.BackEnd.Server.Chat {
             roomsReverse.Remove(jid.User);
         }
 
-        internal Guid JoinStandard(Riot.Domain.LobbyStatus status) {
+        internal Guid JoinStandard(LobbyStatus status) {
             var jid = ChatUtils.GetChatroomJID(status.InvitationId, "ag", false, status.ChatKey);
+            return JoinRoom(jid);
+        }
+
+        internal Guid JoinStandard(GameDTO game) {
+            Jid jid;
+            if (string.IsNullOrEmpty(game.RoomName)) {
+                bool blue = game.TeamOne.Any(p => p.SummonerInternalName == session.Me.InternalName);
+                var prefix = blue ? "c1" : "c2";
+                jid = ChatUtils.GetChatroomJID(game.Name + "_" + prefix, prefix, false, game.RoomPassword);
+            }
+            else {
+                var name = game.RoomName.ToLower();
+                if (name.Contains("@"))
+                    name = name.Substring(0, name.IndexOf("@", StringComparison.Ordinal));
+                jid = new Jid(name + "@champ-select.pvp.net");
+            }
             return JoinRoom(jid);
         }
 
@@ -57,23 +74,27 @@ namespace Kappa.BackEnd.Server.Chat {
         }
 
         internal Guid JoinDraft(ChampSelectState state) {
-            var jid = new Jid(state.TeamId + "@" + "sec.pvp.net");
+            var jid = new Jid(state.TeamId + "@champ-select.pvp.net");
             return JoinRoom(jid);
         }
 
-        internal Guid JoinCustom(Riot.Domain.GameDTO game) {
-            var jid = ChatUtils.GetChatroomJID(game.Name + game.Id, "ap", false, game.RoomPassword);
+        internal Guid JoinCustom(GameDTO game) {
+            var name = game.Name;
+            if (name.Length > 50)
+                name = name.Substring(0, 50) + "...";
+
+            var jid = ChatUtils.GetChatroomJID(name + game.Id, "ap", false, game.RoomPassword);
             return JoinRoom(jid);
         }
 
-        internal Guid JoinChampSelect(Riot.Domain.GameDTO game) {
+        public Guid JoinPostGame(EndOfGameStats stats) {
             Jid jid;
-            if (string.IsNullOrEmpty(game.RoomName)) {
-                bool blue = game.TeamOne.Any(p => p.SummonerInternalName == session.Me.InternalName);
-                var prefix = blue ? "c1" : "c2";
-                jid = ChatUtils.GetChatroomJID(game.Name + "_" + prefix, prefix, false, game.RoomPassword);
-            } else {
-                jid = new Jid(game.RoomName.ToLower() + ".pvp.net");
+            if (string.IsNullOrEmpty(stats.RoomName)) {
+                var id = stats.ReportGameId > 0 ? stats.ReportGameId : stats.GameId;
+                jid = ChatUtils.GetChatroomJID("endGame" + id, "pg", "post-game");
+            }
+            else {
+                jid = ChatUtils.GetChatroomJID(stats.RoomName, "pg", false, stats.RoomPassword);
             }
             return JoinRoom(jid);
         }
@@ -94,7 +115,8 @@ namespace Kappa.BackEnd.Server.Chat {
             if (rooms.TryGetValue(room, out jid)) {
                 var msg = new Message(jid, MessageType.groupchat, body);
                 chat.SendRaw(msg);
-            } else throw new KeyNotFoundException("Room not found");
+            }
+            else throw new KeyNotFoundException("Room not found");
         }
 
         private void Chat_PresenceRaw(object sender, Presence e) {

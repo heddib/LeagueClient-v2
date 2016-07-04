@@ -92,6 +92,8 @@
     <Compile Include="BackEnd\Server\Authentication\Model\QueuePosition.cs" />
     <Compile Include="BackEnd\Server\Collection\Model\RuneBook.cs" />
     <Compile Include="BackEnd\Server\Collection\Model\MasteryBook.cs" />
+    <Compile Include="BackEnd\Server\Game\Model\PostGameState.cs" />
+    <Compile Include="BackEnd\Server\Game\PostGameService.cs" />
     <Compile Include="BackEnd\Server\Patcher\WADArchive.cs" />
     <Compile Include="BackEnd\Server\Authentication\Account.cs" />
     <Compile Include="BackEnd\Server\Collection\ChampionsService.cs" />
@@ -99,7 +101,7 @@
     <Compile Include="BackEnd\Server\Collection\Model\ChampionInventory.cs" />
     <Compile Include="BackEnd\Server\Collection\Model\HextechInventory.cs" />
     <Compile Include="BackEnd\Server\Game\Model\ActiveGameState.cs" />
-    <Compile Include="BackEnd\Server\Game\Model\EndOfGameChampionMastery.cs" />
+    <Compile Include="BackEnd\Server\Game\Model\PostGameChampionMastery.cs" />
     <Compile Include="BackEnd\Server\Game\Model\RerollState.cs" />
     <Compile Include="BackEnd\Server\Meta\SettingsService.cs" />
     <Compile Include="BackEnd\Server\Patcher\Model\PatcherState.cs" />

@@ -10,8 +10,6 @@ using Kappa.Riot.Services.Http;
 namespace Kappa.BackEnd.Server.Game {
     [Docs("group", "Active Game")]
     public class ActiveGameService : JSONService {
-        private Process process;
-
         private Session session;
         private PlayLoopService loop;
 
@@ -20,6 +18,14 @@ namespace Kappa.BackEnd.Server.Game {
         [Async("/state")]
         public event EventHandler<ActiveGameState> State;
 
+        [Async("/finished")]
+        public event EventHandler AdvancedToPostGame;
+
+        [Async("/cancelled")]
+        public event EventHandler AdvancedOutOfPlayLoop;
+
+        private bool inGame;
+
         public ActiveGameService(PlayLoopService loop, Session session) : base("/playloop/ingame") {
             this.session = session;
             this.loop = loop;
@@ -27,68 +33,28 @@ namespace Kappa.BackEnd.Server.Game {
             var messages = new MessageConsumer(session);
 
             messages.Consume<GameDTO>(OnGameDTO);
-            messages.Consume<EndOfGameStats>(OnEndOfGameStats);
-            messages.Consume<SimpleDialogMessage>(OnSimpleDialogMessage);
-        }
-
-        private bool OnSimpleDialogMessage(SimpleDialogMessage msg) {
-            if (msg.TitleCode != "championMastery") return false;
-
-            //var arg = JSONParser.ParseObject((string) msg.Params[0]);
-            //var data = JSONDeserializer.Deserialize<EogChampionMasteryDTO>(arg);
-
-            //if (data.LevelUpList.Any()) { }
-
-            //var stats = new EndOfGameChampionMastery {
-            //    Champion = data.ChampionId,
-            //    Grade = data.PlayerGrade,
-            //    Before = new ChampionMasteryState {
-            //        Level = data.ChampionLevelUp ? data.ChampionLevel - 1 : data.ChampionLevel,
-            //        PointsInLevel = data.ChampionPointsSinceLastLevelBeforeGame + data.ChampionPointsUntilNextLevelBeforeGame,
-            //        PointsSinceLevel = data.ChampionPointsSinceLastLevelBeforeGame,
-            //        TotalPoints = data.ChampionPointsBeforeGame
-            //    },
-            //    After = new ChampionMasteryState {
-            //        Level = data.ChampionLevel,
-            //        PointsInLevel = data.ChampionPointsUntilNextLevelAfterGame + (data.ChampionPointsGained - data.ChampionPointsUntilNextLevelBeforeGame) + 1,
-            //        PointsSinceLevel = data.ChampionPointsGained - data.ChampionPointsUntilNextLevelBeforeGame + 1,
-            //        TotalPoints = data.ChampionPointsBeforeGame + data.ChampionPointsGained
-            //    }
-            //};
-            //if (!data.ChampionLevelUp) {
-            //    stats.After.PointsInLevel = stats.Before.PointsInLevel;
-            //    stats.After.PointsSinceLevel = data.ChampionPointsSinceLastLevelBeforeGame + data.ChampionPointsGained;
-            //}
-            //state.ChampionMastery = stats;
-            //OnStateChanged();
-
-            return true;
-        }
-
-        private bool OnEndOfGameStats(EndOfGameStats stats) {
-            //state.Stats = stats;
-            //OnStateChanged();
-            return true;
         }
 
         private bool OnGameDTO(GameDTO game) {
             switch (game.GameState) {
             case GameState.TERMINATED:
-                if (state.InGame) {
+                if (inGame) {
+                    OnAdvancedToPostGame();
                     loop.Reset();
                     return true;
                 }
                 break;
 
             case GameState.TERMINATED_IN_ERROR:
-                if (state.InGame) {
+                if (inGame) {
+                    OnAdvancedOutOfPlayLoop();
                     loop.Reset();
                     return true;
                 }
                 break;
 
             case GameState.START_REQUESTED:
-                state.InGame = true;
+                inGame = true;
                 OnStateChanged();
                 return true;
             }
@@ -98,10 +64,11 @@ namespace Kappa.BackEnd.Server.Game {
         [Endpoint("/launch")]
         public async Task Launch() {
             //"[Maestro port]" "LoLPatcher.exe" "LolClient.exe" "[IP address] [Port] [Encryption key] [Game id]"
-            if (process != null && !process.HasExited) return;
 
             var procs = Process.GetProcessesByName("League of Legends");
             if (procs.Length > 0) {
+                state.Launched = true;
+                OnStateChanged();
                 procs[0].Exited += (s, e) => OnGameClosed();
             }
             else {
@@ -155,7 +122,7 @@ namespace Kappa.BackEnd.Server.Game {
                 loop.Reset();
             }
             else {
-                state.InGame = true;
+                inGame = true;
                 OnStateChanged();
             }
 
@@ -164,6 +131,14 @@ namespace Kappa.BackEnd.Server.Game {
 
         private void OnStateChanged() {
             State?.Invoke(this, state);
+        }
+
+        private void OnAdvancedToPostGame() {
+            AdvancedToPostGame?.Invoke(this, new EventArgs());
+        }
+
+        private void OnAdvancedOutOfPlayLoop() {
+            AdvancedOutOfPlayLoop?.Invoke(this, new EventArgs());
         }
     }
 }

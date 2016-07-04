@@ -1,4 +1,5 @@
 module.champselectplayer {
+    .drop-shadow(10px);
     @padding: 5px;
     display: flex;
     flex-direction: column;
@@ -7,7 +8,6 @@ module.champselectplayer {
     height: 90px;
     box-sizing: border-box;
     position: relative;
-    box-shadow: 0 0 10px #000000;
     z-index: 1;
 
     > .champ {
@@ -57,10 +57,10 @@ module.champselectplayer {
         align-items: center;
         
         > img {
+            .drop-shadow(6px; white);
             width: 32px;
             height: 32px;
             margin: 0 @padding 0 0;
-            box-shadow: 0 0 6px white;
         }
         
         > .role {

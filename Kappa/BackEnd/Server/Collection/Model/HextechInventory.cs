@@ -14,7 +14,7 @@ namespace Kappa.BackEnd.Server.Collection.Model {
         public Dictionary<int, int> WardSkins { get; set; } = new Dictionary<int, int>();
 
         public Dictionary<int, int> Mastery6Tokens { get; set; } = new Dictionary<int, int>();
-        public Dictionary<int, int> MasteryyTokens { get; set; } = new Dictionary<int, int>();
+        public Dictionary<int, int> Mastery7Tokens { get; set; } = new Dictionary<int, int>();
 
         public int Chests { get; set; }
         public int Keys { get; set; }

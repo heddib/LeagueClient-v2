@@ -122,7 +122,7 @@ namespace TypescriptGenerator {
                     foreach (var member in Member.GetMembers(type)) {
                         string name = member.Name;
                         if (jsonAtt.CorrectPascalCase)
-                            name = char.ToLower(name[0]) + name.Substring(1);
+                            name = JSON.CorrectPascalCase(name);
 
                         file.WriteField(name, GetJsType(member.MemberType));
                     }

@@ -21,14 +21,14 @@ namespace Kappa.BackEnd.Server.Patcher {
         private Session session;
         private Settings settings;
 
-        private string gameTarget;
+        private string solutionTarget;
         private BlockingCollection<AsyncPatch> wadQueue = new BlockingCollection<AsyncPatch>();
 
         private PatcherState gameState;
         private PatcherState launcherState;
 
         internal static readonly string Config = Path.Combine(Session.AppData, "League of Legends", "config");
-        internal string ExecutablePath => Path.Combine(gameTarget, "deploy", "League of Legends.exe");
+        internal string ExecutablePath => Path.Combine(solutionTarget, "deploy", "League of Legends.exe");
 
         public PatcherService(Session session) : base("/patcher") {
             this.session = session;
@@ -140,10 +140,11 @@ namespace Kappa.BackEnd.Server.Patcher {
                 var rawManifest = web.DownloadString(region.SolutionManifest(SolutionName, version));
                 manifest = rawManifest.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-                gameTarget = Path.Combine(RADS, "solutions", SolutionName, "releases", version);
-                Directory.CreateDirectory(gameTarget);
+                solutionTarget = Path.Combine(RADS, "solutions", SolutionName, "releases", version);
+                var changed = !Directory.Exists(solutionTarget);
+                Directory.CreateDirectory(solutionTarget);
 
-                File.WriteAllText(Path.Combine(gameTarget, "solutionmanifest"), rawManifest);
+                File.WriteAllText(Path.Combine(solutionTarget, "solutionmanifest"), rawManifest);
             }
 
             int index = manifest.IndexOf(locale.ToLower());
@@ -155,7 +156,7 @@ namespace Kappa.BackEnd.Server.Patcher {
                 required[name] = manifest[project + 1];
             }
 
-            using (var config = File.OpenWrite(Path.Combine(gameTarget, "configurationmanifest")))
+            using (var config = File.OpenWrite(Path.Combine(solutionTarget, "configurationmanifest")))
             using (var writer = new StreamWriter(config)) {
                 writer.WriteLine("RADS Configuration Manifest");
                 writer.WriteLine(manifest[1]);//version
@@ -164,7 +165,7 @@ namespace Kappa.BackEnd.Server.Patcher {
                 foreach (var name in required.Keys) writer.WriteLine(name);
             }
 
-            var patchers = required.Select(pair => new ProjectPatcher(region, RADS, pair.Key, pair.Value, gameTarget)).ToList();
+            var patchers = required.Select(pair => new ProjectPatcher(region, RADS, pair.Key, pair.Value, solutionTarget)).ToList();
             var tasks = patchers.Select(p => p.Patch()).ToList();
 
             gameState.Total = patchers.Sum(p => p.TotalBytes);
@@ -194,7 +195,7 @@ namespace Kappa.BackEnd.Server.Patcher {
             //    }
             //}
 
-            using (File.Create(Path.Combine(gameTarget, "S_OK"))) { }
+            using (File.Create(Path.Combine(solutionTarget, "S_OK"))) { }
         }
 
         private class Settings : BaseSettings {

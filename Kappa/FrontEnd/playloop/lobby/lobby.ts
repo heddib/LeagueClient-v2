@@ -26,7 +26,7 @@ export default class Lobby extends Module {
 
     public start = this.create<{}>();
 
-    public constructor(provider: IInviteProvider) {
+    public constructor(inQueue: boolean, provider: IInviteProvider) {
         super(html);
         this.invite = provider;
 
@@ -49,6 +49,10 @@ export default class Lobby extends Module {
 
         this.$('#queue-info').css('display', 'none');
         this.$('#afk-check').css('display', 'none');
+
+        if (inQueue) {
+            this.onAdvance('MATCHMAKING');
+        }
     }
 
     public dispose() {

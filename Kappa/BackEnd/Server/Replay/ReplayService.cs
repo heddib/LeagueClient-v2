@@ -33,7 +33,7 @@ namespace Kappa.BackEnd.Server.Replay {
         }
 
         private bool OnPlayerCredentials(PlayerCredentialsDto creds) {
-            return true;
+            return false;
         }
 
         [Endpoint("/saved")]

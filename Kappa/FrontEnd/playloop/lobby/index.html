@@ -4,7 +4,7 @@
             <span id="queue-name"></span>
         </div>
         <x-flexpadd></x-flexpadd>
-        <div id="queue-info">
+        <div id="queue-info" class="landing-shadow">
             <span class="window-button exit-button" id="cancel-queue"></span>
             <div>
                 <span id="queue-estimate"></span>
@@ -15,7 +15,7 @@
                 <span>Actual:</span>
             </div>
         </div>
-        <div id="afk-check">
+        <div id="afk-check" class="landing-shadow">
             <div id="afk-timeout">
                 <div></div>
             </div>
@@ -64,7 +64,7 @@
 
 <template data-template="member">
     <div class="member" id="member-{{id}}">
-        <div class="member-icon" style="background: url({{iconURL}})"></div>
+        <div class="member-icon landing-shadow" style="background: url({{iconURL}})"></div>
         <span class="member-name">{{name}}</span>
         <div class="member-roles">
             <div class="role1 role-{{role1}}"></div>

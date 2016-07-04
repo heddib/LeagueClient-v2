@@ -26,6 +26,11 @@ export default class MatchHistory extends Module {
     public constructor(summ: Domain.Summoner.SummonerSummary) {
         super(template);
 
+        this.subscribe(Service.match, match => {
+            this.history.games.games.unshift(match);
+            this.details(match);
+        });
+
         Service.history(summ.accountId).then(history => {
             this.history = history;
             this.update();
@@ -50,18 +55,18 @@ export default class MatchHistory extends Module {
         for (let match of this.history.games.games) {
             let delta = this.deltas ? this.deltas.deltas.first(d => d.gameId == match.gameId) : null;
             let summary = new MatchSummary(match, delta);
-            summary.selected.on(() => this.details(match.gameId));
+            summary.selected.on(() => {
+                Service.details(match.gameId).then(details => this.details(details));
+            });
             summary.render(this.refs.list);
         }
     }
 
-    private details(gameid: number) {
-        Service.details(gameid).then(details => {
-            var page = new MatchDetails(details);
-            this.refs.detailsPopup.empty();
-            this.refs.detailsPopup.addClass('shown');
-            page.render(this.refs.detailsPopup);
-            page.close.on(() => this.refs.detailsPopup.removeClass('shown'));
-        });
+    private details(details: Domain.MatchHistory.MatchDetails) {
+        var page = new MatchDetails(details);
+        this.refs.detailsPopup.empty();
+        this.refs.detailsPopup.addClass('shown');
+        page.render(this.refs.detailsPopup);
+        page.close.on(() => this.refs.detailsPopup.removeClass('shown'));
     }
 }

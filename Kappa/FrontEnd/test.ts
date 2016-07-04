@@ -9,6 +9,9 @@ namespace Domain {
         export interface AccountState {
             inGame: boolean;
         }
+        export interface QueuePosition {
+            position: number;
+        }
         export interface SavedAccount {
             user: string;
             name: string;
@@ -47,7 +50,7 @@ namespace Domain {
             wardSkinShards: { [id: number]: number };
             wardSkins: { [id: number]: number };
             mastery6Tokens: { [id: number]: number };
-            masteryyTokens: { [id: number]: number };
+            mastery7Tokens: { [id: number]: number };
             chests: number;
             keys: number;
             keyFragments: number;
@@ -79,7 +82,6 @@ namespace Domain {
     }
     export namespace Game {
         export interface ActiveGameState {
-            inGame: boolean;
             launched: boolean;
         }
         export interface AfkCheck {
@@ -123,12 +125,6 @@ namespace Domain {
             me: LobbyMember;
             chatroom: string;
         }
-        export interface EndOfGameChampionMastery {
-            before: ChampionMasteryState;
-            after: ChampionMasteryState;
-            grade: string;
-            champion: number;
-        }
         export interface GameMember {
             name: string;
             champion: number;
@@ -166,6 +162,19 @@ namespace Domain {
             actual: number;
             afkCheck: AfkCheck;
             chatroom: string;
+        }
+        export interface PostGameChampionMastery {
+            before: ChampionMasteryState;
+            after: ChampionMasteryState;
+            grade: string;
+            champion: number;
+        }
+        export interface PostGameState {
+            chatroom: string;
+            ipEarned: number;
+            ipTotal: number;
+            championMastery: PostGameChampionMastery;
+            hextech: Collection.HextechInventory;
         }
         export interface RerollState {
             cost: number;

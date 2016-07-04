@@ -49,10 +49,21 @@ namespace Kappa.Riot.Domain.JSON {
         public int Score { get; set; }
 
         [JSONField("levelUpList")]
-        public List<object> LevelUpList { get; set; }
+        public List<LevelUp> LevelUpList { get; set; }
 
         [JSONField("memberGrades")]
-        public List<object> MemberGrades { get; set; }
+        public List<OtherPlayerGrade> MemberGrades { get; set; }
+    }
+
+    public class LevelUp {
+        [JSONField("playerId")]
+        public long SummonerId { get; set; }
+
+        [JSONField("championId")]
+        public int ChampionId { get; set; }
+
+        [JSONField("championLevel")]
+        public int ChampionLevel { get; set; }
     }
 
     public class OtherPlayerGrade {
@@ -64,5 +75,28 @@ namespace Kappa.Riot.Domain.JSON {
 
         [JSONField("grade")]
         public string Grade { get; set; }
+    }
+
+    public class ChampionMasteryLootGrant {
+        [JSONField("shardId")]
+        public string ShardId { get; set; }
+
+        [JSONField("gameId")]
+        public long GameId { get; set; }
+
+        [JSONField("playerId")]
+        public long SummonerId { get; set; }
+
+        [JSONField("championId")]
+        public int ChampionId { get; set; }
+
+        [JSONField("playerGrade")]
+        public string PlayerGrade { get; set; }
+
+        [JSONField("lootName")]
+        public string LootName { get; set; }
+
+        [JSONField("messageKey")]
+        public object MessageKey { get; set; }
     }
 }

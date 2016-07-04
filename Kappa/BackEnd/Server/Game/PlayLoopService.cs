@@ -25,6 +25,7 @@ namespace Kappa.BackEnd.Server.Game {
         private MatchmakingService matchmaking;
         private ChampSelectService champselect;
         private ActiveGameService active;
+        private PostGameService post;
 
         public PlayLoopService(Session session, ChatRoomService rooms) : base("/playloop") {
             this.session = session;
@@ -35,6 +36,7 @@ namespace Kappa.BackEnd.Server.Game {
             matchmaking = new MatchmakingService(this, session);
             champselect = new ChampSelectService(this, rooms, session);
             active = new ActiveGameService(this, session);
+            post = new PostGameService(rooms, session);
 
             Reset();
         }

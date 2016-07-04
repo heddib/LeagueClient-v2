@@ -53,7 +53,6 @@ module.landing {
                 
                 &:hover {
                     background: fade(@backgroundcolor, 80%);
-                    // box-shadow: 0 0 10px black;
                 }
                 
                 .balance {
@@ -92,14 +91,16 @@ module.landing {
                     transition-property: opacity, transform;
                     transition-duration: 150ms;
                 
-                    &:not(.no-shadow) {
-                        .shadow();
+                    text-shadow: 0 0 15px black;
+
+                    button {
+                        .landing-shadow();
                     }
                 }
             }
 
             > .home {
-                .shadow();
+                -webkit-filter: drop-shadow(0 0 10px);
                 display: flex;
                 
                 > .left {
@@ -125,14 +126,10 @@ module.landing {
     }
     
     > .right {
+        .drop-shadow(10px);
         background: @backgroundcolor;
-        box-shadow: 0 0 10px black;
         z-index: 99;
         width: 280px;
-    }
-    
-    .shadow {
-        -webkit-filter: drop-shadow(0 0 10px);
     }
     
     .background > img {
@@ -159,8 +156,8 @@ module.landing {
         font-size: 18px;
         
         &:hover {
+            .drop-shadow(10px; #0ED3F7);
             border-color: #0ED3F7;
-            box-shadow: 0 0 10px #0ED3F7;
         }
     }
     

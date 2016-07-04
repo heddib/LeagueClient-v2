@@ -132,7 +132,7 @@ namespace Kappa.BackEnd.Server.Game {
 
                 MAIN_CHAMP_SELECT:
                 if (state.Chatroom == Guid.Empty) {
-                    state.Chatroom = rooms.JoinChampSelect(data);
+                    state.Chatroom = rooms.JoinStandard(data);
                 }
 
                 if (changed) {

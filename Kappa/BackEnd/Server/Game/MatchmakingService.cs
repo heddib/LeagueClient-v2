@@ -92,7 +92,7 @@ namespace Kappa.BackEnd.Server.Game {
                     OnAdvancedToLobby();
                 }
                 accepted = null;
-                state.AfkCheck = null;
+                queueStart = DateTime.Now;
                 OnStateChanged();
                 break;
             case GameState.PRE_CHAMP_SELECT:

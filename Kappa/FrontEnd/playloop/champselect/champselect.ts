@@ -40,7 +40,7 @@ export default class ChampSelect extends Module {
     private music: HTMLAudioElement;
 
     public start = this.create<{}>();
-    public cancel = this.create<{}>();
+    public cancel = this.create<boolean>();
     public custom = this.create<{}>();
 
     public constructor() {
@@ -103,12 +103,19 @@ export default class ChampSelect extends Module {
     }
 
     private onAdvance(state: string) {
-        if (state == 'LOBBY' || state == 'MATCHMAKING') {
-            this.doDispose = false;
-            this.dispatch(this.cancel, {});
-        } else if (state == 'CUSTOM') {
-            this.doDispose = false;
-            this.dispatch(this.custom, {});
+        switch (state) {
+            case 'LOBBY':
+                this.doDispose = false;
+                this.dispatch(this.cancel, false);
+                break;
+            case 'MATCHMAKING':
+                this.doDispose = false;
+                this.dispatch(this.cancel, true);
+                break;
+            case 'CUSTOM':
+                this.doDispose = false;
+                this.dispatch(this.custom, {});
+                break;
         }
     }
 
