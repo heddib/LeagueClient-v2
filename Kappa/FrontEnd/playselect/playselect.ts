@@ -6,36 +6,49 @@ import * as Lobby    from './../playloop/lobby/service';
 
 const html = Module.import('playselect');
 
-class Group {
-    private _name: string;
-    private _image: string;
-    private _queues: Queue[];
-
-    public get name() { return this._name; }
-    public get image() { return this._image; }
-    public get queues() { return this._queues; }
-
-    constructor(name: string, image: string, queues: Queue[]) {
-        this._name = name;
-        this._image = image;
-        this._queues = queues;
-    }
+interface Group {
+    name: string;
+    image: string;
+    queues: Queue[]
 }
 
-class Queue {
-    private _id: number;
-    private _name: string;
-    private _action: Function;
+interface Queue {
+    id: number;
+    name: string;
+    action: (queue: Queue) => void;
+}
 
-    public get id() { return this._id; }
-    public get name() { return this._name; }
-    public get action() { return this._action; }
+function Group(name: string, image: string, queues: Queue[]): Group {
+    return { name: name, image: image, queues: queues };
+}
 
-    constructor(id: number, name: string, action: Function) {
-        this._id = id;
-        this._name = name;
-        this._action = action;
-    }
+function Queue(id: number, name: string, action: (queue: Queue) => void): Queue {
+    return { id: id, name: name, action: action };
+}
+
+function Single(id: number, name: string, image: string, action: (queue: Queue) => void): Group {
+    return Group(name, image, [Queue(id, name, action)]);
+}
+
+const maps = (() => {
+    const mapBase = "images/playselect/";
+    return {
+        abyss: mapBase + "HowlingAbyss.png",
+        rift: mapBase + "SummonersRift.png",
+        tt: mapBase + "TwistedTreeline.png",
+
+        urf: mapBase + "urf.png",
+        oneforall: mapBase + "oneforall.png",
+        hexakill: mapBase + "hexakill.png",
+        hexakilltt: mapBase + "hexakilltt.png",
+        ascension: mapBase + "ascension.png",
+        poroking: mapBase + "poroking.png",
+        dominion: mapBase + "dominion.png",
+    };
+})();
+
+for (var key in maps) {
+    Util.preload(maps[key]);
 }
 
 export default class PlaySelect extends Module {
@@ -49,47 +62,29 @@ export default class PlaySelect extends Module {
     public constructor() {
         super(html);
 
-        let maps = "images/playselect/";
         this.standard = [
-            new Group("Summoner's Rift", maps + "SummonersRift.png", [
-                new Queue(410, 'Ranked', this.TeambuilderDraft),
-                new Queue(400, 'Normal', this.TeambuilderDraft),
-                new Queue(2, 'Normal (Blind Pick)', this.Standard),
+            Group("Summoner's Rift", maps.rift, [
+                Queue(410, 'Ranked', this.TeambuilderDraft),
+                Queue(400, 'Normal', this.TeambuilderDraft),
+                Queue(2, 'Normal (Blind Pick)', this.Standard),
             ]),
-            new Group("Twisted Treeline", maps + "TwistedTreeline.png", [
-                new Queue(41, 'Ranked Teams - 3v3', this.RankedTeams),
-                new Queue(8, 'Normal Blind Pick - 3v3', this.Standard),
+            Group("Twisted Treeline", maps.tt, [
+                Queue(41, 'Ranked Teams - 3v3', this.RankedTeams),
+                Queue(8, 'Normal Blind Pick - 3v3', this.Standard),
             ]),
-            new Group("Howling Abyss", maps + "HowlingAbyss.png", [
-                new Queue(65, 'ARAM', this.Standard),
+            Group("Howling Abyss", maps.abyss, [
+                Queue(65, 'ARAM', this.Standard),
             ]),
         ];
 
         this.extra = [
-            new Group("URF", maps + "urf.png", [
-                new Queue(76, 'URF', this.Standard)
-            ]),
-            new Group("One for All", maps + "one for all.png", [
-                new Queue(70, 'One for All', this.Standard)
-            ]),
-            new Group("Hexakill", maps + "hexakill.png", [
-                new Queue(75, 'Hexakill', this.Standard)
-            ]),
-            new Group("Hexakill (Twisted Treeline)", maps + "hexakill tt.png", [
-                new Queue(98, 'Hexakill (Twisted Treeline)', this.Standard)
-            ]),
-            new Group("Ascension", maps + "ascension.png", [
-                new Queue(96, 'Ascension', this.Standard)
-            ]),
-            new Group("Poro King", maps + "poro king.png", [
-                new Queue(300, 'Poro King', this.Standard)
-            ]),
-            new Group("URF", maps + "urf.png", [
-                new Queue(76, 'URF', this.Standard)
-            ]),
-            new Group("Definitely not Dominion", maps + "dominion.png", [
-                new Queue(317, 'Definitely not Dominion', this.Standard)
-            ])
+            Single(76, "URF", maps.urf, this.Standard),
+            Single(70, "One for All", maps.oneforall, this.Standard),
+            Single(75, "Hexakill", maps.hexakill, this.Standard),
+            Single(98, "Twisted Treeline Hexakill", maps.hexakilltt, this.Standard),
+            Single(96, "Ascension", maps.ascension, this.Standard),
+            Single(300, "Poro King", maps.poroking, this.Standard),
+            Single(317, "Definitely not Dominion", maps.dominion, this.Standard),
         ];
 
         this.showPage(this.refs.body);

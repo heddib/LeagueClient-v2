@@ -81,7 +81,13 @@ export const gamedata: {
 Service.masteries().then(m => gamedata.masteries = m);
 Service.runes().then(m => gamedata.runes = m);
 Service.items().then(m => gamedata.items = m);
-Service.champions().then(m => gamedata.champions = m);
+Service.champions().then(m => {
+    gamedata.champions = m;
+    setTimeout(() => {
+        for (let champ of gamedata.champions)
+            Util.preload(champion.splash(champ.id, 0));
+    }, 5000);
+});
 Service.summonerspells().then(m => gamedata.summoners = m);
 
 export const login = {

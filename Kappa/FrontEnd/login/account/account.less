@@ -17,27 +17,9 @@
     }
 
     &:not(.loading) {
-        > .shadow {
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
         > .border {
             border-width: 0;
         }
-    }
-
-    > .shadow {
-        position: absolute;
-        top: 9px;
-        left: 9px;
-        width: calc(100% - 18px);
-        height: calc(100% - 18px);
-        box-shadow: inset 0 0 10px black;
-        border-radius: 50%;
-        transition: all 100ms ease-in-out;
     }
 
     > .border {
@@ -52,6 +34,7 @@
         border-radius: 50%;
         animation: account-load 1000ms infinite linear;
         transition: border-width 100ms ease-in-out;
+        box-shadow: inset 0 0 10px black;
     }
 
     > .name {

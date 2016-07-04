@@ -27,12 +27,12 @@ namespace Kappa {
             string index = $"http://localhost:{BackEndServer.HttpPort}/ui/client.html";
             string cache = Path.Combine(Session.AppData, "cache");
 
+            string args = $"--backend=\"{index}\" --cache-path=\"{cache}\" --enable-system-flash";
 #if BUILD_UI
-            Process.Start(FrontEndExecutable, $"--backend=\"{index}\" --cache-path=\"{cache}\" --remote-debugging-port=1337");
+            args += " --remote-debugging-port=1337";
             Process.Start("http://localhost:1337/");
-#else
-            Process.Start(FrontEndExecutable, $"--backend=\"{index}\" --cache-path=\"{cache}\"");
 #endif
+            Process.Start(FrontEndExecutable, args);
 
             content.Load();
             assets.Load();

@@ -4,7 +4,6 @@ import * as Assets  from './../../assets/assets';
 
 const template = (
     <module class="saved-account" data-event="mouseup:onMouseUp">
-        <div class="shadow"/>
         <div class="border"/>
         <div class="name">
             <span data-ref="name"/>

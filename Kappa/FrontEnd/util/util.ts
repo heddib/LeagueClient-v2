@@ -197,7 +197,6 @@ module Util {
 
         return new Async<{}>((resolve, reject) => {
             let image = new Image();
-            dst.appendChild(image);
             image.src = url;
             image.addEventListener('load', () => resolve({}));
         });
