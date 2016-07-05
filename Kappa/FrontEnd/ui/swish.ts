@@ -205,7 +205,7 @@ export class Swish {
     public set html(v) { this[0].innerHTML = v; }
 
     public get dataset() { return this[0].dataset; }
-    public get bounds() { return this[0].getBoundingClientRect(); }
+    public get bounds(): ClientRect { return this[0].getBoundingClientRect(); }
     public get styling() { return window.getComputedStyle(this[0]); }
 }
 

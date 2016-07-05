@@ -1,5 +1,6 @@
 @backgroundcolor: #343438;
 @foregroundcolor: #3E3E44;
+@textcolor: #EEEEEE;
 
 @mainHeaderSize: 75px;
 
@@ -24,7 +25,7 @@
         height: 100%;
         position: absolute;
         
-        color: #EEEEEE;
+        color: @textcolor;
         font-size: 16px;
         font-family: Beaufort;
         font-weight: normal;
@@ -63,13 +64,13 @@
         border: 1px solid #848484;
         padding: 2px;
         outline-color: orange;
-        color: #EEEEEE;
+        color: inherit;
     }
 
     button, input[type="button"] {
         background: rgb(100, 100, 105);
         border: 1px solid transparent;
-        color: #EEEEEE;
+        color: inherit;
         font-family: Roboto;
         font-size: 16px;
         padding: 6px 16px;
@@ -95,7 +96,7 @@
     select {
         background: #3E3E44;
         border: 1px solid #848484;
-        color: #EEEEEE;
+        color: inherit;
         font-family: Roboto;
         font-size: 16px;
     }
@@ -169,8 +170,7 @@
         position: relative;
         
         &:hover {
-            -webkit-filter: drop-shadow(0 0 3px #EEEEEE);
-            filter: drop-shadow(0 0 3px #EEEEEE);
+            -webkit-filter: drop-shadow(0 0 3px @textcolor);
         }
     }
 
@@ -288,6 +288,7 @@ module {
 
 //Imports\\
     @import "ui/popup.less";
+    @import "ui/tooltip.less";
     
     @import "login/login.less";
     @import "login/account/account.less";

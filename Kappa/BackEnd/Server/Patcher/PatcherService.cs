@@ -180,21 +180,6 @@ namespace Kappa.BackEnd.Server.Patcher {
                 tasks.RemoveAll(t => t.IsCompleted);
             }
 
-            //foreach (var patcher in patchers) {
-            //    var copy = from f in patcher.Manifest.AllFiles.Values
-            //               where f.MetaData.Type == ReleaseManifest.FileType.COPY_TO_SLN
-            //               select f;
-
-            //    foreach (var file in copy) {
-            //        var path = Path.Combine(gameTarget, "deploy", file.FullName);
-            //        Directory.CreateDirectory(Path.GetDirectoryName(path));
-            //        using (var src = patcher.GetStream(file, false))
-            //        using (var dst = File.OpenWrite(path)) {
-            //            src.CopyTo(dst);
-            //        }
-            //    }
-            //}
-
             using (File.Create(Path.Combine(solutionTarget, "S_OK"))) { }
         }
 

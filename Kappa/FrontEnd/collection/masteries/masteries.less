@@ -112,34 +112,21 @@ module.masteries-page {
                 border-color: orange;
             }
         }
-        
-        > .popup {
-            .drop-shadow(10px; #EEEEEE);
-            position: absolute;
-            top: 50%;
-            right: 120%;
-            width: 300px;
-            transform: translateY(-50%);
-            background: #343438;
-            min-height: 50px;
-            padding: 4px 8px;
-            display: none;
-            flex-direction: column;
-            z-index: 1;
-            justify-content: space-around;
+    }
+}
 
-            > .title {
-                font-weight: bold;
-                font-size: 18px;
-            }
-            
-            > .description {
-                font-size: 16px;
-            }
-        }
-        
-        &:hover > .popup {
-            display: flex;
-        }
+module.masteries-tooltip {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    padding: 4px 8px;
+
+    > .title {
+        font-weight: bold;
+        font-size: 18px;
+    }
+    
+    > .description {
+        font-size: 16px;
     }
 }

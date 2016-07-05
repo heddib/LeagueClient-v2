@@ -19,7 +19,7 @@ module.landing {
             flex: 0 0 auto;
             padding: 20px;
             display: flex;
-            z-index: 99;
+            z-index: 2;
         
             > .tab-button {
                 .no-drag();
@@ -70,6 +70,7 @@ module.landing {
         
         > .center {
             .flex-padd();
+            z-index: 1;
             
             @tabcount: 5;
 
@@ -87,16 +88,20 @@ module.landing {
                 width: 1000px;
             }
 
-            > .content {
-                > module {
-                    transition-property: opacity, transform;
-                    transition-duration: 150ms;
-                
-                    text-shadow: 0 0 15px black;
+            > container > module {
+                overflow: hidden;
+                margin-top: -@mainHeaderSize;
+                padding-top: @mainHeaderSize;
+            }
 
-                    button {
-                        .drop-shadow();
-                    }
+            > .content  > module {
+                transition-property: opacity, transform;
+                transition-duration: 150ms;
+            
+                text-shadow: 0 0 15px black;
+
+                button {
+                    .drop-shadow();
                 }
             }
 

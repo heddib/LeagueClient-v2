@@ -29,6 +29,8 @@ namespace Kappa.Util {
                 res = x.Response;
             }
 
+            if(res == null) return new byte[0];
+
             using (res)
             using (var stream = res.GetResponseStream()) {
                 return stream.ReadFully();

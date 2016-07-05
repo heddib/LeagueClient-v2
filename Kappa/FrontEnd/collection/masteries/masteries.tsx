@@ -1,6 +1,7 @@
 import { Swish, $  } from './../../ui/swish';
 import Module        from './../../ui/module';
 import Popup         from './../../ui/popup';
+import * as Tooltip  from './../../ui/tooltip';
 import * as Defer    from './../../defer';
 import * as Assets   from './../../assets/assets';
 
@@ -34,17 +35,11 @@ const pageTemplate = (
 );
 
 const rowTemplate = (
-    <div class="mastery-row">
-
-    </div>
+    <div class="mastery-row"></div>
 );
 
 const iconTemplate = (
     <div class="mastery-icon">
-        <div class="popup">
-            <span class="title" data-ref="title"/>
-            <span class="description" data-ref="description"/>
-        </div>
         <img data-ref="icon"/>
         <span class="mastery-icon-points"><span data-ref="current">0</span>/<span data-ref="max"/></span>
     </div>
@@ -148,7 +143,6 @@ export class Page extends Module {
             if (rank == 0)
                 delete currentPage.masteries[id];
             icon.refs.current.text = rank;
-            icon.refs.description.html = info.description[Math.max(rank - 1, 0)];
         }
     }
 
@@ -218,12 +212,13 @@ export class Page extends Module {
                 let icon = Module.create(iconTemplate);
                 icon.refs.icon.src = Assets.masteries.icon(info.id);
                 icon.refs.max.text = info.maxRank;
-                icon.refs.title.text = info.name;
 
                 icon.node.setClass(info.maxRank == 1, 'single');
 
                 icon.render(row.node);
                 icon.node.on('wheel', (e: WheelEvent) => this.onMasteryChange(info, src, y, -e.deltaY / Math.abs(e.deltaY)));
+
+                Tooltip.top(icon.node, new MasteryTooltip(info));
 
                 this.icons[info.id] = icon;
             }
@@ -243,5 +238,29 @@ function getRowSum(row: number[]) {
 class MasteriesPopup extends Popup {
     constructor() {
         super("Masteries", new Page());
+    }
+}
+
+const tooltipTemplate = (
+    <module class="masteries-tooltip">
+        <span class="title" data-ref="title"/>
+        <span class="description" data-ref="description"/>
+    </module>
+);
+
+class MasteryTooltip extends Tooltip.Content {
+    private info: Domain.GameData.Mastery;
+
+    constructor(info: Domain.GameData.Mastery) {
+        super(tooltipTemplate);
+
+        this.info = info;
+
+        this.refs.title.text = info.name;
+    }
+
+    public onshow() {
+        let rank = currentPage.masteries[this.info.id] || 0;
+        this.refs.description.html = this.info.description[Math.max(rank - 1, 0)];
     }
 }

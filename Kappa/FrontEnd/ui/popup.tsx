@@ -10,7 +10,7 @@ const template = (
         </div>
         <container data-ref="container"/>
     </module>
-)
+);
 
 abstract class Popup extends Module {
     protected module: Module;
