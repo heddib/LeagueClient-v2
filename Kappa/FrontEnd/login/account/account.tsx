@@ -3,8 +3,10 @@ import Module       from './../../ui/module';
 import * as Assets  from './../../assets/assets';
 
 const template = (
-    <module class="saved-account" data-event="mouseup:onMouseUp">
-        <div class="border"/>
+    <module class="saved-account">
+        <div class="icon" data-ref="icon" data-event="mouseup:onMouseUp">
+            <div class="border"/>
+        </div>
         <div class="name">
             <span data-ref="name"/>
         </div>
@@ -21,7 +23,7 @@ export default class Account extends Module {
     public constructor(account) {
         super(template);
 
-        this.node.setBackgroundImage(Assets.summoner.icon(account.icon));
+        this.refs.icon.setBackgroundImage(Assets.summoner.icon(account.icon));
         this.refs.name.text = account.name;
         this._account = account;
     }

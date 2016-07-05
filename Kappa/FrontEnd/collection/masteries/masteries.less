@@ -1,20 +1,16 @@
-#masteries-popup {
-    flex-direction: column;
+module.masteries-page {
+    display: flex;
+    padding: 0 5px;
         
     #delete-masteries {
         opacity: 0;
     }
-    
-    > .header {
-        background: @foregroundcolor;
+
+    button {
+        .drop-shadow();
     }
     
-    > .content {
-        display: flex;
-        padding: 0 5px;
-        background: @backgroundcolor;
-        
-        > .left {
+    > .left {
         display: flex;
         flex-direction: column;
         padding: 10px 5px;
@@ -29,12 +25,11 @@
                 text-align: center;
                 cursor: pointer;
                 margin-bottom: 10px;
+                font-size: 18px;
+                font-weight: bold;
                 
-                &:hover {
-                    .drop-shadow(5px);
-                }
                 &.active {
-                    .drop-shadow(5px) !important;
+                    .drop-shadow(10px; orange);
                 }
             }
         }
@@ -45,27 +40,29 @@
             margin: 0 -4px;
             
             > button {
-                width: 90px;
+                width: 100px;
                 margin: 4px;
-                }
             }
         }
+    }
         
-        > .body {
+    > .body {
+        .flex-padd();
+        display: flex;
+        align-items: stretch;
+        
+        > .mastery-tree {
+            .flex-padd();
             display: flex;
+            flex-direction: column;
+            padding: 10px 5px;
             
-            > .mastery-tree {
+            > .mastery-row {
                 display: flex;
-                flex-direction: column;
-                padding: 10px 5px;
+                justify-content: space-between;
                 
-                > .mastery-row {
-                    display: flex;
-                    justify-content: space-between;
-                    
-                    &.single {
-                        justify-content: center;
-                    }
+                &.single {
+                    justify-content: center;
                 }
             }
         }

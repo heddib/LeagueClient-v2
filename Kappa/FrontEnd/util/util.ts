@@ -192,13 +192,33 @@ module React {
 }
 
 module Util {
-    export function preload(url: string) {
-        let dst = document.getElementById('preload-container');
+    let preloadContainer: HTMLElement;
+    let callbacks: { [url: string]: Function } = {};
 
+    window.addEventListener('load', () => {
+        preloadContainer = document.getElementById('preload-container');
+        for (let url in callbacks) load(url);
+    });
+
+    function load(url: string) {
+        let image = new Image();
+        preloadContainer.appendChild(image);
+        // console.time(url);
+        image.src = url;
+        image.addEventListener('load', () => {
+            // console.timeEnd(url);
+            callbacks[url]({});
+        });
+    }
+
+    export function preload(url: string) {
         return new Async<{}>((resolve, reject) => {
-            let image = new Image();
-            image.src = url;
-            image.addEventListener('load', () => resolve({}));
+            if (callbacks[url]) resolve({});
+            else {
+                callbacks[url] = resolve;
+
+                if (preloadContainer) load(url);
+            }
         });
     }
 }

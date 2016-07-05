@@ -32,7 +32,7 @@ export default class MatchDetails extends Module {
         for (var i = 0; i < 3; i++) tabs[i] = this.refs['tab' + i];
         this.tabChange = Tabs.create(tabs, 0, (old, now) => this.onTabChange(old, now));
 
-        this.refs.backButton.on('click', e => this.dispatch(this.close, {}));
+        this.refs.backButton.on('click', e => this.dispatch(this.closed, {}));
 
         var scoreboard = new Scoreboard(details);
         scoreboard.render(this.refs.scoreboardContainer);

@@ -67,6 +67,6 @@ export default class MatchHistory extends Module {
         this.refs.detailsPopup.empty();
         this.refs.detailsPopup.addClass('shown');
         page.render(this.refs.detailsPopup);
-        page.close.on(() => this.refs.detailsPopup.removeClass('shown'));
+        page.closed.on(() => this.refs.detailsPopup.removeClass('shown'));
     }
 }

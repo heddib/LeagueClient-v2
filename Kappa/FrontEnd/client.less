@@ -6,6 +6,10 @@
 .drop-shadow(@size: 25px; @color: black) {
     box-shadow: 0 0 @size @color;
 }
+
+.image-accent() {
+    -webkit-filter: contrast(110%) brightness(110%);
+}
     
 //General Styles//
     img {
@@ -210,27 +214,6 @@
     }
 //
   
-//Popups\\
-    body > .popup {
-        .no-drag();
-        position: fixed;
-        left: 50%;
-        top: 50%;
-        box-shadow: 0 0 15px 5px black;
-        transform: translateX(-50%) translateY(-50%);
-        flex-direction: column;
-        opacity: 0;
-        display: none;
-        transition: opacity 100ms;
-        z-index: 100;
-        
-        &.shown {
-            opacity: 1;
-            display: flex;
-        }
-    }
-//
-
 //Roles\\
     .role-top {
         background: url(images/tbd/top.png) no-repeat center/contain;
@@ -304,6 +287,8 @@ module {
 }
 
 //Imports\\
+    @import "ui/popup.less";
+    
     @import "login/login.less";
     @import "login/account/account.less";
     @import "landing/landing.less";

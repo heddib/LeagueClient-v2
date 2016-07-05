@@ -222,7 +222,7 @@ export default class Landing extends Module {
             fadein();
         }
 
-        mod.close.on(e => this.playSelect());
+        mod.closed.on(e => this.playSelect());
 
         if (show) this.tabChange(0);
     }

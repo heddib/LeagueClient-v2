@@ -244,6 +244,6 @@ export default class Lobby extends Module {
     private onLeaveLobbyClick(e: MouseEvent) {
         PlayLoop.quit();
         this.doDispose = false;
-        this.dispatch(this.close, {});
+        this.dispatch(this.closed, {});
     }
 }

@@ -20,7 +20,7 @@ abstract class Module extends EventSource implements IDisposable {
     public get node() { return this._node; }
     protected get refs() { return this._refs; }
 
-    public close = this.create<{}>();
+    public closed = this.create<{}>();
 
     constructor(link: HTMLLinkElement | HTMLDivElement) {
         super();

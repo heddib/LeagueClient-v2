@@ -1,0 +1,34 @@
+module.popup {
+    .no-drag();
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    box-shadow: 0 0 15px 5px black;
+    transform: translateX(-50%) translateY(-50%);
+    flex-direction: column;
+    opacity: 0;
+    display: none;
+    transition: opacity 100ms;
+    z-index: 100;
+
+    > .header {
+        background: @foregroundcolor;
+        display: flex;
+        align-items: center;
+
+        > .title {
+            margin: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    }
+
+    > container {
+        background: @backgroundcolor;
+    }
+    
+    &.shown {
+        opacity: 1;
+        display: flex;
+    }
+}

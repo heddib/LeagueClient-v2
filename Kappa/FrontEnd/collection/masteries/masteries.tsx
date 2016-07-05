@@ -1,30 +1,28 @@
 import { Swish, $  } from './../../ui/swish';
-import * as Module   from './../../ui/module';
+import Module        from './../../ui/module';
+import Popup         from './../../ui/popup';
 import * as Defer    from './../../defer';
 import * as Assets   from './../../assets/assets';
 
 import * as Service  from './service';
 
 const template = (
-    <module id="masteries-popup" class="popup">
-        <div class="header">
-            <span class="window-button exit-button" id="close-masteries"></span>
+    <module class="masteries-page">
+        <div class="left">
+            <x-flexpadd/>
+            <div id="mastery-page-list">
+            </div>
+            <div class="button-group">
+                <button id="save-masteries">Save</button>
+                <button id="revert-masteries">Revert</button>
+            </div>
+            <div class="button-group">
+                <button id="reset-masteries">Reset</button>
+                <button id="delete-masteries">Delete</button>
+            </div>
+            <x-flexpadd style="flex: 6"/>
         </div>
-        <div class="content">
-            <div class="left">
-                <div id="mastery-page-list">
-                </div>
-                <div class="button-group">
-                    <button id="save-masteries">Save</button>
-                    <button id="revert-masteries">Revert</button>
-                </div>
-                <div class="button-group">
-                    <button id="reset-masteries">Reset</button>
-                    <button id="delete-masteries">Delete</button>
-                </div>
-            </div>
-            <div class="body" data-ref="treeContainer">
-            </div>
+        <div class="body" data-ref="treeContainer">
         </div>
     </module>
 );
@@ -54,13 +52,9 @@ const iconTemplate = (
 
 let currentBook: Domain.Collection.MasteryBook;
 let currentPage: Domain.Collection.MasteryPage;
-let callbacks: Function[] = [];
 
-let masteries: Masteries;
-
-window.addEventListener('load', () => {
-    masteries = new Masteries();
-    $(document.body).add(masteries.node);
+Defer.auth(() => {
+    Service.get().then(book => currentBook = book);
 });
 
 export function selected() {
@@ -71,9 +65,10 @@ export function list() {
     return currentBook.pages;
 }
 
-export function show(callback?: Function) {
-    if (callback) callbacks.push(callback);
-    masteries.node.addClass('shown');
+export function popup() {
+    let popup = new MasteriesPopup();
+    popup.show();
+    return popup;
 }
 
 export function select(page: Domain.Collection.MasteryPage) {
@@ -82,16 +77,8 @@ export function select(page: Domain.Collection.MasteryPage) {
     Service.select(page);
 }
 
-function getRowSum(row: number[]) {
-    var sum = 0;
-    for (var id of row) {
-        sum += currentPage.masteries[id] || 0;
-    }
-    return sum;
-}
-
-class Masteries extends Module.default {
-    private icons: { [id: number]: Module.AnonymousModule } = {};
+export class Page extends Module {
+    private icons: { [id: number]: any } = {};
 
     constructor() {
         super(template);
@@ -100,16 +87,15 @@ class Masteries extends Module.default {
         this.$('#revert-masteries').on('click', (e: MouseEvent) => this.onRevertMasteriesClick(e));
 
         this.$('#reset-masteries').on('click', (e: MouseEvent) => this.onResetMasteriesClick(e));
-        this.$('#close-masteries').on('click', (e: MouseEvent) => this.onCloseMasteriesClick(e));
 
-        Defer.auth(() => {
-            Service.get().then(book => this.onBook(book));
-        });
+        this.load();
     }
 
-    private onBook(book: Domain.Collection.MasteryBook) {
-        currentBook = book;
-
+    private load() {
+        if (!currentBook) {
+            setTimeout(() => this.load(), 500);
+            return;
+        }
         for (var group of Assets.gamedata.masteries.tree.groups) {
             var node = document.createElement('div');
             node.classList.add('mastery-tree');
@@ -131,7 +117,7 @@ class Masteries extends Module.default {
         list.empty();
         for (let i = 0; i < currentBook.pages.length; i++) {
             let page = currentBook.pages[i];
-            let node = Module.default.create(pageTemplate);
+            let node = Module.create(pageTemplate);
             node.refs.name.text = page.name;
             node.node.on('click', e => this.renderPage(page));
             node.render(list);
@@ -223,20 +209,13 @@ class Masteries extends Module.default {
         this.renderPage();
     }
 
-    private onCloseMasteriesClick(e: MouseEvent) {
-        this.node.removeClass('shown');
-        this.renderPage(currentPage);
-        while (callbacks[0])
-            callbacks.shift()();
-    }
-
     private createTree(src: Domain.GameData.MasteryGroup, dst: Swish) {
         for (let y = 0; y < src.rows.length; y++) {
-            let row = Module.default.create(rowTemplate);
+            let row = Module.create(rowTemplate);
             row.node.setClass(src.rows[y].maxPointsInRow == 1, 'single');
             for (let id of src.rows[y].masteries) {
                 let info = Assets.gamedata.masteries.data[id];
-                let icon = Module.default.create(iconTemplate);
+                let icon = Module.create(iconTemplate);
                 icon.refs.icon.src = Assets.masteries.icon(info.id);
                 icon.refs.max.text = info.maxRank;
                 icon.refs.title.text = info.name;
@@ -250,5 +229,19 @@ class Masteries extends Module.default {
             }
             row.render(dst);
         }
+    }
+}
+
+function getRowSum(row: number[]) {
+    var sum = 0;
+    for (var id of row) {
+        sum += currentPage.masteries[id] || 0;
+    }
+    return sum;
+}
+
+class MasteriesPopup extends Popup {
+    constructor() {
+        super("Masteries", new Page());
     }
 }

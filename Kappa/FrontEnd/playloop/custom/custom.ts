@@ -130,6 +130,6 @@ export default class CustomLobby extends Module {
     private onQuitGameClick(e: MouseEvent) {
         PlayLoop.quit();
         this.doDispose = false;
-        this.dispatch(this.close, {});
+        this.dispatch(this.closed, {});
     }
 }

@@ -5,6 +5,7 @@ import * as Tabs      from './../ui/tabs';
 import * as Assets    from './../assets/assets';
 import ChampionsPage  from './champions/page';
 import HextechPage    from './hextech/hextech';
+import * as Masteries from './masteries/masteries';
 
 const template = (
     <module class="collection">
@@ -38,6 +39,9 @@ export default class CollectionPage extends Module {
 
         let hextech = new HextechPage();
         hextech.render(this.refs.hextechContainer);
+
+        let masteries = new Masteries.Page();
+        masteries.render(this.refs.masteriesContainer);
     }
 
     public sleep() {

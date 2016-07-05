@@ -431,13 +431,14 @@ export default class ChampSelect extends Module {
     }
 
     private onEditMasteriesClick(e: MouseEvent) {
-        Masteries.show(() => this.fetchBooks());
+        let popup = Masteries.popup();
+        popup.closed.on(() => this.fetchBooks());
     }
 
     private onClose() {
         PlayLoop.quit();
         this.doDispose = false;
-        this.dispatch(this.close, {});
+        this.dispatch(this.closed, {});
     }
 
     private onTimerTick() {
