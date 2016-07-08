@@ -20,10 +20,13 @@ namespace Installer {
 
             var src = Assembly.GetExecutingAssembly().GetManifestResourceStream("Installer.Data.zip");
             var dst = Path.Combine(AppData, "Application");
-            var cache = Path.Combine(AppData, "cache");
+            var toDelete = new[] { dst, Path.Combine(AppData, "cache") };
 
-            if (Directory.Exists(cache))
-                Directory.Delete(cache, true);
+            foreach (string path in toDelete) {
+                if (Directory.Exists(path))
+                    Directory.Delete(path, true);
+            }
+
             Directory.CreateDirectory(dst);
 
             int count = 0;

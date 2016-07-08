@@ -44,7 +44,7 @@ namespace Kappa.BackEnd.Server.Diagnostics {
             }
             var docs = new JSONObject {
                 ["name"] = "Kappa Backend",
-                ["host"] = "localhost:" + BackEndServer.HttpPort,
+                ["host"] = BackEndServer.HostName,
                 ["base"] = "/kappa",
                 ["endpoints"] = list,
             };

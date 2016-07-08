@@ -28,9 +28,10 @@ namespace Kappa {
         }
 
         public LeagueClient() {
-            BackEndServer.AddService(this.front);
-
+            BackEndServer.Initialize();
             Session.Initialize();
+
+            BackEndServer.AddService(this.front);
 
             JSONSerializer.AddSerializer(Serialize);
             JSONDeserializer.AddDeserializer<object>(Deserialize);
@@ -40,7 +41,7 @@ namespace Kappa {
             front.Build(@"..\..\FrontEnd", @"C:\Users\max\desktop\assets");
 
             var kappa = new Session();
-            front.Start();
+            front.Start(BackEndServer.HostName);
             kappa.Start().Wait();
         }
 

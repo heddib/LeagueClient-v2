@@ -1,8 +1,5 @@
 import * as Service    from './service';
 import * as Defer      from './../defer';
-import Storage         from './../util/storage';
-
-const storage = new Storage('summoner');
 
 let summoners: { [name: string]: Async<Domain.Summoner.SummonerSummary> } = {};
 let icons: { [id: number]: number } = {};
@@ -39,11 +36,9 @@ export function kudos(id: number): Async<Domain.Summoner.SummonerKudos> {
     return Service.kudos(id);
 }
 
-load(storage.get('icons'));
 function load(map) {
     if (map) {
         for (var id in map)
             icons[id] = map[id];
-        storage.set('icons', icons);
     }
 }

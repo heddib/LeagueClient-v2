@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 using System.Net;
 using MFroehlich.Parsing.JSON;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using Kappa.BackEnd.Server.Diagnostics;
 
 namespace Kappa.BackEnd.Server {
@@ -23,9 +20,17 @@ namespace Kappa.BackEnd.Server {
         public static IEnumerable<HttpService> Services => services;
         public static IEnumerable<LogItem> Logs => log;
 
-        public const int HttpPort = 25566;
+        public static string HostName { get; private set; }
 
-        [SuppressMessage("ReSharper", "UnusedVariable")]
+        public static void Initialize() {
+            var tmp = new TcpListener(IPAddress.Any, 0);
+            tmp.Start();
+
+            HostName = "localhost:" + ((IPEndPoint) tmp.LocalEndpoint).Port;
+
+            tmp.Stop();
+        }
+
         public static void Start() {
             var docService = new DocumentationService();
             var logService = new LogService();
@@ -33,7 +38,7 @@ namespace Kappa.BackEnd.Server {
             AddService(logService);
 
             server = new HttpListener();
-            server.Prefixes.Add("http://localhost:" + HttpPort + "/");
+            server.Prefixes.Add($"http://{HostName}/");
 
             MainThread = new Thread(ServerWorker) { IsBackground = true };
             MainThread.Start();
@@ -121,18 +126,12 @@ namespace Kappa.BackEnd.Server {
                 socket.OnClose += (s, e) => {
                     asyncs.Remove(socket);
                 };
-                socket.OnMessage += (s, e) => {
-                    Debug.WriteLine("Received unexpected message: " + Encoding.UTF8.GetString(e.Data));
-                };
                 break;
 
             case "/log":
                 logs.Add(socket);
                 socket.OnClose += (s, e) => {
                     logs.Remove(socket);
-                };
-                socket.OnMessage += (s, e) => {
-                    Debug.WriteLine("Received unexpected message: " + Encoding.UTF8.GetString(e.Data));
                 };
                 break;
             }

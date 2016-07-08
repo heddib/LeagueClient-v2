@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -41,6 +40,7 @@ namespace Kappa.BackEnd {
 
         private static string clientVersion;
         private static string rtmpLogFile;
+        private static string logFile;
 
         internal static RiotAPI RiotAPI { get; private set; }
         internal event EventHandler Authed;
@@ -60,7 +60,6 @@ namespace Kappa.BackEnd {
         private SummonerService summoner;
         private ChatService chat;
 
-        [SuppressMessage("ReSharper", "UnusedVariable")]
         public Session() {
             AccountService = new Riot.Services.AccountService(this);
             ChampionTradeService = new Riot.Services.ChampionTradeService(this);
@@ -116,7 +115,6 @@ namespace Kappa.BackEnd {
             var debug = new DebugService(this);
 
             var replay = new ReplayService(this);
-
 
             patcher.FinishWAD();
         }
@@ -225,8 +223,10 @@ namespace Kappa.BackEnd {
             try {
                 Authed?.Invoke(this, new EventArgs());
             } catch (Exception x) {
-                Debug.WriteLine("Caught exception while dispatching auth: " + x);
+                Log("Caught exception while dispatching auth: " + x);
             }
+
+            BackEndServer.Async("/kappa/defer/auth", new JSONObject());
 
             new Thread(HeartBeatLoop) { IsBackground = true }.Start();
         }
@@ -288,8 +288,12 @@ namespace Kappa.BackEnd {
         #region | Static Methods |
 
         public static void Initialize() {
-            rtmpLogFile = Path.Combine(AppData, "logs", DateTime.Now.ToString("M-d H-mm") + ".txt");
+            logFile = Path.Combine(AppData, "logs", "client", DateTime.Now.ToString("M-d H-mm") + ".txt");
+            Directory.CreateDirectory(Path.GetDirectoryName(logFile));
+#if DEBUG
+            rtmpLogFile = Path.Combine(AppData, "logs", "rtmp", DateTime.Now.ToString("M-d H-mm") + ".txt");
             Directory.CreateDirectory(Path.GetDirectoryName(rtmpLogFile));
+#endif
 
             RiotAPI = RiotAPI.Debug(MFroehlich.League.RiotAPI.Region.NA, "5d8ea4aa-db1c-43ea-aacd-888129dadf11");
 
@@ -307,8 +311,12 @@ namespace Kappa.BackEnd {
 
         internal static void Log(object msg) {
             Debug.WriteLine(msg);
+
+            var str = (msg?.ToString() ?? "null") + Environment.NewLine;
+            File.AppendAllText(logFile, str);
         }
 
+        [Conditional("DEBUG")]
         internal static void RtmpLogAsync(object msg) {
             object json;
             var lcds = msg as LcdsServiceObject;
@@ -330,7 +338,6 @@ namespace Kappa.BackEnd {
                 });
             }
 
-
             var str = new StringBuilder();
             str.AppendLine("Async:");
             str.AppendLine("  " + JSON.Stringify(json));
@@ -338,6 +345,7 @@ namespace Kappa.BackEnd {
             File.AppendAllText(rtmpLogFile, str.ToString());
         }
 
+        [Conditional("DEBUG")]
         internal static void RtmpLogInvoke(string service, string method, object[] args, object response) {
             if (service == "lcdsServiceProxy" && method == "call") return;//skip LCDS invocations
             BackEndServer.Log("Invoke", service + "." + method, new JSONObject {
@@ -348,7 +356,7 @@ namespace Kappa.BackEnd {
 
             var str = new StringBuilder();
             str.AppendLine($"Invoke: [{service}.{method}]");
-            foreach (object arg in args) {
+            foreach (var arg in args) {
                 var json = JSONSerializer.Serialize(arg);
                 str.AppendLine("  " + JSON.Stringify(json));
             }
@@ -357,6 +365,7 @@ namespace Kappa.BackEnd {
             File.AppendAllText(rtmpLogFile, str.ToString());
         }
 
+        [Conditional("DEBUG")]
         internal static void RtmpLogLcds(string service, string method, string args, string payload) {
             BackEndServer.Log("Invoke", service + "." + method, new JSONObject {
                 ["type"] = "invoke_proxy",

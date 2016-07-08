@@ -50,13 +50,13 @@ namespace Kappa.BackEnd {
             Launch(str);
         }
 
-        internal void ReplayGame(string host, int port, string key, long gameId) {
-            string str = $"replay {host}:{port} {key} {gameId} NA1";
+        internal void ReplayGame(string host, string key, long gameId) {
+            string str = $"replay {host} {key} {gameId} NA1";
             Launch(str);
         }
 
-        internal void SpectateGame(string host, int port, string key, long gameId) {
-            string str = $"spectator {host}:{port} {key} {gameId} NA1";
+        internal void SpectateGame(string host, string key, long gameId) {
+            string str = $"spectator {host} {key} {gameId} NA1";
             Launch(str);
         }
 
@@ -64,7 +64,7 @@ namespace Kappa.BackEnd {
             server.Start();
             using (var socket = server.AcceptSocket())
             using (var stream = new NetworkStream(socket)) {
-                Debug.WriteLine("Gameclient connected");
+                Session.Log("Maestro connected");
                 try {
                     while (socket.Connected) {
                         var header = stream.ReadStruct<MaestroMessageHeader>();
@@ -97,7 +97,7 @@ namespace Kappa.BackEnd {
                                 chat.SendMessage(friend.User, msg);
                                 break;
                             default:
-                                Debug.WriteLine(type);
+                                Session.Log($"Unknown Maestro message type: {type}");
                                 break;
                             }
 
@@ -119,7 +119,7 @@ namespace Kappa.BackEnd {
                             Debug.WriteLine("  " + Encoding.UTF8.GetString(payload));
                     }
                 } catch {
-                    Debug.WriteLine("Maestro disconnected");
+                    Session.Log("Maestro disconnected");
                 }
             }
         }

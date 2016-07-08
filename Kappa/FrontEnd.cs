@@ -23,8 +23,8 @@ namespace Kappa {
             this.assets = new FilePack(assets);
         }
 
-        public void Start() {
-            string index = $"http://localhost:{BackEndServer.HttpPort}/ui/client.html";
+        public void Start(string host) {
+            string index = $"http://{host}/ui/client.html";
             string cache = Path.Combine(Session.AppData, "cache");
 
             string args = $"--backend=\"{index}\" --cache-path=\"{cache}\" --enable-system-flash";
@@ -152,7 +152,6 @@ namespace Kappa {
 
                 if (caching)
                     context.Response.Headers.Add("Cache-Control", "max-age=315360000, public");
-
 
                 using (var file = pack.OpenRead())
                     HandleStream(context, file, header.Offset, header.Length);

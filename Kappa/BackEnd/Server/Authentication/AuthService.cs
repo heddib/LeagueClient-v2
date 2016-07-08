@@ -104,7 +104,6 @@ namespace Kappa.BackEnd.Server.Authentication {
                     if (i == 4) return null;
                 }
             }
-            BackEndServer.Async("/kappa/defer/auth", new JSONObject());
             return new AccountState(auth);
         }
 

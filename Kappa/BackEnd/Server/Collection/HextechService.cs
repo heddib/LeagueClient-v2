@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Kappa.BackEnd.Server.Collection.Model;
@@ -109,7 +108,7 @@ namespace Kappa.BackEnd.Server.Collection {
                     Add(inventory.Mastery7Tokens, champ, count);
                     break;
                 default:
-                    Debug.WriteLine("Unknown champion token: " + item.LootName);
+                    Session.Log("Unknown champion token: " + item.LootName);
                     break;
                 }
                 break;
@@ -127,7 +126,7 @@ namespace Kappa.BackEnd.Server.Collection {
                     inventory.OrangeEssence = count;
                     break;
                 default:
-                    Debug.WriteLine("Unknown currency: " + item.LootName);
+                    Session.Log("Unknown currency: " + item.LootName);
                     break;
                 }
                 break;
@@ -141,13 +140,13 @@ namespace Kappa.BackEnd.Server.Collection {
                     inventory.KeyFragments = count;
                     break;
                 default:
-                    Debug.WriteLine("Unknown material: " + item.LootName);
+                    Session.Log("Unknown material: " + item.LootName);
                     break;
                 }
                 break;
 
             default:
-                Debug.WriteLine(item.Type);
+                Session.Log(item.Type);
                 break;
             }
         }

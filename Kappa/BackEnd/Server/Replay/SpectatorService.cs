@@ -27,7 +27,7 @@ namespace Kappa.BackEnd.Server.Replay {
 
         internal void Replay(long id) {
             var replay = GetReplay(id);
-            session.Maestro.ReplayGame("localhost", BackEndServer.HttpPort, replay.MetaData.EncryptionKey, replay.MetaData.GameKey.GameId);
+            session.Maestro.ReplayGame(BackEndServer.HostName, replay.MetaData.EncryptionKey, replay.MetaData.GameKey.GameId);
         }
 
         public override bool Handle(HttpListenerContext context) {

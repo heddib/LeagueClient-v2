@@ -84,38 +84,6 @@ namespace Kappa.BackEnd.Server {
             }*/
         }
 
-        private void RunMaestro() {
-            var server = new TcpListener(IPAddress.Any, 8394);
-            server.Start();
-            using (var socket = server.AcceptSocket())
-            using (var stream = new NetworkStream(socket)) {
-                Debug.WriteLine("Maestro connected");
-                while (socket.Connected) {
-                    var header = stream.ReadStruct<MaestroMessageHeader>();
-                    var payload = new byte[header.Size];
-                    stream.ReadFully(payload, 0, payload.Length);
-
-                    switch (header.Type) {
-                    case MaestroMessageType.HEARTBEAT:
-                        var beat = new MaestroMessageHeader(MaestroMessageType.HEARTBEAT, 0);
-                        stream.WriteStruct(beat);
-                        break;
-                    case MaestroMessageType.ACK:
-                        //ignore?
-                        break;
-                    default:
-                        var ack = new MaestroMessageHeader(MaestroMessageType.ACK, 0);
-                        stream.WriteStruct(ack);
-                        break;
-                    }
-
-                    Debug.WriteLine(header.Type + ": ");
-                    if (payload.Any())
-                        Debug.WriteLine("  " + Encoding.UTF8.GetString(payload));
-                }
-            }
-        }
-
         private void Session_Authed(object sender, EventArgs e) {
         }
 

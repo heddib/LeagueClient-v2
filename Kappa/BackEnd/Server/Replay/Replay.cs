@@ -12,8 +12,6 @@ using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Replay {
     public class Replay {
-        public const int ReplayPort = BackEndServer.HttpPort + 1;
-
         private const byte Version = 1;
         private static readonly byte[] Magic = "lolreplay".GetBytes();
 
