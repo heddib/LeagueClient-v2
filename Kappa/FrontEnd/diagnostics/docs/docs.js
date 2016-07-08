@@ -17,8 +17,7 @@ let currentDocs;
 let currentEndpoint;
 let currentNode;
 function fetch() {
-    var url = $$('#source-input').value;
-    $$.http(url).get(http => {
+    $$.http('/docs').get(http => {
         build(http.json);
     });
 }

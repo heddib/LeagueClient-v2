@@ -22,17 +22,20 @@ abstract class Popup extends Module {
 
         this.module = module;
         module.render(this.refs.container);
-        this.render($(document.body));
+        this.render($('#popup-container'));
+        $('#popup-container').addClass('shown');
 
         this.refs.close.on('click', e => this.close());
     }
 
     public dispose() {
-        this.module.dispose();
-    }
+        this.node.remove();
 
-    public show() {
-        this.node.addClass('shown');
+        if (!$('#popup-container').children.any) {
+            $('#popup-container').removeClass('shown');
+        }
+
+        this.module.dispose();
     }
 
     public hide() {
@@ -40,7 +43,6 @@ abstract class Popup extends Module {
     }
 
     protected close() {
-        this.node.remove();
         this.dispose();
     }
 }

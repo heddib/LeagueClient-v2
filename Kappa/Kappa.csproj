@@ -92,6 +92,8 @@
     <Compile Include="BackEnd\Server\Authentication\Model\QueuePosition.cs" />
     <Compile Include="BackEnd\Server\Collection\Model\RuneBook.cs" />
     <Compile Include="BackEnd\Server\Collection\Model\MasteryBook.cs" />
+    <Compile Include="BackEnd\Server\Diagnostics\InfoService.cs" />
+    <Compile Include="BackEnd\Server\Diagnostics\Model\Versions.cs" />
     <Compile Include="BackEnd\Server\Game\Model\PostGameState.cs" />
     <Compile Include="BackEnd\Server\Game\PostGameService.cs" />
     <Compile Include="BackEnd\Server\Patcher\WADArchive.cs" />

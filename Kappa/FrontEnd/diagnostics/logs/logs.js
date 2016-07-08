@@ -29,9 +29,9 @@ function connect() {
     if (socket) socket.close();
     $$('#log').empty();
 
-    socket = new WebSocket('ws://localhost:25566/log', 'protocolTwo');
+    socket = new WebSocket(`ws://${window.location.host}/log`, 'protocolTwo');
     socket.addEventListener('message', e => append(JSON.parse(e.data)));
-    $$.http('http://localhost:25566/logs').get(http => {
+    $$.http('/logs').get(http => {
         var list = http.json.logs;
         for (let i = 0; i < list.length; i++) {
             append(list[i]);

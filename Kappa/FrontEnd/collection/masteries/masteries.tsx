@@ -63,7 +63,6 @@ export function list() {
 
 export function popup() {
     let popup = new MasteriesPopup();
-    popup.show();
     return popup;
 }
 

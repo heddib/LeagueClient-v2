@@ -6,6 +6,7 @@ import PatcherPage   from './patcher/launcher';
 import Landing       from './landing/landing';
 
 import * as Assets   from './assets/assets';
+import * as Meta     from './meta/meta';
 
 import * as Electron from './electron';
 import * as Discord  from './discord/discord';
@@ -28,6 +29,12 @@ window.addEventListener('load', () => {
     $(document.body).on('contextmenu', e => {
         e.preventDefault();
     });
+});
+
+window.addEventListener('keyup', e => {
+    if (e.keyCode != 123) return;
+    let url = `http://${window.location.host}/ui/diagnostics/info`;
+    Meta.link(url);
 });
 
 let module: Module;

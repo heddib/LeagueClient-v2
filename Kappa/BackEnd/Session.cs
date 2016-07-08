@@ -24,6 +24,7 @@ using System.Threading.Tasks;
 using Kappa.BackEnd.Server;
 using Kappa.BackEnd.Server.Assets;
 using Kappa.BackEnd.Server.Authentication;
+using Kappa.BackEnd.Server.Diagnostics;
 using Kappa.BackEnd.Server.Patcher;
 using Kappa.BackEnd.Server.Replay;
 using Kappa.Riot.Domain.JSON;
@@ -117,6 +118,8 @@ namespace Kappa.BackEnd {
             var replay = new ReplayService(this);
 
             patcher.FinishWAD();
+
+            var info = new InfoService(this);
         }
 
         internal Riot.Services.AccountService AccountService { get; }

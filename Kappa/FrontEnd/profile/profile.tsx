@@ -14,7 +14,7 @@ var template = (
         <div class="header">
             <div class="tab-button" data-ref="tab0" id><span>OVERVIEW</span></div>
             <div class="tab-button" data-ref="tab1" id><span>MATCH HISTORY</span></div>
-            <div class="tab-button" data-ref="tab2"><span>RANKED</span></div>
+            <div class="tab-button" data-ref="tab2"><span>RANKINGS</span></div>
         </div>
         <div class="center" data-ref="mainScroller">
             <container data-ref="overviewContainer"/>

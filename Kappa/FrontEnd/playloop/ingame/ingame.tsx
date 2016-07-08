@@ -37,7 +37,7 @@ export default class InGamePage extends Module {
     private onPostState(state: Domain.Game.PostGameState) {
         console.info(state);
 
-        if (!this.room) {
+        if (!this.room && state.chatroom != guid.empty) {
             this.room = new ChatRoom(state.chatroom);
         }
     }
