@@ -81,6 +81,7 @@ namespace Kappa {
 
         public static Task<int> WaitForExitAsync(this Process p) {
             var tcs = new TaskCompletionSource<int>();
+            p.EnableRaisingEvents = true;
             p.Exited += (s, e) => tcs.SetResult(p.ExitCode);
             return tcs.Task;
         }

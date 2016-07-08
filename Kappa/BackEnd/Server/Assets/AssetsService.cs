@@ -294,7 +294,7 @@ namespace Kappa.BackEnd.Server.Assets {
 
                     await web.DownloadFileTaskAsync(videoUrl.Url, tmp);
                     var ffmpeg = Process.Start(new ProcessStartInfo {
-                        FileName = @"ffmpeg.exe",
+                        FileName = "ffmpeg.exe",
                         Arguments = $"-y -i \"{tmp}\" -vb 2000k \"{loginVideo}\"",
                         UseShellExecute = false,
                         CreateNoWindow = true,

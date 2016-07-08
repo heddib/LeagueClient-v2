@@ -64,7 +64,8 @@ namespace Kappa.BackEnd.Server.Replay {
         // Chunks: byte[] x ChunkCount
         // Frames: byte[] x FrameCount
 
-        private static readonly Uri BaseUri = new Uri(new Uri(Region.Current.SpectatorBase), "/observer-mode/rest/consumer/");
+        private static readonly Uri BaseUri = QuickHttp.Uri(Region.Current.SpectatorServer, "/observer-mode/rest/consumer/");
+
         public static Replay Record(long gameId, string encryptKey, string file) {
             var path = Path.GetTempFileName();
             using (var tmp = File.Create(path)) {

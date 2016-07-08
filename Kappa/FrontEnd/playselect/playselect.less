@@ -1,12 +1,8 @@
 module.playselect {
-    .page() {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-    }
+    display: flex;
     
     > .main-content {
-        .page();
+        .flex-padd();
         display: flex;
         flex-direction: column;
         
@@ -67,7 +63,7 @@ module.playselect {
     }
     
     > .loading-modal {
-        .page();
+        .flex-padd();
         display: flex;
         align-items: center;
         justify-content: center;

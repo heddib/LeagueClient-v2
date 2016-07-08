@@ -33,6 +33,10 @@ namespace Kappa.BackEnd.Server.Patcher {
         public PatcherService(Session session) : base("/patcher") {
             this.session = session;
             this.settings = GetSettings<Settings>();
+
+            gameState = new PatcherState { Phase = PatcherPhase.PATCHING };
+            launcherState = new PatcherState { Phase = PatcherPhase.PATCHING };
+
             Session.Init.ContinueWith(t => OnInitialized());
         }
 
@@ -46,11 +50,12 @@ namespace Kappa.BackEnd.Server.Patcher {
             return launcherState;
         }
 
-        public async void OnInitialized() {
-            new Thread(PatchWAD) { Name = "WAD Patcher", IsBackground = true }.Start();
+        public void OnInitialized() {
+            new Thread(Patch) { Name = "WAD Patcher", IsBackground = true }.Start();
+        }
 
-            gameState = new PatcherState { Phase = PatcherPhase.PATCHING };
-            launcherState = new PatcherState { Phase = PatcherPhase.PATCHING };
+        private async void Patch() {
+            PatchWAD();
 
             try {
                 await PatchGame(Region.Current, Region.Locale);
@@ -66,6 +71,7 @@ namespace Kappa.BackEnd.Server.Patcher {
 
         private void PatchWAD() {
             using (var web = new WebClient()) {
+                #region WAD patching
                 try {
                     while (true) {
                         var wad = wadQueue.Take();
@@ -116,6 +122,8 @@ namespace Kappa.BackEnd.Server.Patcher {
                 } catch (InvalidOperationException) {
                     //Ignore//
                 }
+
+                #endregion
 
                 launcherState.Phase = PatcherPhase.NONE;
             }

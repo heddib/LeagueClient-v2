@@ -86,8 +86,9 @@ export default class PlaySelect extends Module {
             Single(300, "Poro King", maps.poroking, this.Standard),
             Single(317, "Definitely not Dominion", maps.dominion, this.Standard),
         ];
-
-        this.showPage(this.refs.body);
+        
+        this.refs.body.css('display', null);
+        this.refs.loadingModal.css('display', 'none');
 
         PlayLoop.queues().then(qs => this.start(qs));
     }
@@ -179,18 +180,17 @@ export default class PlaySelect extends Module {
     private onJoinCustomClick() {
     }
 
-    private showPage(node: Swish) {
-        [this.refs.body, this.refs.loadingModal].forEach(q => q.css('display', 'none'));
-        node.css('display', null);
-    }
-
     private load<T>(async: Async<T>) {
         return new Async<T>((resolve, reject) => {
-            this.showPage(this.refs.loadingModal);
+
+            this.refs.body.css('display', 'none');
+            this.refs.loadingModal.css('display', null);
+
             async.then(v => {
                 resolve(v);
             }).catch(e => {
-                this.showPage(this.refs.body);
+                this.refs.body.css('display', null);
+                this.refs.loadingModal.css('display', 'none');
             });
         });
     }

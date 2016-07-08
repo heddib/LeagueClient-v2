@@ -22,7 +22,8 @@ namespace Installer {
             var dst = Path.Combine(AppData, "Application");
             var cache = Path.Combine(AppData, "cache");
 
-            Directory.Delete(cache, true);
+            if (Directory.Exists(cache))
+                Directory.Delete(cache, true);
             Directory.CreateDirectory(dst);
 
             int count = 0;

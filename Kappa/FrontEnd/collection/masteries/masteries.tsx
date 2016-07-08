@@ -47,6 +47,7 @@ const iconTemplate = (
 
 let currentBook: Domain.Collection.MasteryBook;
 let currentPage: Domain.Collection.MasteryPage;
+let unedited: { [id: string]: number };
 
 Defer.auth(() => {
     Service.get().then(book => currentBook = book);
@@ -124,6 +125,9 @@ export class Page extends Module {
         if (page) {
             select(page);
             currentPage = page;
+            unedited = {};
+            for (var id in currentPage.masteries)
+                unedited[id] = currentPage.masteries[id];
         }
 
         this.renderPageList();
@@ -191,10 +195,11 @@ export class Page extends Module {
 
     private onSaveMasteriesClick(e: MouseEvent) {
         Service.save(currentPage);
-        this.renderPage();
+        this.renderPage(currentPage);
     }
 
     private onRevertMasteriesClick(e: MouseEvent) {
+        currentPage.masteries = unedited;
         this.renderPage(currentPage);
     }
 

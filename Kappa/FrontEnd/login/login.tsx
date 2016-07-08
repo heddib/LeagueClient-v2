@@ -124,5 +124,7 @@ export default class Page extends Module {
 
     private onFailed(auth) {
         console.log('Failed: ' + auth.reason);
+        this.loader(false);
+        this.accounts.forEach(a => a.reset());
     }
 }

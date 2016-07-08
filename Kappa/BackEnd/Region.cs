@@ -7,18 +7,23 @@ namespace Kappa.BackEnd {
             PBE
         }
 
+        private Region() { }
+        private Region(string key) {
+            SpectatorServer = $"spectator.{key}.lol.riotgames.com";
+            MainServer = $"prod.{key}.lol.riotgames.com";
+            ChatServer = $"chat.{key}.lol.riotgames.com";
+            LoginQueue = $"lq.{key}.lol.riotgames.com";
+        }
+
         public string MainServer { get; private set; }
-        public string SpectatorBase { get; private set; }
+        public string SpectatorServer { get; private set; }
         public string ChatServer { get; private set; }
+        public string LoginQueue { get; private set; }
         public string Platform { get; private set; }
 
-        public string NewsURL { get; private set; }
-        public string LoginQueueURL { get; private set; }
-
         public string ReleaseListingSuffix { get; private set; }
-        public PatcherBranch Branch { get; private set; }
+        public PatcherBranch Branch { get; private set; } = PatcherBranch.LIVE;
 
-        //public static readonly Uri UpdateBase = new Uri("http://l3cdn.riotgames.com/");
         public Uri UpdateBase => new Uri($"http://l3cdn.riotgames.com/releases/{Branch.ToString().ToLower()}/");
 
         public Uri ReleaseListing(string category, string name) {
@@ -37,37 +42,20 @@ namespace Kappa.BackEnd {
             return new Uri(UpdateBase, $"projects/{name}/releases/{version}/packages/files/packagemanifest");
         }
 
-        public static readonly Region NA = new Region {
-            MainServer = "prod.na2.lol.riotgames.com",
-            SpectatorBase = "http://spectator.na2.lol.riotgames.com/",
-            LoginQueueURL = "https://lq.na2.lol.riotgames.com/",
+        public static readonly Region NA = new Region("na2") {
             Platform = "NA1",
 
-            NewsURL = "http://na.leagueoflegends.com/en/rss.xml",
-            ChatServer = "chat.na2.lol.riotgames.com",
-
-            ReleaseListingSuffix = "NA",
-            Branch = PatcherBranch.LIVE
+            ReleaseListingSuffix = "NA"
         };
 
-        public static readonly Region EUW = new Region {
-            MainServer = "prod.euw1.lol.riotgames.com",
-            LoginQueueURL = "https://lq.euw1.lol.riotgames.com/",
+        public static readonly Region EUW = new Region("euw1") {
             Platform = "EUW1",
 
-            NewsURL = "http://euw.leagueoflegends.com/en/rss.xml",
-            ChatServer = "chat.euw1.lol.riotgames.com",
-
-            ReleaseListingSuffix = "EUW",
-            Branch = PatcherBranch.LIVE
+            ReleaseListingSuffix = "EUW"
         };
 
-        public static readonly Region PBE = new Region {
-            MainServer = "prod.pbe1.lol.riotgames.com",
-            LoginQueueURL = "https://lq.pbe1.lol.riotgames.com/",
+        public static readonly Region PBE = new Region("pbe1") {
             Platform = "PBE1",
-
-            ChatServer = "chat.pbe1.lol.riotgames.com",
 
             ReleaseListingSuffix = "PBE",
             Branch = PatcherBranch.PBE

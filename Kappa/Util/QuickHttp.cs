@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using MFroehlich.Parsing;
@@ -29,7 +30,7 @@ namespace Kappa.Util {
                 res = x.Response;
             }
 
-            if(res == null) return new byte[0];
+            if (res == null) return new byte[0];
 
             using (res)
             using (var stream = res.GetResponseStream()) {
@@ -42,5 +43,12 @@ namespace Kappa.Util {
         public async Task<JSONObject> JSONObject() => JSONParser.ParseObject(await Bytes());
 
         public static QuickHttp Request(string method, string url) => new QuickHttp(url, method);
+        public static QuickHttp Request(string method, Uri url) => new QuickHttp(url.AbsoluteUri, method);
+
+        public static Uri Uri(string host, string path, bool https = false) {
+            string prefix = https ? "https://" : "http://";
+            if (path.StartsWith("/")) path = "/" + path;
+            return new Uri(prefix + host + path);
+        }
     }
 }

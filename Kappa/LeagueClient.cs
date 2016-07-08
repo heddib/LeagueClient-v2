@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using Kappa.BackEnd;
@@ -15,15 +16,15 @@ namespace Kappa {
         private readonly FrontEnd front = new FrontEnd(ContentFile, AssetsFile);
 
         public static void Main(string[] args) {
-#if DEBUG
-            new LeagueClient().Start();
-#else
-            try {
-                new LeagueClient().Start();
-            } catch (Exception x) {
-                File.WriteAllText(@"C:\Users\Max\Desktop\ex.txt", x.ToString());
-            }
+#if !DEBUG
+            AppDomain.CurrentDomain.UnhandledException += OnException;
 #endif
+            new LeagueClient().Start();
+        }
+
+        private static void OnException(object sender, UnhandledExceptionEventArgs args) {
+            var dst = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "error.txt");
+            File.WriteAllText(dst, args.ExceptionObject.ToString());
         }
 
         public LeagueClient() {

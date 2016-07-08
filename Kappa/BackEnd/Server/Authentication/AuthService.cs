@@ -5,11 +5,7 @@ using Kappa.Settings;
 using MFroehlich.Parsing.JSON;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Kappa.Util;
 
@@ -51,7 +47,7 @@ namespace Kappa.BackEnd.Server.Authentication {
             string payload = "user=" + user + ",password=" + pass;
             string query = "payload=" + payload;
 
-            var url = Region.Current.LoginQueueURL + "login-queue/rest/queue/authenticate";
+            var url = QuickHttp.Uri(Region.Current.LoginQueue, "/login-queue/rest/queue/authenticate");
             var json = await QuickHttp.Request("POST", url).Send(query).JSONObject();
 
             this.auth = new AuthResult(JSONDeserializer.Deserialize<LoginQueueDto>(json), user, pass);
