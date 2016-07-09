@@ -38,7 +38,7 @@ namespace Kappa.BackEnd.Server.Game {
 
         private bool OnSimpleDialogMessage(SimpleDialogMessage msg) {
             switch (msg.TitleCode) {
-            case "championmastery":
+            case "championMastery":
                 var arg = JSONParser.ParseObject((string) msg.Params[0]);
                 var rawMastery = JSONDeserializer.Deserialize<EogChampionMasteryDTO>(arg);
 

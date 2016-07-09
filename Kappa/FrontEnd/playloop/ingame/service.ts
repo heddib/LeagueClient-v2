@@ -13,6 +13,11 @@ Kappa.subscribe(service + '/postgame/state', s => {
     events.dispatch(postState, s)
 });
 
+export const finished = events.create<boolean>();
+Kappa.subscribe(service + '/ingame/finished', s => {
+    events.dispatch(finished, s);
+});
+
 export function launch() {
     return Kappa.invoke(service + '/ingame/launch', []);
 }

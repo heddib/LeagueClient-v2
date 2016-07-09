@@ -27,7 +27,9 @@ export default class MatchHistory extends Module {
         super(template);
 
         this.subscribe(Service.match, match => {
+            console.log(match.gameId);
             this.history.games.games.unshift(match);
+            this.update();
             this.details(match);
         });
 

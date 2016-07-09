@@ -87,5 +87,25 @@ namespace Kappa.Riot.Domain.JSON.lol_game_data {
 
         [JSONField("chromaPath")]
         public string ChromaPath { get; set; }
+
+        [JSONField("chromas")]
+        public ChromaDetails[] Chromas { get; set; }
+    }
+
+    public class ChromaDetails : JSONSerializable {
+        [JSONField("id")]
+        public int Id { get; set; }
+
+        [JSONField("name")]
+        public string Name { get; set; }
+
+        [JSONField("chromaPath")]
+        public string ChromaPath { get; set; }
+
+        [JSONField("cardPath")]
+        public string CardPath { get; set; }
+
+        [JSONField("colors")]
+        public string[] Colors { get; set; }
     }
 }

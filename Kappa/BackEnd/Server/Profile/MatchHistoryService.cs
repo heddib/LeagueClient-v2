@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net;
 using System.Threading.Tasks;
 using Kappa.Riot.Domain;
 using Kappa.Riot.Domain.JSON.MatchHistory;
@@ -32,9 +33,8 @@ namespace Kappa.BackEnd.Server.Profile {
                     Debug.WriteLine("Fetched stats: " + details.GameMode);
                     OnNewMatch(details);
                     return;
-                } catch (Exception x) {
-                    Debug.WriteLine(x);
-                    await Task.Delay(500);
+                } catch (WebException) {
+                    await Task.Delay(1000);
                 }
             }
         }

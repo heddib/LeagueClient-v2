@@ -26,10 +26,10 @@ namespace Kappa {
         public void Start(string host) {
             string index = $"http://{host}/ui/client.html";
 
-            string args = $"--backend=\"{index}\" --enable-system-flash";
+            string args = $"--backend=\"{index}\"";
 #if BUILD_UI
             args += " --remote-debugging-port=1337";
-            Process.Start("http://localhost:1337/");
+            //Process.Start("http://localhost:1337/");
 #endif
             Process.Start(FrontEndExecutable, args);
 

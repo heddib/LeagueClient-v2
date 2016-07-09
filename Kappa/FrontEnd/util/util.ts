@@ -211,6 +211,50 @@ module Util {
         });
     }
 
+    export function repeat(str: string, count: number) {
+        let dst = str;
+        for (var i = 0; i < count - 1; i++)
+            dst += str;
+        return dst;
+    }
+
+    export function leftpad(arg: string | number, size: number, padding = ' ') {
+        if (padding.length > 1) throw 'Padding must be a single character';
+        let str = arg.toString();
+        if (str.length >= size) return str;
+        else return repeat(padding, size - str.length) + str;
+    }
+
+    export function rightpad(arg: string | number, size: number, padding = ' ') {
+        if (padding.length > 1) throw 'Padding must be a single character';
+        let str = arg.toString();
+        if (str.length >= size) return str;
+        else return str + repeat(padding, size - str.length);
+    }
+
+    export function datetime(date: Date, format: string) {
+        let replace = (s: string, a: number) => format.replace(new RegExp(s + '+', 'g'), s => leftpad(Math.floor(a), s.length, '0'));
+        format = replace('s', date.getSeconds());
+        format = replace('m', date.getMinutes());
+        format = replace('H', date.getHours());
+        format = replace('h', (date.getHours() % 12) || 12);
+        //replace 0 with 12
+
+        format = replace('d', date.getDate());
+        format = replace('M', date.getMonth() + 1);
+        return format;
+    }
+
+    export function timespan(date: number, format: string) {
+        let replace = (s: string, a: number) => format.replace(new RegExp(s + '+', 'g'), s => leftpad(Math.floor(a), s.length, '0'));
+        format = replace('s', (date /= 1000) % 60);
+        format = replace('m', (date /= 60) % 60);
+        format = replace('H', (date /= 60) % 24);
+
+        format = replace('d', date /= 24);
+        return format;
+    }
+
     export function preload(url: string) {
         return new Async<{}>((resolve, reject) => {
             if (callbacks[url]) resolve({});

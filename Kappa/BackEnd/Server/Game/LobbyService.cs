@@ -196,7 +196,8 @@ namespace Kappa.BackEnd.Server.Game {
             case PlayLoopType.STANDARD:
                 var mmp = new MatchMakerParams {
                     InvitationId = lastLobbyStatus.InvitationId,
-                    QueueIds = new List<int> { loop.CurrentQueueId }
+                    QueueIds = new List<int> { loop.CurrentQueueId },
+                    Team = lastLobbyStatus.Members.Select(m => m.SummonerId).ToList()
                 };
 
                 var search = await this.session.MatchmakingService.AttachToQueue(mmp);

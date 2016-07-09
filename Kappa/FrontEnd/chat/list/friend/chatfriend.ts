@@ -94,8 +94,7 @@ export default class ChatFriend extends Module {
                     var millis = <any>new Date().valueOf() - <any>new Date(this.data.game.start).valueOf();
 
                     var seconds: any = Math.floor(millis / 1000) % 60;
-                    if (seconds < 10) seconds = '0' + seconds;
-                    var format = Math.floor(millis / 1000 / 60) + ':' + seconds;
+                    let format = Util.timespan(millis, 'm:ss');
 
                     gametimer = (this.data.game.exact ? '' : '~') + format;
                 }

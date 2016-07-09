@@ -118,6 +118,8 @@
     <Compile Include="BackEnd\Server\Summoner\Model\SummonerKudos.cs" />
     <Compile Include="BackEnd\Server\Summoner\Model\SummonerSummary.cs" />
     <Compile Include="Riot\Domain\BroadcastNotification.cs" />
+    <Compile Include="Riot\Domain\JSON\lol_game_data\MapSummary.cs" />
+    <Compile Include="Riot\Domain\JSON\lol_game_data\WardSkinSummary.cs" />
     <Compile Include="Util\QuickHttp.cs" />
     <Compile Include="Riot\Domain\ChampionMastery\AllChampionMasteryObject.cs" />
     <Compile Include="Riot\Domain\ChampionMastery\ChampionMasteryScoreAndChestObject.cs" />
@@ -168,7 +170,7 @@
     <Compile Include="BackEnd\Server\Diagnostics\DocumentationService.cs" />
     <Compile Include="BackEnd\Server\Diagnostics\LogService.cs" />
     <Compile Include="BackEnd\Server\Game\ActiveGameService.cs" />
-    <Compile Include="BackEnd\Server\Game\Model\CurrentPlayLoopState.cs" />
+    <Compile Include="BackEnd\Server\Game\Model\PlayLoopState.cs" />
     <Compile Include="BackEnd\Server\HttpService.cs" />
     <Compile Include="BackEnd\Server\WebSocket.cs" />
     <Compile Include="LeagueClient.cs" />

@@ -88,14 +88,14 @@ namespace Kappa.BackEnd.Server.Chat {
         }
 
         public Guid JoinPostGame(EndOfGameStats stats) {
-            Jid jid;
+            string id;
             if (string.IsNullOrEmpty(stats.RoomName)) {
-                var id = stats.ReportGameId > 0 ? stats.ReportGameId : stats.GameId;
-                jid = ChatUtils.GetChatroomJID("endGame" + id, "pg", "post-game");
+                id = "endGame" + (stats.ReportGameId > 0 ? stats.ReportGameId : stats.GameId);
             }
             else {
-                jid = ChatUtils.GetChatroomJID(stats.RoomName, "pg", false, stats.RoomPassword);
+                id = stats.RoomName;
             }
+            var jid = ChatUtils.GetChatroomJID(id, "pg", "post-game");
             return JoinRoom(jid);
         }
 

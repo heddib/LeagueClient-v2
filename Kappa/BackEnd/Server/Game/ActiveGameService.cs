@@ -19,10 +19,7 @@ namespace Kappa.BackEnd.Server.Game {
         public event EventHandler<ActiveGameState> State;
 
         [Async("/finished")]
-        public event EventHandler AdvancedToPostGame;
-
-        [Async("/cancelled")]
-        public event EventHandler AdvancedOutOfPlayLoop;
+        public event EventHandler<bool> AdvancedOutOfPlayLoop;
 
         private bool inGame;
 
@@ -39,7 +36,7 @@ namespace Kappa.BackEnd.Server.Game {
             switch (game.GameState) {
             case GameState.TERMINATED:
                 if (inGame) {
-                    OnAdvancedToPostGame();
+                    OnAdvancedOutOfPlayLoop(false);
                     loop.Reset();
                     return true;
                 }
@@ -47,7 +44,7 @@ namespace Kappa.BackEnd.Server.Game {
 
             case GameState.TERMINATED_IN_ERROR:
                 if (inGame) {
-                    OnAdvancedOutOfPlayLoop();
+                    OnAdvancedOutOfPlayLoop(true);
                     loop.Reset();
                     return true;
                 }
@@ -133,12 +130,8 @@ namespace Kappa.BackEnd.Server.Game {
             State?.Invoke(this, state);
         }
 
-        private void OnAdvancedToPostGame() {
-            AdvancedToPostGame?.Invoke(this, new EventArgs());
-        }
-
-        private void OnAdvancedOutOfPlayLoop() {
-            AdvancedOutOfPlayLoop?.Invoke(this, new EventArgs());
+        private void OnAdvancedOutOfPlayLoop(bool error) {
+            AdvancedOutOfPlayLoop?.Invoke(this, error);
         }
     }
 }

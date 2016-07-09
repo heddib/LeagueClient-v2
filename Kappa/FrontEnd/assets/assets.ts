@@ -71,16 +71,20 @@ Service.info().then(i => info = i);
 }
 
 export const gamedata: {
-    masteries: Domain.GameData.MasteriesInfo,
-    runes: Domain.GameData.RuneDetails[],
-    items: Domain.GameData.ItemDetails[],
-    champions: Domain.GameData.ChampionSummary[]
-    summoners: Domain.GameData.SummonerSpellDetails[]
+    masteries: Domain.GameData.MasteriesInfo;
+    runes: Domain.GameData.RuneDetails[];
+    items: Domain.GameData.ItemDetails[];
+    champions: Domain.GameData.ChampionSummary[];
+    summoners: Domain.GameData.SummonerSpellDetails[];
+    wardskins: Domain.GameData.WardSkinSummary[];
+    maps: Domain.GameData.MapSummary[];
 } = <any>{};
 
 Service.masteries().then(m => gamedata.masteries = m);
 Service.runes().then(m => gamedata.runes = m);
 Service.items().then(m => gamedata.items = m);
+Service.maps().then(m => gamedata.maps = m);
+Service.wardskins().then(m => gamedata.wardskins = m);
 Service.champions().then(m => {
     gamedata.champions = m;
     setTimeout(() => {
@@ -118,6 +122,9 @@ export const champion = {
         if (skin < 1000) skin += champ * 1000;
         return `/kappa/assets/game-data/${info.version}/champion/card/${skin}.jpg`;
     },
+    details: function (champ: number) {
+        return Service.champion(champ);
+    }
 };
 
 export const masteries = {
@@ -140,7 +147,7 @@ export const summoner = {
     spell: function (id: number) {
         return `/kappa/assets/game-data/${info.version}/summonerspell/${id}.jpg`
     }
-}
+};
 
 export function getQueueType(key: string | number) {
     if (typeof key == 'number')

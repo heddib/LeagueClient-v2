@@ -49,9 +49,9 @@ namespace Kappa.BackEnd.Server.Game {
         }
 
         [Endpoint("/current")]
-        public async Task<CurrentPlayLoopState> GetCurrentQueue() {
+        public async Task<PlayLoopState> GetCurrentQueue() {
             var queue = (await availableQueues).SingleOrDefault(q => q.Id == CurrentQueueId);
-            var state = new CurrentPlayLoopState(CurrentType != PlayLoopType.NONE, CurrentQueueId, queue?.Config ?? 0);
+            var state = new PlayLoopState(CurrentType != PlayLoopType.NONE, CurrentQueueId, queue?.Config ?? 0);
             if (state.InPlayLoop && state.QueueId == 0) {
                 state.QueueConfigId = custom.CurrentConfig;
             }

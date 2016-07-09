@@ -80,6 +80,12 @@ namespace Domain {
             selected: boolean;
         }
     }
+    export namespace Diagnostics {
+        export interface Versions {
+            game: string;
+            patch: string;
+        }
+    }
     export namespace Game {
         export interface ActiveGameState {
             launched: boolean;
@@ -112,11 +118,6 @@ namespace Domain {
             turn: number;
             inventory: Inventory;
             chatroom: string;
-        }
-        export interface CurrentPlayLoopState {
-            inPlayLoop: boolean;
-            queueId: number;
-            queueConfigId: number;
         }
         export interface CustomState {
             blueTeam: LobbyMember[];
@@ -163,6 +164,11 @@ namespace Domain {
             afkCheck: AfkCheck;
             chatroom: string;
         }
+        export interface PlayLoopState {
+            inPlayLoop: boolean;
+            queueId: number;
+            queueConfigId: number;
+        }
         export interface PostGameChampionMastery {
             before: ChampionMasteryState;
             after: ChampionMasteryState;
@@ -173,8 +179,8 @@ namespace Domain {
             chatroom: string;
             ipEarned: number;
             ipTotal: number;
-            championMastery: PostGameChampionMastery;
             hextech: Collection.HextechInventory;
+            championMastery: PostGameChampionMastery;
         }
         export interface RerollState {
             cost: number;
@@ -227,12 +233,24 @@ namespace Domain {
             alias: string;
             roles: string[];
         }
+        export interface ChromaDetails {
+            id: number;
+            name: string;
+            chromaPath: string;
+            cardPath: string;
+            colors: string[];
+        }
         export interface ItemDetails {
             id: number;
             name: string;
             description: string;
             price: number;
             priceTotal: number;
+        }
+        export interface MapSummary {
+            id: number;
+            name: string;
+            description: string;
         }
         export interface MasteriesInfo {
             type: string;
@@ -302,6 +320,7 @@ namespace Domain {
             cardPath: string;
             splashVideoPath: string;
             chromaPath: string;
+            chromas: ChromaDetails[];
         }
         export interface SpellDetails {
             name: string;
@@ -318,6 +337,13 @@ namespace Domain {
             style: number;
             difficulty: number;
             damageType: string;
+        }
+        export interface WardSkinSummary {
+            id: number;
+            name: string;
+            description: string;
+            wardImagePath: string;
+            wardShadowImagePath: string;
         }
     }
     export namespace MatchHistory {

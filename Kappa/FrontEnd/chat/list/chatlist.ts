@@ -128,13 +128,13 @@ export default class ChatList extends Module implements IInviteProvider {
 
     private appendMessage(msg, scroll) {
         var date = new Date(msg.date);
-        let pre = '';
+        let format = 'H:mm';
         if (new Date(msg.date).setHours(0, 0, 0, 0) != new Date().setHours(0, 0, 0, 0))
-            pre = `${date.getDate()}/${date.getMonth() + 1} `;
+            format = 'M/d ' + format;
 
         var node = this.template('message', {
             style: msg.received ? 'received' : 'sent',
-            date: `${pre}${date.getHours()}:${date.getMinutes()}`,
+            date: Util.datetime(date, format),
             body: msg.body
         });
         this.refs.messageList.add(node);

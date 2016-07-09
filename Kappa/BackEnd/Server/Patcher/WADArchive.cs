@@ -56,7 +56,7 @@ namespace Kappa.BackEnd.Server.Patcher {
             }
         }
 
-        private static ulong Hash(string path) {
+        public static ulong Hash(string path) {
             var bytes = xxHash.ComputeHash(Encoding.UTF8.GetBytes(path));
             var hash = BitConverter.ToUInt64(bytes, 0);
             return hash;

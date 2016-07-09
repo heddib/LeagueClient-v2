@@ -6,14 +6,14 @@ import * as Service  from './service';
 
 const template = (
     <module id="ingame">
-        <div class="page waiting-page">
+        <div class="page waiting-page" data-ref="waiting">
             <span class="label">Currently In Game</span>
             <button class="launch-button" data-ref="launch">Launch</button>
         </div>
-        <div class="page post-page">
+        <div class="page post-page" data-ref="post">
             <x-flexpadd/>
             <x-flexpadd/>
-            <container data-ref="chat-area"/>
+            <container class="chat-area" data-ref="chatArea"/>
         </div>
     </module>
 );
@@ -28,10 +28,17 @@ export default class InGamePage extends Module {
 
         this.subscribe(Service.activeState, this.onActiveState);
         this.subscribe(Service.postState, this.onPostState);
+        this.subscribe(Service.finished, this.onFinished);
+        this.refs.post.css('display', 'none')
+    }
+
+    private onFinished(error: boolean) {
+        this.refs.waiting.css('display', 'none')
+        this.refs.post.css('display', null)
     }
 
     private onActiveState(state: Domain.Game.ActiveGameState) {
-        this.refs.launch.setClass('visible', !state.launched);
+        this.refs.launch.setClass(!state.launched, 'visible');
     }
 
     private onPostState(state: Domain.Game.PostGameState) {
@@ -39,6 +46,7 @@ export default class InGamePage extends Module {
 
         if (!this.room && state.chatroom != guid.empty) {
             this.room = new ChatRoom(state.chatroom);
+            this.room.render(this.refs.chatArea);
         }
     }
 }

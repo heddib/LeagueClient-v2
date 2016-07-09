@@ -65,6 +65,11 @@
             return $@"plugins/rcp-be-lol-game-data/global/{locale}/v1/champions/{id}.json";
         }
 
+
+        public static string SettingsToPersist(string locale = DefaultLocale) {
+            return $@"plugins/rcp-be-lol-game-data/global/{locale}/v1/SettingsToPersist.json";
+        }
+
         public static string ChampionSummary(string locale = DefaultLocale) {
             return $@"plugins/rcp-be-lol-game-data/global/{locale}/v1/champion-summary.json";
         }
@@ -77,6 +82,10 @@
             return $@"plugins/rcp-be-lol-game-data/global/{locale}/v1/summoner-masteries.json";
         }
 
+        public static string WardSkins(string locale = DefaultLocale) {
+            return $@"plugins/rcp-be-lol-game-data/global/{locale}/v1/ward-skins.json";
+        }
+
         public static string RuneSlot(string locale = DefaultLocale) {
             return $@"plugins/rcp-be-lol-game-data/global/{locale}/v1/rune-slot.json";
         }
@@ -87,6 +96,23 @@
 
         public static string Items(string locale = DefaultLocale) {
             return $@"plugins/rcp-be-lol-game-data/global/{locale}/v1/items.json";
+        }
+
+        public static string Maps(string locale = DefaultLocale) {
+            return $@"plugins/rcp-be-lol-game-data/global/{locale}/v1/maps.json";
+        }
+
+        public static string MapAssets(string locale = DefaultLocale) {
+            return $@"plugins/rcp-be-lol-game-data/global/{locale}/v1/map-assets/map-assets.json";
+        }
+
+
+        public static string MapAsset(string mapKey, string type, string name, string locale = DefaultLocale) {
+            return $@"plugins/rcp-be-lol-game-data/global/{locale}/v1/map-assets/{mapKey}/{type}/{name}";
+        }
+
+        public static string SplashMetaData(int id, string locale = DefaultLocale) {
+            return $@"plugins/rcp-be-lol-game-data/global/{locale}/v1/champion-splashes/{id}/metadata.json";
         }
     }
 }
