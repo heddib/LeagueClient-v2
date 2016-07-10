@@ -2,7 +2,7 @@ import * as Kappa      from './../kappa'
 const service = '/playloop';
 
 export function getAvailableQueues() {
-    return Kappa.invoke<any>(service + '/listqueues', []);
+    return Kappa.invoke<Domain.Game.AvailableQueue[]>(service + '/listqueues', []);
 }
 
 export function current() {

@@ -17,9 +17,6 @@ import PatcherPage    from './../patcher/game';
 import PlayLoop       from './../playloop/playloop';
 import ProfilePage    from './../profile/profile';
 
-// <div class="background">
-//     <img data-ref="background"/>
-// </div>
 const template = (
     <module class="landing">
         <div class="center">
@@ -52,7 +49,7 @@ const template = (
 );
 
 const homeTemplate = (
-    <module class="home">
+    <module class="landing-home">
         <div class="left">
             <div class="invite-list" data-ref="inviteList"></div>
         </div>
@@ -60,17 +57,8 @@ const homeTemplate = (
         <div class="right"/>
     </module>
 );
-// <div class="center" data-ref="mainScroller">
-//     <container class="content" data-ref="content"/>
-//     <container data-ref="profileContainer" class="profile"/>
-//     <container data-ref="collectionContainer" class="collection"/>
-//     <div class="landing-shop">
-//         <iframe class="shop-frame" data-ref="shopFrame"></iframe>
-//     </div>
-// </div>
-// const back = 'images/landing_background.png';
 
-// Util.preload(back);
+Util.preload('images/landing_background.png');
 
 export default class Landing extends Module {
     private loadedShop: boolean;
@@ -83,7 +71,7 @@ export default class Landing extends Module {
     private profile: ProfilePage;
     private collection: CollectionPage;
 
-    public constructor(accountState) {
+    public constructor(accountState: Domain.Authentication.AccountState) {
         super(template);
 
         this.chatlist = new ChatList();
@@ -120,6 +108,7 @@ export default class Landing extends Module {
         this.subscribe(Summoner.me, this.onMe);
 
         if (accountState.inGame) {
+            this.play.map();
             this.play.ingame();
             this.showTab(this.play);
         } else {
@@ -143,8 +132,6 @@ export default class Landing extends Module {
     private onPatched(force?: boolean) {
         if (!force && !this.patcher) return;
         this.patcher = null;
-        // this.showTab(this.play);
-        // this.playSelect();
     }
 
     private onMe(me) {
@@ -156,23 +143,33 @@ export default class Landing extends Module {
         this.home.refs.inviteList.empty();
         for (let invite of list) {
             var control = new Invite.Control(invite);
-            control.custom.on(e => this.play.custom());
-            control.lobby.on(e => this.play.lobby(false));
+            control.custom.on(e => {
+                this.play.map(e.game.map);
+                this.play.custom();
+                this.showTab(this.play);
+            });
+            control.lobby.on(e => {
+                this.play.map(e.game.map);
+                this.play.lobby(false);
+                this.showTab(this.play);
+            });
             control.render(this.home.refs.inviteList);
         }
     }
 
+    private timeoutId: number;
     private showTab(mod: Module) {
         mod.render(this.refs.containerBack);
         this.refs.container.addClass('faded');
 
         const duration = 150;
 
-        setTimeout(() => {
+        clearTimeout(this.timeoutId);
+        this.timeoutId = setTimeout(() => {
             this.refs.container.empty();
             this.refs.container.removeClass('faded');
 
-            setTimeout(() => {
+            this.timeoutId = setTimeout(() => {
                 mod.render(this.refs.container);
             }, duration);
         }, duration);

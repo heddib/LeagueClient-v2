@@ -28,12 +28,16 @@ module.playloop {
         display: flex;
         flex-direction: column;
 
-        transition: width 300ms, margin-left 300ms;
+        transition: width 300ms, margin-left 300ms, -webkit-filter 150ms;
 
         .map-title {
             text-align: center;
             font-size: 32px;
             font-weight: bold;
+        }
+
+        &:hover, &.selected {
+            -webkit-filter: brightness(110%);
         }
 
         &.selected {

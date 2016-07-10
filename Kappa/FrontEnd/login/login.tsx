@@ -35,7 +35,7 @@ export default class Page extends Module {
 
     private accounts: Account[] = [];
 
-    public auth = this.create<any>();
+    public auth = this.create<Domain.Authentication.AccountState>();
     public load = this.create<any>();
 
     public constructor() {

@@ -49,7 +49,7 @@ namespace Kappa.BackEnd.Server.Chat {
 
         internal Guid JoinStandard(LobbyStatus status) {
             var jid = ChatUtils.GetChatroomJID(status.InvitationId, "ag", false, status.ChatKey);
-            return JoinRoom(jid);
+            return JoinRoom(jid, status.ChatKey);
         }
 
         internal Guid JoinStandard(GameDTO game) {
@@ -65,17 +65,17 @@ namespace Kappa.BackEnd.Server.Chat {
                     name = name.Substring(0, name.IndexOf("@", StringComparison.Ordinal));
                 jid = new Jid(name + "@champ-select.pvp.net");
             }
-            return JoinRoom(jid);
+            return JoinRoom(jid, game.RoomPassword);
         }
 
         internal Guid JoinDraft(PremadeState state) {
             var jid = ChatUtils.GetChatroomJID(state.PremadeId, "cp", false);
-            return JoinRoom(jid);
+            return JoinRoom(jid, null);
         }
 
         internal Guid JoinDraft(ChampSelectState state) {
             var jid = new Jid(state.TeamId + "@champ-select.pvp.net");
-            return JoinRoom(jid);
+            return JoinRoom(jid, null);
         }
 
         internal Guid JoinCustom(GameDTO game) {
@@ -84,7 +84,7 @@ namespace Kappa.BackEnd.Server.Chat {
                 name = name.Substring(0, 50) + "...";
 
             var jid = ChatUtils.GetChatroomJID(name + game.Id, "ap", false, game.RoomPassword);
-            return JoinRoom(jid);
+            return JoinRoom(jid, game.RoomPassword);
         }
 
         public Guid JoinPostGame(EndOfGameStats stats) {
@@ -96,12 +96,15 @@ namespace Kappa.BackEnd.Server.Chat {
                 id = stats.RoomName;
             }
             var jid = ChatUtils.GetChatroomJID(id, "pg", "post-game");
-            return JoinRoom(jid);
+            return JoinRoom(jid, stats.RoomPassword);
         }
 
-        private Guid JoinRoom(Jid jid) {
+        private Guid JoinRoom(Jid jid, string password) {
             muc.AcceptDefaultConfiguration(jid);
-            muc.JoinRoom(jid, session.Me.Name, false);
+            if (password == null)
+                muc.JoinRoom(jid, session.Me.Name, false);
+            else
+                muc.JoinRoom(jid, session.Me.Name, password, false);
             var id = Guid.NewGuid();
             roomsReverse[jid.User] = id;
             rooms[id] = jid;

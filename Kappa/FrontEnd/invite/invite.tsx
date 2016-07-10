@@ -69,8 +69,8 @@ export class Control extends Module {
         this.refs.deny.on('mouseup', e => decline(invite));
         this.refs.accept.on('mouseup', e => {
             accept(invite).then(lobby => {
-                if (invite.game.queue == 0) this.dispatch(this.custom, lobby);
-                else this.dispatch(this.lobby, lobby);
+                if (invite.game.queue == 0) this.dispatch(this.custom, invite);
+                else this.dispatch(this.lobby, invite);
             });
         });
     }

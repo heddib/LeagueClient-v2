@@ -51,11 +51,14 @@ export default class Page extends Module {
         12: 'abyss',
     };
     private provider: IInviteProvider;
+    private queues: Domain.Game.AvailableQueue[];
 
     public state = this.create<string>();
 
     constructor(provider: IInviteProvider) {
         super(template);
+
+        this.provider = provider;
 
         let names = {
             2: 'Blind Pick', // Rift
@@ -90,6 +93,7 @@ export default class Page extends Module {
 
         this.refs.container.css('display', 'none');
         Service.getAvailableQueues().then(queues => {
+            this.queues = queues;
             for (let queue of queues) {
                 if (featureds[queue.id]) continue;
                 if (!names[queue.id]) continue;
@@ -98,20 +102,43 @@ export default class Page extends Module {
                 let mod = Module.create(queueTemplate);
                 mod.refs.title.text = names[queue.id];
                 mod.render(dst);
-                mod.node.on('click', () => this.select(dst, queue));
+                mod.node.on('click', () => this.choose(queue.map, queue));
             }
 
-            for (var id in this.mapkeys) {
+            for (let id in this.mapkeys) {
                 let dst = this.refs[this.mapkeys[id]];
                 let mod = Module.create(queueTemplate);
                 mod.refs.title.text = 'Custom';
                 mod.render(dst);
-                mod.node.on('click', () => this.select(dst, null));
+                mod.node.on('click', () => this.choose(+id, null));
             }
         });
     }
 
-    private select(map: Swish, queue: Domain.Game.AvailableQueue) {
+    private choose(map: number, queue: Domain.Game.AvailableQueue) {
+        this.map(map);
+
+        let async: Async<any>;
+        if (queue) {
+            async = LobbyService.create(queue.id);
+            async.then(() => this.lobby(false));
+        } else {
+            async = CustomService.create();
+            async.then(() => this.custom());
+        }
+        async.catch(() => this.onClose());
+    }
+
+    public map(selected = 0) {
+        if (!selected) {
+            Service.current().then(c => {
+                debugger;
+                let queue = this.queues.first(q => q.id == c.queueId);
+                this.map(queue.map);
+            });
+            return;
+        }
+        let map = this.refs[this.mapkeys[selected]];
         map.addClass('selected');
         let index = Array.prototype.indexOf.call(map.parent[0].childNodes, map[0]);
         for (var id in this.mapkeys) {
@@ -120,18 +147,6 @@ export default class Page extends Module {
                 node.addClass('unselected');
             }
         }
-
-        let async: Async<any>;
-
-        if (queue) {
-            async = LobbyService.create(queue.id);
-            async.then(() => this.lobby(false));
-        } else {
-            async = CustomService.create();
-            async.then(() => this.custom());
-        }
-
-        async.catch(() => this.onClose());
     }
 
     public lobby(queue: boolean) {

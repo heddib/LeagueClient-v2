@@ -16,5 +16,5 @@ export function auth(user: string, pass: string, save: boolean) {
 }
 
 export function login() {
-    return Kappa.invoke<any>(service + '/login', []);
+    return Kappa.invoke<Domain.Authentication.AccountState>(service + '/login', []);
 }
