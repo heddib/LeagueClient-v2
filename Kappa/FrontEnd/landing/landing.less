@@ -1,17 +1,21 @@
 module.landing {
     display: flex;
-    background: @backgroundcolor;
     
     > .center {
         .flex-padd();
         display: flex;
         flex-direction: column;
-        overflow: hidden;
         
         > .background {
             position: absolute;
             height: 100%;
             width: 100%;
+            > img {
+                left: -370px;
+                position: relative;
+                height: 115%;
+                transform: rotateY(180deg);
+            }
         }
         
         > .header {
@@ -72,60 +76,34 @@ module.landing {
             .flex-padd();
             z-index: 1;
             
-            @tabcount: 5;
-
-            width: (@tabcount * 100%);
-            display: flex;
+            width: 100%;
             position: relative;
-            transition: opacity 150ms ease-in-out;
-
-            &.faded {
-                opacity: 0;
-            }
             
-            > * {
-                flex: 0 0 1000px;
-                width: 1000px;
-            }
-
-            > container > module {
-                overflow: hidden;
+            > container {
+                position: absolute;
+                width: 100%;
+                height: calc(100% + @mainHeaderSize);
+                top: 0;
+                left: 0;
                 margin-top: -@mainHeaderSize;
-                padding-top: @mainHeaderSize;
-            }
 
-            > .content  > module {
-                transition-property: opacity, transform;
-                transition-duration: 150ms;
-            
-                text-shadow: 0 0 15px black;
+                transition: opacity 150ms;
 
-                button {
-                    .drop-shadow();
+                &.faded {
+                    opacity: 0;
                 }
-            }
 
-            > .home {
-                -webkit-filter: drop-shadow(0 0 10px);
-                display: flex;
+                > module {
+                    padding-top: @mainHeaderSize;
+
+                    transition-property: opacity, transform;
+                    transition-duration: 150ms;
                 
-                > .left {
-                    .flex-padd();
-                    display: flex;
-                    flex-direction: column;
-                }
-                
-                > .right {
-                    flex: 2 2;
-                    display: flex;
-                    flex-direction: column;
-                }
-                
-                .invite-list {
-                    .flex-padd();
-                    display: flex;
-                    flex-direction: column-reverse;
-                    padding: 10px;
+                    text-shadow: 0 0 15px black;
+
+                    button {
+                        .drop-shadow();
+                    }
                 }
             }
         }
@@ -138,13 +116,6 @@ module.landing {
         width: 280px;
     }
     
-    .background > img {
-        left: -370px;
-        position: relative;
-        height: 115%;
-        transform: rotateY(180deg);
-    }
-
     .play-button {
         .no-drag();
         border: 2px solid gray;
@@ -173,5 +144,29 @@ module.landing {
         transform-origin: 0 0;
         height: 825px;
         border: 0;
+    }
+}
+
+
+module.home {
+    .landing-background();
+    
+    > .left {
+        .flex-padd();
+        display: flex;
+        flex-direction: column;
+    }
+    
+    > .right {
+        flex: 2 2;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .invite-list {
+        .flex-padd();
+        display: flex;
+        flex-direction: column-reverse;
+        padding: 10px;
     }
 }

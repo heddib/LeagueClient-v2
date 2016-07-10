@@ -224,6 +224,9 @@ namespace Kappa.BackEnd.Server.Game {
         #endregion
 
         internal void Reset() {
+            if (state != null && state.Chatroom != Guid.Empty)
+                rooms.LeaveRoom(state.Chatroom);
+
             state = new LobbyState();
             OnStateChanged();
         }

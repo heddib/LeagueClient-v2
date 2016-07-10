@@ -35,7 +35,6 @@ namespace Kappa.BackEnd.Server.Game {
 
         private GameDTO lastGameDto;
         private bool OnGameDTO(GameDTO data) {
-            lastGameDto = data;
             switch (data.GameState) {
             case GameState.TEAM_SELECT:
                 state.BlueTeam.Clear();
@@ -67,9 +66,11 @@ namespace Kappa.BackEnd.Server.Game {
             case GameState.PRE_CHAMP_SELECT:
             case GameState.CHAMP_SELECT:
             case GameState.POST_CHAMP_SELECT:
-                OnAdvancedToChampSelect();
+                if (lastGameDto.GameState == GameState.TEAM_SELECT)
+                    OnAdvancedToChampSelect();
                 break;
             }
+            lastGameDto = data;
             return true;
         }
 

@@ -99,6 +99,7 @@ namespace Domain {
             config: number;
             name: string;
             id: number;
+            map: number;
         }
         export interface ChampionMasteryState {
             level: number;

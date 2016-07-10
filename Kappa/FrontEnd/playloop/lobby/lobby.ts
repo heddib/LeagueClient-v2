@@ -11,6 +11,11 @@ import ChatRoom      from './../../chat/room/chatroom';
 
 const html = Module.import('playloop/lobby');
 
+interface IInviteProvider {
+    start(): void;
+    stop(): void;
+}
+
 const CHAMPSELECT_PHASES = ['PLANNING', 'BANNING', 'PICKING', 'FINALIZING'];
 export default class Lobby extends Module {
     private queueStart: number;

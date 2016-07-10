@@ -9,7 +9,7 @@ import ChatFriend    from './friend/chatfriend';
 
 const html = Module.import('chat/list');
 
-export default class ChatList extends Module implements IInviteProvider {
+export default class ChatList extends Module {
     private friends: { [user: string]: ChatFriend } = {};
     private chatHistories: { [user: string]: any[] } = {};
     private intervalId: number;

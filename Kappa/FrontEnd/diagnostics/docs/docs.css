@@ -110,8 +110,7 @@ x-body #list {
   height: 100%;
   width: 60%;
   right: 0;
-  display: flex;
-  flex-direction: column;
+  top: 0;
   background: white;
 }
 #invoke > .header {

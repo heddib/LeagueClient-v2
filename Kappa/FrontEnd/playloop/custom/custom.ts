@@ -10,6 +10,11 @@ import ChatRoom      from './../../chat/room/chatroom';
 
 const html = Module.import('playloop/custom');
 
+interface IInviteProvider {
+    start(): void;
+    stop(): void;
+}
+
 export default class CustomLobby extends Module {
     private doDispose = true;
     private room: ChatRoom;

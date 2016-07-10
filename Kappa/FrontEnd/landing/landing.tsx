@@ -10,31 +10,26 @@ import * as Meta      from './../meta/meta';
 
 import ChatList       from './../chat/list/chatlist';
 
-import Lobby          from './../playloop/lobby/lobby';
-import Custom         from './../playloop/custom/custom';
-import ChampSelect    from './../playloop/champselect/champselect';
-import InGame         from './../playloop/ingame/ingame';
-
 import * as Invite    from './../invite/invite';
 
 import CollectionPage from './../collection/collection';
 import PatcherPage    from './../patcher/game';
-import PlaySelect     from './../playselect/playselect';
+import PlayLoop       from './../playloop/playloop';
 import ProfilePage    from './../profile/profile';
 
+// <div class="background">
+//     <img data-ref="background"/>
+// </div>
 const template = (
     <module class="landing">
         <div class="center">
-            <div class="background">
-                <img data-ref="background"/>
-            </div>
             <div class="header">
-                <div class="play-button" data-ref="tab0"><span data-ref="playButton">PLAY</span></div>
+                <div class="play-button" data-ref="mainTab"><span data-ref="playButton">PLAY</span></div>
 
-                <div class="tab-button" data-ref="tab1"><span>HOME</span></div>
-                <div class="tab-button" data-ref="tab2"><span>PROFILE</span></div>
-                <div class="tab-button" data-ref="tab3"><span>COLLECTION</span></div>
-                <div class="tab-button" data-ref="tab4"><span>STORE</span></div>
+                <div class="tab-button" data-ref="homeTab"><span>HOME</span></div>
+                <div class="tab-button" data-ref="profileTab"><span>PROFILE</span></div>
+                <div class="tab-button" data-ref="collectionTab"><span>COLLECTION</span></div>
+                <div class="tab-button" data-ref="storeTab"><span>STORE</span></div>
 
                 <x-flexpadd></x-flexpadd>
 
@@ -47,82 +42,98 @@ const template = (
                     </div>
                 </div>
             </div>
-            <div class="center" data-ref="mainScroller">
-                <container class="content" data-ref="content"/>
-                <div class="home">
-                    <div class="left">
-                        <div class="invite-list" data-ref="inviteList"></div>
-                    </div>
-                    <x-flexpadd></x-flexpadd>
-                    <div class="right">
-                        <container data-ref="discordContainer"/>
-                    </div>
-                </div>
-                <container data-ref="profileContainer" class="profile"/>
-                <container data-ref="collectionContainer" class="collection"/>
-                <div class="landing-shop">
-                    <iframe class="shop-frame" data-ref="shopFrame"></iframe>
-                </div>
+            <div class="center">
+                <container class="back" data-ref="containerBack"/>
+                <container class="fore" data-ref="container"/>
             </div>
         </div>
         <container class="right" data-ref="friendsContainer"/>
     </module>
 );
-const back = 'images/landing_background.png';
 
-Util.preload(back);
+const homeTemplate = (
+    <module class="home">
+        <div class="left">
+            <div class="invite-list" data-ref="inviteList"></div>
+        </div>
+        <x-flexpadd></x-flexpadd>
+        <div class="right"/>
+    </module>
+);
+// <div class="center" data-ref="mainScroller">
+//     <container class="content" data-ref="content"/>
+//     <container data-ref="profileContainer" class="profile"/>
+//     <container data-ref="collectionContainer" class="collection"/>
+//     <div class="landing-shop">
+//         <iframe class="shop-frame" data-ref="shopFrame"></iframe>
+//     </div>
+// </div>
+// const back = 'images/landing_background.png';
+
+// Util.preload(back);
 
 export default class Landing extends Module {
     private loadedShop: boolean;
     private chatlist: ChatList;
     private patcher: PatcherPage;
-    private tabChange: (index: number) => void;
+    // private tabChange: (index: number) => void;
+
+    private play: PlayLoop;
+    private home = Module.create(homeTemplate);
+    private profile: ProfilePage;
+    private collection: CollectionPage;
 
     public constructor(accountState) {
         super(template);
 
+        this.chatlist = new ChatList();
+        this.chatlist.render(this.refs.friendsContainer);
+
+        this.play = new PlayLoop(this.chatlist);
+        this.collection = new CollectionPage();
+        this.profile = new ProfilePage();
+
         Invite.update.on(e => this.drawInvites(e));
         this.drawInvites(Invite.list());
 
-        this.refs.background.src = back;
+        // this.refs.background.src = back;
 
-        let tabs = []
-        for (var i = 0; i < 5; i++) tabs[i] = this.refs['tab' + i];
-        this.tabChange = Tabs.create(tabs, 1, (old, now) => this.onTabChange(old, now));
+        this.refs.mainTab.on('click', () => this.showTab(this.play));
+        this.refs.homeTab.on('click', () => this.showTab(this.home));
+        this.refs.profileTab.on('click', () => this.showTab(this.profile));
+        this.refs.collectionTab.on('click', () => this.showTab(this.collection));
+        // this.refs.storeTab.on('click', () => this.showTab(this.profile));
+
+        // let tabs = []
+        // for (var i = 0; i < 5; i++) tabs[i] = this.refs['tab' + i];
+        // this.tabChange = Tabs.create(tabs, 1, (old, now) => this.onTabChange(old, now));
 
         // Store tab
-        this.refs.tab4.on('click', e => {
-            if (!this.loadedShop) {
-                Summoner.store().then(url => this.refs.shopFrame.src = url);
-                this.loadedShop = true;
-            }
-        });
+        // this.refs.tab4.on('click', e => {
+        //     if (!this.loadedShop) {
+        //         Summoner.store().then(url => this.refs.shopFrame.src = url);
+        //         this.loadedShop = true;
+        //     }
+        // });
         this.refs.balances.on('click', e => Summoner.store().then(url => Meta.link(url)));
 
         this.subscribe(Summoner.me, this.onMe);
 
         if (accountState.inGame) {
-            this.ingame();
+            this.play.ingame();
+            this.showTab(this.play);
         } else {
             PatcherPage.required().then(b => {
                 if (b) {
                     this.patcher = new PatcherPage();
                     this.subscribe(this.patcher.complete, this.onPatched);
-                    this.showModule(this.patcher, false);
+                    this.showTab(this.patcher);
                 } else {
                     this.onPatched(true);
                 }
             });
+            this.showTab(this.home);
         }
-
-        this.chatlist = new ChatList();
-        this.chatlist.render(this.refs.friendsContainer);
-
-        let collection = new CollectionPage();
-        collection.render(this.refs.collectionContainer);
-
-        let profile = new ProfilePage();
-        profile.render(this.refs.profileContainer);
     }
 
     public dispose() {
@@ -132,7 +143,8 @@ export default class Landing extends Module {
     private onPatched(force?: boolean) {
         if (!force && !this.patcher) return;
         this.patcher = null;
-        this.playSelect();
+        // this.showTab(this.play);
+        // this.playSelect();
     }
 
     private onMe(me) {
@@ -141,89 +153,28 @@ export default class Landing extends Module {
     }
 
     private drawInvites(list) {
-        this.refs.inviteList.empty();
+        this.home.refs.inviteList.empty();
         for (let invite of list) {
             var control = new Invite.Control(invite);
-            control.custom.on(e => this.custom());
-            control.lobby.on(e => this.lobby(false));
-            control.render(this.refs.inviteList);
+            control.custom.on(e => this.play.custom());
+            control.lobby.on(e => this.play.lobby(false));
+            control.render(this.home.refs.inviteList);
         }
     }
 
-    private onTabChange(old: number, now: number) {
-        this.refs.background.removeClass('tab-' + old);
-        this.refs.background.addClass('tab-' + now);
+    private showTab(mod: Module) {
+        mod.render(this.refs.containerBack);
+        this.refs.container.addClass('faded');
 
-        this.refs.mainScroller.addClass('faded');
+        const duration = 150;
+
         setTimeout(() => {
-            this.refs.mainScroller.removeClass('faded');
-            this.refs.mainScroller.css('left', -100 * now + '%');
-        }, 150);
-    }
+            this.refs.container.empty();
+            this.refs.container.removeClass('faded');
 
-    private playSelect() {
-        var select = new PlaySelect();
-        select.select.on(e => this.lobby(false));
-        select.custom.on(e => this.custom());
-        this.showModule(select, false)
-        this.refs.playButton.text = 'PLAY';
-    }
-
-    private lobby(queue: boolean) {
-        var mod = new Lobby(queue, this.chatlist);
-        mod.start.on(e => this.champselect());
-        this.showModule(mod, true);
-        this.refs.playButton.text = 'LOBBY';
-    }
-
-    private custom() {
-        var mod = new Custom(this.chatlist);
-        mod.start.on(e => this.champselect());
-        this.showModule(mod, true);
-        this.refs.playButton.text = 'CUSTOM';
-    }
-
-    private champselect() {
-        var mod = new ChampSelect();
-        mod.start.on(() => this.ingame());
-        mod.custom.on(e => this.custom());
-        mod.cancel.on(queue => this.lobby(queue));
-        this.showModule(mod, true);
-        this.refs.playButton.text = 'GAME';
-    }
-
-    private ingame() {
-        var mod = new InGame();
-        this.refs.playButton.text = 'GAME';
-        this.showModule(mod, true);
-    }
-
-    private module: Module;
-    private showModule(mod: Module, show: boolean) {
-        let fadein = () => {
-            this.refs.content.empty();
-            this.module = mod;
-            this.module.render(this.refs.content);
-            
             setTimeout(() => {
-                this.module.node.removeClass('faded-in');
-                this.module.render(this.refs.content);
-            }, 0);
-        };
-
-        mod.node.addClass('faded-in');
-
-        if (this.module) {
-            this.module.dispose();
-            this.module.node.addClass('faded-out');
-            let done = false;
-            setTimeout(() => fadein(), 150);
-        } else {
-            fadein();
-        }
-
-        mod.closed.on(e => this.playSelect());
-
-        if (show) this.tabChange(0);
+                mod.render(this.refs.container);
+            }, duration);
+        }, duration);
     }
 }

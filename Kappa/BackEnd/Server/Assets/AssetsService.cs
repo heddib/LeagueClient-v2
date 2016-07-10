@@ -44,42 +44,6 @@ namespace Kappa.BackEnd.Server.Assets {
             lolGameData = patcher.PatchWAD("rcp-be-lol-game-data");
             Session.Init.ContinueWith(t => OnInitialized());
 
-            #region Locales
-
-            //var locales = new[] {
-            //    "default",
-            //    "en_US",
-            //    "cs_CZ",
-            //    "de_DE",
-            //    "el_GR",
-            //    "en_AU",
-            //    "en_GB",
-            //    "en_PH",
-            //    "en_PL",
-            //    "en_SG",
-            //    "es_AR",
-            //    "es_ES",
-            //    "es_MX",
-            //    "fr_FR",
-            //    "hu_HU",
-            //    "id_ID",
-            //    "it_IT",
-            //    "ja_JP",
-            //    "ko_KR",
-            //    "ms_MY",
-            //    "pl_PL",
-            //    "pt_BR",
-            //    "ro_RO",
-            //    "ru_RU",
-            //    "th_TH",
-            //    "tr_TR",
-            //    "vn_VN",
-            //    "zh_CN",
-            //    "zh_MY",
-            //    "zh_TW"
-            //}.Select(l => l.ToLower()).ToArray();
-
-            #endregion
 
             data = lolGameData.ContinueWith(t => {
                 Masteries = ExtractJSON<MasteriesInfo>(t.Result, GameDataAssets.Masteries);
@@ -92,115 +56,6 @@ namespace Kappa.BackEnd.Server.Assets {
                 SummonerSpells = ExtractJSON<List<SummonerSpellDetails>>(t.Result, GameDataAssets.SummonerSpells);
 
                 RunesInfo = ExtractJSON<RuneSlots>(t.Result, GameDataAssets.RuneSlot);
-
-                //var all = new Dictionary<ulong, WADArchive.WADFile>(t.Result.AllFiles);
-                //const string replace = "%locale%";
-
-                //Func<string, bool, bool> test = (str, print) => {
-                //    bool success = true;
-                //    foreach (string locale in locales) {
-                //        var tmp = str.Replace(replace, locale);
-                //        var hash = WADArchive.Hash(tmp);
-
-                //        if (!all.Remove(hash) && locale == GameDataAssets.DefaultLocale) {
-                //            if (print) Debug.WriteLine(tmp);
-                //            success = false;
-                //        }
-                //    }
-                //    return success;
-                //};
-
-                //Func<string, string> get = str => {
-                //    test(str, false);
-                //    var tmp = str.Replace(replace, GameDataAssets.DefaultLocale);
-                //    WADArchive.WADFile file;
-                //    t.Result.TryGetFile(tmp, out file);
-                //    using (var stream = t.Result.File.OpenRead())
-                //    using (var zip = new GZipStream(stream, CompressionMode.Decompress))
-                //    using (var mem = new MemoryStream()) {
-                //        stream.Seek(file.Offset, SeekOrigin.Begin);
-                //        zip.CopyToLength(mem, file.Size);
-                //        return Encoding.UTF8.GetString(mem.ToArray());
-                //    }
-                //};
-
-                //Func<string, object> getJSON = str => JSONParser.Parse(get(str));
-
-                //test(GameDataAssets.SettingsToPersist(replace), true);
-                //test(GameDataAssets.ChampionSummary(replace), true);
-                //test(GameDataAssets.SummonerSpells(replace), true);
-                //test(GameDataAssets.Masteries(replace), true);
-                //test(GameDataAssets.RuneSlot(replace), true);
-                //test(GameDataAssets.Runes(replace), true);
-                //test(GameDataAssets.Items(replace), true);
-                //test(GameDataAssets.Maps(replace), true);
-                //test(GameDataAssets.WardSkins(replace), true);
-
-                ////var assets = (JSONObject) getJSON(GameDataAssets.MapAssets(replace));
-                ////foreach (var map in assets.Values) {
-                ////    foreach (string asset in ((JSONObject) ((JSONObject) map)["assets"]).Values) {
-                ////        var split = asset.Split('/');
-                ////        test(GameDataAssets.MapAsset(split[4], split[5], split[6]), true);
-                ////    }
-                ////}
-
-                //foreach (var champ in Champions) {
-                //    var details = JSONDeserializer.Deserialize<ChampionDetails>(getJSON(GameDataAssets.ChampionDetails(champ.Id, replace)));
-
-                //    foreach (var skin in details.Skins) {
-                //        test(GameDataAssets.ChampionSplash(skin.Id, replace), true);
-                //        test(GameDataAssets.ChampionTile(skin.Id, replace), true);
-                //        test(GameDataAssets.ChampionCard(skin.Id, replace), true);
-
-                //        if (skin.SplashVideoPath != null)
-                //            test(GameDataAssets.SplashVideo(skin.Id, replace), true);
-
-                //        if (skin.ChromaPath != null)
-                //            test(GameDataAssets.ChromaImage(skin.Id, replace), true);
-
-                //        if (skin.Chromas != null) {
-                //            foreach (var chroma in skin.Chromas) {
-                //                test(GameDataAssets.ChampionCard(chroma.Id, replace), true);
-                //                test(GameDataAssets.ChromaImage(chroma.Id, replace), true);
-                //            }
-                //        }
-                //    }
-
-                //    test(GameDataAssets.SplashMetaData(champ.Id, replace), true);
-                //    test(GameDataAssets.ChampionIcon(champ.Id, replace), true);
-                //    test(GameDataAssets.ChampionSfx(champ.Id, replace), true);
-                //    test(GameDataAssets.ChampionQuote(champ.Id, replace), true);
-                //}
-
-                //foreach (var spell in SummonerSpells) {
-                //    test(GameDataAssets.SummonerSpellIcon(spell.Id, replace), true);
-                //}
-
-                //for (var i = 0; i < 10000; i++) {
-                //    test(GameDataAssets.ProfileIcon(i, replace), false);
-                //}
-
-                //foreach (var mastery in Masteries.Data.Values) {
-                //    test(GameDataAssets.MasteryIcon(mastery.Id, replace), true);
-                //}
-
-                //foreach (var item in Items) {
-                //    test(GameDataAssets.ItemIcon(item.Id, replace), true);
-                //}
-
-                //foreach (var ward in WardSkins) {
-                //    test(GameDataAssets.WardSkin(ward.Id, replace), true);
-                //    test(GameDataAssets.WardSkinShadow(ward.Id, replace), true);
-                //}
-
-                //Debug.WriteLine(all.Count);
-
-                //const string dst = @"C:\Users\max\desktop\tmp";
-                //Directory.CreateDirectory(dst);
-                //foreach (var file in all) {
-                //    var files = Directory.EnumerateFiles(@"C:\Users\Max\Desktop\LCU\output.pbe\rcp-be-lol-game-data", $"*{file.Value.PathHash.ToString()}*").ToList();
-                //    File.Copy(files.Single(), Path.Combine(dst, Path.GetFileName(files.Single())));
-                //}
             });
         }
 
@@ -342,13 +197,13 @@ namespace Kappa.BackEnd.Server.Assets {
         }
 
         [Endpoint("/game-data/maps")]
-        public async Task<List<MapSummary>> GetMaps(int id) {
+        public async Task<List<MapSummary>> GetMaps() {
             await data;
             return Maps;
         }
 
         [Endpoint("/game-data/wardskins")]
-        public async Task<List<WardSkinSummary>> GetWardSkins(int id) {
+        public async Task<List<WardSkinSummary>> GetWardSkins() {
             await data;
             return WardSkins;
         }

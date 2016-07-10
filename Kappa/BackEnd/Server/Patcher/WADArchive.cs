@@ -6,6 +6,7 @@ using System.IO.Compression;
 using System.Runtime.InteropServices;
 using System.Text;
 using MFroehlich.Parsing;
+using System.Linq;
 
 namespace Kappa.BackEnd.Server.Patcher {
     public class WADArchive {
@@ -56,6 +57,38 @@ namespace Kappa.BackEnd.Server.Patcher {
             }
         }
 
+        public void ExtractFile(WADFile file, string dst) {
+            using (var stream = File.OpenRead()) {
+                Directory.CreateDirectory(Path.GetDirectoryName(dst));
+                stream.Seek(file.Offset, SeekOrigin.Begin);
+
+                if (file.Zipped == 0) {
+                    var peek = new byte[8];
+                    stream.ReadFully(peek, 0, peek.Length);
+                    dst += GetExtension(peek);
+
+                    using (var extract = System.IO.File.OpenWrite(dst)) {
+                        extract.Write(peek, 0, peek.Length);
+
+                        stream.CopyToLength(extract, file.Size - peek.Length);
+                    }
+                }
+                else {
+                    using (var zip = new GZipStream(stream, CompressionMode.Decompress)) {
+                        var peek = new byte[8];
+                        zip.ReadFully(peek, 0, peek.Length);
+                        dst += GetExtension(peek);
+
+                        using (var extract = System.IO.File.OpenWrite(dst)) {
+                            extract.Write(peek, 0, peek.Length);
+
+                            zip.CopyToLength(extract, file.Size - peek.Length);
+                        }
+                    }
+                }
+            }
+        }
+
         public static ulong Hash(string path) {
             var bytes = xxHash.ComputeHash(Encoding.UTF8.GetBytes(path));
             var hash = BitConverter.ToUInt64(bytes, 0);
@@ -81,6 +114,44 @@ namespace Kappa.BackEnd.Server.Patcher {
             public override string ToString() {
                 return $"{Offset}: {ZipSize} -> {Size}";
             }
+        }
+
+        private static string GetExtension(byte[] peek) {
+            Func<int, int, string> sub = (s, c) => Encoding.UTF8.GetString(peek, s, c);
+
+            if (sub(1, 3) == "PNG")
+                return ".png";
+
+            if (sub(0, 3) == "Ogg")
+                return ".ogg";
+
+            if (sub(0, 4) == "OTTO")
+                return ".ttf";
+
+            if (sub(0, 8) == "\"use str")
+                return ".js";
+
+            if (sub(0, 5) == "!func")
+                return ".js";
+
+            if (sub(0, 7) == "webpack" || sub(0, 8) == "/******/")
+                return ".js";
+
+            byte[] mp4 = { 26, 69, 223, 163, 1, 0, 0, 0 };
+            if (peek.Take(8).SequenceEqual(mp4))
+                return ".webm";
+
+            byte[] jpg = { 255, 216 };
+            if (peek.Take(2).SequenceEqual(jpg))
+                return ".jpg";
+
+            if (sub(0, 1) == "<")
+                return ".html";
+
+            if (sub(0, 1) == "{" || sub(3, 1) == "{" || sub(0, 1) == "[")
+                return ".json";
+
+            return "";
         }
     }
 }

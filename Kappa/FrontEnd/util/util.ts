@@ -161,11 +161,6 @@ Array.prototype.sum = function (handler) {
     return sum;
 };
 
-interface IInviteProvider {
-    start(): void;
-    stop(): void;
-}
-
 function guid() {
     function s4() {
         return Math.floor((1 + Math.random()) * 0x10000)

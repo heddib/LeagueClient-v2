@@ -15,6 +15,12 @@
 .image-accent() {
     -webkit-filter: contrast(110%) brightness(110%);
 }
+
+.landing-background() {
+    background-position: 79%;
+    background-image: url('images/landing_background.png');
+    background-size: 1540px;
+}
     
 //General Styles//
     img {
@@ -75,7 +81,8 @@
         background: rgb(100, 100, 105);
         border: 1px solid transparent;
         color: inherit;
-        font-family: Roboto;
+        font-family: inherit;
+        font-weight: bold;
         font-size: 16px;
         padding: 6px 16px;
         cursor: pointer;
@@ -319,10 +326,10 @@ module {
     @import "chat/room/chatroom.less";
     @import "discord/home/discordhome.less";
 
-    @import "playselect/playselect.less";
     @import "patcher/launcher.less";
     @import "patcher/game.less";
 
+    @import "playloop/playloop.less";
     @import "playloop/lobby/lobby.less";
     @import "playloop/champselect/champselect.less";
     @import "playloop/champselect/player/player.less";
