@@ -116,9 +116,11 @@ namespace Kappa.BackEnd.Server.Game {
 
             switch (lcds.Content.CurrentPhase) {
             case Phase.DRAFT_PREMADE:
-                state = new Model.MatchmakingState();
-                OnStateChanged();
-                OnAdvancedToLobby();
+                if (state != null) {
+                    state = null;
+                    OnStateChanged();
+                    OnAdvancedToLobby();
+                }
                 break;
             case Phase.MATCHMAKING:
                 state = new Model.MatchmakingState {
@@ -188,7 +190,7 @@ namespace Kappa.BackEnd.Server.Game {
         #endregion
 
         internal void Reset() {
-            state = new Model.MatchmakingState();
+            state = null;
             OnStateChanged();
 
             accepted = null;

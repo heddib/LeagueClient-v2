@@ -62,7 +62,7 @@ export default class Lobby extends Module {
 
     public dispose() {
         super.dispose();
-        
+
         this.queueStart = 0;
         if (this.doDispose)
             PlayLoop.abandon();
@@ -104,7 +104,10 @@ export default class Lobby extends Module {
     }
 
     private onMatchmakingState(state: Domain.Game.MatchmakingState) {
-        if (state.afkCheck) {
+        if (!state) {
+            this.$('#queue-info').css('display', 'none');
+            this.$('#afk-check').css('display', 'none');
+        } else if (state.afkCheck) {
             if (this.$('#afk-check').css('display')) {
                 Audio.effect('lobby', 'pop');
                 this.$('#queue-info').css('display', 'none');
@@ -208,14 +211,16 @@ export default class Lobby extends Module {
         Service.selectRoles(this.role1, this.role2);
         this.$('#role-selector').css('top', null);
         this.$('#role-selector').css('left', null);
+        this.$('#role-selector').addClass('hidden');
     }
 
     private onRoleClck(e: MouseEvent) {
         var but = new Swish(<Node>e.target);
         this.isRole1 = but.hasClass('role1');
         var selector = this.$('#role-selector');
-        selector.css('top', but.bounds.top + but.bounds.height / 2 - selector.bounds.height / 2 + 'px');
-        selector.css('left', but.bounds.left + but.bounds.width / 2 - selector.bounds.width / 2 + 'px');
+        selector.css('top', but.bounds.top + but.bounds.height / 2 - selector[0].offsetHeight / 2 + 'px');
+        selector.css('left', but.bounds.left + but.bounds.width / 2 - selector[0].offsetWidth / 2 + 'px');
+        this.$('#role-selector').removeClass('hidden');
     }
 
     private onStartQueueClick(e: MouseEvent) {

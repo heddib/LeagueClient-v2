@@ -48,20 +48,12 @@
         </div>
     </div>
 
-    <div id="role-selector">
+    <div id="role-selector" class="hidden">
         <div data-role="JUNGLE" class="role-selectable" id="role-jungle"></div>
         <div data-role="UTILITY" class="role-selectable" id="role-support"></div>
         <svg>
-            <filter id="inactive">
-                <feColorMatrix in="SourceGraphic" type="matrix" values=".411 0 0 0 0 0 .365 0 0 0 0 0 .324 0 0 0 0 0 1 0"></feColorMatrix>
-            </filter>
-            <!--<path data-role="TOP" class="role-selectable" d="M -5 100 L -5 -5 L 100 -5 L 83 17 L 17 17 L 17 83 Z"></path>
-            <path data-role="BOTTOM" class="role-selectable" d="M 0 105 L 105 105 L 105 0 L 83 17 L 83 83 L 17 83 Z"></path>
-            <path data-role="MIDDLE" class="role-selectable" d="M 0 100 L 0 88 L 88 0 L 100 0 L 100 12 L 12 100 Z"></path>
-            <circle data-role="FILL" class="role-selectable" cx="8" cy="92" r="26"></circle>
-            <circle data-role="FILL" class="role-selectable" cx="92" cy="8" r="26"></circle>-->
             <path data-role="TOP" class="role-selectable" d="M 0 50 L 0 -10 L 100 -10 L 100 50 L 85 50 A 35 35 0 1 0 15 50 Z" />
-            <path data-role="TOP" class="role-selectable" d="M 0 50 L 0 110 L 100 110 L 100 50 L 85 50 A 35 35 0 1 1 15 50 Z" />
+            <path data-role="BOTTOM" class="role-selectable" d="M 0 50 L 0 110 L 100 110 L 100 50 L 85 50 A 35 35 0 1 1 15 50 Z" />
             <path data-role="MIDDLE" class="role-selectable" d="M 0 42 L 100 42 L 100 58 L 0 58 Z" />
             <circle data-role="FILL" class="role-selectable" cx="0" cy="50" r="18" />
             <circle data-role="FILL" class="role-selectable" cx="100" cy="50" r="18" />

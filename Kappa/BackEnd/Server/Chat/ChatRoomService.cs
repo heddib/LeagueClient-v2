@@ -95,7 +95,8 @@ namespace Kappa.BackEnd.Server.Chat {
             else {
                 id = stats.RoomName;
             }
-            var jid = ChatUtils.GetChatroomJID(id, "pg", "post-game");
+            var jid = new Jid(id + "@post-game.pvp.net");
+            //var jid = ChatUtils.GetChatroomJID(id, "pg", "post-game");
             return JoinRoom(jid, stats.RoomPassword);
         }
 

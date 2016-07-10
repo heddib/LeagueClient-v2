@@ -127,15 +127,20 @@
     #role-selector {
         .drop-shadow(50px);
         position: fixed;
-        left: -1000px;
-        top: -1000px;
         border-radius: 50%;
         background: #7D7D7D;
+        transition: transform 200ms;
+
+        &.hidden {
+            left: -1000px;
+            top: -1000px;
+            transform: scale(.1);
+        }
         
         > svg {
             width: 150px;
             height: 150px;
-            padding: 4px;
+            padding: 3px;
             border-radius: 50%;
             transform: rotate(-45deg);
 

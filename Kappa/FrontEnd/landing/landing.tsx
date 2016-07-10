@@ -83,7 +83,6 @@ export default class Landing extends Module {
         this.collection = new CollectionPage();
         this.profile = new ProfilePage();
 
-
         this.tabs = [this.play, this.home, this.profile, this.collection];
 
         let tabs = [this.refs.mainTab, this.refs.homeTab, this.refs.profileTab, this.refs.collectionTab];
@@ -92,6 +91,8 @@ export default class Landing extends Module {
         this.refs.storeTab.on('click', e => {
             Summoner.store().then(url => Meta.link(url));
         });
+
+        this.play.state.on(s => this.refs.playButton.text = s);
 
 
         Invite.update.on(e => this.drawInvites(e));

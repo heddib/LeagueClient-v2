@@ -32,9 +32,11 @@ window.addEventListener('load', () => {
 });
 
 window.addEventListener('keyup', e => {
-    if (e.keyCode != 123) return;
-    let url = `http://${window.location.host}/ui/diagnostics/info`;
-    Meta.link(url);
+    switch (e.keyCode) {
+        case 123:
+            Meta.link(`http://${window.location.host}/ui/diagnostics/info`);
+            break;
+    }
 });
 
 let module: Module;
