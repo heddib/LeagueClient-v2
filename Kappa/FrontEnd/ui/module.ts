@@ -61,10 +61,10 @@ abstract class Module extends EventSource implements IDisposable {
     private _eventhandlers: { [id: string]: Function } = {};
     private _events: { [id: string]: Subscribable<any> } = {};
     protected subscribe<T>(event: Subscribable<T>, callback: (e: T) => void) {
-        callback = callback.bind(this);
-        this._eventhandlers[event.id] = callback;
+        let func = (...args) => callback.apply(this, args);
+        this._eventhandlers[event.id] = func;
         this._events[event.id] = event;
-        event.on(callback);
+        event.on(func);
     }
 
     protected template(id: string, context) {

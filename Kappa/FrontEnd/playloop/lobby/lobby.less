@@ -3,6 +3,7 @@
     flex-direction: column;
     
     > .top {
+        min-height: 70px;
         display: flex;
         
         > .right {
@@ -31,26 +32,30 @@
     }
 
     #queue-info {
-        .drop-shadow();
         flex: 0 0 200px;
-        padding: 10px;
-        padding-right: 0;
         margin-top: 10px;
-        background: @foregroundcolor;
+
+        display: flex;
+        align-items: center;
+
+        > .text {
+            .flex-padd();
+            font-size: 18px;
+            font-weight: bold;
+        }
 
         #queue-estimate, #queue-actual {
+            font-weight: 500;
             float: right;
         }
     }
 
     #afk-check {
-        .drop-shadow();
         flex: 0 0 300px;
-        padding: 10px;
         margin-top: 10px;
-        background: @foregroundcolor;
 
         #afk-timeout {
+            .drop-shadow();
             height: 10px;
             margin-bottom: 10px;
             background: @backgroundcolor;
@@ -124,16 +129,20 @@
         position: fixed;
         left: -1000px;
         top: -1000px;
-        padding: 10px;
+        border-radius: 50%;
         background: #7D7D7D;
         
         > svg {
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
+            padding: 4px;
+            border-radius: 50%;
+            transform: rotate(-45deg);
 
             > * {
                 stroke: #7D7D7D;
                 stroke-width: 2px;
+                transform: scale(1.5);
             }
 
             > text {
@@ -163,15 +172,21 @@
         }
 
         #role-jungle {
-            top: 31px;
-            left: 31px;
-            -webkit-mask: url(images/tbd/jungle.png) no-repeat center/contain;
+            top: 42px;
+            left: 46px;
+            width: 28px;
+            height: 28px;
+            -webkit-mask: url(images/tbd/jungle.png) no-repeat center / 28px;
+            z-index: 1;
         }
 
         #role-support {
-            top: 65px;
-            left: 65px;
-            -webkit-mask: url(images/tbd/support.png) no-repeat center/contain;
+            top: 86px;
+            left: 90px;
+            width: 28px;
+            height: 28px;
+            -webkit-mask: url(images/tbd/support.png) no-repeat center / 28px;
+            z-index: 1;
         }
     }
 }

@@ -78,7 +78,7 @@ class AsyncValue<T> implements Subscribable<T> {
 
     public off(handler: (value: T) => void) {
         var i = this._handlers.indexOf(handler);
-        this._handlers.splice(i, 1);
+        if (i != -1) this._handlers.splice(i, 1);
     }
 
     public single(handler: (value: T) => void) {

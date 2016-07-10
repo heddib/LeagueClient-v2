@@ -200,6 +200,8 @@ export default class Page extends Module {
 
     private onClose() {
         this.module.dispose()
+        this.module = null;
+        
         this.refs.container.css('display', 'none');
         this.refs.container.empty();
         for (var id in this.mapkeys) {

@@ -64,12 +64,14 @@ export default class Landing extends Module {
     private loadedShop: boolean;
     private chatlist: ChatList;
     private patcher: PatcherPage;
-    // private tabChange: (index: number) => void;
+    private tabChange: (index: number) => void;
 
     private play: PlayLoop;
     private home = Module.create(homeTemplate);
     private profile: ProfilePage;
     private collection: CollectionPage;
+
+    private tabs: Module[];
 
     public constructor(accountState: Domain.Authentication.AccountState) {
         super(template);
@@ -81,47 +83,37 @@ export default class Landing extends Module {
         this.collection = new CollectionPage();
         this.profile = new ProfilePage();
 
+
+        this.tabs = [this.play, this.home, this.profile, this.collection];
+
+        let tabs = [this.refs.mainTab, this.refs.homeTab, this.refs.profileTab, this.refs.collectionTab];
+        this.tabChange = Tabs.create(tabs, 1, (old, now) => this.onTabChange(old, now));
+
+        this.refs.storeTab.on('click', e => {
+            Summoner.store().then(url => Meta.link(url));
+        });
+
+
         Invite.update.on(e => this.drawInvites(e));
         this.drawInvites(Invite.list());
-
-        // this.refs.background.src = back;
-
-        this.refs.mainTab.on('click', () => this.showTab(this.play));
-        this.refs.homeTab.on('click', () => this.showTab(this.home));
-        this.refs.profileTab.on('click', () => this.showTab(this.profile));
-        this.refs.collectionTab.on('click', () => this.showTab(this.collection));
-        // this.refs.storeTab.on('click', () => this.showTab(this.profile));
-
-        // let tabs = []
-        // for (var i = 0; i < 5; i++) tabs[i] = this.refs['tab' + i];
-        // this.tabChange = Tabs.create(tabs, 1, (old, now) => this.onTabChange(old, now));
-
-        // Store tab
-        // this.refs.tab4.on('click', e => {
-        //     if (!this.loadedShop) {
-        //         Summoner.store().then(url => this.refs.shopFrame.src = url);
-        //         this.loadedShop = true;
-        //     }
-        // });
-        this.refs.balances.on('click', e => Summoner.store().then(url => Meta.link(url)));
-
         this.subscribe(Summoner.me, this.onMe);
 
         if (accountState.inGame) {
             this.play.map();
             this.play.ingame();
-            this.showTab(this.play);
+            this.tabChange(this.tabs.indexOf(this.play));
         } else {
             PatcherPage.required().then(b => {
                 if (b) {
                     this.patcher = new PatcherPage();
                     this.subscribe(this.patcher.complete, this.onPatched);
-                    this.showTab(this.patcher);
+
+                    this.tabs.push(this.patcher);
+                    this.tabChange(this.tabs.indexOf(this.patcher));
                 } else {
                     this.onPatched(true);
                 }
             });
-            this.showTab(this.home);
         }
     }
 
@@ -146,19 +138,21 @@ export default class Landing extends Module {
             control.custom.on(e => {
                 this.play.map(e.game.map);
                 this.play.custom();
-                this.showTab(this.play);
+                this.tabChange(this.tabs.indexOf(this.play));
             });
             control.lobby.on(e => {
                 this.play.map(e.game.map);
                 this.play.lobby(false);
-                this.showTab(this.play);
+                this.tabChange(this.tabs.indexOf(this.play));
             });
             control.render(this.home.refs.inviteList);
         }
     }
 
     private timeoutId: number;
-    private showTab(mod: Module) {
+    private onTabChange(old: number, now: number) {
+        let mod = this.tabs[now];
+
         mod.render(this.refs.containerBack);
         this.refs.container.addClass('faded');
 
@@ -174,4 +168,22 @@ export default class Landing extends Module {
             }, duration);
         }, duration);
     }
+
+    // private timeoutId: number;
+    // private showTab(mod: Module) {
+    //     mod.render(this.refs.containerBack);
+    //     this.refs.container.addClass('faded');
+
+    //     const duration = 150;
+
+    //     clearTimeout(this.timeoutId);
+    //     this.timeoutId = setTimeout(() => {
+    //         this.refs.container.empty();
+    //         this.refs.container.removeClass('faded');
+
+    //         this.timeoutId = setTimeout(() => {
+    //             mod.render(this.refs.container);
+    //         }, duration);
+    //     }, duration);
+    // }
 }

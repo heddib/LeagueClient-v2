@@ -28,13 +28,13 @@ namespace Kappa {
         }
 
         public LeagueClient() {
+            JSONDeserializer.AddDeserializer<object>(Deserialize);
+            JSONSerializer.AddSerializer(Serialize);
+
             BackEndServer.Initialize();
             Session.Initialize();
 
             BackEndServer.AddService(this.front);
-
-            JSONSerializer.AddSerializer(Serialize);
-            JSONDeserializer.AddDeserializer<object>(Deserialize);
         }
 
         private void Start() {

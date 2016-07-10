@@ -39,58 +39,41 @@ namespace Kappa.BackEnd.Server.Patcher {
         }
 
         public string Extract(WADFile file) {
-            if (file.Zipped == 0) {
-                using (var stream = File.OpenRead())
-                using (var mem = new MemoryStream()) {
-                    stream.Seek(file.Offset, SeekOrigin.Begin);
-                    stream.CopyToLength(mem, file.Size);
-                    return Encoding.UTF8.GetString(mem.ToArray());
-                }
-            }
-
-            using (var stream = File.OpenRead())
-            using (var zip = new GZipStream(stream, CompressionMode.Decompress))
+            using (var stream = GetStream(file))
             using (var mem = new MemoryStream()) {
-                stream.Seek(file.Offset, SeekOrigin.Begin);
-                zip.CopyToLength(mem, file.Size);
+                stream.CopyToLength(mem, file.Size);
                 return Encoding.UTF8.GetString(mem.ToArray());
             }
         }
 
-        public void ExtractFile(WADFile file, string dst) {
-            using (var stream = File.OpenRead()) {
+        public void ExtractFile(WADFile file, string dst, bool extend = true) {
+            using (var stream = GetStream(file)) {
                 Directory.CreateDirectory(Path.GetDirectoryName(dst));
-                stream.Seek(file.Offset, SeekOrigin.Begin);
 
-                if (file.Zipped == 0) {
-                    var peek = new byte[8];
-                    stream.ReadFully(peek, 0, peek.Length);
+                var peek = new byte[8];
+                stream.ReadFully(peek, 0, peek.Length);
+                var ext = GetExtension(peek);
+                if (!dst.EndsWith(ext))
                     dst += GetExtension(peek);
 
-                    using (var extract = System.IO.File.OpenWrite(dst)) {
-                        extract.Write(peek, 0, peek.Length);
+                using (var extract = System.IO.File.OpenWrite(dst)) {
+                    extract.Write(peek, 0, peek.Length);
 
-                        stream.CopyToLength(extract, file.Size - peek.Length);
-                    }
-                }
-                else {
-                    using (var zip = new GZipStream(stream, CompressionMode.Decompress)) {
-                        var peek = new byte[8];
-                        zip.ReadFully(peek, 0, peek.Length);
-                        dst += GetExtension(peek);
-
-                        using (var extract = System.IO.File.OpenWrite(dst)) {
-                            extract.Write(peek, 0, peek.Length);
-
-                            zip.CopyToLength(extract, file.Size - peek.Length);
-                        }
-                    }
+                    stream.CopyToLength(extract, file.Size - peek.Length);
                 }
             }
         }
 
+        private Stream GetStream(WADFile file) {
+            var stream = File.OpenRead();
+            stream.Seek(file.Offset, SeekOrigin.Begin);
+            if (file.Zipped != 0)
+                return new GZipStream(stream, CompressionMode.Decompress);
+            return stream;
+        }
+
         public static ulong Hash(string path) {
-            var bytes = xxHash.ComputeHash(Encoding.UTF8.GetBytes(path));
+            var bytes = xxHash.ComputeHash(Encoding.UTF8.GetBytes(path.ToLower()));
             var hash = BitConverter.ToUInt64(bytes, 0);
             return hash;
         }

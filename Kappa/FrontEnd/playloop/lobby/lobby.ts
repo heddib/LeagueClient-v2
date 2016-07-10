@@ -62,6 +62,7 @@ export default class Lobby extends Module {
 
     public dispose() {
         super.dispose();
+        
         this.queueStart = 0;
         if (this.doDispose)
             PlayLoop.abandon();
