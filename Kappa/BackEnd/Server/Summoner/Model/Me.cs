@@ -21,6 +21,8 @@ namespace Kappa.BackEnd.Server.Summoner.Model {
         public SpellBookDTO Runes => Packet.AllSummonerData.SpellBook;
         public int Level => Packet.AllSummonerData.SummonerLevel.Level;
 
+        public int IP => Packet.IpBalance;
+
         public Me(LoginDataPacket packet, AccountSummary account) {
             this.Account = account;
             this.Packet = packet;

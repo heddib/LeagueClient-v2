@@ -12,6 +12,7 @@ namespace Kappa.BackEnd.Server.Game.Model {
         public Guid Chatroom { get; set; }
         public int IpEarned { get; set; }
         public int IpTotal { get; set; }
+        public int IpLifetime { get; set; }
 
         public HextechInventory Hextech { get; set; }
 

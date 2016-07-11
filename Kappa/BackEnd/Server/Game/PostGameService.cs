@@ -74,6 +74,7 @@ namespace Kappa.BackEnd.Server.Game {
                 var rawLoot = JSONDeserializer.Deserialize<ChampionMasteryLootGrant>(arg);
 
                 HextechService.Add(state.Hextech, true, rawLoot.LootName, 1, null);
+                OnStateChanged();
                 break;
             }
 
@@ -82,7 +83,8 @@ namespace Kappa.BackEnd.Server.Game {
 
         private bool OnEndOfGameStats(EndOfGameStats stats) {
             this.state.IpEarned = stats.IpEarned;
-            this.state.IpTotal = stats.IpTotal;
+            this.state.IpTotal = session.Me.IP;
+            this.state.IpLifetime = stats.IpTotal;
             this.state.Chatroom = rooms.JoinPostGame(stats);
             OnStateChanged();
 

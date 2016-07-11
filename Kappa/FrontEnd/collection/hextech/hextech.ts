@@ -29,6 +29,8 @@ export default class HextechPage extends Module {
         this.refs.blue.text = this.inventory.blueEssence;
         this.refs.orange.text = this.inventory.orangeEssence;
 
+        this.refs.lootList.empty();
+
         let group, list;
 
         group = this.template('loot-group', { groupname: 'Champion Loot' });

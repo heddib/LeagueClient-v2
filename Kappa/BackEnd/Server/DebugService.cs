@@ -10,6 +10,7 @@ using System.Threading;
 using Kappa.Riot.Domain.TeambuilderDraft;
 using MFroehlich.Parsing;
 using MFroehlich.Parsing.JSON;
+using Kappa.Riot.Domain;
 
 // ReSharper disable All
 
@@ -85,6 +86,23 @@ namespace Kappa.BackEnd.Server {
         }
 
         private void Session_Authed(object sender, EventArgs e) {
+        }
+
+        [Endpoint("/eog")]
+        public void DebugEog() {
+            var file = @"C:\Users\max\desktop\eog.txt";
+            var lines = File.ReadAllLines(file);
+            new Thread(() => {
+                var stats = JSONDeserializer.Deserialize<EndOfGameStats>(JSONParser.Parse(lines[0]));
+                var a = JSONDeserializer.Deserialize<SimpleDialogMessage>(JSONParser.Parse(lines[1]));
+                var b = JSONDeserializer.Deserialize<SimpleDialogMessage>(JSONParser.Parse(lines[2]));
+                Thread.Sleep(1000);
+                session.HandleMessage(stats);
+                Thread.Sleep(1000);
+                session.HandleMessage(a);
+                Thread.Sleep(1000);
+                session.HandleMessage(b);
+            }).Start();
         }
 
         [Endpoint("/draft")]

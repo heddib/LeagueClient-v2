@@ -12,6 +12,9 @@ import Custom             from './custom/custom';
 import ChampSelect        from './champselect/champselect';
 import InGame             from './ingame/ingame';
 
+
+import * as Kappa from './../kappa';
+
 let queueCache;
 
 const template = (
@@ -57,7 +60,7 @@ export const featuredNames = {
     96: 'Ascension',
     98: 'Twisted Treeline Hexakill',
     300: 'Legend of the Poro King',
-    317: 'Definitely not Dominion'
+    // 317: 'Definitely not Dominion'
 };
 
 export default class Page extends Module {
@@ -83,7 +86,7 @@ export default class Page extends Module {
             let map = Assets.gamedata.maps.first(m => m.id == info.id);
             let mod = Module.create(mapTemplate);
             mod.refs.title.text = map.name;
-            mod.node.setBackgroundImage(`images/playselect/tmp/${info.key}-back.jpg`);
+            mod.node.setBackgroundImage(`images/playselect/${info.key}-back.jpg`);
             this.maps[info.id] = mod.node;
             this.refs.body[0].insertBefore(mod.node[0], this.refs.body.children.last[0]);
         }
@@ -112,14 +115,20 @@ export default class Page extends Module {
         Service.getAvailableQueues().then(queues => {
             this.queues = queues;
             for (let queue of queues) {
-                if (featuredNames[queue.id]) continue;
-                if (!queueNames[queue.id]) continue;
+                let featured = featuredNames[queue.id];
+                
+                if (!queueNames[queue.id] && !featured) continue;
 
                 let dst = this.maps[queue.map];
                 let mod = Module.create(queueTemplate);
-                mod.refs.title.text = queueNames[queue.id];
-                mod.render(dst);
+                mod.refs.title.text = featured || queueNames[queue.id];
                 mod.node.on('click', () => this.choose(queue.map, queue));
+                mod.node.setClass(featured, 'featured');
+                if (featured) {
+                    dst.prepend(mod.node);
+                } else {
+                    dst.append(mod.node);
+                }
             }
 
             for (let info of this.mapsList) {

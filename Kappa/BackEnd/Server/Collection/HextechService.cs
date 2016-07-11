@@ -120,10 +120,10 @@ namespace Kappa.BackEnd.Server.Collection {
             case LootItemType.CURRENCY:
                 switch (item.LootName) {
                 case LootNames.BLUE_ESSENCE:
-                    inventory.BlueEssence = count;
+                    inventory.BlueEssence += count;
                     break;
                 case LootNames.ORANGE_ESSENCE:
-                    inventory.OrangeEssence = count;
+                    inventory.OrangeEssence += count;
                     break;
                 default:
                     Session.Log("Unknown currency: " + item.LootName);
@@ -134,10 +134,10 @@ namespace Kappa.BackEnd.Server.Collection {
             case LootItemType.MATERIAL:
                 switch (item.LootName) {
                 case LootNames.KEY:
-                    inventory.Keys = count;
+                    inventory.Keys += count;
                     break;
                 case LootNames.KEY_FRAGMENT:
-                    inventory.KeyFragments = count;
+                    inventory.KeyFragments += count;
                     break;
                 default:
                     Session.Log("Unknown material: " + item.LootName);

@@ -180,6 +180,7 @@ namespace Domain {
             chatroom: string;
             ipEarned: number;
             ipTotal: number;
+            ipLifetime: number;
             hextech: Collection.HextechInventory;
             championMastery: PostGameChampionMastery;
         }

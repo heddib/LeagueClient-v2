@@ -26,7 +26,7 @@ namespace Kappa.Riot.Services {
         /// </summary>
         /// <param name="queueId">The queue id</param>
         /// <returns>Returns the queue information</returns>
-        public Task<QueueInfo> GetQueueInformation(double queueId) {
+        public Task<QueueInfo> GetQueueInfo(int queueId) {
             return InvokeAsync<QueueInfo>("getQueueInfo", queueId);
         }
 

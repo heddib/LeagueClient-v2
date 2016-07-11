@@ -29,8 +29,37 @@
     }
 
     > .post-page {
+        .ip {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .grade {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            box-shadow: 0 0 25px black;
+            background-position: 50% 30%;
+            background-size: 640px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+
+            > span {
+                margin-bottom: 12%;
+                font-size: 26px;
+                font-weight: bold;
+            }
+        }
+
+        > .center {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
 
         > .chat-area {
+            flex: 0 0 250px;
             margin: 10px;
         }
     }
