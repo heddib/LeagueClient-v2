@@ -1,6 +1,7 @@
 import * as Kappa    from './kappa';
 import { Swish, $  } from './ui/swish';
 import Module        from './ui/module';
+import http          from './util/http';
 import LoginPage     from './login/login';
 import PatcherPage   from './patcher/launcher';
 import Landing       from './landing/landing';
@@ -33,8 +34,15 @@ window.addEventListener('load', () => {
 
 window.addEventListener('keyup', e => {
     switch (e.keyCode) {
-        case 123:
+        case 122:
             Meta.link(`http://${window.location.host}/ui/diagnostics/info`);
+            break;
+        case 123:
+            http('http://localhost:1337/json/list').get(http => {
+                var info = http.json[0];
+                var url = `http://localhost:1337/devtools/inspector.html?ws=localhost:1337/devtools/page/${info.id}`;
+                Meta.link(url);
+            });
             break;
     }
 });

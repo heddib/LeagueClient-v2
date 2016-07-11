@@ -75,7 +75,7 @@ export default class Lobby extends Module {
             this.doDispose = false;
             this.dispatch(this.start, {});
         } else {
-            this.$('#lobby-controls').css('display', state == 'LOBBY' ? null : 'none');
+            this.refs.lobbyControls.setClass(state != 'LOBBY', 'hidden');
             this.$('#queue-info').css('display', state == 'MATCHMAKING' ? null : 'none');
         }
     }
@@ -86,6 +86,16 @@ export default class Lobby extends Module {
         if (!this.room && state.chatroom != guid.empty) {
             this.room = new ChatRoom(state.chatroom);
             this.refs.chatContainer.add(this.room.node);
+
+            PlayLoop.current().then(state => {
+                PlayLoop.queues().then(queues => {
+                    let queue = queues.first(q => q.id == state.queueId);
+                    let name = PlayLoop.queueNames[state.queueId] || PlayLoop.featuredNames[state.queueId];
+                    let map = Assets.gamedata.maps.first(m => m.id == queue.map);
+                    this.refs.mapName.text = map.name;
+                    this.refs.queueName.text = name;
+                });
+            });
         }
 
         this.queueStart = 0;
@@ -122,7 +132,10 @@ export default class Lobby extends Module {
             bar[0].offsetHeight;
             bar.css('transition', 'width ' + state.afkCheck.remaining + 'ms linear');
             bar.css('width', 0);
-            this.$('#afk-accept').disabled = this.$('#afk-decline').disabled = state.afkCheck.accepted != null;
+            if (!state.afkCheck.accepted) {
+                Service.afkCheck(true);
+            }
+            // this.$('#afk-accept').disabled = this.$('#afk-decline').disabled = state.afkCheck.accepted != null;
         } else {
             if (this.$('#queue-info').css('display')) {
                 this.$('#queue-info').css('display', null);
@@ -154,8 +167,8 @@ export default class Lobby extends Module {
             // class: mySlot == slot.slotId ? 'me' : 'friend',
             name: member.name,
             iconURL: Assets.summoner.icon(icon),
-            role1: member.role1,
-            role2: member.role2,
+            role1: member.role1 ? member.role1.toLowerCase() : '',
+            role2: member.role2 ? member.role2.toLowerCase() : '',
         };
 
         var old = this.$("#member-" + data.id);
@@ -167,14 +180,15 @@ export default class Lobby extends Module {
 
         if (member.id == me.id) {
             node.addClass('member-me');
-            node.$('.member-roles > div').on('mouseup', (e: MouseEvent) => this.onRoleClck(e));
             this.role1 = member.role1;
             this.role2 = member.role2;
+
+            node.$('.member-roles > div').on('mouseup', (e: MouseEvent) => this.onRoleClck(e));
         }
 
         if (!data.role1) {
             node.addClass('no-roles');
-        } else if (data.role1 == "FILL" || lobbySize == 5) {
+        } else if (data.role1 == "fill" || lobbySize == 5) {
             node.$('.role2').css('display', 'none');
         }
     }

@@ -1,9 +1,10 @@
 <module id="lobby">
     <div class="top">
         <div class="left">
-            <span id="queue-name"></span>
+            <span class="map-name" data-ref="mapName"></span>
+            <span data-ref="queueName"></span>
         </div>
-        <x-flexpadd></x-flexpadd>
+        <!--<x-flexpadd></x-flexpadd>-->
         <div id="queue-info">
             <div class="text">
                 <div>
@@ -18,19 +19,21 @@
             <span class="window-button exit-button" id="cancel-queue"></span>
         </div>
         <div id="afk-check">
+            <div class="text">
+                <span>Waiting for players to join...</span>
+            </div>
             <div id="afk-timeout">
                 <div></div>
             </div>
-            <div id="afk-controls">
+            <!--<div id="afk-controls">
                 <x-flexpadd></x-flexpadd>
                 <button id="afk-accept">Accept</button>
                 <x-flexpadd></x-flexpadd>
                 <button id="afk-decline">Decline</button>
                 <x-flexpadd></x-flexpadd>
-            </div>
+            </div>-->
         </div>
-        <x-flexpadd></x-flexpadd>
-        <div class="right" id="lobby-controls">
+        <div class="right" data-ref="lobbyControls">
             <button id="enter-queue">Enter Queue</button>
             <button id="leave-lobby">Leave lobby</button>
         </div>

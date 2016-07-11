@@ -28,7 +28,7 @@ namespace Kappa {
 
             string args = $"--backend=\"{index}\"";
 #if BUILD_UI
-            args += " --remote-debugging-port=1337";
+            args += " --remote-debugging-port=1337 --disable-web-security";
             //Process.Start("http://localhost:1337/");
 #endif
             Process.Start(FrontEndExecutable, args);

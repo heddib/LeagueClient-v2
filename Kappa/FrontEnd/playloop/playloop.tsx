@@ -17,20 +17,16 @@ let queueCache;
 const template = (
     <module class="playloop">
         <div data-ref="body" class="main-content">
-            <div class="playselect-map" data-ref="rift">
-            </div>
-            <div class="playselect-map" data-ref="treeline">
-            </div>
-            <div class="playselect-map" data-ref="abyss">
-            </div>
             <container class="container" data-ref="container"/>
         </div>
     </module>
 );
 
-const titleTemplate = (
-    <span class="map-title"/>
-);
+const mapTemplate = (
+    <div class="playselect-map">
+        <span data-ref="title" class="map-title"/>
+    </div>
+)
 
 const queueTemplate = (
     <module class="playselect-queue">
@@ -45,29 +41,32 @@ interface IInviteProvider {
     stop(): void;
 }
 
+export const queueNames = {
+    2: 'Blind Pick', // Rift
+    8: 'Blind Pick', // TT
+    // 41: 'Ranked Teams', // TT
+    65: 'ARAM', // Abyss
+    400: 'Normal', // Rift
+    410: 'Ranked', // Rift
+};
+
+export const featuredNames = {
+    70: 'One for All',
+    75: 'Hexakill',
+    76: 'URF',
+    96: 'Ascension',
+    98: 'Twisted Treeline Hexakill',
+    300: 'Legend of the Poro King',
+    317: 'Definitely not Dominion'
+};
+
 export default class Page extends Module {
-    private mapkeys = {
-        10: 'treeline',
-        11: 'rift',
-        12: 'abyss',
-    };
-    private names = {
-        2: 'Blind Pick', // Rift
-        8: 'Blind Pick', // TT
-        // 41: 'Ranked Teams', // TT
-        65: 'ARAM', // Abyss
-        400: 'Normal', // Rift
-        410: 'Ranked', // Rift
-    };
-    private featureds = {
-        70: 'One for All',
-        75: 'Hexakill',
-        76: 'URF',
-        96: 'Ascension',
-        98: 'Twisted Treeline Hexakill',
-        300: 'Legend of the Poro King',
-        317: 'Definitely not Dominion'
-    };
+    private maps: { [id: number]: Swish } = {};
+    private mapsList = [
+        { id: 11, key: 'rift' },
+        { id: 10, key: 'treeline' },
+        { id: 12, key: 'abyss' },
+    ];
 
     private provider: IInviteProvider;
     private patcher: PatcherPage;
@@ -80,25 +79,21 @@ export default class Page extends Module {
 
         this.provider = provider;
 
-        for (var id in this.mapkeys) {
-            this.refs[this.mapkeys[id]].setBackgroundImage(`images/playselect/tmp/${this.mapkeys[id]}-back.jpg`);
-            let map = Assets.gamedata.maps.first(m => m.id == +id);
-            let title = Module.create(titleTemplate);
-            title.node.text = map.name;
-            title.render(this.refs[this.mapkeys[id]]);
+        for (var info of this.mapsList) {
+            let map = Assets.gamedata.maps.first(m => m.id == info.id);
+            let mod = Module.create(mapTemplate);
+            mod.refs.title.text = map.name;
+            mod.node.setBackgroundImage(`images/playselect/tmp/${info.key}-back.jpg`);
+            this.maps[info.id] = mod.node;
+            this.refs.body[0].insertBefore(mod.node[0], this.refs.body.children.last[0]);
         }
-
-        this.refs.rift.setBackgroundImage('images/playselect/tmp/rift-back.jpg');
-        this.refs.abyss.setBackgroundImage('images/playselect/tmp/abyss-back.jpg');
-        this.refs.treeline.setBackgroundImage('images/playselect/tmp/treeline-back.jpg');
 
         this.refs.container.css('display', 'none');
 
         PatcherPage.required().then(b => {
             if (b) {
-                for (var id in this.mapkeys) {
-                    let node = this.refs[this.mapkeys[id]];
-                    node.addClass('hidden');
+                for (let info of this.mapsList) {
+                    this.maps[info.id].addClass('hidden');
                 }
 
                 this.patcher = new PatcherPage();
@@ -117,22 +112,21 @@ export default class Page extends Module {
         Service.getAvailableQueues().then(queues => {
             this.queues = queues;
             for (let queue of queues) {
-                if (this.featureds[queue.id]) continue;
-                if (!this.names[queue.id]) continue;
+                if (featuredNames[queue.id]) continue;
+                if (!queueNames[queue.id]) continue;
 
-                let dst = this.refs[this.mapkeys[queue.map]];
+                let dst = this.maps[queue.map];
                 let mod = Module.create(queueTemplate);
-                mod.refs.title.text = this.names[queue.id];
+                mod.refs.title.text = queueNames[queue.id];
                 mod.render(dst);
                 mod.node.on('click', () => this.choose(queue.map, queue));
             }
 
-            for (let id in this.mapkeys) {
-                let dst = this.refs[this.mapkeys[id]];
+            for (let info of this.mapsList) {
                 let mod = Module.create(queueTemplate);
                 mod.refs.title.text = 'Custom';
-                mod.render(dst);
-                mod.node.on('click', () => this.choose(+id, null));
+                mod.render(this.maps[info.id]);
+                mod.node.on('click', () => this.choose(info.id, null));
             }
         });
     }
@@ -160,14 +154,14 @@ export default class Page extends Module {
             });
             return;
         }
-        let map = this.refs[this.mapkeys[selected]];
+        let map = this.maps[selected];
         map.addClass('selected');
         let index = Array.prototype.indexOf.call(map.parent[0].childNodes, map[0]);
-        for (var id in this.mapkeys) {
-            let node = this.refs[this.mapkeys[id]];
-            if (Array.prototype.indexOf.call(node.parent[0].childNodes, node[0]) < index) {
-                node.addClass('unselected');
-            }
+
+        for (let info of this.mapsList) {
+            if (info.id == selected) break;
+
+            this.maps[info.id].addClass('unselected');
         }
     }
 
@@ -228,9 +222,9 @@ export default class Page extends Module {
 
         this.refs.container.css('display', 'none');
         this.refs.container.empty();
-        for (var id in this.mapkeys) {
-            let node = this.refs[this.mapkeys[id]];
-            node.removeClass('hidden', 'selected', 'unselected');
+
+        for (let info of this.mapsList) {
+            this.maps[info.id].removeClass('hidden', 'selected', 'unselected');
         }
     }
 }
