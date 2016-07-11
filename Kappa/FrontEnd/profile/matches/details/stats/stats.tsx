@@ -60,25 +60,23 @@ const stats = {
 }
 
 export default class MatchStats extends Module {
-    public constructor(details: Domain.MatchHistory.MatchDetails) {
+    public constructor(summ: Domain.Summoner.SummonerSummary, details: Domain.MatchHistory.MatchDetails) {
         super(template);
 
         let ordered = details.participants;
         ordered.sort((a, b) => a.teamId - b.teamId);
 
-        Summoner.me.single(me => {
-            let myIdent = details.participantIdentities.first(i => i.player.accountId == me.accountId);
+        let myIdent = details.participantIdentities.first(i => i.player && i.player.accountId == summ.accountId);
 
-            for (let part of ordered) {
-                let node = Module.create(head);
-                node.node.setBackgroundImage(Assets.champion.icon(part.championId));
-                node.render(this.refs.header);
-            }
+        for (let part of ordered) {
+            let node = Module.create(head);
+            node.node.setBackgroundImage(Assets.champion.icon(part.championId));
+            node.render(this.refs.header);
+        }
 
-            for (let name in stats) {
-                let group = new StatGroup(name, stats[name], ordered, myIdent.participantId);
-                group.render(this.refs.table);
-            }
-        });
+        for (let name in stats) {
+            let group = new StatGroup(name, stats[name], ordered, myIdent.participantId);
+            group.render(this.refs.table);
+        }
     }
 }

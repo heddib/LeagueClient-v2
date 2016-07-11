@@ -15,6 +15,13 @@ var template = (
             <div class="tab-button" data-ref="tab0" id><span>OVERVIEW</span></div>
             <div class="tab-button" data-ref="tab1" id><span>MATCH HISTORY</span></div>
             <div class="tab-button" data-ref="tab2"><span>RANKINGS</span></div>
+
+            <x-flexpadd></x-flexpadd>
+
+            <div class="search-area">
+                <span class="exit-button" data-ref="home"/>
+                <input type="text" class="search-box" data-ref="search"/>
+            </div>
         </div>
         <div class="center" data-ref="mainScroller">
             <container data-ref="overviewContainer"/>
@@ -37,14 +44,34 @@ export default class ProfilePage extends Module {
         for (var i = 0; i < 3; i++) tabs[i] = this.refs['tab' + i];
         this.tabChange = Tabs.create(tabs, 0, (old, now) => this.onTabChange(old, now));
 
-        Summoner.me.single(me => {
-            Summoner.get(me.name).then(s => this.load(s));
+        let reset = () => {
+            this.refs.search.value = '';
+            Summoner.me.single(me => {
+                Summoner.get(me.name).then(s => this.load(s));
+            });
+        };
+
+        this.refs.search.on('change', () => this.search());
+        this.refs.home.on('click', e => reset());
+        reset();
+    }
+
+    private search() {
+        let name = this.refs.search.value;
+        Summoner.get(name).then(summ => {
+            this.load(summ);
+        }).catch(() => {
+            console.log('not found');
         });
     }
 
     private load(summ: Domain.Summoner.SummonerSummary) {
         if (this.overview) this.overview.dispose();
         if (this.matches) this.matches.dispose();
+
+        Summoner.me.single(me => {
+            this.refs.home.setClass(me.accountId != summ.accountId, 'visible');
+        });
 
         this.refs.overviewContainer.empty();
         this.refs.matchesContainer.empty();

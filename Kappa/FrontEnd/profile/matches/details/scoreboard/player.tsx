@@ -56,18 +56,17 @@ var template = (
 export default class Player extends Module {
     public selected = this.create<any>();
 
-    public constructor(src: Domain.MatchHistory.Participant, ident: Domain.MatchHistory.ParticipantIdentity) {
+    public constructor(summ: Domain.Summoner.SummonerSummary, src: Domain.MatchHistory.Participant, ident: Domain.MatchHistory.ParticipantIdentity) {
         super(template);
 
-        Summoner.me.single(me => {
-            if (ident.player.accountId == me.accountId) this.node.addClass('me');
-        });
+        if (ident && ident.player && ident.player.accountId == summ.accountId) this.node.addClass('me');
+        let champ = Assets.gamedata.champions.first(c => c.id == src.championId);
 
         this.refs.spell1.src = Assets.summoner.spell(src.spell1Id);
         this.refs.spell2.src = Assets.summoner.spell(src.spell2Id);
         this.refs.champ.setBackgroundImage(Assets.champion.icon(src.championId));
         this.refs.level.text = src.stats.champLevel;
-        this.refs.name.text = ident.player.summonerName;
+        this.refs.name.text = ident && ident.player ? ident.player.summonerName : champ.name;
 
         this.refs.kda.text = `${src.stats.kills} / ${src.stats.deaths} / ${src.stats.assists}`;
         this.refs.minions.text = src.stats.totalMinionsKilled;

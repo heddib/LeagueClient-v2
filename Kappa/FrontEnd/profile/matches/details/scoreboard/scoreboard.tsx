@@ -11,14 +11,14 @@ var template = (
 );
 
 export default class MatchScoreboard extends Module {
-    public constructor(details: Domain.MatchHistory.MatchDetails) {
+    public constructor(summ: Domain.Summoner.SummonerSummary, details: Domain.MatchHistory.MatchDetails) {
         super(template);
 
         let isBlue = (t: Domain.MatchHistory.Participant | Domain.MatchHistory.Team) => t.teamId == 100;
         let isRed = (t: Domain.MatchHistory.Participant | Domain.MatchHistory.Team) => t.teamId == 200;
 
-        var blue = new Team(details.teams.first(isBlue), details.participants.where(isBlue), details.participantIdentities);
-        var red = new Team(details.teams.first(isRed), details.participants.where(isRed), details.participantIdentities);
+        var blue = new Team(summ, details.teams.first(isBlue), details.participants.where(isBlue), details.participantIdentities);
+        var red = new Team(summ, details.teams.first(isRed), details.participants.where(isRed), details.participantIdentities);
 
         blue.render(this.refs.blueTeam);
         red.render(this.refs.redTeam);

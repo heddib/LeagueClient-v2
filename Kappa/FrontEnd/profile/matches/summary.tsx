@@ -73,47 +73,44 @@ var template = (
 export default class MatchSummary extends Module {
     public selected = this.create<any>();
 
-    public constructor(game: Domain.MatchHistory.MatchDetails, delta: Domain.MatchHistory.GameDeltaInfo) {
+    public constructor(summ: Domain.Summoner.SummonerSummary, game: Domain.MatchHistory.MatchDetails, delta: Domain.MatchHistory.GameDeltaInfo) {
         super(template);
 
-        Summoner.me.single(me => {
-            var ident = game.participantIdentities.first(p => p.player.accountId == me.accountId);
-            var part = game.participants.first(p => p.participantId == ident.participantId);
+        var ident = game.participantIdentities.first(p => p.player.accountId == summ.accountId);
+        var part = game.participants.first(p => p.participantId == ident.participantId);
 
-            this.refs.spell1.src = Assets.summoner.spell(part.spell1Id);
-            this.refs.spell2.src = Assets.summoner.spell(part.spell2Id);
-            this.refs.card.css('background-image', `url("${Assets.champion.splash(part.championId, 0)}")`);
-            this.refs.result.text = part.stats.win ? 'Victory' : 'Defeat';
-            this.refs.result.addClass(this.refs.result.text.toLowerCase());
+        this.refs.spell1.src = Assets.summoner.spell(part.spell1Id);
+        this.refs.spell2.src = Assets.summoner.spell(part.spell2Id);
+        this.refs.card.css('background-image', `url("${Assets.champion.splash(part.championId, 0)}")`);
+        this.refs.result.text = part.stats.win ? 'Victory' : 'Defeat';
+        this.refs.result.addClass(this.refs.result.text.toLowerCase());
 
-            this.refs.kda.text = `${part.stats.kills} / ${part.stats.deaths} / ${part.stats.assists}`;
-            this.refs.minions.text = part.stats.totalMinionsKilled;
-            this.refs.gold.text = (part.stats.goldEarned / 1000).toFixed(1) + 'k';
+        this.refs.kda.text = `${part.stats.kills} / ${part.stats.deaths} / ${part.stats.assists}`;
+        this.refs.minions.text = part.stats.totalMinionsKilled;
+        this.refs.gold.text = (part.stats.goldEarned / 1000).toFixed(1) + 'k';
 
-            if (delta)
-                this.refs.ip.text = delta.platformDelta.ipDelta;
+        if (delta)
+            this.refs.ip.text = delta.platformDelta.ipDelta;
 
-            switch (game.gameMode) {
-                case 'ARAM':
-                    this.refs.type.text = 'ARAM';
-                    break;
-                case 'CLASSIC':
-                    this.refs.type.text = 'Classic';
-                    break;
-            }
+        switch (game.gameMode) {
+            case 'ARAM':
+                this.refs.type.text = 'ARAM';
+                break;
+            case 'CLASSIC':
+                this.refs.type.text = 'Classic';
+                break;
+        }
 
-            var date = new Date(game.gameCreation + game.gameDuration);
-            this.refs.map.text = MapNames[game.mapId] || 'Error';
-            this.refs.date.text = `${MonthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
+        var date = new Date(game.gameCreation + game.gameDuration);
+        this.refs.map.text = MapNames[game.mapId] || 'Error';
+        this.refs.date.text = `${MonthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
 
-            for (var i = 0; i < 7; i++) {
-                if (part.stats['item' + i])
-                    this.refs['item' + i].src = Assets.items.icon(part.stats['item' + i]);
-                else
-                    this.refs['item' + i].addClass('hidden')
-            }
-
-        });
+        for (var i = 0; i < 7; i++) {
+            if (part.stats['item' + i])
+                this.refs['item' + i].src = Assets.items.icon(part.stats['item' + i]);
+            else
+                this.refs['item' + i].addClass('hidden')
+        }
 
         this.node.on('click', e => this.dispatch(this.selected, {}));
     }

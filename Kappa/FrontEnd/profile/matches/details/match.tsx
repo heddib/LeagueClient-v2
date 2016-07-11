@@ -25,7 +25,7 @@ var template = (
 export default class MatchDetails extends Module {
     private tabChange: (index: number) => void;
 
-    public constructor(details: Domain.MatchHistory.MatchDetails) {
+    public constructor(summ: Domain.Summoner.SummonerSummary, details: Domain.MatchHistory.MatchDetails) {
         super(template);
 
         let tabs = []
@@ -34,10 +34,10 @@ export default class MatchDetails extends Module {
 
         this.refs.backButton.on('click', e => this.dispatch(this.closed, {}));
 
-        var scoreboard = new Scoreboard(details);
+        var scoreboard = new Scoreboard(summ, details);
         scoreboard.render(this.refs.scoreboardContainer);
 
-        var stats = new Stats(details);
+        var stats = new Stats(summ, details);
         stats.render(this.refs.statsContainer);
     }
 

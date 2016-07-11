@@ -38,6 +38,25 @@ module.profile {
                 opacity: 1;
             }
         }
+
+        > .search-area {
+            display: flex;
+
+            > .exit-button {
+                padding: 6px;
+
+                &:not(.visible) {
+                    opacity: 0;
+                    pointer-events: none;
+                }
+            }
+
+            > .search-box {
+                padding: 4px;
+                font-size: 18px;
+                font-weight: 500;
+            }
+        }
     }
 
     > .center {

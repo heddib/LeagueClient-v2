@@ -52,7 +52,7 @@ const WinStrings = {
 };
 
 export default class MatchScoreboardTeam extends Module {
-    public constructor(team: Domain.MatchHistory.Team, players: Domain.MatchHistory.Participant[], idents: Domain.MatchHistory.ParticipantIdentity[]) {
+    public constructor(summ: Domain.Summoner.SummonerSummary, team: Domain.MatchHistory.Team, players: Domain.MatchHistory.Participant[], idents: Domain.MatchHistory.ParticipantIdentity[]) {
         super(template);
 
         this.refs.result.text = WinStrings[team.win];
@@ -66,7 +66,7 @@ export default class MatchScoreboardTeam extends Module {
         this.refs.dragons.text = team.dragonKills;
 
         for (var part of players) {
-            var player = new Player(part, idents.first(p => p.participantId == part.participantId));
+            var player = new Player(summ, part, idents.first(p => p.participantId == part.participantId));
             player.render(this.refs.list);
         }
     }

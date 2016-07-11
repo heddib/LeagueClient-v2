@@ -22,9 +22,11 @@ var template = (
 export default class MatchHistory extends Module {
     private history: Domain.MatchHistory.PlayerHistory;
     private deltas: Domain.MatchHistory.PlayerDeltas;
+    private summ: Domain.Summoner.SummonerSummary;
 
     public constructor(summ: Domain.Summoner.SummonerSummary) {
         super(template);
+        this.summ = summ;
 
         this.subscribe(Service.match, match => {
             console.log(match.gameId);
@@ -56,16 +58,17 @@ export default class MatchHistory extends Module {
 
         for (let match of this.history.games.games) {
             let delta = this.deltas ? this.deltas.deltas.first(d => d.gameId == match.gameId) : null;
-            let summary = new MatchSummary(match, delta);
+            let summary = new MatchSummary(this.summ, match, delta);
             summary.selected.on(() => {
-                Service.details(match.gameId).then(details => this.details(details));
+                let task = Service.details(match.gameId);
+                task.then(dets => this.details(dets));
             });
             summary.render(this.refs.list);
         }
     }
 
     private details(details: Domain.MatchHistory.MatchDetails) {
-        var page = new MatchDetails(details);
+        var page = new MatchDetails(this.summ, details);
         this.refs.detailsPopup.empty();
         this.refs.detailsPopup.addClass('shown');
         page.render(this.refs.detailsPopup);
