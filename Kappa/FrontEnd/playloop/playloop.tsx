@@ -1,6 +1,7 @@
 import { Swish }          from './../ui/swish';
 import Module             from './../ui/module';
 import * as Assets        from './../assets/assets';
+import PatcherPage        from './../patcher/game';
 
 import * as CustomService from './custom/service';
 import * as LobbyService  from './lobby/service';
@@ -50,7 +51,26 @@ export default class Page extends Module {
         11: 'rift',
         12: 'abyss',
     };
+    private names = {
+        2: 'Blind Pick', // Rift
+        8: 'Blind Pick', // TT
+        // 41: 'Ranked Teams', // TT
+        65: 'ARAM', // Abyss
+        400: 'Normal', // Rift
+        410: 'Ranked', // Rift
+    };
+    private featureds = {
+        70: 'One for All',
+        75: 'Hexakill',
+        76: 'URF',
+        96: 'Ascension',
+        98: 'Twisted Treeline Hexakill',
+        300: 'Legend of the Poro King',
+        317: 'Definitely not Dominion'
+    };
+
     private provider: IInviteProvider;
+    private patcher: PatcherPage;
     private queues: Domain.Game.AvailableQueue[];
 
     public state = this.create<string>();
@@ -59,25 +79,6 @@ export default class Page extends Module {
         super(template);
 
         this.provider = provider;
-
-        let names = {
-            2: 'Blind Pick', // Rift
-            8: 'Blind Pick', // TT
-            // 41: 'Ranked Teams', // TT
-            65: 'ARAM', // Abyss
-            400: 'Normal', // Rift
-            410: 'Ranked', // Rift
-        };
-
-        let featureds = {
-            70: 'One for All',
-            75: 'Hexakill',
-            76: 'URF',
-            96: 'Ascension',
-            98: 'Twisted Treeline Hexakill',
-            300: 'Legend of the Poro King',
-            317: 'Definitely not Dominion'
-        };
 
         for (var id in this.mapkeys) {
             this.refs[this.mapkeys[id]].setBackgroundImage(`images/playselect/tmp/${this.mapkeys[id]}-back.jpg`);
@@ -92,15 +93,36 @@ export default class Page extends Module {
         this.refs.treeline.setBackgroundImage('images/playselect/tmp/treeline-back.jpg');
 
         this.refs.container.css('display', 'none');
+
+        PatcherPage.required().then(b => {
+            if (b) {
+                for (var id in this.mapkeys) {
+                    let node = this.refs[this.mapkeys[id]];
+                    node.addClass('hidden');
+                }
+
+                this.patcher = new PatcherPage();
+                this.subscribe(this.patcher.closed, this.onPatched);
+                this.show(this.patcher);
+            } else {
+                this.onPatched(true);
+            }
+        });
+    }
+
+    private onPatched(force?: boolean) {
+        if (!force && !this.patcher) return;
+        this.patcher = null;
+
         Service.getAvailableQueues().then(queues => {
             this.queues = queues;
             for (let queue of queues) {
-                if (featureds[queue.id]) continue;
-                if (!names[queue.id]) continue;
+                if (this.featureds[queue.id]) continue;
+                if (!this.names[queue.id]) continue;
 
                 let dst = this.refs[this.mapkeys[queue.map]];
                 let mod = Module.create(queueTemplate);
-                mod.refs.title.text = names[queue.id];
+                mod.refs.title.text = this.names[queue.id];
                 mod.render(dst);
                 mod.node.on('click', () => this.choose(queue.map, queue));
             }
@@ -208,7 +230,7 @@ export default class Page extends Module {
         this.refs.container.empty();
         for (var id in this.mapkeys) {
             let node = this.refs[this.mapkeys[id]];
-            node.removeClass('selected', 'unselected');
+            node.removeClass('hidden', 'selected', 'unselected');
         }
     }
 }

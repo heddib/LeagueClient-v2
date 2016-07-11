@@ -13,7 +13,6 @@ import ChatList       from './../chat/list/chatlist';
 import * as Invite    from './../invite/invite';
 
 import CollectionPage from './../collection/collection';
-import PatcherPage    from './../patcher/game';
 import PlayLoop       from './../playloop/playloop';
 import ProfilePage    from './../profile/profile';
 
@@ -63,7 +62,6 @@ Util.preload('images/landing_background.png');
 export default class Landing extends Module {
     private loadedShop: boolean;
     private chatlist: ChatList;
-    private patcher: PatcherPage;
     private tabChange: (index: number) => void;
 
     private play: PlayLoop;
@@ -83,11 +81,6 @@ export default class Landing extends Module {
         this.collection = new CollectionPage();
         this.profile = new ProfilePage();
 
-        this.tabs = [this.play, this.home, this.profile, this.collection];
-
-        let tabs = [this.refs.mainTab, this.refs.homeTab, this.refs.profileTab, this.refs.collectionTab];
-        this.tabChange = Tabs.create(tabs, 1, (old, now) => this.onTabChange(old, now));
-
         this.refs.storeTab.on('click', e => {
             Summoner.store().then(url => Meta.link(url));
         });
@@ -99,32 +92,21 @@ export default class Landing extends Module {
         this.drawInvites(Invite.list());
         this.subscribe(Summoner.me, this.onMe);
 
+        this.tabs = [this.play, this.home, this.profile, this.collection];
+
+        let tabs = [this.refs.mainTab, this.refs.homeTab, this.refs.profileTab, this.refs.collectionTab];
+        this.tabChange = Tabs.create(tabs, 1, (old, now) => this.onTabChange(old, now));
+
         if (accountState.inGame) {
             this.play.map();
             this.play.ingame();
-            this.tabChange(this.tabs.indexOf(this.play));
-        } else {
-            PatcherPage.required().then(b => {
-                if (b) {
-                    this.patcher = new PatcherPage();
-                    this.subscribe(this.patcher.complete, this.onPatched);
 
-                    this.tabs.push(this.patcher);
-                    this.tabChange(this.tabs.indexOf(this.patcher));
-                } else {
-                    this.onPatched(true);
-                }
-            });
+            this.tabChange(this.tabs.indexOf(this.play));
         }
     }
 
     public dispose() {
         super.dispose();
-    }
-
-    private onPatched(force?: boolean) {
-        if (!force && !this.patcher) return;
-        this.patcher = null;
     }
 
     private onMe(me) {

@@ -15,8 +15,6 @@ const template = (
 );
 
 export default class GamePatcherPage extends Module {
-    public complete = this.create<any>();
-
     constructor() {
         super(template);
 
@@ -26,7 +24,7 @@ export default class GamePatcherPage extends Module {
     public update() {
         Service.game().then(state => {
             if (state.phase == 'NONE') {
-                this.dispatch(this.complete, {});
+                this.dispatch(this.closed, {});
                 return;
             }
 

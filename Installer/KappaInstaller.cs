@@ -50,6 +50,11 @@ namespace Installer {
             lnk.TargetPath = Path.Combine(dst, "Kappa.exe");
             lnk.IconLocation = lnk.TargetPath;
             lnk.Save();
+
+            Console.CursorTop += 2;
+            Console.WriteLine("  A shortcut has been created on your desktop");
+            Console.WriteLine("  Press any key to continue...");
+            Console.ReadKey(true);
         }
     }
 }

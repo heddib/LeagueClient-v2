@@ -41,13 +41,16 @@ module.playloop {
             -webkit-filter: brightness(110%);
         }
 
-        &.selected {
-            width: 100%;
-
-            .map-title, .playselect-queue {
+        &.hidden {
+            > .map-title, .playselect-queue {
                 transition: opacity 200ms;
                 opacity: 0;
             }
+        }
+
+        &.selected {
+            .hidden();
+            width: 100%;
         }
 
         &.unselected {
