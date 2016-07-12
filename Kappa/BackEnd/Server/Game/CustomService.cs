@@ -1,6 +1,7 @@
 ﻿using Kappa.Riot.Domain;
 using Kappa.BackEnd.Server.Game.Model;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Kappa.BackEnd.Server.Chat;
 using RtmpSharp.Messaging;
@@ -29,9 +30,30 @@ namespace Kappa.BackEnd.Server.Game {
             var messages = new MessageConsumer(session);
 
             messages.Consume<GameDTO>(OnGameDTO);
+            messages.Consume<LobbyStatus>(OnLobbyStatus);
+            messages.Consume<InvitePrivileges>(OnInvitePrivelages);
         }
 
         #region LCDS
+
+        private bool OnLobbyStatus(LobbyStatus status) {
+            if (state == null) return true;
+            state.IsCaptain = status.Owner.SummonerId == session.Me.SummonerId;
+
+            state.Invitees = (from old in status.Invitees
+                              where old.InviteeState != "CREATOR"
+                              select new LobbyInvitee(old)).ToList();
+
+            OnStateChanged();
+            return true;
+        }
+
+        private bool OnInvitePrivelages(InvitePrivileges privelage) {
+            state.CanInvite = privelage.CanInvite;
+
+            OnStateChanged();
+            return true;
+        }
 
         private GameDTO lastGameDto;
         private bool OnGameDTO(GameDTO data) {
@@ -126,9 +148,10 @@ namespace Kappa.BackEnd.Server.Game {
 
         internal async Task Join(Invitation invite) {
             var peek = session.Peek<GameDTO>();
-            await this.session.GameInvitationService.Accept(invite.Id);
+            var lobby = await this.session.GameInvitationService.Accept(invite.Id);
             loop.Setup(PlayLoopType.STANDARD, invite.MetaData.QueueId);
             OnGameDTO(await peek);
+            OnLobbyStatus(lobby);
         }
 
         private void OnStateChanged() {

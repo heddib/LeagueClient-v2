@@ -6,34 +6,29 @@ import * as Summoner from './../../summoner/summoner';
 import * as PlayLoop from './../playloop';
 import * as Service  from './service';
 
+import * as Invite   from './../../invite/panel';
 import ChatRoom      from './../../chat/room/chatroom';
 
 const html = Module.import('playloop/custom');
-
-interface IInviteProvider {
-    start(): void;
-    stop(): void;
-}
 
 export default class CustomLobby extends Module {
     private doDispose = true;
     private room: ChatRoom;
 
-    private invite: IInviteProvider;
+    private invite: Invite.Panel;
     private inviting: boolean;
 
     public start = this.create<{}>();
 
-    public constructor(provider: IInviteProvider) {
+    public constructor(provider: Invite.IProvider) {
         super(html);
 
-        this.invite = provider;
+        this.invite = new Invite.Panel(provider);
+        this.invite.render(this.refs.inviteContainer);
 
         this.$('#start-game').on('click', (e: MouseEvent) => this.onStartGameClick(e));
         this.$('#quit-game').on('click', (e: MouseEvent) => this.onQuitGameClick(e));
         this.$('#switch-teams').on('click', (e: MouseEvent) => this.onSwitchTeamsClick(e));
-
-        this.refs.inviteButton.on('mouseup', e => this.onInviteClick());
 
         this.subscribe(Service.state, this.onState);
         this.subscribe(Service.champselect, this.onStart);
@@ -41,10 +36,11 @@ export default class CustomLobby extends Module {
 
     public dispose() {
         super.dispose();
+
+        this.invite.dispose();
+
         if (this.doDispose)
             PlayLoop.abandon();
-        if (this.inviting)
-            this.invite.stop();
     }
 
     private onState(state: Domain.Game.CustomState) {
@@ -85,6 +81,8 @@ export default class CustomLobby extends Module {
         } else {
             this.$('#start-game, #start-game-padd').css('display', null);
         }
+
+        this.invite.update(state.isCaptain || state.canInvite, state.invitees);
     }
 
     private drawMember(member: Domain.Game.LobbyMember, team) {
@@ -111,17 +109,6 @@ export default class CustomLobby extends Module {
     private onStart(game) {
         this.doDispose = false;
         this.dispatch(this.start, game);
-    }
-
-    private onInviteClick() {
-        this.inviting = !this.inviting;
-
-        this.refs.inviteButton.setClass(this.inviting, 'inviting');
-
-        if (this.inviting)
-            this.invite.start();
-        else
-            this.invite.stop();
     }
 
     private onSwitchTeamsClick(e: MouseEvent) {

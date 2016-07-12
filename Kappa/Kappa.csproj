@@ -202,7 +202,7 @@
     <Compile Include="BackEnd\Server\Game\InviteService.cs" />
     <Compile Include="BackEnd\Server\Game\Model\AvailableQueue.cs" />
     <Compile Include="BackEnd\Server\Game\Model\Invitation.cs" />
-    <None Include="BackEnd\Server\Game\Model\LobbyInvitee.cs" />
+    <Compile Include="BackEnd\Server\Game\Model\LobbyInvitee.cs" />
     <Compile Include="BackEnd\Server\JSONService.cs" />
     <Compile Include="BackEnd\Server\Summoner\Model\Me.cs" />
     <Compile Include="BackEnd\Server\Summoner\SummonerService.cs" />

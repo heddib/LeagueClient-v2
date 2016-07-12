@@ -288,14 +288,13 @@ export default class ChampSelect extends Module {
         selector.empty();
 
         for (let spell of Assets.gamedata.summoners) {
-            if (this.lastState.inventory.availableSpells.indexOf(spell.id) < 0) continue;
-            else {
-                let node = this.template('spell-selectable', {
-                    imgurl: Assets.summoner.spell(spell.id)
-                });
-                node.on('click', e => this.onSpellSelectClick(spell.id));
-                selector.add(node);
-            }
+            if (this.lastState.inventory.availableSpells.contains(spell.id)) continue;
+
+            let node = this.template('spell-selectable', {
+                imgurl: Assets.summoner.spell(spell.id)
+            });
+            node.on('click', e => this.onSpellSelectClick(spell.id));
+            selector.add(node);
         }
 
         this.refs.lockIn.disabled = !this.lastState.me.active;
@@ -321,14 +320,14 @@ export default class ChampSelect extends Module {
 
             if (!check) return;
 
-            if (!match || check.indexOf(champ.id) < 0)
+            if (!match || !check.contains(champ.id))
                 node.css('display', 'none');
             else
                 node.css('display', null);
 
             node.setClass(!active, 'inactive');
             node.setClass(this.lastState.me.champion == champ.id, 'active');
-            node.setClass(this.taken.indexOf(champ.id) >= 0, 'taken');
+            node.setClass(this.taken.contains(champ.id), 'taken');
         }
     }
 

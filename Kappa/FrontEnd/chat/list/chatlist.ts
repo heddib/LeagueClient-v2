@@ -44,15 +44,26 @@ export default class ChatList extends Module {
         });
     }
 
+    private invited: number[]
+    private inviting: boolean;
+
     public start() {
-        for (var user in this.friends) {
-            this.friends[user].startInvite();
-        }
+        this.inviting = true;
+        this.update();
     }
 
     public stop() {
+        this.inviting = false;
+        this.update();
+    }
+
+    public update(invitees?: Domain.Game.LobbyInvitee[]) {
+        if (invitees)
+            this.invited = invitees.where(i => i.state != 'QUIT' && i.state != 'DECLINED').select(i => i.summonerId);
+
         for (var user in this.friends) {
-            this.friends[user].stopInvite();
+            let inviting = this.inviting && (!this.invited || !this.invited.contains(parseInt(user.substring(3))));
+            this.friends[user].setInviting(inviting);
         }
     }
 

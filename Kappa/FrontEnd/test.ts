@@ -96,8 +96,8 @@ namespace Domain {
             remaining: number;
         }
         export interface AvailableQueue {
-            config: number;
             name: string;
+            config: number;
             id: number;
             map: number;
         }
@@ -125,6 +125,9 @@ namespace Domain {
             redTeam: LobbyMember[];
             owner: LobbyMember;
             me: LobbyMember;
+            isCaptain: boolean;
+            canInvite: boolean;
+            invitees: LobbyInvitee[];
             chatroom: string;
         }
         export interface GameMember {
@@ -144,6 +147,11 @@ namespace Domain {
             bannableChamps: number[];
             availableSpells: number[];
         }
+        export interface LobbyInvitee {
+            state: string;
+            name: string;
+            summonerId: number;
+        }
         export interface LobbyMember {
             name: string;
             id: Object;
@@ -155,6 +163,7 @@ namespace Domain {
             isCaptain: boolean;
             canInvite: boolean;
             canMatch: boolean;
+            invitees: LobbyInvitee[];
             members: LobbyMember[];
             me: LobbyMember;
             chatroom: string;

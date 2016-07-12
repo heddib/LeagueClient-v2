@@ -10,6 +10,7 @@ namespace Kappa.BackEnd.Server.Game.Model {
         public bool CanInvite { get; set; }
         public bool CanMatch { get; set; }
 
+        public List<LobbyInvitee> Invitees { get; set; }
         public List<LobbyMember> Members { get; set; }
         public LobbyMember Me { get; set; }
 

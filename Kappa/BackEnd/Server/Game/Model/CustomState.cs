@@ -11,6 +11,10 @@ namespace Kappa.BackEnd.Server.Game.Model {
         public LobbyMember Owner { get; set; }
         public LobbyMember Me { get; set; }
 
+        public bool IsCaptain { get; set; }
+        public bool CanInvite { get; set; }
+        public List<LobbyInvitee> Invitees { get; set; }
+
         public Guid Chatroom { get; set; }
     }
 }

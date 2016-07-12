@@ -54,7 +54,6 @@ namespace Kappa.BackEnd.Server.Game {
             state.IsCaptain = status.Owner.SummonerId == session.Me.SummonerId;
 
             if (loop.CurrentType == PlayLoopType.STANDARD) {
-
                 state.CanMatch = true;
 
                 if (state.Chatroom == Guid.Empty) {
@@ -70,6 +69,10 @@ namespace Kappa.BackEnd.Server.Game {
                 }
                 state.Members = members;
             }
+
+            state.Invitees = (from old in status.Invitees
+                              where old.InviteeState != "CREATOR"
+                              select new LobbyInvitee(old)).ToList();
 
             OnStateChanged();
             return true;

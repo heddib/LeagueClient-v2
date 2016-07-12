@@ -1,20 +1,16 @@
 import { Swish }     from './../../ui/swish';
 import Module        from './../../ui/module';
+import * as Electron from './../../electron';
 import * as Audio    from './../../assets/audio';
 import * as Assets   from './../../assets/assets';
 import * as Summoner from './../../summoner/summoner';
 import * as PlayLoop from './../playloop';
 import * as Service  from './service';
-import * as Electron from './../../electron';
 
+import * as Invite   from './../../invite/panel';
 import ChatRoom      from './../../chat/room/chatroom';
 
 const html = Module.import('playloop/lobby');
-
-interface IInviteProvider {
-    start(): void;
-    stop(): void;
-}
 
 const CHAMPSELECT_PHASES = ['PLANNING', 'BANNING', 'PICKING', 'FINALIZING'];
 export default class Lobby extends Module {
@@ -24,16 +20,17 @@ export default class Lobby extends Module {
     private role2: string;
 
     private inviting: boolean;
-    private invite: IInviteProvider;
+    private invite: Invite.Panel;
 
     private doDispose = true;
     private room: ChatRoom;
 
-    public start = this.create<{}>();
+    public start = this.create<any>();
 
-    public constructor(inQueue: boolean, provider: IInviteProvider) {
+    public constructor(inQueue: boolean, provider: Invite.IProvider) {
         super(html);
-        this.invite = provider;
+        this.invite = new Invite.Panel(provider);
+        this.invite.render(this.refs.invitesContainer);
 
         this.$('.role-selectable').on('mouseup', (e: MouseEvent) => this.onRoleMapClick(e));
         this.$('.role-selectable').on('mouseenter', (e: MouseEvent) => this.onRoleMapHover(e));
@@ -50,8 +47,6 @@ export default class Lobby extends Module {
         this.subscribe(Service.matchmakingStart, () => this.onAdvance('MATCHMAKING'));
         this.subscribe(Service.champselectStart, () => this.onAdvance('CHAMPSELECT'));
 
-        this.refs.inviteButton.on('mouseup', e => this.onInviteClick());
-
         this.$('#queue-info').css('display', 'none');
         this.$('#afk-check').css('display', 'none');
 
@@ -64,10 +59,11 @@ export default class Lobby extends Module {
         super.dispose();
 
         this.queueStart = 0;
+        this.invite.dispose();
+        if (this.chatRoom)
+            this.chatRoom.dispose();
         if (this.doDispose)
             PlayLoop.abandon();
-        if (this.inviting)
-            this.invite.stop();
     }
 
     private onAdvance(state: string) {
@@ -104,13 +100,11 @@ export default class Lobby extends Module {
         this.$('#enter-queue').disabled = !state.canMatch;
 
         this.$('#member-list').empty();
-
-        var start = new Date();
-        for (let i = 0; i < state.members.length; i++) {
-            Summoner.get(state.members[i].name).then(s => {
-                this.renderSlot(state.members[i], state.members.length, state.me, s.icon)
-            });
+        for (let member of state.members) {
+            Summoner.get(member.name).then(s => this.renderSlot(member, state.members.length, state.me, s.icon));
         }
+
+        this.invite.update(state.isCaptain || state.canInvite, state.invitees);
     }
 
     private onMatchmakingState(state: Domain.Game.MatchmakingState) {
@@ -193,19 +187,8 @@ export default class Lobby extends Module {
         }
     }
 
-    private onInviteClick() {
-        this.inviting = !this.inviting;
-
-        this.refs.inviteButton.setClass(this.inviting, 'inviting');
-
-        if (this.inviting)
-            this.invite.start();
-        else
-            this.invite.stop();
-    }
-
     private onRoleMapHover(e: MouseEvent) {
-        var src = <HTMLElement>e.target;
+        var src = e.target as HTMLElement;
         var role = src.attributes['data-role'].value;
 
         this.$('.role-selectable').removeClass('active');
@@ -213,7 +196,7 @@ export default class Lobby extends Module {
     }
 
     private onRoleMapClick(e: MouseEvent) {
-        var src = <HTMLElement>e.target;
+        var src = e.target as HTMLElement;
         var role = src.attributes['data-role'].value;
         if (this.isRole1) {
             if (role == this.role2) this.role2 = this.role1;
@@ -229,7 +212,7 @@ export default class Lobby extends Module {
     }
 
     private onRoleClck(e: MouseEvent) {
-        var but = new Swish(<Node>e.target);
+        var but = new Swish(e.target as Node);
         this.isRole1 = but.hasClass('role1');
         var selector = this.$('#role-selector');
         selector.css('top', but.bounds.top + but.bounds.height / 2 - selector[0].offsetHeight / 2 + 'px');

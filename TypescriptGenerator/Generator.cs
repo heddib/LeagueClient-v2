@@ -109,6 +109,8 @@ namespace TypescriptGenerator {
                 else if (typeof(JSONSerializable).IsAssignableFrom(type)) {
                     file.Start($"export interface {type.Name}");
                     foreach (var member in Member.GetMembers(type)) {
+                        if (member.GetAttributes<JSONSkipAttribute>().Any()) continue;
+
                         string name = member.Name;
                         var att = member.GetAttributes<JSONFieldAttribute>().ToList();
                         if (att.Any()) name = att.First().FieldName;
@@ -120,6 +122,8 @@ namespace TypescriptGenerator {
                 else if (jsonAtt != null) {
                     file.Start($"export interface {type.Name}");
                     foreach (var member in Member.GetMembers(type)) {
+                        if (member.GetAttributes<JSONSkipAttribute>().Any()) continue;
+
                         string name = member.Name;
                         if (jsonAtt.CorrectPascalCase)
                             name = JSON.CorrectPascalCase(name);

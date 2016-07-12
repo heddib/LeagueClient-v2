@@ -134,13 +134,21 @@ class EventModule extends EventSource {
 }
 
 interface Array<T> {
+    select<T2>(handler: (o: T, i: number, a: Array<T>) => T2): Array<T2>;
     where(handler: (o: T, i: number, a: Array<T>) => void): Array<T>;
     first(handler?: (o: T, i: number, a: Array<T>) => boolean): T;
     firstIndex(handler: (o: T, i: number, a: Array<T>) => boolean): number;
     any(handler?: (o: T, i: number, a: Array<T>) => boolean): boolean;
+    contains(o: T): boolean;
 
     sum(handler?: (o: T, i: number, a: Array<T>) => number): number;
 }
+Array.prototype.select = function <T2>(handler) {
+    let dst: T2[] = [];
+    for (let i = 0; i < this.length; i++)
+        dst[i] = handler(this[i], i, this);
+    return dst;
+};
 Array.prototype.where = Array.prototype.filter;
 Array.prototype.first = function (handler) {
     if (!handler) return this[0];
@@ -154,6 +162,9 @@ Array.prototype.firstIndex = function (handler) {
 Array.prototype.any = function (handler) {
     return !!this.first(handler);
 };
+Array.prototype.contains = function (item) {
+    return this.indexOf(item) != -1;
+}
 Array.prototype.sum = function (handler) {
     let sum = 0;
     for (let i = 0; i < this.length; i++)

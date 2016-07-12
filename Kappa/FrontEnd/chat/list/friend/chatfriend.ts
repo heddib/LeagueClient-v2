@@ -47,13 +47,8 @@ export default class ChatFriend extends Module {
         this.tick();
     }
 
-    public startInvite() {
-        this.inviting = true;
-        this.tick();
-    }
-
-    public stopInvite() {
-        this.inviting = false;
+    public setInviting(inviting: boolean) {
+        this.inviting = inviting;
         this.tick();
     }
 

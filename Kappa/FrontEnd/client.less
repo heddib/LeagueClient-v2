@@ -264,21 +264,6 @@
     }
 //
 
-#invites-panel {
-    .no-select();
-    width: 300px;
-    margin: 10px 10px 10px 0;
-
-    #invite-button {
-        padding: 1px;
-        -webkit-filter: none;
-
-        &.inviting {
-            transform: rotateZ(45deg);
-        }
-    }
-}
-
 #client-area {
     .no-select();
     cursor: default;
@@ -366,6 +351,7 @@ module {
     @import "profile/overview.less";
     @import "profile/profile.less";
 
+    @import "invite/panel.less";
     @import "invite/invite.less";
 
     @import "fonts.less";

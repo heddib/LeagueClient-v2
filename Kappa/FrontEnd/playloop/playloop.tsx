@@ -11,6 +11,7 @@ import Lobby              from './lobby/lobby';
 import Custom             from './custom/custom';
 import ChampSelect        from './champselect/champselect';
 import InGame             from './ingame/ingame';
+import * as Invite        from './invite/panel';
 
 
 import * as Kappa from './../kappa';
@@ -39,11 +40,6 @@ const queueTemplate = (
     </module>
 );
 
-interface IInviteProvider {
-    start(): void;
-    stop(): void;
-}
-
 export const queueNames = {
     2: 'Blind Pick', // Rift
     8: 'Blind Pick', // TT
@@ -71,13 +67,13 @@ export default class Page extends Module {
         { id: 12, key: 'abyss' },
     ];
 
-    private provider: IInviteProvider;
+    private provider: Invite.IProvider;
     private patcher: PatcherPage;
     private queues: Domain.Game.AvailableQueue[];
 
     public state = this.create<string>();
 
-    constructor(provider: IInviteProvider) {
+    constructor(provider: Invite.IProvider) {
         super(template);
 
         this.provider = provider;
@@ -116,7 +112,7 @@ export default class Page extends Module {
             this.queues = queues;
             for (let queue of queues) {
                 let featured = featuredNames[queue.id];
-                
+
                 if (!queueNames[queue.id] && !featured) continue;
 
                 let dst = this.maps[queue.map];
@@ -224,7 +220,8 @@ export default class Page extends Module {
     }
 
     private onClose() {
-        this.module.dispose()
+        if (this.module)
+            this.module.dispose()
         this.module = null;
 
         this.dispatch(this.state, 'PLAY');
