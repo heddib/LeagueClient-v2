@@ -5,7 +5,11 @@ import * as Service  from './service';
 
 const html = Module.import('chat/room');
 
-export default class ChatRoom extends Module {
+interface Refs {
+    history: Swish;
+}
+
+export default class ChatRoom extends Module<Refs> {
     private room: string;
     private list: Domain.Chat.MucFriend[] = [];
     private messages: Domain.Chat.MucMessage[] = [];

@@ -24,7 +24,14 @@ const template = (
     </module>
 );
 
-export default class CollectionPage extends Module {
+interface Refs {
+    hextechContainer: Swish;
+    championsContainer: Swish;
+    masteriesContainer: Swish;
+    mainScroller: Swish;
+}
+
+export default class CollectionPage extends Module<Refs> {
     private tabChange: (index: number) => void;
 
     public constructor() {

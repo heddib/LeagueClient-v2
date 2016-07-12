@@ -134,7 +134,8 @@ class EventModule extends EventSource {
 }
 
 interface Array<T> {
-    select<T2>(handler: (o: T, i: number, a: Array<T>) => T2): Array<T2>;
+    select<T2>(handler: (o: T) => T2): Array<T2>;
+    orderby<T2>(handler: (o: T) => T2): Array<T>;
     where(handler: (o: T, i: number, a: Array<T>) => void): Array<T>;
     first(handler?: (o: T, i: number, a: Array<T>) => boolean): T;
     firstIndex(handler: (o: T, i: number, a: Array<T>) => boolean): number;
@@ -143,6 +144,17 @@ interface Array<T> {
 
     sum(handler?: (o: T, i: number, a: Array<T>) => number): number;
 }
+Array.prototype.orderby = function <T2>(handler) {
+    let dst = this.slice();
+    dst.sort((a, b) => {
+        let vA = handler(a);
+        let vB = handler(b);
+        if (vA > vB) return 1;
+        if (vA < vB) return -1;
+        return 0;
+    });
+    return dst;
+};
 Array.prototype.select = function <T2>(handler) {
     let dst: T2[] = [];
     for (let i = 0; i < this.length; i++)

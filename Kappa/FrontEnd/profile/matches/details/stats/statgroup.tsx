@@ -23,7 +23,13 @@ var number = (
     </div>
 );
 
-export default class MatchStatGroup extends Module {
+interface Refs {
+    header: Swish;
+    title: Swish;
+    list: Swish;
+}
+
+export default class MatchStatGroup extends Module<Refs> {
     public constructor(name: string, stats: { [id: string]: string }, parts: Domain.MatchHistory.Participant[], myPartId: number) {
         super(template);
 

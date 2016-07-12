@@ -31,7 +31,18 @@ var template = (
     </module>
 );
 
-export default class ProfilePage extends Module {
+interface Refs {
+    search: Swish;
+    home: Swish;
+    
+    background: Swish;
+
+    overviewContainer: Swish;
+    matchesContainer: Swish;
+    mainScroller: Swish;
+}
+
+export default class ProfilePage extends Module<Refs> {
     private tabChange: (index: number) => void;
 
     private overview: OverviewPage;

@@ -14,7 +14,11 @@ const template = (
     </module>
 );
 
-export default class GamePatcherPage extends Module {
+interface Refs {
+    loader: Swish;
+}
+
+export default class GamePatcherPage extends Module<Refs> {
     constructor() {
         super(template);
 

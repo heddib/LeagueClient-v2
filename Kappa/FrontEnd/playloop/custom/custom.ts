@@ -11,7 +11,12 @@ import ChatRoom      from './../../chat/room/chatroom';
 
 const html = Module.import('playloop/custom');
 
-export default class CustomLobby extends Module {
+interface Refs {
+    chatContainer: Swish;
+    inviteContainer: Swish;
+}
+
+export default class CustomLobby extends Module<Refs> {
     private doDispose = true;
     private room: ChatRoom;
 

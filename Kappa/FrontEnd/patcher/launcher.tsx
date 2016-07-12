@@ -11,7 +11,11 @@ const template = (
     </module>
 );
 
-export default class LauncherPatcherPage extends Module {
+interface Refs {
+    loader: Swish;
+}
+
+export default class LauncherPatcherPage extends Module<Refs> {
     public complete = this.create<any>();
 
     constructor() {

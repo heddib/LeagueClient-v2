@@ -5,7 +5,16 @@ import * as Service   from './service';
 
 const html = Module.import('collection/hextech');
 
-export default class HextechPage extends Module {
+interface Refs {
+    chests: Swish;
+    keys: Swish;
+    keyfragments: Swish;
+    blue: Swish;
+    orange: Swish;
+    lootList: Swish;
+}
+
+export default class HextechPage extends Module<Refs> {
     private inventory: Domain.Collection.HextechInventory;
 
     public constructor() {

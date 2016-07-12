@@ -29,7 +29,20 @@ const template = (
     </module>
 );
 
-export default class Page extends Module {
+interface Refs {
+    image: Swish;
+    video: Swish;
+
+    form: Swish;
+    loader: Swish;
+    username: Swish;
+    password: Swish;
+    submitbutt: Swish;
+
+    accountlist: Swish;
+}
+
+export default class Page extends Module<Refs> {
     private authHandlers: Function[] = [];
     private loading: boolean;
 

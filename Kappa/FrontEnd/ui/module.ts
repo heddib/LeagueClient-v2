@@ -1,6 +1,6 @@
 import { Swish, $ } from './swish';
 
-abstract class Module extends EventSource implements IDisposable {
+abstract class Module<T> extends EventSource implements IDisposable {
     public static import(url: string): HTMLLinkElement {
         var node = document.createElement('link');
         node.rel = 'import';
@@ -11,10 +11,10 @@ abstract class Module extends EventSource implements IDisposable {
     }
 
     public static create(template: HTMLDivElement) {
-        return new AnonymousModule(template);
+        return new AnonymousModule<any>(template);
     }
 
-    private _refs: any = {};
+    private _refs: T = {} as T;
     private _node: Swish;
     private _import: Swish;
     public get node() { return this._node; }
@@ -84,7 +84,7 @@ abstract class Module extends EventSource implements IDisposable {
     }
 }
 
-export class AnonymousModule extends Module {
+export class AnonymousModule<T> extends Module<T> {
     public get refs() { return super.refs; }
 }
 

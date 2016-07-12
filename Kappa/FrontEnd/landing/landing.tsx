@@ -1,5 +1,4 @@
-import * as Kappa     from './../kappa';
-import { Swish, $ }   from './../ui/swish';
+import { Swish }      from './../ui/swish';
 import Module         from './../ui/module';
 import * as Tabs      from './../ui/tabs';
 
@@ -10,11 +9,10 @@ import * as Meta      from './../meta/meta';
 
 import ChatList       from './../chat/list/chatlist';
 
-import * as Invite    from './../invite/invite';
-
 import CollectionPage from './../collection/collection';
 import PlayLoop       from './../playloop/playloop';
 import ProfilePage    from './../profile/profile';
+import HomePage       from './home';
 
 const template = (
     <module class="landing">
@@ -29,7 +27,7 @@ const template = (
 
                 <x-flexpadd></x-flexpadd>
 
-                <div class="alerts-profile" data-ref="balances">
+                <div class="alerts-profile">
                     <div class="balance">
                         <img src="images/rp.png" /><span data-ref="rp"></span>
                     </div>
@@ -47,29 +45,37 @@ const template = (
     </module>
 );
 
-const homeTemplate = (
-    <module class="landing-home">
-        <div class="left">
-            <div class="invite-list" data-ref="inviteList"></div>
-        </div>
-        <x-flexpadd></x-flexpadd>
-        <div class="right"/>
-    </module>
-);
-
 Util.preload('images/landing_background.png');
 
-export default class Landing extends Module {
+interface Refs {
+    playButton: Swish;
+
+    mainTab: Swish;
+    homeTab: Swish;
+    profileTab: Swish;
+    collectionTab: Swish;
+    storeTab: Swish;
+
+    ip: Swish;
+    rp: Swish;
+
+    friendsContainer: Swish;
+
+    container: Swish;
+    containerBack: Swish;
+}
+
+export default class Landing extends Module<Refs> {
     private loadedShop: boolean;
     private chatlist: ChatList;
     private tabChange: (index: number) => void;
 
     private play: PlayLoop;
-    private home = Module.create(homeTemplate);
+    private home: HomePage;
     private profile: ProfilePage;
     private collection: CollectionPage;
 
-    private tabs: Module[];
+    private tabs: any[];
 
     public constructor(accountState: Domain.Authentication.AccountState) {
         super(template);
@@ -77,6 +83,7 @@ export default class Landing extends Module {
         this.chatlist = new ChatList();
         this.chatlist.render(this.refs.friendsContainer);
 
+        this.home = new HomePage();
         this.play = new PlayLoop(this.chatlist);
         this.collection = new CollectionPage();
         this.profile = new ProfilePage();
@@ -87,9 +94,6 @@ export default class Landing extends Module {
 
         this.play.state.on(s => this.refs.playButton.text = s);
 
-
-        Invite.update.on(e => this.drawInvites(e));
-        this.drawInvites(Invite.list());
         this.subscribe(Summoner.me, this.onMe);
 
         this.tabs = [this.play, this.home, this.profile, this.collection];
@@ -103,6 +107,18 @@ export default class Landing extends Module {
 
             this.tabChange(this.tabs.indexOf(this.play));
         }
+
+        this.home.custom.on(e => {
+            this.play.map(e.game.map);
+            this.play.custom();
+            this.tabChange(this.tabs.indexOf(this.play));
+        });
+
+        this.home.lobby.on(e => {
+            this.play.map(e.game.map);
+            this.play.lobby(false);
+            this.tabChange(this.tabs.indexOf(this.play));
+        });
     }
 
     public dispose() {
@@ -112,24 +128,6 @@ export default class Landing extends Module {
     private onMe(me) {
         this.refs.ip.text = me.ip;
         this.refs.rp.text = me.rp;
-    }
-
-    private drawInvites(list) {
-        this.home.refs.inviteList.empty();
-        for (let invite of list) {
-            var control = new Invite.Control(invite);
-            control.custom.on(e => {
-                this.play.map(e.game.map);
-                this.play.custom();
-                this.tabChange(this.tabs.indexOf(this.play));
-            });
-            control.lobby.on(e => {
-                this.play.map(e.game.map);
-                this.play.lobby(false);
-                this.tabChange(this.tabs.indexOf(this.play));
-            });
-            control.render(this.home.refs.inviteList);
-        }
     }
 
     private timeoutId: number;
@@ -151,22 +149,4 @@ export default class Landing extends Module {
             }, duration);
         }, duration);
     }
-
-    // private timeoutId: number;
-    // private showTab(mod: Module) {
-    //     mod.render(this.refs.containerBack);
-    //     this.refs.container.addClass('faded');
-
-    //     const duration = 150;
-
-    //     clearTimeout(this.timeoutId);
-    //     this.timeoutId = setTimeout(() => {
-    //         this.refs.container.empty();
-    //         this.refs.container.removeClass('faded');
-
-    //         this.timeoutId = setTimeout(() => {
-    //             mod.render(this.refs.container);
-    //         }, duration);
-    //     }, duration);
-    // }
 }

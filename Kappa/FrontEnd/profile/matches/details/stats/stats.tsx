@@ -57,9 +57,14 @@ const stats = {
         'neutralMinionsKilled': 'Jungle Monsters Killed',
         'neutralMinionsKilledEnemyJungle': 'Monsters Counter-Jungled'
     }
+};
+
+interface Refs {
+    header: Swish;
+    table: Swish;
 }
 
-export default class MatchStats extends Module {
+export default class MatchStats extends Module<Refs> {
     public constructor(summ: Domain.Summoner.SummonerSummary, details: Domain.MatchHistory.MatchDetails) {
         super(template);
 

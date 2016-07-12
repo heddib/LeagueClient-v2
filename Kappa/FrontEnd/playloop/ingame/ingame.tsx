@@ -28,7 +28,19 @@ const template = (
     </module>
 );
 
-export default class InGamePage extends Module {
+interface Refs {
+    waiting: Swish;
+    launch: Swish;
+
+    post: Swish;
+    ip: Swish;
+    grade: Swish;
+    gradeBack: Swish;
+    chatArea: Swish;
+    leave: Swish;
+}
+
+export default class InGamePage extends Module<Refs> {
     private room: ChatRoom;
 
     public constructor() {

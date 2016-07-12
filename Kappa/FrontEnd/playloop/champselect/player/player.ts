@@ -5,7 +5,16 @@ import * as Assets    from './../../../assets/assets';
 
 const html = Module.import('playloop/champselect/player');
 
-export default class ChampSelectPlayer extends Module {
+interface Refs {
+    name: Swish;
+    spell1: Swish;
+    spell2: Swish;
+    role: Swish;
+    champion: Swish;
+    champImage: Swish;
+}
+
+export default class ChampSelectPlayer extends Module<Refs> {
     private last: Domain.Game.GameMember;
 
     public trade = this.create<{}>();

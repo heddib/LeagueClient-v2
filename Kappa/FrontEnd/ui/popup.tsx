@@ -12,10 +12,16 @@ const template = (
     </module>
 );
 
-abstract class Popup extends Module {
-    protected module: Module;
+interface Refs {
+    title: Swish;
+    close: Swish;
+    container: Swish;
+}
 
-    constructor(title: string, module: Module) {
+abstract class Popup<T extends Module<any>> extends Module<Refs> {
+    protected module: T;
+
+    constructor(title: string, module: T) {
         super(template);
 
         this.refs.title.text = title;

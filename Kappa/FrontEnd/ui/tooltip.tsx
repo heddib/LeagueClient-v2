@@ -7,7 +7,7 @@ const template = (
     </module>
 );
 
-function create(node: Swish, module: Content) {
+function create(node: Swish, module: Content<any>) {
     let tip = Module.create(template);
     module.render(tip.refs.container);
 
@@ -27,7 +27,7 @@ function create(node: Swish, module: Content) {
     return tip;
 }
 
-export function top(node: Swish, module: Content) {
+export function top(node: Swish, module: Content<any>) {
     let tip = create(node, module);
 
     node.on('mouseenter', () => {
@@ -39,7 +39,7 @@ export function top(node: Swish, module: Content) {
     });
 }
 
-export abstract class Content extends Module {
+export abstract class Content<T> extends Module<T> {
     constructor(template: HTMLDivElement) {
         super(template);
     }

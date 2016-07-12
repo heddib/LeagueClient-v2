@@ -24,7 +24,12 @@ export interface IProvider {
     update(invites: Domain.Game.LobbyInvitee[]);
 }
 
-export class Panel extends Module {
+interface Refs {
+    button: Swish;
+    list: Swish;
+}
+
+export class Panel extends Module<Refs> {
     private provider: IProvider;
     private inviting: boolean;
 

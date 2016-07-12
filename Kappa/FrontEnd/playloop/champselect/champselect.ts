@@ -19,7 +19,38 @@ const musics = {
     18: 'draftpick',
 };
 
-export default class ChampSelect extends Module {
+interface Refs {
+    champBackground: Swish;
+    skinsControls: Swish;
+    searchBox: Swish;
+    champs: Swish;
+    champsControls: Swish;
+
+    skinLeftArrow: Swish;
+    skinRightArrow: Swish;
+    reroll: Swish;
+
+    runesList: Swish;
+    masteriesList: Swish;
+
+    lockIn: Swish;
+    exitButton: Swish;
+    phaseTitle: Swish;
+    chatContainer: Swish;
+
+    allyBans: Swish;
+    allyTeam: Swish;
+    allyTitle: Swish;
+    enemyBans: Swish;
+    enemyTeam: Swish;
+    enemyTitle: Swish;
+
+    spell1: Swish;
+    spell2: Swish;
+    spellSelector: Swish;
+}
+
+export default class ChampSelect extends Module<Refs> {
     private timerEnd: number;
     private intervalId: number;
     private header: string;
@@ -52,7 +83,7 @@ export default class ChampSelect extends Module {
 
         this.refs.champs.empty();
 
-        for (let champ of Assets.gamedata.champions) {
+        for (let champ of Assets.gamedata.champions.orderby(c => c.name)) {
             let node = this.template('champicon', {
                 imageurl: Assets.champion.splash(champ.id, 0)
             });
@@ -60,11 +91,6 @@ export default class ChampSelect extends Module {
             node.on('click', e => this.onChampClick(champ.id));
             this.champs[champ.id] = node;
             this.refs.champs.add(node);
-            // node = this.template('champpopupitem', {
-            //   imageurl: `http://l3cdn.riotgames.com/releases/live/projects/lol_air_client/releases/0.0.1.186/files/assets/images/champions/${key}_Splash_Tile_0.jpg`
-            //   // imageurl: Riot.image('champ_profile', key, 0)
-            // });
-            // this.$('#champs-popup .champs').add(node);
         }
 
         this.subscribe(Service.state, this.onState);
@@ -217,7 +243,7 @@ export default class ChampSelect extends Module {
 
         let team = (enemy) => {
             let src = enemy ? state.enemies : state.allies;
-            let dst = enemy ? this.refs.enemyTeam : this.refs.alliedTeam;
+            let dst = enemy ? this.refs.enemyTeam : this.refs.allyTeam;
             let players = enemy ? this.enemyPlayers : this.alliedPlayers;
             for (let i = 0; i < src.length; i++) {
                 let player = players[i];
@@ -307,7 +333,6 @@ export default class ChampSelect extends Module {
         }
 
         let active = this.lastState.me.active || this.lastState.me.champion == 0 || this.lastState.me.intent;
-
         for (let champ of Assets.gamedata.champions) {
             let node: Swish = this.champs[champ.id];
             let match = champ.name.match(search);

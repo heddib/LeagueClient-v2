@@ -1,3 +1,4 @@
+import { Swish }        from './../../ui/swish';
 import Module        from './../../../ui/module';
 import * as Assets   from './../../../assets/assets';
 import * as Summoner from './../../../summoner/summoner';
@@ -5,7 +6,16 @@ import * as Chat     from './../chat';
 
 const html = Module.import('chat/list/friend');
 
-export default class ChatFriend extends Module {
+interface Refs {
+    inviteButton: Swish;
+    icon: Swish;
+    name: Swish;
+    message: Swish;
+    status: Swish;
+    gametimer: Swish;
+}
+
+export default class ChatFriend extends Module<Refs> {
     public selected = this.create<{}>();
     public invited = this.create<number>();
 

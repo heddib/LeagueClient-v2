@@ -1,5 +1,6 @@
 import { Swish }    from './../../ui/swish';
 import Module       from './../../ui/module';
+import * as Element from './../../ui/element';
 import * as Assets  from './../../assets/assets';
 
 const template = (
@@ -13,7 +14,12 @@ const template = (
     </module>
 );
 
-export default class Account extends Module {
+interface Refs {
+    icon: Swish;
+    name: Swish;
+}
+
+export default class Account extends Module<Refs> {
     private disabled: boolean;
     private _account: any;
 

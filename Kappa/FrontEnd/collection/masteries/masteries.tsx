@@ -72,7 +72,11 @@ export function select(page: Domain.Collection.MasteryPage) {
     Service.select(page);
 }
 
-export class Page extends Module {
+interface Refs {
+    treeContainer: Swish;
+}
+
+export class Page extends Module<Refs> {
     private icons: { [id: number]: any } = {};
 
     constructor() {
@@ -239,7 +243,7 @@ function getRowSum(row: number[]) {
     return sum;
 }
 
-class MasteriesPopup extends Popup {
+class MasteriesPopup extends Popup<Page> {
     constructor() {
         super("Masteries", new Page());
     }
@@ -252,7 +256,12 @@ const tooltipTemplate = (
     </module>
 );
 
-class MasteryTooltip extends Tooltip.Content {
+interface Refs {
+    title: Swish;
+    description: Swish;
+}
+
+class MasteryTooltip extends Tooltip.Content<Refs> {
     private info: Domain.GameData.Mastery;
 
     constructor(info: Domain.GameData.Mastery) {

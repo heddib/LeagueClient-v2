@@ -1,3 +1,4 @@
+import { Swish }        from './../../ui/swish';
 import Module        from './../../ui/module';
 import * as Assets   from './../../assets/assets';
 import * as Audio    from './../../assets/audio';
@@ -9,7 +10,17 @@ import ChatFriend    from './friend/chatfriend';
 
 const html = Module.import('chat/list');
 
-export default class ChatList extends Module {
+interface Refs {
+    myName: Swish;
+    myIcon: Swish;
+    list: Swish;
+    activeChat: Swish;
+    selectedName: Swish;
+    messageList: Swish;
+    chatInput: Swish;
+}
+
+export default class ChatList extends Module<Refs> {
     private friends: { [user: string]: ChatFriend } = {};
     private chatHistories: { [user: string]: any[] } = {};
     private intervalId: number;

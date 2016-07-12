@@ -43,7 +43,17 @@ var template = (
     </module>
 );
 
-export default class OverviewPage extends Module {
+interface Refs {
+    summonerIcon: Swish;
+    name: Swish;
+
+    friendlies: Swish;
+    helpfuls: Swish;
+    teamworks: Swish;
+    honorables: Swish;
+}
+
+export default class OverviewPage extends Module<Refs> {
     public constructor(summ: Domain.Summoner.SummonerSummary) {
         super(template);
 

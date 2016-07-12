@@ -10,7 +10,12 @@ var template = (
     </module>
 );
 
-export default class MatchScoreboard extends Module {
+interface Refs {
+    blueTeam: Swish;
+    redTeam: Swish;
+}
+
+export default class MatchScoreboard extends Module<Refs> {
     public constructor(summ: Domain.Summoner.SummonerSummary, details: Domain.MatchHistory.MatchDetails) {
         super(template);
 

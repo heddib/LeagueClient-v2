@@ -26,8 +26,13 @@ let icon = (
     <div class="champion-icon" style="background-image:url('{{iconurl}}')"></div>
 );
 
-export default class ChampionsPage extends Module {
-    private champs: { [id: number]: Module } = {};
+interface Refs {
+    search: Swish;
+    champs: Swish;
+}
+
+export default class ChampionsPage extends Module<Refs> {
+    private champs: { [id: number]: Swish } = {};
 
     public constructor() {
         super(template);
@@ -39,7 +44,7 @@ export default class ChampionsPage extends Module {
                 let mod = Module.create(icon);
                 mod.node.setBackgroundImage(Assets.champion.icon(champ.id));
                 mod.render(this.refs.champs);
-                this.champs[champ.id] = mod;
+                this.champs[champ.id] = mod.node;
             }
         });
     }
@@ -55,7 +60,7 @@ export default class ChampionsPage extends Module {
         for (var id in this.champs) {
             let info = Assets.gamedata.champions.first(c => c.id == +id);
             var match = search.test(info.name);
-            this.champs[id].node.setClass(!match, 'hidden');
+            this.champs[id].setClass(!match, 'hidden');
         }
     }
 }

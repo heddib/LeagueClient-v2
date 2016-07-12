@@ -70,7 +70,22 @@ var template = (
     </module>
 );
 
-export default class MatchSummary extends Module {
+interface Refs {
+    spell1: Swish;
+    spell2: Swish;
+    card: Swish;
+    result: Swish;
+    kda: Swish;
+    minions: Swish;
+    gold: Swish;
+    type: Swish;
+
+    ip: Swish;
+    map: Swish;
+    date: Swish;
+}
+
+export default class MatchSummary extends Module<Refs> {
     public selected = this.create<any>();
 
     public constructor(summ: Domain.Summoner.SummonerSummary, game: Domain.MatchHistory.MatchDetails, delta: Domain.MatchHistory.GameDeltaInfo) {

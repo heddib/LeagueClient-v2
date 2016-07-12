@@ -47,8 +47,8 @@ window.addEventListener('keyup', e => {
     }
 });
 
-let module: Module;
-function show(mod: Module) {
+let module: any;
+function show(mod: Module<any>) {
     if (module) module.dispose();
 
     $('#client-area').empty();

@@ -59,7 +59,12 @@ export const featuredNames = {
     // 317: 'Definitely not Dominion'
 };
 
-export default class Page extends Module {
+interface Refs {
+    body: Swish;
+    container: Swish;
+}
+
+export default class Page extends Module<Refs> {
     private maps: { [id: number]: Swish } = {};
     private mapsList = [
         { id: 11, key: 'rift' },
@@ -113,7 +118,10 @@ export default class Page extends Module {
             for (let queue of queues) {
                 let featured = featuredNames[queue.id];
 
-                if (!queueNames[queue.id] && !featured) continue;
+                if (!queueNames[queue.id] && !featured) {
+                    console.info(queue.name);
+                    continue;
+                }
 
                 let dst = this.maps[queue.map];
                 let mod = Module.create(queueTemplate);
@@ -207,8 +215,8 @@ export default class Page extends Module {
         this.show(ingame);
     }
 
-    private module: Module;
-    private show(mod: Module) {
+    private module: any;
+    private show(mod: Module<any>) {
         if (this.module) this.module.dispose();
 
         this.refs.container.empty();

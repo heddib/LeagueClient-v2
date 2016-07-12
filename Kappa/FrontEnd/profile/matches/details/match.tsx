@@ -22,7 +22,15 @@ var template = (
     </module>
 );
 
-export default class MatchDetails extends Module {
+interface Refs {
+    backButton: Swish;
+    
+    mainScroller: Swish;
+    statsContainer: Swish;
+    scoreboardContainer: Swish;
+}
+
+export default class MatchDetails extends Module<Refs> {
     private tabChange: (index: number) => void;
 
     public constructor(summ: Domain.Summoner.SummonerSummary, details: Domain.MatchHistory.MatchDetails) {

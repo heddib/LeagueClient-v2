@@ -52,7 +52,14 @@ export function decline(invite) {
     return Service.accept(invite.id, false);
 }
 
-export class Control extends Module {
+interface Refs {
+    name: Swish;
+    game: Swish;
+    deny: Swish;
+    accept: Swish;
+}
+
+export class Control extends Module<Refs> {
     public custom = this.create<any>();
     public lobby = this.create<any>();
 

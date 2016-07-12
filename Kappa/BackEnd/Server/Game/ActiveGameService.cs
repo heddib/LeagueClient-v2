@@ -94,6 +94,7 @@ namespace Kappa.BackEnd.Server.Game {
         }
 
         private async void OnGameClosed() {
+            Debug.WriteLine("Game closed");
             state.Launched = false;
             await UploadPreferences();
             await Check();

@@ -19,7 +19,12 @@ var template = (
     </module>
 );
 
-export default class MatchHistory extends Module {
+interface Refs {
+    list: Swish;
+    detailsPopup: Swish;
+}
+
+export default class MatchHistory extends Module<Refs> {
     private history: Domain.MatchHistory.PlayerHistory;
     private deltas: Domain.MatchHistory.PlayerDeltas;
     private summ: Domain.Summoner.SummonerSummary;

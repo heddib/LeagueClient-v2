@@ -51,7 +51,19 @@ const WinStrings = {
     'Fail': 'Defeat'
 };
 
-export default class MatchScoreboardTeam extends Module {
+interface Refs {
+    result: Swish;
+    kda: Swish;
+    minions: Swish;
+    gold: Swish;
+    towers: Swish;
+    inhibs: Swish;
+    barons: Swish;
+    dragons: Swish;
+    list: Swish;
+}
+
+export default class MatchScoreboardTeam extends Module<Refs> {
     public constructor(summ: Domain.Summoner.SummonerSummary, team: Domain.MatchHistory.Team, players: Domain.MatchHistory.Participant[], idents: Domain.MatchHistory.ParticipantIdentity[]) {
         super(template);
 

@@ -13,7 +13,16 @@ import ChatRoom      from './../../chat/room/chatroom';
 const html = Module.import('playloop/lobby');
 
 const CHAMPSELECT_PHASES = ['PLANNING', 'BANNING', 'PICKING', 'FINALIZING'];
-export default class Lobby extends Module {
+
+interface Refs {
+    invitesContainer: Swish;
+    chatContainer: Swish;
+    lobbyControls: Swish;
+    queueName: Swish;
+    mapName: Swish;
+}
+
+export default class Lobby extends Module<Refs> {
     private queueStart: number;
     private isRole1 = false;
     private role1: string;

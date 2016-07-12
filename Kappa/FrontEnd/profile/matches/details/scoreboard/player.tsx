@@ -53,7 +53,18 @@ var template = (
     </module>
 );
 
-export default class Player extends Module {
+interface Refs {
+    spell1: Swish;
+    spell2: Swish;
+    champ: Swish;
+    level: Swish;
+    name: Swish;
+    kda: Swish;
+    minions: Swish;
+    gold: Swish;
+}
+
+export default class Player extends Module<Refs> {
     public selected = this.create<any>();
 
     public constructor(summ: Domain.Summoner.SummonerSummary, src: Domain.MatchHistory.Participant, ident: Domain.MatchHistory.ParticipantIdentity) {
