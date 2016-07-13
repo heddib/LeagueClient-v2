@@ -24,13 +24,13 @@ export abstract class Custom<T> extends HTMLElement {
         $(content, '*').do(callback);
         callback(this.node);
 
-        for (var i = 0; i < content.children.length; i++) {
-            this.node.add(content.children[i]);
+        for (var i = 0; i < content.childNodes.length; i++) {
+            this.node.add(content.childNodes[i]);
         }
     }
 
     protected abstract onCreated();
-    protected abstract create(): HTMLElement;
+    protected abstract create(): Element;
 }
 
 export function Register(name: string, type) {

@@ -5,7 +5,7 @@ import * as Assets  from './../../assets/assets';
 
 const template = (
     <module class="saved-account">
-        <div class="icon" data-ref="icon" data-event="mouseup:onMouseUp">
+        <div class="icon" data-ref="icon">
             <div class="border"/>
         </div>
         <div class="name">
@@ -29,6 +29,7 @@ export default class Account extends Module<Refs> {
     public constructor(account) {
         super(template);
 
+        this.refs.icon.on('mouseup', e => this.onMouseUp());
         this.refs.icon.setBackgroundImage(Assets.summoner.icon(account.icon));
         this.refs.name.text = account.name;
         this._account = account;
@@ -46,7 +47,7 @@ export default class Account extends Module<Refs> {
         }
     }
 
-    private onMouseUp(e: MouseEvent) {
+    private onMouseUp() {
         if (this.disabled) return;
         this.dispatch(this.select, this._account);
     }

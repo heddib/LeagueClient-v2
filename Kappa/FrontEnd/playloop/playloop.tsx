@@ -215,7 +215,7 @@ export default class Page extends Module<Refs> {
         this.show(ingame);
     }
 
-    private module: any;
+    private module: Module<any>;
     private show(mod: Module<any>) {
         if (this.module) this.module.dispose();
 

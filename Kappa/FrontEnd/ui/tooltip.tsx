@@ -40,7 +40,7 @@ export function top(node: Swish, module: Content<any>) {
 }
 
 export abstract class Content<T> extends Module<T> {
-    constructor(template: HTMLDivElement) {
+    constructor(template: JSX.Element) {
         super(template);
     }
 

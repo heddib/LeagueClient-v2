@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading;
 using System.Net;
+using System.Net.WebSockets;
 using MFroehlich.Parsing.JSON;
 using Kappa.BackEnd.Server.Diagnostics;
 
@@ -11,8 +12,8 @@ namespace Kappa.BackEnd.Server {
         public static Thread MainThread { get; private set; }
 
         private static HttpListener server;
-        private static List<WebSocket> asyncs = new List<WebSocket>();
-        private static List<WebSocket> logs = new List<WebSocket>();
+        private static WebSocket clientAsync;
+        private static WebSocket logAsync;
         private static List<LogItem> log = new List<LogItem>();
 
         private static List<HttpService> services = new List<HttpService>();
@@ -60,23 +61,22 @@ namespace Kappa.BackEnd.Server {
             var item = new LogItem(category, summary, content);
             var json = item.Serialize().ToJSON();
             log.Add(item);
-            foreach (var socket in logs) {
-                await socket.Send(json);
-            }
+            if (logAsync != null)
+                await logAsync.Send(json);
         }
 
-        public static void Stop() {
-            //// ReSharper disable once NotAccessedVariable
-            //Task t;
-            //// ReSharper disable RedundantAssignment
-            //foreach (var open in asyncs.ToList())
-            //    t = open.Close(WebSocketCloseStatus.EndpointUnavailable);
-            //foreach (var open in logs.ToList())
-            //    t = open.Close(WebSocketCloseStatus.EndpointUnavailable);
-            //// ReSharper restore RedundantAssignment
+        public static async void Stop() {
             MainThread.Abort();
             server.Stop();
             server.Close();
+            try {
+                if (clientAsync != null)
+                    await clientAsync.Close(WebSocketCloseStatus.Empty);
+                if (logAsync != null)
+                    await logAsync.Close(WebSocketCloseStatus.Empty);
+            } catch {
+                // ignored
+            }
         }
 
 
@@ -122,33 +122,35 @@ namespace Kappa.BackEnd.Server {
             var socket = new WebSocket(raw.WebSocket);
             switch (context.Request.Url.LocalPath) {
             case "/async":
-                asyncs.Add(socket);
-                socket.OnClose += (s, e) => {
-                    asyncs.Remove(socket);
-                };
+                if (clientAsync != null) {
+                    context.Response.StatusCode = 400;
+                }
+
+                clientAsync = socket;
+                clientAsync.OnClose += (s, e) => clientAsync = null;
                 break;
 
             case "/log":
-                logs.Add(socket);
-                socket.OnClose += (s, e) => {
-                    logs.Remove(socket);
-                };
+                if (logAsync != null) {
+                    context.Response.StatusCode = 400;
+                }
+
+                logAsync = socket;
+                logAsync.OnClose += (s, e) => logAsync = null;
                 break;
             }
         }
 
 
-        private static void Send(string type, object json) {
+        private static async void Send(string type, object json) {
             var bytes = new JSONObject {
                 ["type"] = type,
                 ["data"] = json
             }.ToJSON().GetBytes();
-            foreach (var socket in asyncs) {
-                try {
-                    // ReSharper disable once UnusedVariable
-                    var t = socket.Send(bytes);
-                } catch (ObjectDisposedException) { } catch (SocketException) { }
-            }
+            try {
+                if (clientAsync != null)
+                    await clientAsync.Send(bytes);
+            } catch (ObjectDisposedException) { } catch (SocketException) { }
         }
     }
 

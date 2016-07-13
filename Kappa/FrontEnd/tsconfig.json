@@ -6,6 +6,7 @@
         "jsx": "react"
     },
     "files": [
+        "util/jsx.ts",
         "discord/discord.d.ts",
         "util/util.ts",
         "test.ts",

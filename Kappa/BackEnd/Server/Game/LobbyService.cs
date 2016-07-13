@@ -53,11 +53,13 @@ namespace Kappa.BackEnd.Server.Game {
             lastLobbyStatus = status;
             state.IsCaptain = status.Owner.SummonerId == session.Me.SummonerId;
 
+            state.Chatroom = rooms.JoinStandard(status);
+
             if (loop.CurrentType == PlayLoopType.STANDARD) {
                 state.CanMatch = true;
 
                 if (state.Chatroom == Guid.Empty) {
-                    state.Chatroom = rooms.JoinStandard(status);
+                    //state.Chatroom = rooms.JoinStandard(status);
                 }
 
                 var members = new List<LobbyMember>();

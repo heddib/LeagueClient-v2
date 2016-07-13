@@ -197,18 +197,6 @@ module guid {
     export const empty = '00000000-0000-0000-0000-000000000000';
 }
 
-module React {
-    export function createElement(name: string, props: { [id: string]: string }, ...args: any[]) {
-        let node = document.createElement(name);
-        for (let id in props) node.setAttribute(id, props[id]);
-        for (let child of args) {
-            if (typeof child == 'string') child = document.createTextNode(child);
-            node.appendChild(child);
-        }
-        return node;
-    }
-}
-
 module Util {
     let preloadContainer: HTMLElement;
     let callbacks: { [url: string]: Function } = {};

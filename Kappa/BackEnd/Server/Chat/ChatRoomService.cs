@@ -3,6 +3,7 @@ using agsXMPP.protocol.client;
 using Kappa.BackEnd.Server.Chat.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using agsXMPP.protocol.x.muc;
 using Kappa.Riot.Domain;
@@ -49,6 +50,7 @@ namespace Kappa.BackEnd.Server.Chat {
 
         internal Guid JoinStandard(LobbyStatus status) {
             var jid = ChatUtils.GetChatroomJID(status.InvitationId, "ag", false, status.ChatKey);
+            Debug.WriteLine("Standard: " + jid.User);
             return JoinRoom(jid, status.ChatKey);
         }
 
@@ -70,6 +72,7 @@ namespace Kappa.BackEnd.Server.Chat {
 
         internal Guid JoinDraft(PremadeState state) {
             var jid = ChatUtils.GetChatroomJID(state.PremadeId, "cp", false);
+            Debug.WriteLine("Draft: " + jid.User);
             return JoinRoom(jid, null);
         }
 
@@ -127,6 +130,9 @@ namespace Kappa.BackEnd.Server.Chat {
             if (!roomsReverse.TryGetValue(e.From.User, out roomId)) return;
 
             var jid = e.MucUser.Item.Jid;
+            if (ChatUtils.GetSummonerId(jid.User) != session.Me.SummonerId) {
+                Debug.WriteLine(e.From.User);
+            }
             var list = users[roomId];
             var friend = new MucFriend(roomId, jid, e.From.Resource);
 

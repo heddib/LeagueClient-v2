@@ -10,7 +10,7 @@ abstract class Module<T> extends EventSource implements IDisposable {
         return node;
     }
 
-    public static create(template: HTMLDivElement) {
+    public static create(template: JSX.Element) {
         return new AnonymousModule<any>(template);
     }
 
@@ -22,7 +22,7 @@ abstract class Module<T> extends EventSource implements IDisposable {
 
     public closed = this.create<{}>();
 
-    constructor(link: HTMLLinkElement | HTMLDivElement) {
+    constructor(link: HTMLLinkElement | JSX.Element) {
         super();
 
         if (link.nodeName == 'LINK') {

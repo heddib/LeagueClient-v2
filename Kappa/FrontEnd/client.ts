@@ -47,7 +47,7 @@ window.addEventListener('keyup', e => {
     }
 });
 
-let module: any;
+let module: Module<any>;
 function show(mod: Module<any>) {
     if (module) module.dispose();
 
