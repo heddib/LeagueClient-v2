@@ -130,9 +130,6 @@ namespace Kappa.BackEnd.Server.Chat {
             if (!roomsReverse.TryGetValue(e.From.User, out roomId)) return;
 
             var jid = e.MucUser.Item.Jid;
-            if (ChatUtils.GetSummonerId(jid.User) != session.Me.SummonerId) {
-                Debug.WriteLine(e.From.User);
-            }
             var list = users[roomId];
             var friend = new MucFriend(roomId, jid, e.From.Resource);
 

@@ -11,6 +11,7 @@ using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using Kappa.BackEnd.Server.Patcher.Model;
 using Kappa.Settings;
+using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Patcher {
     public class PatcherService : JSONService {
@@ -51,7 +52,7 @@ namespace Kappa.BackEnd.Server.Patcher {
         }
 
         public void OnInitialized() {
-            new Thread(Patch) { Name = "WAD Patcher", IsBackground = true }.Start();
+            new Thread(Patch) { Name = "Patcher", IsBackground = true }.Start();
         }
 
         private async void Patch() {
@@ -126,6 +127,8 @@ namespace Kappa.BackEnd.Server.Patcher {
                 #endregion
 
                 launcherState.Phase = PatcherPhase.NONE;
+
+                BackEndServer.Async("/kappa/defer/patch", new JSONObject());
             }
         }
 
@@ -149,7 +152,6 @@ namespace Kappa.BackEnd.Server.Patcher {
                 manifest = rawManifest.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
                 solutionTarget = Path.Combine(RADS, "solutions", SolutionName, "releases", version);
-                var changed = !Directory.Exists(solutionTarget);
                 Directory.CreateDirectory(solutionTarget);
 
                 File.WriteAllText(Path.Combine(solutionTarget, "solutionmanifest"), rawManifest);

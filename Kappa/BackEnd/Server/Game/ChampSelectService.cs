@@ -271,6 +271,7 @@ namespace Kappa.BackEnd.Server.Game {
                     state.Chatroom = rooms.JoinDraft(draftData.ChampSelectState);
                 }
 
+                state.IsBlue = draftData.ChampSelectState.MyCellId < 5;
                 state.Inventory = this.inventory;
                 state.Remaining = draftData.ChampSelectState.CurrentRemainingMillis;
                 state.Turn = draftData.ChampSelectState.CurrentActionIndex;

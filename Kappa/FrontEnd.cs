@@ -85,7 +85,7 @@ namespace Kappa {
             var tsc = start("tsc", "-p .");
             tsc.WaitForExit();
 
-            var rollup = start("rollup", @"-f iife kappa -o bin\compiled.js bin\client.js");
+            var rollup = start("rollup", @"-f iife -o bin\compiled.js bin\client.js");
             rollup.WaitForExit();
 
             less.WaitForExit();

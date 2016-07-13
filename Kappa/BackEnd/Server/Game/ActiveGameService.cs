@@ -121,8 +121,9 @@ namespace Kappa.BackEnd.Server.Game {
             }
             else {
                 inGame = true;
-                OnStateChanged();
             }
+
+            OnStateChanged();
 
             return inProgress;
         }

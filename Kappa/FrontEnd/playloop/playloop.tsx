@@ -94,18 +94,22 @@ export default class Page extends Module<Refs> {
 
         this.refs.container.css('display', 'none');
 
-        PatcherPage.required().then(b => {
-            if (b) {
-                for (let info of this.mapsList) {
-                    this.maps[info.id].addClass('hidden');
-                }
+        Service.getAvailableQueues().then(queues => {
+            this.queues = queues;
 
-                this.patcher = new PatcherPage();
-                this.subscribe(this.patcher.closed, this.onPatched);
-                this.show(this.patcher);
-            } else {
-                this.onPatched(true);
-            }
+            PatcherPage.required().then(b => {
+                if (b) {
+                    for (let info of this.mapsList) {
+                        this.maps[info.id].addClass('hidden');
+                    }
+
+                    this.patcher = new PatcherPage();
+                    this.subscribe(this.patcher.closed, this.onPatched);
+                    this.show(this.patcher);
+                } else {
+                    this.onPatched(true);
+                }
+            });
         });
     }
 
@@ -113,35 +117,32 @@ export default class Page extends Module<Refs> {
         if (!force && !this.patcher) return;
         this.patcher = null;
 
-        Service.getAvailableQueues().then(queues => {
-            this.queues = queues;
-            for (let queue of queues) {
-                let featured = featuredNames[queue.id];
+        for (let queue of this.queues) {
+            let featured = featuredNames[queue.id];
 
-                if (!queueNames[queue.id] && !featured) {
-                    console.info(queue.name);
-                    continue;
-                }
-
-                let dst = this.maps[queue.map];
-                let mod = Module.create(queueTemplate);
-                mod.refs.title.text = featured || queueNames[queue.id];
-                mod.node.on('click', () => this.choose(queue.map, queue));
-                mod.node.setClass(featured, 'featured');
-                if (featured) {
-                    dst.prepend(mod.node);
-                } else {
-                    dst.append(mod.node);
-                }
+            if (!queueNames[queue.id] && !featured) {
+                console.info(queue.name);
+                continue;
             }
 
-            for (let info of this.mapsList) {
-                let mod = Module.create(queueTemplate);
-                mod.refs.title.text = 'Custom';
-                mod.render(this.maps[info.id]);
-                mod.node.on('click', () => this.choose(info.id, null));
+            let dst = this.maps[queue.map];
+            let mod = Module.create(queueTemplate);
+            mod.refs.title.text = featured || queueNames[queue.id];
+            mod.node.on('click', () => this.choose(queue.map, queue));
+            mod.node.setClass(featured, 'featured');
+            if (featured) {
+                dst.prepend(mod.node);
+            } else {
+                dst.append(mod.node);
             }
-        });
+        }
+
+        for (let info of this.mapsList) {
+            let mod = Module.create(queueTemplate);
+            mod.refs.title.text = 'Custom';
+            mod.render(this.maps[info.id]);
+            mod.node.on('click', () => this.choose(info.id, null));
+        }
     }
 
     private choose(map: number, queue: Domain.Game.AvailableQueue) {

@@ -1,4 +1,5 @@
 import http         from './../util/http';
+import Patcher      from './../patcher/launcher';
 import * as Service from './service';
 
 class Queue {
@@ -79,19 +80,25 @@ export const gamedata: {
     maps: Domain.GameData.MapSummary[];
 } = <any>{};
 
-Service.masteries().then(m => gamedata.masteries = m);
-Service.runes().then(m => gamedata.runes = m);
-Service.items().then(m => gamedata.items = m);
-Service.maps().then(m => gamedata.maps = m);
-Service.wardskins().then(m => gamedata.wardskins = m);
-Service.champions().then(m => {
-    gamedata.champions = m;
-    setTimeout(() => {
-        for (let champ of gamedata.champions)
-            Util.preload(champion.splash(champ.id, 0));
-    }, 5000);
-});
-Service.summonerspells().then(m => gamedata.summoners = m);
+(function check() {
+    Patcher.required().then(required => {
+        if (required) return setTimeout(check, 1000)
+
+        Service.masteries().then(m => gamedata.masteries = m);
+        Service.runes().then(m => gamedata.runes = m);
+        Service.items().then(m => gamedata.items = m);
+        Service.maps().then(m => gamedata.maps = m);
+        Service.wardskins().then(m => gamedata.wardskins = m);
+        Service.champions().then(m => {
+            gamedata.champions = m;
+            setTimeout(() => {
+                for (let champ of gamedata.champions)
+                    Util.preload(champion.splash(champ.id, 0));
+            }, 5000);
+        });
+        Service.summonerspells().then(m => gamedata.summoners = m);;
+    });
+})();
 
 export const login = {
     video: Service.loginVideo(),

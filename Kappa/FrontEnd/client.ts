@@ -22,7 +22,9 @@ window['Settings'] = Settings;
 window['Kappa'] = Kappa;
 
 window.addEventListener('load', () => {
-    PatcherPage.required().then(required => (required ? onLoaded : onPatched)());
+    PatcherPage.required().then(required => {
+        (required ? onLoaded : onPatched)()
+    });
 
     $('#exit-button').on('mouseup', e => Kappa.close());
     $('#min-button').on('mouseup', e => Kappa.minimize());

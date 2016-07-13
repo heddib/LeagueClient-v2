@@ -50,8 +50,9 @@ namespace Kappa.BackEnd.Server.Patcher {
                 if (Directory.Exists(newest)) {
                     if (newest != target)
                         Directory.Move(newest, target);
-                    var oldFile = Path.Combine(newest, "releasemanifest");
-                    if (File.Exists(Path.Combine(newest, "S_OK")) && File.Exists(oldFile)) {
+
+                    var oldFile = Path.Combine(target, "releasemanifest");
+                    if (File.Exists(Path.Combine(target, "S_OK")) && File.Exists(oldFile)) {
                         old = new ReleaseManifest(oldFile);
                     }
                 }
@@ -174,8 +175,8 @@ namespace Kappa.BackEnd.Server.Patcher {
                         yield return pair.Value;
                 }
                 else {
-                    var oldFile = old.AllFiles[pair.Key];
-                    if (oldFile == null || !oldFile.ChecksumEquals(pair.Value)) {
+                    ManifestFile oldFile;
+                    if (!old.AllFiles.TryGetValue(pair.Key, out oldFile) || !oldFile.ChecksumEquals(pair.Value)) {
                         yield return pair.Value;
                     }
                 }

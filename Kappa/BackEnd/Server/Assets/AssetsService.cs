@@ -44,7 +44,6 @@ namespace Kappa.BackEnd.Server.Assets {
             lolGameData = patcher.PatchWAD("rcp-be-lol-game-data");
             Session.Init.ContinueWith(t => OnInitialized());
 
-
             data = lolGameData.ContinueWith(t => {
                 Masteries = ExtractJSON<MasteriesInfo>(t.Result, GameDataAssets.Masteries);
                 Runes = ExtractJSON<Dictionary<string, RuneDetails>>(t.Result, GameDataAssets.Runes).Values.ToList();
