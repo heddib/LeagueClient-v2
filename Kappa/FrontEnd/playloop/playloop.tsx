@@ -148,7 +148,7 @@ export default class Page extends Module<Refs> {
     private choose(map: number, queue: Domain.Game.AvailableQueue) {
         this.map(map);
 
-        let async: Async<any>;
+        let async: Promise<any>;
         if (queue) {
             async = LobbyService.create(queue.id);
             async.then(() => this.lobby(false));
@@ -245,7 +245,7 @@ export default class Page extends Module<Refs> {
 }
 
 export function queues() {
-    return new Async<Domain.Game.AvailableQueue[]>((resolve, reject) => {
+    return new Promise<Domain.Game.AvailableQueue[]>((resolve, reject) => {
         if (queueCache) resolve(queueCache);
         Service.getAvailableQueues().then(queues => {
             queueCache = queues;

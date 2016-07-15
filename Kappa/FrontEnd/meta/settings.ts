@@ -22,7 +22,7 @@ export default class Settings<T> {
         this.key = key;
     }
     public load() {
-        return new Async<T>((resolve, reject) => {
+        return new Promise<T>((resolve, reject) => {
             callbacks.push(() => resolve(userSettings[this.key] as T));
         });
     }

@@ -6,7 +6,7 @@ interface IHandler {
 }
 
 let handlers: { [id: string]: IHandler } = {}
-let deferable = ['auth', 'init'];
+let deferable = ['auth'];
 
 deferable.forEach(e => handlers[e] = { done: false, handlers: [] });
 
@@ -22,10 +22,6 @@ export function auth(callback: () => void) {
     defer('auth', callback);
 }
 
-export function init(callback: () => void) {
-    defer('init', callback);
-}
-
 function dispatch(name: string) {
     handlers[name].done = true;
     while (handlers[name].handlers.length)
@@ -33,4 +29,3 @@ function dispatch(name: string) {
 }
 
 Kappa.subscribe('/defer/auth', () => dispatch('auth'));
-Kappa.subscribe('/defer/init', () => dispatch('init'));

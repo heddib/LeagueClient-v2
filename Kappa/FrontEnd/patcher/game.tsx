@@ -40,7 +40,7 @@ export default class GamePatcherPage extends Module<Refs> {
     }
 
     public static required() {
-        return new Async<boolean>((resolve, reject) => {
+        return new Promise<boolean>((resolve, reject) => {
             Service.game().then(state => resolve(state.phase != 'NONE'));
         });
     }

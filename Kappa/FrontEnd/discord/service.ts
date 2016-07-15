@@ -8,7 +8,7 @@ export const ready = events.create<Discord.Gateway.ReadyData>();
 export const presenceUpdate = events.create<Discord.Gateway.PresenceData>();
 
 function api_get(path: string) {
-    return new Async<any>((resolve, reject) => {
+    return new Promise<any>((resolve, reject) => {
         var req = new XMLHttpRequest();
         req.open('GET', 'https://discordapp.com/api' + path, true);
         req.setRequestHeader('Authorization', token);
@@ -21,7 +21,7 @@ function api_get(path: string) {
 }
 
 function api_post(path: string, content: any) {
-    return new Async<any>((resolve, reject) => {
+    return new Promise<any>((resolve, reject) => {
         var req = new XMLHttpRequest();
         req.open('POST', 'https://discordapp.com/api' + path, true);
         req.setRequestHeader('Authorization', token);
@@ -55,7 +55,7 @@ function onMessage(msg: MessageEvent) {
 
 export namespace Auth {
     export function login(email: string, pass: string) {
-        return new Async<{}>((resolve, reject) => {
+        return new Promise<{}>((resolve, reject) => {
             api_post('/auth/login', {
                 'email': email,
                 'password': pass

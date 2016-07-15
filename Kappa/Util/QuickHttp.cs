@@ -38,9 +38,14 @@ namespace Kappa.Util {
             }
         }
 
-        public async Task<string> String() => Encoding.UTF8.GetString(await Bytes());
-        public async Task<JSONArray> JSONArray() => JSONParser.ParseArray(await Bytes());
-        public async Task<JSONObject> JSONObject() => JSONParser.ParseObject(await Bytes());
+        public Task<string> String() => Check(Encoding.UTF8.GetString);
+        public Task<JSONArray> JSONArray() => Check(b => JSONParser.ParseArray(b));
+        public Task<JSONObject> JSONObject() => Check(b => JSONParser.ParseObject(b));
+
+        private async Task<T> Check<T>(Func<byte[], T> act) where T : class {
+            var bytes = await Bytes();
+            return bytes.Length == 0 ? null : act(bytes);
+        }
 
         public static QuickHttp Request(string method, string url) => new QuickHttp(url, method);
         public static QuickHttp Request(string method, Uri url) => new QuickHttp(url.AbsoluteUri, method);

@@ -94,7 +94,9 @@ export default class ProfilePage extends Module<Refs> {
         this.matches.render(this.refs.matchesContainer);
 
         Champions.mastery(summ.summonerId).then(list => {
-            this.refs.background.setBackgroundImage(Assets.champion.splash(list[0].championId, 0));
+            let champ = list.any() ? list[0].championId : Assets.gamedata.champions.random().id;
+
+            this.refs.background.setBackgroundImage(Assets.champion.splash(champ, 0));
         });
     }
 

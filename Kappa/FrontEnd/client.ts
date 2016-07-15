@@ -41,13 +41,6 @@ window.addEventListener('keyup', e => {
         case 123:
             Meta.link(`http://${window.location.host}/ui/diagnostics/info`);
             break;
-        // case 123:
-        //     http('http://localhost:1337/json/list').get(http => {
-        //         var info = http.json[0];
-        //         var url = `http://localhost:1337/devtools/inspector.html?ws=localhost:1337/devtools/page/${info.id}`;
-        //         Meta.link(url);
-        //     });
-            // break;
     }
 });
 
@@ -62,7 +55,7 @@ function show(mod: Module<any>) {
 
 function onLoaded() {
     let page = new PatcherPage();
-    page.complete.on(() => onPatched());
+    page.closed.on(() => onPatched());
     Electron.show();
 
     show(page);

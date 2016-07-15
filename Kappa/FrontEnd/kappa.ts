@@ -43,7 +43,7 @@ export function subscribe(source: string, callback: (arg: any) => void) {
 }
 
 export function invoke<T>(path: string, args: any[]) {
-    return new Async<T>((resolve, reject) => {
+    return new Promise<T>((resolve, reject) => {
         var start = new Date();
 
         var str = JSON.stringify(args);

@@ -7,7 +7,6 @@ namespace Kappa.BackEnd {
             PBE
         }
 
-        private Region() { }
         private Region(string key) {
             SpectatorServer = $"spectator.{key}.lol.riotgames.com";
             MainServer = $"prod.{key}.lol.riotgames.com";

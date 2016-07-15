@@ -1,4 +1,5 @@
-class Async<T> {
+/** Promise that can resolve multiple times */
+class MuiltPromise<T> {
     private _value: T;
     private _error: any;
 
@@ -143,6 +144,8 @@ interface Array<T> {
     contains(o: T): boolean;
 
     sum(handler?: (o: T, i: number, a: Array<T>) => number): number;
+
+    random(handler?: (o: T, i: number, a: Array<T>) => boolean): T;
 }
 Array.prototype.orderby = function <T2>(handler) {
     let dst = this.slice();
@@ -182,6 +185,10 @@ Array.prototype.sum = function (handler) {
     for (let i = 0; i < this.length; i++)
         sum += handler(this[i], i, this);
     return sum;
+};
+Array.prototype.random = function (handler) {
+    let filtered = handler ? this.filter(handler) : this;
+    return filtered[Math.floor(Math.random() * filtered.length)];
 };
 
 function guid() {
@@ -266,7 +273,7 @@ module Util {
     }
 
     export function preload(url: string) {
-        return new Async<{}>((resolve, reject) => {
+        return new Promise<{}>((resolve, reject) => {
             if (callbacks[url]) resolve({});
             else {
                 callbacks[url] = resolve;

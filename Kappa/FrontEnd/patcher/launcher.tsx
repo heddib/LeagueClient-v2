@@ -16,8 +16,6 @@ interface Refs {
 }
 
 export default class LauncherPatcherPage extends Module<Refs> {
-    public complete = this.create<any>();
-
     constructor() {
         super(template);
 
@@ -27,7 +25,7 @@ export default class LauncherPatcherPage extends Module<Refs> {
     public update() {
         Service.launcher().then(state => {
             if (state.phase == 'NONE') {
-                this.dispatch(this.complete, {});
+                this.dispatch(this.closed, {});
                 return;
             }
 
@@ -39,7 +37,7 @@ export default class LauncherPatcherPage extends Module<Refs> {
     }
 
     public static required() {
-        return new Async<boolean>((resolve, reject) => {
+        return new Promise<boolean>((resolve, reject) => {
             Service.launcher().then(state => resolve(state.phase != 'NONE'));
         });
     }

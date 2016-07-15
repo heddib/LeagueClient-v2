@@ -42,7 +42,7 @@ namespace Kappa.BackEnd.Server.Patcher {
 
         public ReleaseManifest(string file) {
             using (var stream = File.OpenRead(file)) {
-                var header = stream.ReadStruct<ReleaseManifestHeader>();
+                stream.ReadStruct<ReleaseManifestHeader>();
 
                 var directories = new DirectoryMetaData[stream.ReadStruct<int>()];
                 for (var i = 0; i < directories.Length; i++) directories[i] = stream.ReadStruct<DirectoryMetaData>();

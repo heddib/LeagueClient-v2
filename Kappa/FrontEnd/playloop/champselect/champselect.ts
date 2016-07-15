@@ -68,7 +68,7 @@ export default class ChampSelect extends Module<Refs> {
     private doDispose = true;
 
     private eventHandlers: [X_Event<any>, (t: any) => void][] = [];
-    private music: HTMLAudioElement;
+    private music: Audio.Track;
 
     public start = this.create<{}>();
     public cancel = this.create<boolean>();
@@ -122,7 +122,7 @@ export default class ChampSelect extends Module<Refs> {
 
     public dispose() {
         super.dispose();
-        this.music.pause();
+        this.music.stop();
         window.clearInterval(this.intervalId);
         if (this.doDispose)
             PlayLoop.abandon();

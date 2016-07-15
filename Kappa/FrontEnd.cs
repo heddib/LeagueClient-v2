@@ -34,7 +34,10 @@ namespace Kappa {
             const int debuggingPort = 1337;
             args += $" --remote-debugging-port={debuggingPort}";
             Task.Run(async () => {
-                var json = await QuickHttp.Request("GET", $"http://localhost:{debuggingPort}/json/list").JSONArray();
+                JSONArray json;
+                do {
+                    json = await QuickHttp.Request("GET", $"http://localhost:{debuggingPort}/json/list").JSONArray();
+                } while (json == null);
 
                 var url = ((JSONObject) json[0])["devtoolsFrontendUrl"] as string;
                 Process.Start($"http://localhost:{debuggingPort}{url}");

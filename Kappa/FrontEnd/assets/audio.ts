@@ -38,7 +38,7 @@ function play(type: string, key: string, allowOverlap = false) {
     audio.play();
     playing[type] = audio;
 
-    return audio;
+    return new Track(audio);
 }
 
 export namespace Volume {
@@ -80,4 +80,25 @@ export function champ_sfx(champ: number) {
 
 export function effect(...keys: string[]) {
     return play(VolumeType.DEFAULT, '/' + keys.join('/'), true);
+}
+
+export class Track {
+    private base: HTMLAudioElement;
+
+    constructor(base: HTMLAudioElement) {
+        this.base = base;
+    }
+
+    public stop(force = false) {
+        if (force) {
+            this.base.pause();
+            return;
+        }
+
+        let id = setInterval(() => {
+            this.base.volume = Math.max(0, this.base.volume - .01);
+            
+            if (this.base.volume = 0) clearInterval(id);
+        }, 8)
+    }
 }
