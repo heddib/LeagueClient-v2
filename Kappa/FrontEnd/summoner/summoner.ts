@@ -32,6 +32,10 @@ export function get(name: string): Async<Domain.Summoner.SummonerSummary> {
     });
 }
 
+export function details(summary: Domain.Summoner.SummonerSummary): Async<Domain.Summoner.SummonerSummary> {
+    return Service.details(summary.accountId);
+}
+
 export function kudos(id: number): Async<Domain.Summoner.SummonerKudos> {
     return Service.kudos(id);
 }

@@ -23,5 +23,15 @@ namespace Kappa.BackEnd.Server.Summoner.Model {
             Level = pub.SummonerLevel;
             Icon = pub.ProfileIconId;
         }
+
+        public SummonerSummary(BasePublicSummonerDTO summ) {
+            InternalName = summ.InternalName;
+            SummonerId = summ.SummonerId;
+            AccountId = summ.AccountId;
+
+            Name = summ.Name;
+
+            Icon = summ.ProfileIconId;
+        }
     }
 }

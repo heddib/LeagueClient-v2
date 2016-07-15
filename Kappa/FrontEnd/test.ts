@@ -207,6 +207,10 @@ namespace Domain {
         }
     }
     export namespace Summoner {
+        export interface SummonerDetails extends SummonerSummary {
+            xp: number;
+            xpToLevel: number;
+        }
         export interface SummonerKudos {
             friendlies: number;
             helpfuls: number;

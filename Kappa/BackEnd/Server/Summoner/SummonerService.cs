@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Mail;
 using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Summoner {
@@ -55,6 +56,12 @@ namespace Kappa.BackEnd.Server.Summoner {
         public async Task<Model.SummonerSummary> GetSummoner(string name) {
             var summ = await this.session.SummonerService.GetSummonerByName(name);
             return new Model.SummonerSummary(summ);
+        }
+
+        [Endpoint("/details")]
+        public async Task<Model.SummonerDetails> GetDetails(long account) {
+            var summ = await this.session.SummonerService.GetAllPublicSummonerDataByAccount(account);
+            return new SummonerDetails(summ);
         }
 
         [Endpoint("/kudos")]

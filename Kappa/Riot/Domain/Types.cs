@@ -2206,4 +2206,38 @@ namespace Kappa.Riot.Domain {
         [SerializedName("pointSummary")]
         public PointSummary PointSummary { get; set; }
     }
+
+    [Serializable, SerializedName("com.riotgames.platform.summoner.AllPublicSummonerDataDTO")]
+    public class AllPublicSummonerDataDTO {
+        [SerializedName("spellBook")]
+        public SpellBookDTO SpellBook { get; set; }
+        [SerializedName("summonerDefaultSpells")]
+        public SummonerDefaultSpells SummonerDefaultSpells { get; set; }
+        [SerializedName("summonerTalentsAndPoints")]
+        public SummonerTalentsAndPoints SummonerTalentsAndPoints { get; set; }
+        [SerializedName("summoner")]
+        public BasePublicSummonerDTO Summoner { get; set; }
+        [SerializedName("summonerLevelAndPoints")]
+        public SummonerLevelAndPoints SummonerLevelAndPoints { get; set; }
+        [SerializedName("summonerLevel")]
+        public SummonerLevel SummonerLevel { get; set; }
+    }
+
+    [Serializable, SerializedName("com.riotgames.platform.summoner.BasePublicSummonerDTO")]
+    public class BasePublicSummonerDTO {
+        [SerializedName("seasonTwoTier")]
+        public string SeasonTwoTier { get; set; }
+        [SerializedName("publicName")]
+        public string InternalName { get; set; }
+        [SerializedName("seasonOneTier")]
+        public string SeasonOneTier { get; set; }
+        [SerializedName("acctId")]
+        public long AccountId { get; set; }
+        [SerializedName("name")]
+        public string Name { get; set; }
+        [SerializedName("sumId")]
+        public long SummonerId { get; set; }
+        [SerializedName("profileIconId")]
+        public int ProfileIconId { get; set; }
+    }
 }

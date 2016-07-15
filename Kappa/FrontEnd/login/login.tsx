@@ -8,10 +8,10 @@ import * as Service from './service';
 import Account      from './account/account';
 
 const template = (
-    <module id="login">
+    <module class="login">
         <img data-ref="image" id="login-img"/>
         <video data-ref="video" id="login-video" autoplay loop></video>
-        <div data-ref="accountlist" id="login-accounts"></div>
+        <div data-ref="accountlist" id="login-accounts"/>
         <div data-ref="form" id="login-form">
             <div id="login-username">
                 <div>Username: </div>
@@ -25,6 +25,11 @@ const template = (
                 <button data-ref="submitbutt" data-event="click:onSubmitClick" type="button">Login</button>
             </div>
             <div data-ref="loader" id="loader"></div>
+        </div>
+        <div data-ref="switch" class="switch-button">
+            <div class="switch-hover">
+                <span data-ref="switchText"/>
+            </div>
         </div>
     </module>
 );
@@ -40,6 +45,9 @@ interface Refs {
     submitbutt: Swish;
 
     accountlist: Swish;
+
+    switch: Swish;
+    switchText: Swish;
 }
 
 export default class Page extends Module<Refs> {
@@ -70,7 +78,10 @@ export default class Page extends Module<Refs> {
 
         Service.saved().then(accounts => {
             if (accounts && accounts.length > 0) {
-                this.refs.form.css('display', 'none');
+                this.refs.switch.addClass('visible');
+                this.refs.switch.on('click', () => this.change());
+                this.change();
+
                 for (let i = 0; i < accounts.length; i++) {
                     let account = new Account(accounts[i]);
                     account.select.on(e => this.onAccountClick(account));
@@ -79,6 +90,15 @@ export default class Page extends Module<Refs> {
                 }
             }
         });
+    }
+
+    private manual = true;
+    private change() {
+        this.manual = !this.manual;
+
+        this.refs.switchText.text = this.manual ? 'Saved Accounts' : 'Login';
+        this.refs.form.css('display', this.manual ? null : 'none');
+        this.refs.accountlist.css('display', this.manual ? 'none' : null);
     }
 
     private loader(doLoad) {

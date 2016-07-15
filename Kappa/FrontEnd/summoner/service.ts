@@ -12,6 +12,10 @@ export function get(name: string) {
     return Kappa.invoke<Domain.Summoner.SummonerSummary>(service + '/get', [name]);
 }
 
+export function details(account: number) {
+    return Kappa.invoke<Domain.Summoner.SummonerDetails>(service + '/details', [account]);
+}
+
 export function kudos(id: number) {
     return Kappa.invoke<Domain.Summoner.SummonerKudos>(service + '/kudos', [id]);
 }

@@ -17,7 +17,7 @@ namespace Kappa {
     public class FrontEnd : HttpService {
         private static readonly List<string> ContentFileTypes = new List<string> { ".css", ".html", ".js" };
 
-        private static readonly string FrontEndExecutable = "client.exe";
+        private const string FrontEndExecutable = "client.exe";
 
         private FilePack content;
         private FilePack assets;
@@ -34,17 +34,10 @@ namespace Kappa {
             const int debuggingPort = 1337;
             args += $" --remote-debugging-port={debuggingPort}";
             Task.Run(async () => {
-                while (true) {
-                    var bytes = await QuickHttp.Request("GET", $"http://localhost:{debuggingPort}/json/list").Bytes();
+                var json = await QuickHttp.Request("GET", $"http://localhost:{debuggingPort}/json/list").JSONArray();
 
-                    if (bytes.Length > 0) {
-                        var url = ((JSONObject) JSONParser.ParseArray(bytes)[0])["devtoolsFrontendUrl"] as string;
-                        Process.Start($"http://localhost:{debuggingPort}{url}");
-                        break;
-                    }
-
-                    await Task.Delay(1000);
-                }
+                var url = ((JSONObject) json[0])["devtoolsFrontendUrl"] as string;
+                Process.Start($"http://localhost:{debuggingPort}{url}");
             });
 #endif
 

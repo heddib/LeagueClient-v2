@@ -34,7 +34,7 @@ var template = (
 interface Refs {
     search: Swish;
     home: Swish;
-    
+
     background: Swish;
 
     overviewContainer: Swish;

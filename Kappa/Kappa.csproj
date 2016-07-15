@@ -116,6 +116,7 @@
     <Compile Include="BackEnd\Server\Replay\ReplayService.cs" />
     <Compile Include="BackEnd\Server\Replay\SpectatorService.cs" />
     <Compile Include="BackEnd\Server\Summoner\Model\SummonerKudos.cs" />
+    <Compile Include="BackEnd\Server\Summoner\Model\SummonerDetails.cs" />
     <Compile Include="BackEnd\Server\Summoner\Model\SummonerSummary.cs" />
     <Compile Include="Riot\Domain\BroadcastNotification.cs" />
     <Compile Include="Riot\Domain\JSON\lol_game_data\MapSummary.cs" />
