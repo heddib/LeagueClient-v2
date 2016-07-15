@@ -7,7 +7,11 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 using Kappa.BackEnd;
+using Kappa.Util;
+using MFroehlich.Parsing.JSON;
 
 namespace Kappa {
     public class FrontEnd : HttpService {
@@ -24,13 +28,26 @@ namespace Kappa {
         }
 
         public void Start(string host) {
-            string index = $"http://{host}/ui/client.html";
+            var args = $"--backend=\"http://{host}/ui/client.html\"";
 
-            string args = $"--backend=\"{index}\"";
 #if BUILD_UI
-            args += " --remote-debugging-port=1337 --disable-web-security";
-            //Process.Start("http://localhost:1337/");
+            const int debuggingPort = 1337;
+            args += $" --remote-debugging-port={debuggingPort}";
+            Task.Run(async () => {
+                while (true) {
+                    var bytes = await QuickHttp.Request("GET", $"http://localhost:{debuggingPort}/json/list").Bytes();
+
+                    if (bytes.Length > 0) {
+                        var url = ((JSONObject) JSONParser.ParseArray(bytes)[0])["devtoolsFrontendUrl"] as string;
+                        Process.Start($"http://localhost:{debuggingPort}{url}");
+                        break;
+                    }
+
+                    await Task.Delay(1000);
+                }
+            });
 #endif
+
             Process.Start(FrontEndExecutable, args);
 
             content.Load();

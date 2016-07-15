@@ -314,7 +314,7 @@ export default class ChampSelect extends Module<Refs> {
         selector.empty();
 
         for (let spell of Assets.gamedata.summoners) {
-            if (this.lastState.inventory.availableSpells.contains(spell.id)) continue;
+            if (!this.lastState.inventory.availableSpells.contains(spell.id)) continue;
 
             let node = this.template('spell-selectable', {
                 imgurl: Assets.summoner.spell(spell.id)
@@ -402,13 +402,11 @@ export default class ChampSelect extends Module<Refs> {
         Service.lockIn();
     }
 
-    private lastQuote: HTMLAudioElement;
     private onChampClick(id) {
         let play = this.lastState.phase == 'PICKING';
         Service.selectChampion(id).then(() => {
             if (play) {
-                if (this.lastQuote) this.lastQuote.pause();
-                this.lastQuote = Audio.champ_quote(id);
+                Audio.champ_quote(id);
             }
         });
     }

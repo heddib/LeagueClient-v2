@@ -7,6 +7,7 @@ import PatcherPage   from './patcher/launcher';
 import Landing       from './landing/landing';
 
 import * as Assets   from './assets/assets';
+import * as Audio    from './assets/audio';
 import * as Meta     from './meta/meta';
 
 import * as Electron from './electron';
@@ -17,6 +18,7 @@ let count = 0;
 
 window['Electron'] = Electron;
 window['Assets'] = Assets;
+window['MyAudio'] = Audio;
 window['Discord'] = Discord;
 window['Settings'] = Settings;
 window['Kappa'] = Kappa;
@@ -36,16 +38,16 @@ window.addEventListener('load', () => {
 
 window.addEventListener('keyup', e => {
     switch (e.keyCode) {
-        case 122:
+        case 123:
             Meta.link(`http://${window.location.host}/ui/diagnostics/info`);
             break;
-        case 123:
-            http('http://localhost:1337/json/list').get(http => {
-                var info = http.json[0];
-                var url = `http://localhost:1337/devtools/inspector.html?ws=localhost:1337/devtools/page/${info.id}`;
-                Meta.link(url);
-            });
-            break;
+        // case 123:
+        //     http('http://localhost:1337/json/list').get(http => {
+        //         var info = http.json[0];
+        //         var url = `http://localhost:1337/devtools/inspector.html?ws=localhost:1337/devtools/page/${info.id}`;
+        //         Meta.link(url);
+        //     });
+            // break;
     }
 });
 

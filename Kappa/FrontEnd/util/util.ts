@@ -217,6 +217,10 @@ module Util {
         });
     }
 
+    export function clamp(val: number, min: number, max: number) {
+        return Math.min(max, Math.max(min, val));
+    }
+
     export function repeat(str: string, count: number) {
         let dst = str;
         for (var i = 0; i < count - 1; i++)

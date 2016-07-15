@@ -103,11 +103,6 @@ namespace Kappa.BackEnd {
 
                             goto default;
 
-                        case MaestroMessageType.GAMECLIENT_STOPPED:
-                        case MaestroMessageType.GAMECLIENT_CRASHED:
-                            this.GameClientClosed?.Invoke(this, new EventArgs());
-                            break;
-
                         default:
                             var ack = new MaestroMessageHeader(MaestroMessageType.ACK, 0);
                             stream.WriteStruct(ack);
@@ -119,6 +114,7 @@ namespace Kappa.BackEnd {
                             Debug.WriteLine("  " + Encoding.UTF8.GetString(payload));
                     }
                 } catch {
+                    this.GameClientClosed?.Invoke(this, new EventArgs());
                     Session.Log("Maestro disconnected");
                 }
             }

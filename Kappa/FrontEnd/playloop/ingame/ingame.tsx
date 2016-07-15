@@ -52,6 +52,7 @@ export default class InGamePage extends Module<Refs> {
         this.subscribe(Service.postState, this.onPostState);
         this.subscribe(Service.finished, this.onFinished);
         this.refs.post.css('display', 'none')
+        this.refs.launch.on('click', () => Service.launch());
         this.refs.leave.on('click', () => this.dispatch(this.closed, {}));
     }
 

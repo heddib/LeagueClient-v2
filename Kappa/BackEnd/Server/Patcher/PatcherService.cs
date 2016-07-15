@@ -11,7 +11,6 @@ using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using Kappa.BackEnd.Server.Patcher.Model;
 using Kappa.Settings;
-using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Patcher {
     public class PatcherService : JSONService {
@@ -72,7 +71,6 @@ namespace Kappa.BackEnd.Server.Patcher {
 
         private void PatchWAD() {
             using (var web = new WebClient()) {
-                #region WAD patching
                 try {
                     while (true) {
                         var wad = wadQueue.Take();
@@ -124,11 +122,7 @@ namespace Kappa.BackEnd.Server.Patcher {
                     //Ignore//
                 }
 
-                #endregion
-
                 launcherState.Phase = PatcherPhase.NONE;
-
-                BackEndServer.Async("/kappa/defer/patch", new JSONObject());
             }
         }
 
@@ -175,7 +169,7 @@ namespace Kappa.BackEnd.Server.Patcher {
                 foreach (var name in required.Keys) writer.WriteLine(name);
             }
 
-            var patchers = required.Select(pair => new ProjectPatcher(region, RADS, pair.Key, pair.Value, solutionTarget)).ToList();
+            var patchers = required.Select(pair => new ProjectPatcher(region, RADS, pair.Key, pair.Value)).ToList();
             var tasks = patchers.Select(p => p.Patch()).ToList();
 
             gameState.Total = patchers.Sum(p => p.TotalBytes);
@@ -188,6 +182,17 @@ namespace Kappa.BackEnd.Server.Patcher {
                     throw task.Exception.InnerException;
                 }
                 tasks.RemoveAll(t => t.IsCompleted);
+            }
+
+            foreach (var copy in patchers.SelectMany(p => p.CopyToSln)) {
+                var dst = Path.Combine(solutionTarget, "deploy", copy.Item1.FullName);
+                var src = copy.Item2;
+                try {
+                    Directory.CreateDirectory(Path.GetDirectoryName(dst));
+                    File.Copy(src, dst);
+                } catch {
+                    //
+                }
             }
 
             using (File.Create(Path.Combine(solutionTarget, "S_OK"))) { }

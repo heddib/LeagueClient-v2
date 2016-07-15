@@ -17,12 +17,12 @@ namespace Kappa.BackEnd.Server.Patcher {
         public long TotalBytes { get; private set; }
         public long DoneBytes => patchingDone;
 
+        public List<Tuple<ManifestFile, string>> CopyToSln { get; } = new List<Tuple<ManifestFile, string>>();
+
         private Region region;
         private string project, version;
         private string root;
         private string target;
-
-        private string solutionTarget;
 
         private Dictionary<string, RAFArchive> archives = new Dictionary<string, RAFArchive>();
 
@@ -30,12 +30,10 @@ namespace Kappa.BackEnd.Server.Patcher {
 
         private long patchingDone;
 
-        public ProjectPatcher(Region region, string rads, string project, string version, string slnTarget) {
+        public ProjectPatcher(Region region, string rads, string project, string version) {
             this.region = region;
             this.project = project;
             this.version = version;
-
-            this.solutionTarget = slnTarget;
 
             this.root = Path.Combine(rads, "projects", project);
 
@@ -93,12 +91,13 @@ namespace Kappa.BackEnd.Server.Patcher {
                 case FileType.MANAGEDFILE:
                     dst = Path.Combine(this.root, "managedfiles", man.MetaData.Version, man.FullName);
                     break;
-                case FileType.COPY_TO_SLN:
-                    dst = Path.Combine(solutionTarget, "deploy", man.FullName);
-                    break;
                 default:
                     dst = Path.Combine(this.root, "releases", version, "deploy", man.FullName);
                     break;
+                }
+
+                if (man.MetaData.Type == FileType.COPY_TO_SLN) {
+                    CopyToSln.Add(Tuple.Create(man, dst));
                 }
 
                 Directory.CreateDirectory(Path.GetDirectoryName(dst));

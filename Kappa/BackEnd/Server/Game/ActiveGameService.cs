@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Kappa.BackEnd.Server.Game.Model;
 using Kappa.BackEnd.Server.Patcher;
 using Kappa.Riot.Services.Http;
+using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Game {
     [Docs("group", "Active Game")]
@@ -19,7 +20,7 @@ namespace Kappa.BackEnd.Server.Game {
         public event EventHandler<ActiveGameState> State;
 
         [Async("/finished")]
-        public event EventHandler<bool> AdvancedOutOfPlayLoop;
+        public event EventHandler<JSONObject> AdvancedOutOfPlayLoop;
 
         private bool inGame;
 
@@ -133,7 +134,7 @@ namespace Kappa.BackEnd.Server.Game {
         }
 
         private void OnAdvancedOutOfPlayLoop(bool error) {
-            AdvancedOutOfPlayLoop?.Invoke(this, error);
+            AdvancedOutOfPlayLoop?.Invoke(this, error ? new JSONObject() : null);
         }
     }
 }
