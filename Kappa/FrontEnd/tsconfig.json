@@ -6,8 +6,9 @@
         "jsx": "react"
     },
     "files": [
-        "define/discord.d.ts",
-        "define/domain.d.ts",
+        "declare/discord.d.ts",
+        "declare/domain.d.ts",
+        "ui/swish.ts",
         "util/jsx.ts",
         
         "util/util.ts",

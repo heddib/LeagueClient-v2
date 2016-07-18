@@ -158,13 +158,10 @@ Array.prototype.orderby = function <T2>(handler) {
     });
     return dst;
 };
-Array.prototype.select = function <T2>(handler) {
-    let dst: T2[] = [];
-    for (let i = 0; i < this.length; i++)
-        dst[i] = handler(this[i], i, this);
-    return dst;
-};
+
+Array.prototype.select = Array.prototype.map;
 Array.prototype.where = Array.prototype.filter;
+
 Array.prototype.first = function (handler) {
     if (!handler) return this[0];
     return this[this.firstIndex(handler)];

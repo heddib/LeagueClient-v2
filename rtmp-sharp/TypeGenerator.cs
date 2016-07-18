@@ -53,7 +53,7 @@ namespace RtmpSharp {
 
         public static void Missing(string name, string memberName, Type type) {
             if (memberName == "futureData" || memberName == "dataVersion") return;
-            Debug.WriteLine($"Type {name} is missing member {memberName} of type {type.FullName}");
+            Debug.WriteLine($"Type {name} is missing member {memberName} of type {type?.FullName ?? "unknown"}");
         }
 
         private static string SanitizeName(string key) {

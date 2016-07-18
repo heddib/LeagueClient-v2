@@ -1,4 +1,3 @@
-import { Swish }      from './../../ui/swish';
 import Module         from './../../ui/module';
 import * as Assets    from './../../assets/assets';
 import * as Audio     from './../../assets/audio';
@@ -200,6 +199,13 @@ export default class ChampSelect extends Module<Refs> {
                     this.refs.exitButton.css('display', 'none');
                 let music = musics[state.queueConfigId] || 'defaultpick';
                 this.music = Audio.music('champselect', music);
+
+                PlayLoop.queues().then(queues => {
+                    let queue = queues.first(q => q.id == state.queueId);
+                    let name = PlayLoop.queueNames[state.queueId] || PlayLoop.featuredNames[state.queueId];
+                    let map = Assets.gamedata.maps.first(m => m.id == queue.map);
+                    console.info(map.name + ', ' + name);
+                });
             });
         }
 

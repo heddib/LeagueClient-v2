@@ -1,5 +1,4 @@
 import http         from './../util/http';
-import { Swish }    from './../ui/swish';
 import Module       from './../ui/module';
 import * as Assets  from './../assets/assets';
 import * as Meta    from './../meta/meta';

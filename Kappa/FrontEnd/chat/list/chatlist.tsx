@@ -1,4 +1,4 @@
-import { Swish }     from './../../ui/swish';
+// import { Swish }     from './../../ui/swish';
 import Module        from './../../ui/module';
 import * as Assets   from './../../assets/assets';
 import * as Audio    from './../../assets/audio';
@@ -154,12 +154,17 @@ export default class ChatList extends Module<Refs> {
         if (new Date(msg.date).setHours(0, 0, 0, 0) != new Date().setHours(0, 0, 0, 0))
             format = 'M/d ' + format;
 
-        var node = this.template('message', {
-            style: msg.received ? 'received' : 'sent',
-            date: Util.datetime(date, format),
-            body: msg.body
-        });
-        this.refs.messageList.add(node);
+        this.refs.messageList.add(
+            <div class={ 'message ' + (msg.received ? 'received' : 'sent') }>
+                <div class="date">
+                    <span>{ Util.datetime(date, format) }</span>
+                </div>
+                <x-flexpadd></x-flexpadd>
+                <div class="body">
+                    <span>{ msg.body }</span>
+                </div>
+            </div>
+        );
         if (scroll) this.refs.messageList.scrollToBottom();
     }
 

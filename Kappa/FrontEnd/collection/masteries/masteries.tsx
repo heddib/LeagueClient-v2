@@ -1,4 +1,3 @@
-import { Swish, $  } from './../../ui/swish';
 import Module        from './../../ui/module';
 import Popup         from './../../ui/popup';
 import * as Tooltip  from './../../ui/tooltip';
@@ -96,10 +95,9 @@ export class Page extends Module<Refs> {
             return;
         }
         for (var group of Assets.gamedata.masteries.tree.groups) {
-            var node = document.createElement('div');
-            node.classList.add('mastery-tree');
+            let node = new Swish(<div class="mastery-tree"/>);
             this.refs.treeContainer.add(node);
-            this.createTree(group, $(node));
+            this.createTree(group, node);
         }
 
         let active: Domain.Collection.MasteryPage;

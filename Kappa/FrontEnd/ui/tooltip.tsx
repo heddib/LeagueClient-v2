@@ -1,4 +1,3 @@
-import { Swish, $  } from './swish';
 import Module        from './module';
 
 const template = (
@@ -12,7 +11,7 @@ function create(node: Swish, module: Content<any>) {
     module.render(tip.refs.container);
 
     node.on('mouseenter', () => {
-        tip.render($(document.body));
+        tip.render(new Swish(document.body));
         module.onshow();
     });
 

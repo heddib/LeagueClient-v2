@@ -1,5 +1,4 @@
 import * as Kappa    from './kappa';
-import { Swish, $  } from './ui/swish';
 import Module        from './ui/module';
 import http          from './util/http';
 import LoginPage     from './login/login';
@@ -28,10 +27,10 @@ window.addEventListener('load', () => {
         (required ? onLoaded : onPatched)()
     });
 
-    $('#exit-button').on('mouseup', e => Kappa.close());
-    $('#min-button').on('mouseup', e => Kappa.minimize());
+    swish('#exit-button').on('mouseup', e => Kappa.close());
+    swish('#min-button').on('mouseup', e => Kappa.minimize());
 
-    $(document.body).on('contextmenu', e => {
+    swish(document.body).on('contextmenu', e => {
         e.preventDefault();
     });
 });
@@ -48,9 +47,9 @@ let module: Module<any>;
 function show(mod: Module<any>) {
     if (module) module.dispose();
 
-    $('#client-area').empty();
+    swish('#client-area').empty();
     module = mod;
-    module.render($('#client-area'));
+    module.render(swish('#client-area'));
 }
 
 function onLoaded() {

@@ -1,4 +1,3 @@
-import { Swish }     from './../../../../ui/swish';
 import Module        from './../../../../ui/module';
 
 var template = (
@@ -10,18 +9,6 @@ var template = (
     </module>
 );
 
-var stat = (
-    <div class="matchstatrow">
-        <div class="label"><span data-ref="name"/></div>
-        <div class="numbers" data-ref="numbers"></div>
-    </div>
-);
-
-var number = (
-    <div class="matchstat">
-        <span data-ref="value"/>
-    </div>
-);
 
 interface Refs {
     header: Swish;
@@ -39,8 +26,7 @@ export default class MatchStatGroup extends Module<Refs> {
 
         this.refs.title.text = name;
         for (let id in stats) {
-            let node = Module.create(stat);
-            node.refs.name.text = stats[id];
+            let cols: Swish[] = [];
 
             for (var part of parts) {
                 let val;
@@ -54,13 +40,25 @@ export default class MatchStatGroup extends Module<Refs> {
                     default:
                         val = part.stats[id];
                 }
-                let num = Module.create(number);
-                num.refs.value.text = val;
-                num.node.setClass(part.participantId == myPartId, 'me');
-                num.render(node.refs.numbers);
+                let num = new Swish(
+                    <div class="matchstat">
+                        <span>{ val }</span>
+                    </div>
+                );
+                num.setClass(part.participantId == myPartId, 'me');
+                cols.push(num);
             }
 
-            node.render(this.refs.list);
+            this.refs.list.add(
+                <div class="matchstatrow">
+                    <div class="label">
+                        <span data-ref="name">{ stats[id]}</span>
+                    </div>
+                    <div class="numbers">
+                        { cols }
+                    </div>
+                </div>
+            );
         }
     }
 }

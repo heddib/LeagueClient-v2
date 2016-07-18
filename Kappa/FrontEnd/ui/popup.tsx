@@ -1,4 +1,3 @@
-import { Swish, $  } from './swish';
 import Module        from './module';
 
 const template = (
@@ -18,6 +17,8 @@ interface Refs {
     container: Swish;
 }
 
+const container = swish('#popup-container');
+
 abstract class Popup<T extends Module<any>> extends Module<Refs> {
     protected module: T;
 
@@ -28,8 +29,8 @@ abstract class Popup<T extends Module<any>> extends Module<Refs> {
 
         this.module = module;
         module.render(this.refs.container);
-        this.render($('#popup-container'));
-        $('#popup-container').addClass('shown');
+        this.render(container);
+        container.addClass('shown');
 
         this.refs.close.on('click', e => this.close());
     }
@@ -37,8 +38,8 @@ abstract class Popup<T extends Module<any>> extends Module<Refs> {
     public dispose() {
         this.node.remove();
 
-        if (!$('#popup-container').children.any) {
-            $('#popup-container').removeClass('shown');
+        if (!container.children.any) {
+            container.removeClass('shown');
         }
 
         this.module.dispose();

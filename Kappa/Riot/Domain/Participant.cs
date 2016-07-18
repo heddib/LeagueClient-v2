@@ -57,6 +57,21 @@ namespace Kappa.Riot.Domain {
         public ChampionDTO Champion { get; set; }
         [SerializedName("teamId")]
         public string TeamId { get; set; }
+
+        [SerializedName("botDifficulty")]
+        public string BotDifficulty { get; set; }
+        [SerializedName("locale")]
+        public string Locale { get; set; }
+        [SerializedName("lastSelectedSkinIndex")]
+        public int LastSelectedSkinIndex { get; set; }
+        [SerializedName("spell2Id")]
+        public int Spell2Id { get; set; }
+        [SerializedName("role")]
+        public string Role { get; set; }
+        [SerializedName("championId")]
+        public int ChampionId { get; set; }
+        [SerializedName("spell1Id")]
+        public int Spell1Id { get; set; }
     }
 
     [Serializable, SerializedName("com.riotgames.platform.game.PlayerParticipant")]

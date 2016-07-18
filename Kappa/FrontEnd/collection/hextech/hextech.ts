@@ -1,4 +1,3 @@
-import { Swish }      from './../../ui/swish';
 import Module         from './../../ui/module';
 import * as Assets    from './../../assets/assets';
 import * as Service   from './service';

@@ -1,5 +1,3 @@
-import { Swish, $ } from './swish';
-
 export abstract class Custom<T> extends HTMLElement {
     private _refs: T;
 
@@ -21,7 +19,7 @@ export abstract class Custom<T> extends HTMLElement {
                 }
             }
         }
-        $(content, '*').do(callback);
+        swish(content, '*').do(callback);
         callback(this.node);
 
         for (var i = 0; i < content.childNodes.length; i++) {

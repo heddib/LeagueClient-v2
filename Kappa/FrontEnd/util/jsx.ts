@@ -1,11 +1,33 @@
 module React {
+    function addElement(parent: HTMLElement, child) {
+        if (child instanceof HTMLElement) {
+            parent.appendChild(child);
+            return;
+        }
+
+        if (child instanceof Array) {
+            for (var sub of child) addElement(parent, child);
+            return;
+        }
+
+        if (['string', 'number'].contains(typeof child)) {
+            parent.appendChild(document.createTextNode(child));
+            return;
+        }
+
+        console.info(child);
+        console.info(child.constructor.name);
+    }
+
     export function createElement<P>(name: string, props: P, ...children: any[]) {
         let node = document.createElement(name);
-        for (let id in props) node.setAttribute(id, props[id]);
-        for (let child of children) {
-            if (typeof child == 'string') child = document.createTextNode(child);
-            node.appendChild(child);
-        }
+
+        for (let id in props)
+            node.setAttribute(id, props[id]);
+
+        for (let child of children)
+            addElement(node, child);
+
         return node;
     }
 

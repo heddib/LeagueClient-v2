@@ -1,5 +1,6 @@
 ﻿using Kappa.Riot.Domain;
 using Kappa.Riot.Domain.TeambuilderDraft;
+using MFroehlich.League.Assets;
 using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Game.Model {
@@ -30,9 +31,11 @@ namespace Kappa.BackEnd.Server.Game.Model {
 
         public LobbyMember(GameParticipant m) : this(m.SummonerInternalName) {
             Name = m.SummonerName;
-            var bot = m as BotParticipant;
-            if (bot != null)
-                Champ = bot.Champion.ChampionId;
+            if (m is BotParticipant) {
+                var split = m.SummonerInternalName.Split('_');
+                var name = split[1];
+                Champ = DataDragon.ChampData.Value.data[name].key;
+            }
         }
     }
 }

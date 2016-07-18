@@ -1,4 +1,3 @@
-import { Swish }     from './../ui/swish';
 import Module        from './../ui/module';
 import * as Audio    from './../assets/audio';
 import * as Assets   from './../assets/assets';

@@ -1,4 +1,3 @@
-import { Swish, $  } from './../../ui/swish';
 import * as Defer    from './../../defer';
 import * as Assets   from './../../assets/assets';
 

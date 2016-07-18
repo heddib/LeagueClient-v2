@@ -1,6 +1,25 @@
 type NodeArg = Node | Swish;
 
-export class Swish {
+function swish(one: NodeArg | NodeList | Array<Element> | string, two?: string): Swish {
+    if (typeof one != 'string' && !two) return new Swish(<any>one);
+    var node, query;
+    if (one instanceof Swish) {
+        node = one[0];
+        query = two;
+    } else if (one instanceof Node && two) {
+        node = one;
+        query = two;
+    } else if (one instanceof Array || one instanceof NodeList || one instanceof Node) {
+        return new Swish(one);
+    } else {
+        node = document;
+        query = one;
+    }
+    var nodes = node.querySelectorAll(query);
+    return new Swish(nodes);
+};
+
+class Swish {
     private _length: number;
 
     public get length() {
@@ -26,12 +45,12 @@ export class Swish {
         var array = [this];
         for (var i = 0; i < args.length; i++)
             array[i + 1] = args[i];
-        return $.apply(window, array);
+        return swish.apply(window, array);
     }
 
     public do(foreach: (n: Swish) => void) {
         for (var i = 0; i < this.length; i++)
-            foreach($(this[i]));
+            foreach(swish(this[i]));
     }
 
     public doraw(handle: (n: Element) => void) {
@@ -46,7 +65,7 @@ export class Swish {
             if (q instanceof Swish) q = q[0];
             nodes.push(<any>q);
         });
-        return $(nodes);
+        return swish(nodes);
     }
 
     public get where() { return this.filter; }
@@ -54,7 +73,7 @@ export class Swish {
         if (!callback) callback = n => !!n;
         var nodes: Element[] = [];
         this.do(n => callback(n) ? nodes.push(n[0]) : '');
-        return $(nodes);
+        return swish(nodes);
     }
 
     public on(e: string, c: EventListener) {
@@ -137,7 +156,7 @@ export class Swish {
         this[0].focus();
     }
     public clone(deep: boolean) {
-        return $(this[0].cloneNode(deep));
+        return swish(this[0].cloneNode(deep));
     }
 
     public replace(node: NodeArg) {
@@ -155,11 +174,11 @@ export class Swish {
     }
 
     public single(index: number = 0) {
-        return $(this[index]);
+        return swish(this[index]);
     }
 
-    public get children() { return $(this[0].childNodes).nodes; }
-    public get parent() { return $(this[0].parentNode); }
+    public get children() { return swish(this[0].childNodes).nodes; }
+    public get parent() { return swish(this[0].parentNode); }
 
     public get classes() { return this[0].classList; }
 
@@ -171,8 +190,8 @@ export class Swish {
         return node == this[0];
     }
 
-    public get first() { return $(this[0]); }
-    public get last() { return $(this[this.length - 1]); }
+    public get first() { return swish(this[0]); }
+    public get last() { return swish(this[this.length - 1]); }
 
     public get nodes() {
         return this.filter(n => n[0].nodeType == Node.ELEMENT_NODE);
@@ -208,22 +227,3 @@ export class Swish {
     public get bounds(): ClientRect { return this[0].getBoundingClientRect(); }
     public get styling() { return window.getComputedStyle(this[0]); }
 }
-
-export function $(one: NodeArg | NodeList | Array<Element> | string, two?: string): Swish {
-    if (typeof one != 'string' && !two) return new Swish(<any>one);
-    var node, query;
-    if (one instanceof Swish) {
-        node = one[0];
-        query = two;
-    } else if (one instanceof Node && two) {
-        node = one;
-        query = two;
-    } else if (one instanceof Array || one instanceof NodeList || one instanceof Node) {
-        return new Swish(one);
-    } else {
-        node = document;
-        query = one;
-    }
-    var nodes = node.querySelectorAll(query);
-    return new Swish(nodes);
-};

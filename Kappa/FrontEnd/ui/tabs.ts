@@ -1,5 +1,3 @@
-import { Swish, $ } from './swish';
-
 export function create(tabs: Swish[], start: number, handler: (old: number, now: number) => void) {
     let index = -1;
     let force = i => {
