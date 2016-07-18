@@ -98,7 +98,7 @@ export class Track {
         let id = setInterval(() => {
             this.base.volume = Math.max(0, this.base.volume - .01);
             
-            if (this.base.volume = 0) clearInterval(id);
+            if (this.base.volume == 0) clearInterval(id);
         }, 8)
     }
 }

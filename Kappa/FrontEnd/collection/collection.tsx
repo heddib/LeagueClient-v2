@@ -10,8 +10,8 @@ import * as Masteries from './masteries/masteries';
 const template = (
     <module class="collection">
         <div class="header">
-            <div class="tab-button" data-ref="tab0" id><span>HEXTECH</span></div>
-            <div class="tab-button" data-ref="tab1" id><span>CHAMPIONS</span></div>
+            <div class="tab-button" data-ref="tab0"><span>HEXTECH</span></div>
+            <div class="tab-button" data-ref="tab1"><span>CHAMPIONS</span></div>
             <div class="tab-button" data-ref="tab2"><span>MASTERIES</span></div>
             <div class="tab-button" data-ref="tab3"><span>RUNES</span></div>
         </div>

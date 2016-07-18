@@ -1,4 +1,4 @@
-namespace Domain {
+declare namespace Domain {
     export namespace Assets {
         export interface AssetsInfo {
             version: string;

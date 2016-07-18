@@ -6,10 +6,12 @@
         "jsx": "react"
     },
     "files": [
+        "define/discord.d.ts",
+        "define/domain.d.ts",
         "util/jsx.ts",
-        "discord/discord.d.ts",
+        
         "util/util.ts",
-        "test.ts",
+
         "client.ts"
     ]
 }

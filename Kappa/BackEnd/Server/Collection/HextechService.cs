@@ -46,7 +46,9 @@ namespace Kappa.BackEnd.Server.Collection {
                 var arg = JSONParser.ParseObject((string) msg.Params[0]);
                 var rawLoot = JSONDeserializer.Deserialize<ChampionMasteryLootGrant>(arg);
 
-                Add(inventory, true, rawLoot.LootName, 1, null);
+                if (rawLoot.LootName != null)
+                    Add(inventory, true, rawLoot.LootName, 1, null);
+
                 OnUpdate();
                 break;
             }

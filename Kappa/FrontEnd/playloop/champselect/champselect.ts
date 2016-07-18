@@ -463,9 +463,18 @@ export default class ChampSelect extends Module<Refs> {
         this.dispatch(this.closed, {});
     }
 
+    private autoLocked = false;
     private onTimerTick() {
         var diff = this.timerEnd - new Date().getTime();
         diff = Math.max(diff, 0);
+
+        if (diff < 1000 && this.lastState.me.active && this.lastState.me.champion != 0) {
+            if (!this.autoLocked) {
+                Service.lockIn();
+                this.autoLocked = true;
+            }
+        } else this.autoLocked = false;
+
         this.refs.phaseTitle.text = this.header + ' - ' + Math.floor(diff / 1000)
     }
 }

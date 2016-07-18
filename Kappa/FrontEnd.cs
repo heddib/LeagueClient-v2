@@ -7,9 +7,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
-using Kappa.BackEnd;
 using Kappa.Util;
 using MFroehlich.Parsing.JSON;
 

@@ -8,8 +8,8 @@ import Stats         from './stats/stats';
 var template = (
     <module class="matchdetails">
         <div class="header" data-ref="navHeader">
-            <div class="tab-button" data-ref="tab0" id><span>SCOREBOARD</span></div>
-            <div class="tab-button" data-ref="tab1" id><span>OVERVIEW</span></div>
+            <div class="tab-button" data-ref="tab0"><span>SCOREBOARD</span></div>
+            <div class="tab-button" data-ref="tab1"><span>OVERVIEW</span></div>
             <div class="tab-button" data-ref="tab2"><span>STATS</span></div>
             <x-flexpadd></x-flexpadd>
             <div class="tab-button" data-ref="backButton"><span>BACK</span></div>

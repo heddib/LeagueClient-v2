@@ -1,8 +1,8 @@
 module React {
-    export function createElement(name: string, props: { [id: string]: string }, ...args: any[]) {
+    export function createElement<P>(name: string, props: P, ...children: any[]) {
         let node = document.createElement(name);
         for (let id in props) node.setAttribute(id, props[id]);
-        for (let child of args) {
+        for (let child of children) {
             if (typeof child == 'string') child = document.createTextNode(child);
             node.appendChild(child);
         }
