@@ -2,13 +2,31 @@ import Module         from './../ui/module';
 
 import * as Invite    from './../invite/invite';
 
+// class Thing extends React.Component<{ name: string }, { thingy: Swish }> {
+//     constructor(props) {
+//         super(props);
+
+//         this.refs.thingy.text = 'Hello ' + this.props.name;
+//     }
+//     render() {
+//         return (
+//             <div ref="thingy" onClick={ this.onClick }/>
+//         );
+//     }
+
+//     onClick(s: HTMLDivElement, e: MouseEvent) {
+//         console.log('hi');
+//     }
+// }
+
 const template = (
     <module class="landing-home">
         <div class="left">
             <div class="invite-list" data-ref="inviteList"></div>
         </div>
         <x-flexpadd></x-flexpadd>
-        <div class="right"/>
+        <div class="right">
+        </div>
     </module>
 );
 

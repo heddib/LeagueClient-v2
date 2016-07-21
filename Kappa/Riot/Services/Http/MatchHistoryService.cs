@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Kappa.BackEnd;
+using Kappa.Riot.Domain.JSON.MatchHistory;
 using MFroehlich.League.RiotAPI;
 using MFroehlich.Parsing.JSON;
-using Kappa.Riot.Domain.JSON.MatchHistory;
+using Region = LeagueSharp.Region;
 
 namespace Kappa.Riot.Services.Http {
     public class MatchHistoryService {
@@ -15,15 +17,15 @@ namespace Kappa.Riot.Services.Http {
             this.session = session;
         }
         public async Task<PlayerHistory> GetMatchHistory(long accountId) {
-            return await FetchAsync<PlayerHistory>($"https://acs.leagueoflegends.com/v1/stats/player_history/{BackEnd.Region.Current.Platform}/{accountId}?begIndex=0&endIndex=20");
+            return await FetchAsync<PlayerHistory>($"https://acs.leagueoflegends.com/v1/stats/player_history/{Region.Current.Platform}/{accountId}?begIndex=0&endIndex=20");
         }
 
         public async Task<MatchAPI.Timeline> GetMatchTimeline(long gameId) {
-            return await FetchAsync<MatchAPI.Timeline>($"https://acs.leagueoflegends.com/v1/stats/game/{BackEnd.Region.Current.Platform}/{gameId}/timeline");
+            return await FetchAsync<MatchAPI.Timeline>($"https://acs.leagueoflegends.com/v1/stats/game/{Region.Current.Platform}/{gameId}/timeline");
         }
 
         public async Task<MatchDetails> GetMatchDetails(long gameId) {
-            return await FetchAsync<MatchDetails>($"https://acs.leagueoflegends.com/v1/stats/game/{BackEnd.Region.Current.Platform}/{gameId}");
+            return await FetchAsync<MatchDetails>($"https://acs.leagueoflegends.com/v1/stats/game/{Region.Current.Platform}/{gameId}");
         }
 
         public async Task<PlayerDeltas> GetDeltas() {
@@ -31,9 +33,9 @@ namespace Kappa.Riot.Services.Http {
         }
 
         private async Task<T> FetchAsync<T>(string url) where T : new() {
-            var req = System.Net.WebRequest.Create(url);
+            var req = WebRequest.Create(url);
             var b64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(session.LoginQueue.GasToken.ToJSON()));
-            req.Headers.Add("region", BackEnd.Region.Current.Platform);
+            req.Headers.Add("region", Region.Current.Platform);
             req.Headers.Add("authorization", "GasTokenRaw " + b64);
 
             using (var res = await req.GetResponseAsync())

@@ -1,53 +1,72 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.HashFunction;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using MFroehlich.Parsing;
-using System.Linq;
 
-namespace Kappa.BackEnd.Server.Patcher {
+namespace LeagueSharp.Archives {
     public class WADArchive {
-        public Dictionary<ulong, WADFile> AllFiles { get; } = new Dictionary<ulong, WADFile>();
-        public FileInfo File;
+        public Dictionary<ulong, FileInfo> AllFiles { get; } = new Dictionary<ulong, FileInfo>();
+        public System.IO.FileInfo File;
+        public byte[] Unknown1 { get; } = new byte[84];
+        public ulong Unknown2 { get; }
+        public ushort FileInfosOffset { get; }
+        public ushort FileInfoSize { get; }
 
         // ReSharper disable once InconsistentNaming
         private static readonly xxHash xxHash = new xxHash(64);
 
         public WADArchive(string wad) {
-            File = new FileInfo(wad);
-
-            var padding = new byte[96];
+            File = new System.IO.FileInfo(wad);
 
             using (var stream = File.OpenRead()) {
-                stream.ReadStruct<WADHeader>();
+                var header = stream.ReadStruct<Header>();
 
-                stream.ReadFully(padding, 0, padding.Length);
+                stream.ReadFully(Unknown1, 0, Unknown1.Length);
+                Unknown2 = stream.ReadStruct<ulong>();
+                FileInfosOffset = stream.ReadStruct<ushort>();
+                FileInfoSize = stream.ReadStruct<ushort>();
                 var count = stream.ReadStruct<uint>();
 
                 for (var i = 0; i < count; i++) {
-                    var file = stream.ReadStruct<WADFile>();
+                    var file = stream.ReadStruct<FileInfo>();
                     AllFiles.Add(file.PathHash, file);
                 }
             }
         }
 
-        public bool TryGetFile(string path, out WADFile file) {
-            return AllFiles.TryGetValue(Hash(path), out file);
+        public bool TryGetFile(string path, out FileInfo fileInfo) {
+            return AllFiles.TryGetValue(Hash(path), out fileInfo);
         }
 
-        public string Extract(WADFile file) {
-            using (var stream = GetStream(file))
+        public byte[] ExtractTest(FileInfo fileInfo, out byte[] thing) {
+            using (var tmp = File.OpenRead()) {
+                tmp.Seek(fileInfo.Offset, SeekOrigin.Begin);
+                thing = new byte[fileInfo.ZipSize];
+                tmp.ReadFully(thing, 0, thing.Length);
+            }
+            using (var stream = GetStream(fileInfo))
             using (var mem = new MemoryStream()) {
-                stream.CopyToLength(mem, file.Size);
-                return Encoding.UTF8.GetString(mem.ToArray());
+                stream.CopyToLength(mem, fileInfo.Size);
+                return mem.ToArray();
             }
         }
 
-        public void ExtractFile(WADFile file, string dst, bool extend = true) {
-            using (var stream = GetStream(file)) {
+        public byte[] Extract(FileInfo fileInfo) {
+            using (var stream = GetStream(fileInfo))
+            using (var mem = new MemoryStream()) {
+                stream.CopyToLength(mem, fileInfo.Size);
+                return mem.ToArray();
+            }
+        }
+
+        public void ExtractFile(FileInfo fileInfo, string dst, bool extend = true) {
+            using (var stream = GetStream(fileInfo)) {
                 Directory.CreateDirectory(Path.GetDirectoryName(dst));
 
                 var peek = new byte[8];
@@ -59,15 +78,15 @@ namespace Kappa.BackEnd.Server.Patcher {
                 using (var extract = System.IO.File.OpenWrite(dst)) {
                     extract.Write(peek, 0, peek.Length);
 
-                    stream.CopyToLength(extract, file.Size - peek.Length);
+                    stream.CopyToLength(extract, fileInfo.Size - peek.Length);
                 }
             }
         }
 
-        private Stream GetStream(WADFile file) {
+        private Stream GetStream(FileInfo fileInfo) {
             var stream = File.OpenRead();
-            stream.Seek(file.Offset, SeekOrigin.Begin);
-            if (file.Zipped != 0)
+            stream.Seek(fileInfo.Offset, SeekOrigin.Begin);
+            if (fileInfo.Zipped != 0)
                 return new GZipStream(stream, CompressionMode.Decompress);
             return stream;
         }
@@ -79,14 +98,14 @@ namespace Kappa.BackEnd.Server.Patcher {
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        private struct WADHeader {
+        internal struct Header {
             public ushort Magic;
             public byte Major;
             public byte Minor;
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        public struct WADFile {
+        public struct FileInfo {
             public ulong PathHash;
             public uint Offset;
             public uint ZipSize;

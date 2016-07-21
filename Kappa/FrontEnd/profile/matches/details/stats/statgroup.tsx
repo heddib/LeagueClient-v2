@@ -40,7 +40,7 @@ export default class MatchStatGroup extends Module<Refs> {
                     default:
                         val = part.stats[id];
                 }
-                let num = new Swish(
+                let num = React.template(
                     <div class="matchstat">
                         <span>{ val }</span>
                     </div>
@@ -49,7 +49,7 @@ export default class MatchStatGroup extends Module<Refs> {
                 cols.push(num);
             }
 
-            this.refs.list.add(
+            this.refs.list.add(React.template(
                 <div class="matchstatrow">
                     <div class="label">
                         <span data-ref="name">{ stats[id]}</span>
@@ -58,7 +58,7 @@ export default class MatchStatGroup extends Module<Refs> {
                         { cols }
                     </div>
                 </div>
-            );
+            ));
         }
     }
 }

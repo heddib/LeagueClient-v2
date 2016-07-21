@@ -1,5 +1,4 @@
 import Module       from './../../ui/module';
-import * as Element from './../../ui/element';
 import * as Assets  from './../../assets/assets';
 
 const template = (

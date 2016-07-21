@@ -3,9 +3,10 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using LeagueSharp.RADS;
 using MFroehlich.Parsing;
 
-namespace Kappa.BackEnd.Server.Patcher {
+namespace LeagueSharp.Archives {
     public class RAFArchive {
         public Dictionary<string, RAFFile> AllFiles { get; }
 

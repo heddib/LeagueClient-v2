@@ -43,7 +43,9 @@ export default class MatchHistory extends Module<Refs> {
             this.history = history;
             this.update();
         }).catch(error => {
-            let msg = <span class="service-error-msg">An error has occured</span>;
+            let msg = React.template(
+                <span class="service-error-msg">An error has occured</span>
+            );
             this.refs.list.add(msg);
         });
 
@@ -62,13 +64,16 @@ export default class MatchHistory extends Module<Refs> {
 
         for (let match of this.history.games.games) {
             let delta = this.deltas ? this.deltas.deltas.first(d => d.gameId == match.gameId) : null;
-            let summary = new MatchSummary(this.summ, match, delta);
-            summary.selected.on(() => {
-                let task = Service.details(match.gameId);
-                task.then(dets => this.details(dets));
-            });
-            summary.render(this.refs.list);
+            let summary = React.template(
+                <MatchSummary summ={ this.summ } game={ match } delta={ delta } onSelected={ () => this.select(match) }/>
+            );
+            this.refs.list.add(summary);
         }
+    }
+
+    private select(match: Domain.MatchHistory.MatchDetails) {
+        let task = Service.details(match.gameId);
+        task.then(dets => this.details(dets));
     }
 
     private details(details: Domain.MatchHistory.MatchDetails) {

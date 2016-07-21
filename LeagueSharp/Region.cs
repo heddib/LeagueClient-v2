@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kappa.BackEnd {
+namespace LeagueSharp {
     public class Region {
         public enum PatcherBranch {
             LIVE,

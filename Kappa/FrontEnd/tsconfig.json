@@ -9,7 +9,7 @@
         "declare/discord.d.ts",
         "declare/domain.d.ts",
         "ui/swish.ts",
-        "util/jsx.ts",
+        "ui/jsx.ts",
         
         "util/util.ts",
 

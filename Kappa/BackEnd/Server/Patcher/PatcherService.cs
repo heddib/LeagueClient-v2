@@ -11,6 +11,9 @@ using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 using Kappa.BackEnd.Server.Patcher.Model;
 using Kappa.Settings;
+using LeagueSharp;
+using LeagueSharp.Archives;
+using LeagueSharp.RADS;
 
 namespace Kappa.BackEnd.Server.Patcher {
     public class PatcherService : JSONService {

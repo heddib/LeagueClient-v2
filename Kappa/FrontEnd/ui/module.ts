@@ -1,4 +1,4 @@
-abstract class Module<T> extends EventSource implements IDisposable {
+abstract class Module<T> extends EventSource {
     public static import(url: string): HTMLLinkElement {
         var node = document.createElement('link');
         node.rel = 'import';
@@ -20,30 +20,30 @@ abstract class Module<T> extends EventSource implements IDisposable {
 
     public closed = this.create<{}>();
 
-    constructor(link: HTMLLinkElement | JSX.Element) {
+    constructor(link: HTMLLinkElement | React.VirtualNode<any>) {
         super();
 
-        if (link.nodeName == 'LINK') {
+        if (link instanceof React.VirtualNode) {
+            this._node = new Swish(link.create(this, this.refs));
+        } else {
             this._import = swish(link['import'], 'body');
             this._node = swish(this._import, 'module').clone(true);
-        } else {
-            this._node = swish(link).clone(true);
-        }
 
-        let callback = (n: Swish) => {
-            let ref: string = n.data('ref');
-            if (ref) this.refs[ref] = n;
+            let callback = (n: Swish) => {
+                let ref: string = n.data('ref');
+                if (ref) this.refs[ref] = n;
 
-            let events: string = n.data('event');
-            if (events) {
-                for (let str of events.split(' ')) {
-                    let pair = str.split(':');
-                    n.on(pair[0], e => this[pair[1]](e, n));
+                let events: string = n.data('event');
+                if (events) {
+                    for (let str of events.split(' ')) {
+                        let pair = str.split(':');
+                        n.on(pair[0], e => this[pair[1]](e, n));
+                    }
                 }
             }
+            swish(this.node, '*').do(callback);
+            callback(this.node);
         }
-        swish(this.node, '*').do(callback);
-        callback(this.node);
     }
 
     public dispose() {

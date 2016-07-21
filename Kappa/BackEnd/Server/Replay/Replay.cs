@@ -7,6 +7,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Kappa.Util;
+using LeagueSharp;
 using MFroehlich.Parsing;
 using MFroehlich.Parsing.JSON;
 

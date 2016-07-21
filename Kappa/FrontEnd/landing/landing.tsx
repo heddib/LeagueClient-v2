@@ -7,10 +7,12 @@ import * as Summoner  from './../summoner/summoner';
 import * as Meta      from './../meta/meta';
 
 import ChatList       from './../chat/list/chatlist';
+import SocialSidebar  from './../social/sidebar/list';
 
 import CollectionPage from './../collection/collection';
 import PlayLoop       from './../playloop/playloop';
 import ProfilePage    from './../profile/profile';
+import SocialPage     from './../social/page';
 import HomePage       from './home';
 
 const template = (
@@ -22,9 +24,10 @@ const template = (
                 <div class="tab-button" data-ref="homeTab"><span>HOME</span></div>
                 <div class="tab-button" data-ref="profileTab"><span>PROFILE</span></div>
                 <div class="tab-button" data-ref="collectionTab"><span>COLLECTION</span></div>
+                <div class="tab-button" data-ref="socialTab"><span>SOCIAL</span></div>
                 <div class="tab-button" data-ref="storeTab"><span>STORE</span></div>
 
-                <x-flexpadd></x-flexpadd>
+                <x-flexpadd/>
 
                 <div class="alerts-profile">
                     <div class="balance">
@@ -53,6 +56,7 @@ interface Refs {
     homeTab: Swish;
     profileTab: Swish;
     collectionTab: Swish;
+    socialTab: Swish;
     storeTab: Swish;
 
     ip: Swish;
@@ -66,26 +70,26 @@ interface Refs {
 
 export default class Landing extends Module<Refs> {
     private loadedShop: boolean;
-    private chatlist: ChatList;
     private tabChange: (index: number) => void;
 
     private play: PlayLoop;
     private home: HomePage;
     private profile: ProfilePage;
     private collection: CollectionPage;
+    private social: SocialPage;
 
-    private tabs: any[];
+    private tabs: { node: Swish }[];
 
     public constructor(accountState: Domain.Authentication.AccountState) {
         super(template);
 
-        this.chatlist = new ChatList();
-        this.chatlist.render(this.refs.friendsContainer);
+        this.social = new SocialPage({});
+        this.refs.friendsContainer.add(this.social.sidebar.node);
 
         this.home = new HomePage();
-        this.play = new PlayLoop(this.chatlist);
-        this.collection = new CollectionPage();
+        this.play = new PlayLoop(this.social.sidebar);
         this.profile = new ProfilePage();
+        this.collection = new CollectionPage();
 
         this.refs.storeTab.on('click', e => {
             Summoner.store().then(url => Meta.link(url));
@@ -95,9 +99,9 @@ export default class Landing extends Module<Refs> {
 
         this.subscribe(Summoner.me, this.onMe);
 
-        this.tabs = [this.play, this.home, this.profile, this.collection];
+        this.tabs = [this.play, this.home, this.profile, this.collection, this.social];
 
-        let tabs = [this.refs.mainTab, this.refs.homeTab, this.refs.profileTab, this.refs.collectionTab];
+        let tabs = [this.refs.mainTab, this.refs.homeTab, this.refs.profileTab, this.refs.collectionTab, this.refs.socialTab];
         this.tabChange = Tabs.create(tabs, 1, (old, now) => this.onTabChange(old, now));
 
         if (accountState.inGame) {
@@ -131,9 +135,9 @@ export default class Landing extends Module<Refs> {
 
     private timeoutId: number;
     private onTabChange(old: number, now: number) {
-        let mod = this.tabs[now];
+        let node = this.tabs[now].node;
 
-        mod.render(this.refs.containerBack);
+        this.refs.containerBack.add(node);
         this.refs.container.addClass('faded');
 
         const duration = 150;
@@ -144,7 +148,7 @@ export default class Landing extends Module<Refs> {
             this.refs.container.removeClass('faded');
 
             this.timeoutId = setTimeout(() => {
-                mod.render(this.refs.container);
+                this.refs.container.add(node);
             }, duration);
         }, duration);
     }

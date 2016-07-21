@@ -1,5 +1,6 @@
 ﻿using Kappa.Riot.Domain;
 using Kappa.Riot.Domain.JSON;
+using LeagueSharp;
 using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Authentication.Model {

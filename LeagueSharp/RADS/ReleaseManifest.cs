@@ -7,7 +7,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Kappa.BackEnd.Server.Patcher {
+namespace LeagueSharp.RADS {
     public class ReleaseManifest {
         private string[] strings;
 

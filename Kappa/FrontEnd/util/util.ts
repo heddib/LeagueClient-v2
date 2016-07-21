@@ -46,10 +46,6 @@ interface Subscribable<T> {
     off(handler: (value: T) => void);
 }
 
-interface IDisposable {
-    dispose(): void;
-}
-
 class AsyncValue<T> implements Subscribable<T> {
     private _id = guid();
     private _value: T;
@@ -147,6 +143,7 @@ interface Array<T> {
 
     random(handler?: (o: T, i: number, a: Array<T>) => boolean): T;
 }
+
 Array.prototype.orderby = function <T2>(handler) {
     let dst = this.slice();
     dst.sort((a, b) => {

@@ -30,6 +30,7 @@ using Kappa.BackEnd.Server.Replay;
 using Kappa.Riot.Domain.JSON;
 using Kappa.Riot.Services.Http;
 using RtmpSharp.Net;
+using Region = LeagueSharp.Region;
 using SummonerService = Kappa.BackEnd.Server.Summoner.SummonerService;
 
 namespace Kappa.BackEnd {
@@ -58,8 +59,8 @@ namespace Kappa.BackEnd {
 
         private LoginSession loginSession;
 
-        private SummonerService summoner;
         private ChatService chat;
+        private SummonerService summoner;
 
         public Session() {
             AccountService = new Riot.Services.AccountService(this);
@@ -186,6 +187,7 @@ namespace Kappa.BackEnd {
             var context = Riot.Services.Service.RegisterObjects();
             rtmp = new RtmpClient(new Uri("rtmps://" + Region.Current.MainServer + ":2099"), context, ObjectEncoding.Amf3);
             rtmp.MessageReceived += Rtmp_MessageReceived;
+            rtmp.Disconnected += Rtmp_Disconnected;
             await rtmp.ConnectAsync();
 
             chat.Connect(auth);
@@ -284,6 +286,10 @@ namespace Kappa.BackEnd {
 
         private void Rtmp_MessageReceived(object sender, MessageReceivedEventArgs e) {
             HandleMessage(e.Body);
+        }
+
+        private void Rtmp_Disconnected(object sender, EventArgs e) {
+            Debug.WriteLine("Disconnected");
         }
 
         #endregion

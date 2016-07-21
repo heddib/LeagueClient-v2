@@ -151,6 +151,10 @@ namespace Kappa.BackEnd.Server.Game {
             return true;
         }
 
+        private void UpdateHasInvite() {
+            
+        }
+
         #endregion
 
         #region Endpoints

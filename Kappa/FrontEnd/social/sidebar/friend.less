@@ -1,10 +1,9 @@
-module.chatfriend {
+module.chatfriend3 {
     display: flex;
     transition: background 100ms;
     background: @backgroundcolor;
     margin: 0 10px 10px;
     cursor: pointer;
-    -webkit-user-select: none;
 
     > .icon {
         > img {
@@ -12,6 +11,7 @@ module.chatfriend {
             height: 64px;
         }
     }
+
     > .text {
         .flex-padd();
         margin: 0 8px 0 8px;
@@ -35,6 +35,7 @@ module.chatfriend {
             font-weight: 500;
         }
     }
+
     > .invite-button {
         position: absolute;
         top: 16px;
@@ -44,6 +45,7 @@ module.chatfriend {
         display: none;
         cursor: pointer;
     }
+
     &.inviting {
         cursor: default;
         
@@ -51,18 +53,23 @@ module.chatfriend {
             display: initial;
         }
     }
+
     &:hover {
         background: lighten(@backgroundcolor, 10%);
     }
+
     &.chat > .text > .status {
         color: #00BD00;
     }
+
     &.dnd > .text > .status {
         color: #E0D100;
     }
+
     &.away > .text > .status {
         color: red;
     }
+
     &.mobile {
         > .icon > img {
             width: 48px;
@@ -72,6 +79,7 @@ module.chatfriend {
             opacity: .6;
         }
     }
+
     &.unread {
         .drop-shadow(10px; cadetblue);
     }

@@ -12,6 +12,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Kappa.BackEnd.Server.Patcher;
 using Kappa.Riot.Domain.JSON.lol_game_data;
+using LeagueSharp;
+using LeagueSharp.Archives;
+using LeagueSharp.RADS;
 using MFroehlich.Parsing.JSON;
 using MFroehlich.Parsing.JSON.Dynamic;
 
@@ -137,15 +140,15 @@ namespace Kappa.BackEnd.Server.Assets {
             }
 
             if (url == null) return false;
-            WADArchive.WADFile file;
-            if (!lolGameData.Result.TryGetFile(url, out file))
+            WADArchive.FileInfo fileInfo;
+            if (!lolGameData.Result.TryGetFile(url, out fileInfo))
                 return false;
 
             context.Response.Headers.Add("Cache-Control", "max-age=31536000, public");
             context.Response.ContentType = GetMimeType(context.Request.Url.LocalPath);
 
             using (var stream = lolGameData.Result.File.OpenRead())
-                HandleStream(context, stream, file.Offset, file.Size);
+                HandleStream(context, stream, fileInfo.Offset, fileInfo.Size);
 
             #endregion
 
@@ -249,13 +252,13 @@ namespace Kappa.BackEnd.Server.Assets {
         }
 
         private static T ExtractJSON<T>(WADArchive archive, Func<string, string> path) {
-            WADArchive.WADFile file;
+            WADArchive.FileInfo fileInfo;
 
-            if (archive.TryGetFile(path(Region.Locale.ToLowerInvariant()), out file))
-                return JSONDeserializer.Deserialize<T>(JSONParser.Parse(archive.Extract(file)));
+            if (archive.TryGetFile(path(Region.Locale.ToLowerInvariant()), out fileInfo))
+                return JSONDeserializer.Deserialize<T>(JSONParser.Parse(archive.Extract(fileInfo)));
 
-            if (archive.TryGetFile(path(GameDataAssets.DefaultLocale), out file))
-                return JSONDeserializer.Deserialize<T>(JSONParser.Parse(archive.Extract(file)));
+            if (archive.TryGetFile(path(GameDataAssets.DefaultLocale), out fileInfo))
+                return JSONDeserializer.Deserialize<T>(JSONParser.Parse(archive.Extract(fileInfo)));
 
             throw new KeyNotFoundException($"File {path(GameDataAssets.DefaultLocale)} not found");
         }

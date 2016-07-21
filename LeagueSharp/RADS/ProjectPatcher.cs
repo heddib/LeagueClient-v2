@@ -1,5 +1,4 @@
-﻿using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -8,10 +7,12 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using ICSharpCode.SharpZipLib;
-using FileType = Kappa.BackEnd.Server.Patcher.ReleaseManifest.FileType;
-using ManifestFile = Kappa.BackEnd.Server.Patcher.ReleaseManifest.ManifestFile;
+using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
+using LeagueSharp.Archives;
+using FileType = LeagueSharp.RADS.ReleaseManifest.FileType;
+using ManifestFile = LeagueSharp.RADS.ReleaseManifest.ManifestFile;
 
-namespace Kappa.BackEnd.Server.Patcher {
+namespace LeagueSharp.RADS {
     public class ProjectPatcher {
         public ReleaseManifest Manifest { get; }
         public long TotalBytes { get; private set; }

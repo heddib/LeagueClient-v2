@@ -33,10 +33,6 @@ const pageTemplate = (
     </div>
 );
 
-const rowTemplate = (
-    <div class="mastery-row"></div>
-);
-
 const iconTemplate = (
     <div class="mastery-icon">
         <img data-ref="icon"/>
@@ -95,9 +91,10 @@ export class Page extends Module<Refs> {
             return;
         }
         for (var group of Assets.gamedata.masteries.tree.groups) {
-            let node = new Swish(<div class="mastery-tree"/>);
+            let node = this.createTree(group);
+            // let node = React.template(<div class="mastery-tree"/>);
             this.refs.treeContainer.add(node);
-            this.createTree(group, node);
+            // this.createTree(group, node);
         }
 
         let active: Domain.Collection.MasteryPage;
@@ -209,10 +206,11 @@ export class Page extends Module<Refs> {
         this.renderPage();
     }
 
-    private createTree(src: Domain.GameData.MasteryGroup, dst: Swish) {
+    private createTree(src: Domain.GameData.MasteryGroup) {
+        let dst = React.template(<div class="mastery-tree"/>);
+
         for (let y = 0; y < src.rows.length; y++) {
-            let row = Module.create(rowTemplate);
-            row.node.setClass(src.rows[y].maxPointsInRow == 1, 'single');
+            let row = React.template(<div class="mastery-row" class-single={ src.rows[y].maxPointsInRow == 1 }/>)
             for (let id of src.rows[y].masteries) {
                 let info = Assets.gamedata.masteries.data[id];
                 let icon = Module.create(iconTemplate);
@@ -221,15 +219,18 @@ export class Page extends Module<Refs> {
 
                 icon.node.setClass(info.maxRank == 1, 'single');
 
-                icon.render(row.node);
+                icon.render(row);
                 icon.node.on('wheel', (e: WheelEvent) => this.onMasteryChange(info, src, y, -e.deltaY / Math.abs(e.deltaY)));
 
                 Tooltip.top(icon.node, new MasteryTooltip(info));
 
                 this.icons[info.id] = icon;
             }
-            row.render(dst);
+
+            dst.add(row);
         }
+
+        return dst;
     }
 }
 

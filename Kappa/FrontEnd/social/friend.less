@@ -1,0 +1,90 @@
+module.chatfriend2 {
+    .drop-shadow();
+    display: flex;
+    background: @backgroundcolor;
+    margin: 15px;
+    margin-top: 0;
+    cursor: pointer;
+
+    > .status-outline {
+        transition: width 100ms;
+        width: 2px;
+    }
+
+    > .icon {
+        > img {
+            width: 80px;
+            height: 80px;
+        }
+    }
+
+    > .text {
+        .flex-padd();
+        margin: 0 8px 0 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-bottom: 3px;
+
+        > .name {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        > .message {
+            opacity: .8;
+            font-weight: 100;
+        }
+
+        > .status {
+            display: flex;
+            font-weight: 500;
+        }
+    }
+
+    &:hover > .status-outline {
+        width: 4px;
+    }
+
+    &.chat {
+        > .status-outline {
+            background-color: #00BD00;
+        }
+        > .text > .status {
+            color: #00BD00;
+        }
+    }
+
+    &.dnd {
+        > .status-outline {
+            background-color: #E0D100;
+        }
+        > .text > .status {
+            color: #E0D100;
+        }
+    }
+
+    &.away {
+        > .status-outline {
+            background-color: red;
+        }
+        > .text > .status {
+            color: red;
+        }
+    }
+
+    &.mobile {
+        > .status-outline {
+            background-color: fade(@textcolor, 30%);
+        }
+
+        > .icon > img {
+            width: 64px;
+            height: 64px;
+        }
+
+        > .text {
+            color: fade(@textcolor, 60%);
+        }
+    }
+}

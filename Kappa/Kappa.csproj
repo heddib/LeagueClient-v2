@@ -94,9 +94,14 @@
     <Compile Include="BackEnd\Server\Collection\Model\MasteryBook.cs" />
     <Compile Include="BackEnd\Server\Diagnostics\InfoService.cs" />
     <Compile Include="BackEnd\Server\Diagnostics\Model\Versions.cs" />
+    <None Include="BackEnd\Server\Game\Delegate\ChampSelectDelegate.cs" />
+    <None Include="BackEnd\Server\Game\Delegate\LobbyDelegate.cs" />
+    <None Include="BackEnd\Server\Game\Delegate\MatchmakingDelegate.cs" />
+    <None Include="BackEnd\Server\Game\Delegate\PlayLoopDelegate.cs" />
+    <None Include="BackEnd\Server\Game\Delegate\Standard\StandardLobby.cs" />
+    <None Include="BackEnd\Server\Game\Delegate\Standard\StandardPlayLoop.cs" />
     <Compile Include="BackEnd\Server\Game\Model\PostGameState.cs" />
     <Compile Include="BackEnd\Server\Game\PostGameService.cs" />
-    <Compile Include="BackEnd\Server\Patcher\WADArchive.cs" />
     <Compile Include="BackEnd\Server\Authentication\Account.cs" />
     <Compile Include="BackEnd\Server\Collection\ChampionsService.cs" />
     <Compile Include="BackEnd\Server\Collection\HextechService.cs" />
@@ -108,9 +113,6 @@
     <Compile Include="BackEnd\Server\Meta\SettingsService.cs" />
     <Compile Include="BackEnd\Server\Patcher\Model\PatcherState.cs" />
     <Compile Include="BackEnd\Server\Patcher\PatcherService.cs" />
-    <Compile Include="BackEnd\Server\Patcher\ProjectPatcher.cs" />
-    <Compile Include="BackEnd\Server\Patcher\RAFArchive.cs" />
-    <Compile Include="BackEnd\Server\Patcher\ReleaseManifest.cs" />
     <Compile Include="BackEnd\Server\Profile\MatchHistoryService.cs" />
     <Compile Include="BackEnd\Server\Replay\Replay.cs" />
     <Compile Include="BackEnd\Server\Replay\ReplayService.cs" />
@@ -211,7 +213,6 @@
     <Compile Include="BackEnd\Server\Game\PlayLoopService.cs" />
     <Compile Include="BackEnd\MessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BackEnd\Region.cs" />
     <Compile Include="BackEnd\RiotUtils.cs" />
     <Compile Include="BackEnd\RiotVersion.cs" />
     <Compile Include="Riot\Services\AccountService.cs" />
@@ -249,6 +250,10 @@
     <ProjectReference Include="..\..\Libraries\RiotAPI\RiotAPI.csproj">
       <Project>{68a7ca3c-c11e-4237-95e7-b6ca129dae61}</Project>
       <Name>RiotAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LeagueSharp\LeagueSharp.csproj">
+      <Project>{FEF19599-7EA6-48BE-9E96-5ADDCB64BACC}</Project>
+      <Name>LeagueSharp</Name>
     </ProjectReference>
     <ProjectReference Include="..\rtmp-sharp\rtmp-sharp.csproj">
       <Project>{E787B02C-5050-43CF-B4C1-AAA1CB1C6BC6}</Project>

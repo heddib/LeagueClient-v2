@@ -51,11 +51,7 @@ namespace Kappa {
         public override bool Handle(HttpListenerContext context) {
             string path = context.Request.Url.LocalPath.Substring(BaseUrl.Length);
 
-#if BUILD_UI
             if (content.TryHandle(path, context, false)) return true;
-#else
-            if (content.TryHandle(path, context, true)) return true;
-#endif
             if (assets.TryHandle(path, context, true)) return true;
 
             return false;

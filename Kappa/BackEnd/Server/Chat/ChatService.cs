@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using agsXMPP.Xml.Dom;
+using LeagueSharp;
 using static MFroehlich.League.RiotAPI.CurrentGameAPI;
 using RosterItem = agsXMPP.protocol.iq.roster.RosterItem;
 

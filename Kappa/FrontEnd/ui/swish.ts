@@ -1,6 +1,6 @@
 type NodeArg = Node | Swish;
 
-function swish(one: NodeArg | NodeList | Array<Element> | string, two?: string): Swish {
+function swish(one: NodeArg | NodeList | Array<Element> | React.Component<any, any> | string, two?: string): Swish {
     if (typeof one != 'string' && !two) return new Swish(<any>one);
     var node, query;
     if (one instanceof Swish) {
@@ -29,13 +29,18 @@ class Swish {
         return this.length > 0;
     }
 
-    constructor(one: NodeArg | NodeList | Array<Element>) {
+    constructor(one: NodeArg | NodeList | Array<Element> | React.Component<any, any>) {
         if (!one) return null;
-        if (one instanceof NodeList || one instanceof Array) {
+        if (one instanceof React.Component) {
+            this[0] = one.node[0];
+            this._length = 1;
+        }
+        else if (one instanceof NodeList || one instanceof Array) {
             for (var i = 0; i < one.length; i++)
                 this[i] = one[i];
             this._length = one.length;
-        } else if (one instanceof Node) {
+        }
+        else if (one instanceof Node) {
             this[0] = one;
             this._length = 1;
         }

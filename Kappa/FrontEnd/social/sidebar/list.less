@@ -1,26 +1,26 @@
-#chatlist {
+module.social-sidebar {
     display: flex;
     flex-direction: column;
         
-    #my-profile {
+    > .profile {
         flex: 0 0 auto;
         padding: 10px;
         display: flex;
         align-items: flex-end;
         
-        .profile-icon {
+        .icon {
             width: 80px;
             height: 80px;
             margin-right: 10px;
         }
         
-        .summoner-name {
+        .name {
             font-size: 24px;
             margin-bottom: -5px;
         }
     }
     
-    #friends-list {
+    > .list {
         .no-scroll();
         .flex-padd();
         padding-top: 10px;
@@ -32,13 +32,11 @@
         }
     }
     
-    #active-chat {
+    > .chat {
         width: 100%;
         height: 300px;
         display: none;
         flex-direction: column;
-        transform: translateY(0);
-        transition: transform 200ms ease-in-out;
         background: @foregroundcolor;
         
         &.expanded {
@@ -119,4 +117,3 @@
         }
     }
 }
-    

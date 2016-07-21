@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mail;
+using Kappa.BackEnd.Server.Authentication;
+using Kappa.Settings;
 using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Summoner {
@@ -13,12 +15,14 @@ namespace Kappa.BackEnd.Server.Summoner {
         private Me me;
 
         private Session session;
+        private SummonerSettings settings;
 
         [Async("/me")]
         public event EventHandler<Me> Me;
 
         public SummonerService(Session session) : base("/summoner") {
             this.session = session;
+            this.settings = GetSettings<SummonerSettings>();
 
             var messages = new MessageConsumer(session);
 
@@ -38,6 +42,20 @@ namespace Kappa.BackEnd.Server.Summoner {
             me.OnBalance(balance);
             Me?.Invoke(this, me);
             return true;
+        }
+
+        internal async Task<long> GetSummonerId(string name) {
+            name = Minify(name);
+            long id;
+            if (settings.Summoners.TryGetValue(name, out id)) return id;
+
+            var summ = await session.SummonerService.GetSummonerByName(name);
+            settings.Summoners.Add(name, summ.SummonerId);
+            return summ.SummonerId;
+        }
+
+        private static string Minify(string name) {
+            return name.ToLowerInvariant().Replace(" ", "");
         }
 
         [Endpoint("/store")]
@@ -74,6 +92,10 @@ namespace Kappa.BackEnd.Server.Summoner {
                 Teamworks = raw[3],
                 Honorables = raw[4]
             };
+        }
+
+        private class SummonerSettings : BaseSettings {
+            public Dictionary<string, long> Summoners { get; set; } = new Dictionary<string, long>();
         }
     }
 }

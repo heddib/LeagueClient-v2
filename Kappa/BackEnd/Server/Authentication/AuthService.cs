@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Kappa.Util;
+using LeagueSharp;
 
 namespace Kappa.BackEnd.Server.Authentication {
     [Docs("group", "Authentication")]
