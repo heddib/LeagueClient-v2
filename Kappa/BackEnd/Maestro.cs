@@ -114,7 +114,7 @@ namespace Kappa.BackEnd {
                             Debug.WriteLine("  " + Encoding.UTF8.GetString(payload));
                     }
                 } catch {
-                    this.GameClientClosed?.Invoke(this, new EventArgs());
+                    this.GameClientClosed?.Invoke(this, EventArgs.Empty);
                     Session.Log("Maestro disconnected");
                 }
             }

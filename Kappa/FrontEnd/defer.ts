@@ -1,4 +1,4 @@
-import * as Kappa from './kappa';
+import { Defer as Service } from './backend/services';
 
 interface IHandler {
     done: boolean;
@@ -28,4 +28,4 @@ function dispatch(name: string) {
         handlers[name].handlers.shift()();
 }
 
-Kappa.subscribe('/defer/auth', () => dispatch('auth'));
+Service.auth.on(() => dispatch('auth'));

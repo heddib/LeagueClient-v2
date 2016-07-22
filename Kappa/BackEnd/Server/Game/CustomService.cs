@@ -160,7 +160,7 @@ namespace Kappa.BackEnd.Server.Game {
 
         private void OnAdvancedToChampSelect() {
             Reset();
-            AdvancedToChampSelect?.Invoke(this, new EventArgs());
+            AdvancedToChampSelect?.Invoke(this, EventArgs.Empty);
         }
     }
 }

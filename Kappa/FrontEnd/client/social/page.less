@@ -1,0 +1,99 @@
+module.social-page {
+    .landing-background();
+    display: flex;
+
+    > .left {
+        .flex-padd();
+    }
+
+    > .right {
+        .flex-padd();
+        padding-right: 15px;
+        display: flex;
+        flex-direction: column;
+
+        > .active-chat {
+            flex: 2;
+            width: 100%;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            
+            &:not(.expanded) {
+                display: none;
+            }
+            
+            .title {
+                font-size: 22px;
+                font-weight: 500;
+                position: relative;
+                margin-bottom: 5px;
+                
+                > .exit-button {
+                    padding: 6px 0;
+                    width: 100%;
+                    position: absolute;
+                    background-position-x: calc(100% - 6px);
+                }
+            }
+            
+            .message-list {
+                .flex-padd();
+                overflow: auto;
+                display: flex;
+                flex-direction: column;
+                padding: 4px 0;
+                text-shadow: none;
+            
+                > .message {
+                    flex: 0 0 auto;
+                    .no-select();
+                    display: flex;
+                    align-items: center;
+                    margin: 2px 4px;
+                    word-break: break-word;
+                    font-size: 14px;
+                    
+                    .body {
+                        padding: 2px 8px 4px 8px;
+                        cursor: default;
+                        border-radius: 5px;
+                    }
+
+                    .date {
+                        flex: 0 0 auto;
+                        opacity: 0;
+                        transition: opacity 150ms;
+                    }
+
+                    &:hover > .date {
+                        opacity: 1;
+                    }
+
+                    &.received {
+                        flex-direction: row-reverse;
+
+                        .body {
+                            background: #0D338C;
+                        }
+                    }
+
+                    &.sent .body {
+                        background: green;
+                    }
+                }
+            }
+
+            .chat-input {
+                margin: 10px 0;
+
+                > input {
+                    width: 100%;
+                    outline: none;
+                    font-size: 14px;
+                    border: 1px solid gray;
+                }
+            }
+        }
+    }
+}

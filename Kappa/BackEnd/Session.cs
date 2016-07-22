@@ -100,7 +100,6 @@ namespace Kappa.BackEnd {
             var champions = new ChampionsService(this);
             var masteries = new MasteriesService(this);
             var runes = new RunesService(this);
-            var skins = new SkinsService(this);
 
             var matches = new Server.Profile.MatchHistoryService(this);
 
@@ -226,7 +225,7 @@ namespace Kappa.BackEnd {
             this.Me = await summoner.Connect(session);
 
             try {
-                Authed?.Invoke(this, new EventArgs());
+                Authed?.Invoke(this, EventArgs.Empty);
             } catch (Exception x) {
                 Log("Caught exception while dispatching auth: " + x);
             }

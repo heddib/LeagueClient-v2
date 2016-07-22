@@ -533,22 +533,22 @@ namespace Kappa.BackEnd.Server.Game {
 
         private void OnGameStarted() {
             Reset();
-            GameStarted?.Invoke(this, new EventArgs());
+            GameStarted?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnAdvancedToLobby() {
             Reset();
-            AdvancedToLobby?.Invoke(this, new EventArgs());
+            AdvancedToLobby?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnAdvancedToCustom() {
             Reset();
-            AdvancedToCustom?.Invoke(this, new EventArgs());
+            AdvancedToCustom?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnAdvancedToMatchmaking() {
             Reset();
-            AdvancedToMatchmaking?.Invoke(this, new EventArgs());
+            AdvancedToMatchmaking?.Invoke(this, EventArgs.Empty);
         }
     }
 }

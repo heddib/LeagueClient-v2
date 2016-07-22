@@ -8,11 +8,11 @@
     "files": [
         "declare/discord.d.ts",
         "declare/domain.d.ts",
-        "ui/swish.ts",
-        "ui/jsx.ts",
+        "client/ui/swish.ts",
+        "client/ui/jsx.ts",
         
         "util/util.ts",
 
-        "client.ts"
+        "client/client.ts"
     ]
 }

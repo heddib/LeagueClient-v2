@@ -169,7 +169,6 @@
     <Compile Include="BackEnd\Server\Chat\ChatUtils.cs" />
     <Compile Include="BackEnd\Server\Chat\Model\ChatMessage.cs" />
     <Compile Include="BackEnd\Server\Collection\Model\Skin.cs" />
-    <Compile Include="BackEnd\Server\Collection\SkinsService.cs" />
     <Compile Include="BackEnd\Server\Diagnostics\DocumentationService.cs" />
     <Compile Include="BackEnd\Server\Diagnostics\LogService.cs" />
     <Compile Include="BackEnd\Server\Game\ActiveGameService.cs" />

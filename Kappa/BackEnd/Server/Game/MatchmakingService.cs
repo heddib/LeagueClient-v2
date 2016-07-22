@@ -205,11 +205,11 @@ namespace Kappa.BackEnd.Server.Game {
         }
 
         private void OnAdvancedToLobby() {
-            AdvancedToLobby?.Invoke(this, new EventArgs());
+            AdvancedToLobby?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnAdvancedToChampSelect() {
-            AdvancedToChampSelect?.Invoke(this, new EventArgs());
+            AdvancedToChampSelect?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Kappa.Riot.Domain;
 using Kappa.Util;
 using LeagueSharp;
 
@@ -17,10 +18,22 @@ namespace Kappa.BackEnd.Server.Authentication {
         private AuthResult auth;
         private Session session;
 
+        [Async("/kicked")]
+        public event EventHandler Kicked;
+
         public AuthService(Session session) : base("/login") {
             this.session = session;
             this.session.Authed += Session_Authed;
             settings = GetSettings<LoginSettings>();
+
+            var messages = new MessageConsumer(session);
+            messages.Consume<ClientLoginKickNotification>(OnClientLoginKickNotification);
+        }
+
+        private bool OnClientLoginKickNotification(ClientLoginKickNotification not) {
+            Kicked?.Invoke(this, EventArgs.Empty);
+
+            return true;
         }
 
         private void Session_Authed(object sender, EventArgs e) {

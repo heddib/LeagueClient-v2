@@ -36,7 +36,7 @@ namespace Kappa.BackEnd.Server.Game.Delegate {
         }
 
         protected void OnAdvancedToMatchmaking() {
-            AdvancedToMatchmaking?.Invoke(this, new EventArgs());
+            AdvancedToMatchmaking?.Invoke(this, EventArgs.Empty);
         }
     }
 }

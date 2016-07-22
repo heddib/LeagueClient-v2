@@ -26,7 +26,7 @@ namespace Kappa {
         }
 
         public void Start(string host) {
-            var args = $"--backend=\"http://{host}/ui/client.html\"";
+            var args = $"--backend=\"http://{host}/ui/client/client.html\"";
 
 #if BUILD_UI
             const int debuggingPort = 1337;
@@ -64,8 +64,8 @@ namespace Kappa {
                         select file;
             foreach (string file in loose) Console.WriteLine(file);
 
-            string src = Path.Combine(contentRoot, "client.less");
-            string dst = Path.Combine(Path.GetDirectoryName(src), "bin", "compiled.css");
+            string src = Path.Combine(contentRoot, @"client\client.less");
+            string dst = Path.Combine(contentRoot, "bin", "compiled.css");
 
             const string npm = @"C:\Users\Max\AppData\Roaming\npm";
             Func<string, string, Process> start = (file, args) => Process.Start(new ProcessStartInfo {
@@ -92,7 +92,7 @@ namespace Kappa {
             var tsc = start("tsc", "-p .");
             tsc.WaitForExit();
 
-            var rollup = start("rollup", @"-f iife -o bin\compiled.js bin\client.js");
+            var rollup = start("rollup", @"-f iife -o bin\compiled.js bin\client\client.js");
             rollup.WaitForExit();
 
             less.WaitForExit();

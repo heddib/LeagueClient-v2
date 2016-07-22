@@ -49,7 +49,7 @@ namespace Kappa.BackEnd.Server {
 
                         if (result.MessageType == System.Net.WebSockets.WebSocketMessageType.Close) {
                             await Base.CloseAsync(System.Net.WebSockets.WebSocketCloseStatus.NormalClosure, "", CancellationToken.None);
-                            OnClose?.Invoke(this, new EventArgs());
+                            OnClose?.Invoke(this, EventArgs.Empty);
                             Base.Dispose();
                         } else {
                             OnMessage?.Invoke(this, new MessageEventArgs(mem.ToArray(), result));
@@ -57,9 +57,9 @@ namespace Kappa.BackEnd.Server {
                     }
                 }
             } catch (ApplicationException) {
-                OnClose?.Invoke(this, new EventArgs());
+                OnClose?.Invoke(this, EventArgs.Empty);
             } catch (System.Net.WebSockets.WebSocketException) {
-                OnClose?.Invoke(this, new EventArgs());
+                OnClose?.Invoke(this, EventArgs.Empty);
             }
         }
     }
