@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Kappa.BackEnd.Server.Chat;
 using Kappa.BackEnd.Server.Game.Model;
@@ -11,10 +10,12 @@ using Kappa.Riot.Services;
 
 namespace Kappa.BackEnd.Server.Game.Delegate.Standard {
     internal class StandardLobby : LobbyDelegate {
+        private StandardPlayLoop loop;
         private Session session;
 
-        public StandardLobby(Session session, ChatRoomService rooms) : base(session, rooms) {
+        public StandardLobby(Session session, StandardPlayLoop loop, ChatRoomService rooms) : base(session, rooms) {
             this.session = session;
+            this.loop = loop;
 
             Messages.Consume<LobbyStatus>(OnLobbyStatus);
             Messages.Consume<InvitePrivileges>(OnInvitePrivelages);
@@ -84,18 +85,18 @@ namespace Kappa.BackEnd.Server.Game.Delegate.Standard {
         }
 
 
-        public override async Task CreateLobby(int id) {
-            var service = new GameInvitationService(session);
-            var lobby = await service.CreateArrangedTeamLobby(id);
+        //public override async Task CreateLobby(int id) {
+        //    var service = new GameInvitationService(session);
+        //    var lobby = await service.CreateArrangedTeamLobby(id);
 
-            if (lobby == null) throw new Exception("???");
-            OnLobbyStatus(lobby);
-        }
+        //    if (lobby == null) throw new Exception("???");
+        //    OnLobbyStatus(lobby);
+        //}
 
         public override async Task StartQueue() {
             var mmp = new MatchMakerParams {
                 InvitationId = lastLobbyStatus.InvitationId,
-                QueueIds = new List<int> { loop.CurrentQueueId },
+                QueueIds = new List<int> { loop.QueueId },
                 Team = lastLobbyStatus.Members.Select(m => m.SummonerId).ToList()
             };
 

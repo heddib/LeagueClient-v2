@@ -25,3 +25,5 @@ export function show() {
 export function resize(w: number, h: number) {
     ClientWindow.resize(w, h);
 }
+
+export default ClientWindow;

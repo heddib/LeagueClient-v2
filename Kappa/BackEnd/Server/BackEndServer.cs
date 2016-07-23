@@ -92,24 +92,24 @@ namespace Kappa.BackEnd.Server {
                         try {
                             if (context.Request.IsWebSocketRequest) {
                                 HandleWebSocketRequest(context);
+                                return;
                             }
-                            else {
-                                using (context.Response) {
-                                    var handled = false;
-                                    foreach (var service in services) {
-                                        if (!context.Request.Url.LocalPath.StartsWith(service.BaseUrl)) continue;
-                                        try {
-                                            handled = service.Handle(context);
-                                        } catch (HttpListenerException x) when (x.ErrorCode == 1236) {
-                                            //Connection closed
-                                            return;
-                                        }
-                                        if (handled) break;
-                                    }
 
-                                    if (!handled) {
-                                        context.Response.StatusCode = 404;
+                            using (context.Response) {
+                                var handled = false;
+                                foreach (var service in services) {
+                                    if (!context.Request.Url.LocalPath.StartsWith(service.BaseUrl)) continue;
+                                    try {
+                                        handled = service.Handle(context);
+                                    } catch (HttpListenerException x) when (x.ErrorCode == 1236) {
+                                        //Connection closed
+                                        return;
                                     }
+                                    if (handled) break;
+                                }
+
+                                if (!handled) {
+                                    context.Response.StatusCode = 404;
                                 }
                             }
                         } catch (HttpListenerException) { }

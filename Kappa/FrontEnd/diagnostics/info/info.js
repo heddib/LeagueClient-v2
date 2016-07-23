@@ -1,6 +1,7 @@
 var $ = $$;
 
 $.http('/kappa/info/versions').post('[]', http => {
-    $('#game').text = http.json.value.game;
-    $('#patch').text = http.json.value.patch;
+    $('#patch').text = 'Patch ' + http.json.value.patch;
+    $('#game').text = 'Game Client: ' + http.json.value.game;
+    $('#wad').text = 'Game Assets: ' + http.json.value.wad;
 });

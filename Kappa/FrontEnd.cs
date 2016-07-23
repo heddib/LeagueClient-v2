@@ -59,11 +59,6 @@ namespace Kappa {
 
         [Conditional("BUILD_UI")]
         public void Build(string contentRoot, string assetsRoot) {
-            var loose = from ext in ContentFileTypes
-                        from file in Directory.EnumerateFiles(assetsRoot, "*" + ext, SearchOption.AllDirectories)
-                        select file;
-            foreach (string file in loose) Console.WriteLine(file);
-
             string src = Path.Combine(contentRoot, @"client\client.less");
             string dst = Path.Combine(contentRoot, "bin", "compiled.css");
 
@@ -77,16 +72,6 @@ namespace Kappa {
                 CreateNoWindow = true,
                 Arguments = args,
             });
-
-            var lessFiles = Directory.EnumerateFiles(contentRoot, "*.less", SearchOption.AllDirectories);
-            var client = File.ReadAllText(src);
-            foreach (string file in lessFiles) {
-                if (client.Contains(Path.GetFileName(file))) continue;
-                if (file.Contains("client.less")) continue;
-
-                var path = file.Substring(contentRoot.Length + 1).Replace('\\', '/');
-                Debug.WriteLine($"    @import \"{path}\";");
-            }
 
             var less = start("lessc", $"-sm=\"on\" \"{Path.GetFullPath(src)}\" \"{Path.GetFullPath(dst)}\"");
             var tsc = start("tsc", "-p .");

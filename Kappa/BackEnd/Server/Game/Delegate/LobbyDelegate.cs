@@ -21,7 +21,6 @@ namespace Kappa.BackEnd.Server.Game.Delegate {
             Messages = new MessageConsumer(session);
         }
 
-        public abstract Task CreateLobby(int id);
         public abstract Task StartQueue();
 
         public void Reset() {

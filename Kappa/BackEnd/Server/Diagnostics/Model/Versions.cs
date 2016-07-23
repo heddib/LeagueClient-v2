@@ -10,5 +10,9 @@ namespace Kappa.BackEnd.Server.Diagnostics.Model {
     public class Versions {
         public string Game { get; set; }
         public string Patch { get; set; }
+        [JSONField("wad")]
+        public string WAD { get; set; }
+        [JSONField("wads")]
+        public List<string> WADs { get; set; }
     }
 }

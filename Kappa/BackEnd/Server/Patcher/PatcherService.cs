@@ -17,6 +17,9 @@ using LeagueSharp.RADS;
 
 namespace Kappa.BackEnd.Server.Patcher {
     public class PatcherService : JSONService {
+        public List<string> WADs { get; } = new List<string>();
+        public string WADVersion { get; private set; }
+
         //private static readonly string RADS = Path.Combine(@"C:\Riot Games", "League of Legends", "RADS");
         private static readonly string RADS = Path.Combine(Session.AppData, "League of Legends", "RADS");
         private const string SolutionName = "lol_game_client_sln";
@@ -75,14 +78,15 @@ namespace Kappa.BackEnd.Server.Patcher {
         private void PatchWAD() {
             using (var web = new WebClient()) {
                 try {
+                    var listing = web.DownloadString(Region.Current.ReleaseListing("projects", "league_client"));
+                    var latest = listing.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).First();
+                    WADVersion = latest;
+
                     while (true) {
                         var wad = wadQueue.Take();
                         var localFile = GetStorage(wad.Name + ".wad");
 
-                        var listing = web.DownloadString(Region.Current.ReleaseListing("projects", "league_client"));
-                        var latest = listing.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).First();
                         string saved;
-
                         if (!File.Exists(localFile) || !settings.WADVersions.TryGetValue(wad.Name, out saved) || latest != saved) {
                             var package = web.DownloadString(Region.Current.PackageManifest("league_client", latest));
                             var manifest = package.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Skip(1);
@@ -118,7 +122,7 @@ namespace Kappa.BackEnd.Server.Patcher {
                             settings.Save();
                         }
 
-                        Session.Log($"Loaded wad {wad.Name} v{latest}");
+                        Session.Log($"{wad.Name}: v{latest}");
                         wad.Supply(new WADArchive(localFile));
                     }
                 } catch (InvalidOperationException) {
@@ -130,6 +134,8 @@ namespace Kappa.BackEnd.Server.Patcher {
         }
 
         internal async Task<WADArchive> PatchWAD(string plugin) {
+            WADs.Add(plugin);
+
             var patch = new AsyncPatch(plugin);
             wadQueue.Add(patch);
             return await patch.Get();

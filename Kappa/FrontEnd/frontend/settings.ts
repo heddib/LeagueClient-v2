@@ -1,4 +1,4 @@
-import * as Defer from  './../defer';
+import * as Defer from  './../frontend/defer';
 
 import { Meta as Service } from './../backend/services';
 

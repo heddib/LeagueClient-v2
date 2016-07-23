@@ -1,7 +1,7 @@
 import Module        from './../../ui/module';
 import Popup         from './../../ui/popup';
 import * as Tooltip  from './../../ui/tooltip';
-import * as Defer    from './../../../defer';
+import * as Defer    from './../../../frontend/defer';
 import * as Assets   from './../../../frontend/assets';
 
 import { Masteries as Service } from './../../../backend/services';

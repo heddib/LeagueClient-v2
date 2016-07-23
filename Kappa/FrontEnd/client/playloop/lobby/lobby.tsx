@@ -1,5 +1,5 @@
 import Module          from './../../ui/module';
-import * as Electron   from './../../../electron';
+import * as CEF        from './../../../cef';
 import * as Audio      from './../../../frontend/audio';
 import * as Assets     from './../../../frontend/assets';
 import * as Summoner   from './../../../frontend/summoner';
@@ -110,9 +110,14 @@ export default class Lobby extends Module<Refs> {
         this.$('#enter-queue').disabled = !state.canMatch;
 
         this.$('#member-list').empty();
-        for (let member of state.members) {
-            Summoner.get(member.name).then(s => this.renderSlot(member, state.members.length, state.me, s.icon));
+        for (let i = 0; i < state.members.length; i++) {
+            Summoner.get(state.members[i].name).then(s => {
+                this.renderSlot(state.members, i, state.me, s.icon);
+            });
         }
+        // for (let member of state.members) {
+        //     Summoner.get(member.name).then(s => this.renderSlot(member, state.members.length, state.me, s.icon));
+        // }
 
         this.invite.update(state.isCaptain || state.canInvite, state.invitees);
     }
@@ -126,7 +131,7 @@ export default class Lobby extends Module<Refs> {
                 Audio.effect('lobby', 'pop');
                 this.$('#queue-info').css('display', 'none');
                 this.$('#afk-check').css('display', null);
-                Electron.focus();
+                CEF.focus();
             }
 
             this.queueStart = 0;
@@ -165,7 +170,9 @@ export default class Lobby extends Module<Refs> {
         this.$('#chat-area').add(this.chatRoom.node);
     }
 
-    private renderSlot(member: Domain.Game.LobbyMember, lobbySize: number, me: Domain.Game.LobbyMember, icon: number) {
+    private renderSlot(list: Domain.Game.LobbyMember[], index: number, me: Domain.Game.LobbyMember, icon: number) {
+        let member = list[index];
+
         var data = {
             id: member.id,
             // class: mySlot == slot.slotId ? 'me' : 'friend',
@@ -175,12 +182,8 @@ export default class Lobby extends Module<Refs> {
             role2: member.role2 ? member.role2.toLowerCase() : '',
         };
 
-        var old = this.$("#member-" + data.id);
         var node = this.template('member', data);
-        if (old.length > 0)
-            old.replace(node);
-        else
-            this.$('#member-list').append(node);
+        this.$('#member-list').insert(node, index);
 
         if (member.id == me.id) {
             node.addClass('member-me');
@@ -192,7 +195,7 @@ export default class Lobby extends Module<Refs> {
 
         if (!data.role1) {
             node.addClass('no-roles');
-        } else if (data.role1 == "fill" || lobbySize == 5) {
+        } else if (data.role1 == "fill" || list.length == 5) {
             node.$('.role2').css('display', 'none');
         }
     }

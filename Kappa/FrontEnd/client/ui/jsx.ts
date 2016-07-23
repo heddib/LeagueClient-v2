@@ -116,7 +116,6 @@ module React {
         onWaiting: 'waiting',
         onWheel: 'wheel',
     }
-    let registered: Map<string, any> = new Map();
     export abstract class Component<P, R> {
         private _refs: R;
         private _props: P & Attributes;

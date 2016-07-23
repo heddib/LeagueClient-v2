@@ -1,4 +1,4 @@
-import { Defer as Service } from './backend/services';
+import { Defer as Service } from './../backend/services';
 
 interface IHandler {
     done: boolean;

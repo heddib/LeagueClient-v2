@@ -9,7 +9,7 @@ import * as Assets   from './../frontend/assets';
 import * as Audio    from './../frontend/audio';
 import { Meta }      from './../backend/services';
 
-import * as Electron from './../electron';
+import * as CEF      from './../cef';
 
 let count = 0;
 
@@ -22,7 +22,7 @@ window.addEventListener('load', () => {
     });
 
     swish('#exit-button').on('mouseup', e => Meta.close());
-    swish('#min-button').on('mouseup', e => Electron.minimize());
+    swish('#min-button').on('mouseup', e => CEF.minimize());
 
     swish(document.body).on('contextmenu', e => {
         e.preventDefault();
@@ -49,14 +49,14 @@ function show(mod: Module<any>) {
 function onLoaded() {
     let page = new PatcherPage();
     page.closed.on(() => onPatched());
-    Electron.show();
+    CEF.show();
 
     show(page);
 }
 
 function onPatched() {
     var page = new LoginPage();
-    page.load.on(() => Electron.show());
+    page.load.on(() => CEF.show());
     page.auth.on(state => onAuthed(state));
 
     show(page);

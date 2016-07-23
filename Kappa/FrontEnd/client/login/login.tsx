@@ -78,7 +78,7 @@ export default class Page extends Module<Refs> {
         this.refs.video.src = Assets.login.video;
 
         Service.saved().then(accounts => {
-            if (accounts && accounts.length > 0) {
+            if (accounts && accounts.any()) {
                 this.refs.switch.addClass('visible');
                 this.refs.switch.on('click', () => this.change());
                 this.change();

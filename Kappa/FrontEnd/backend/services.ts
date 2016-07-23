@@ -1,5 +1,5 @@
 import http          from './../util/http';
-import * as Electron from './../electron';
+import * as CEF      from './../cef';
 
 namespace Socket {
     const ws = new WebSocket(`ws://${window.location.host}/async`, 'protocolTwo');
@@ -10,7 +10,7 @@ namespace Socket {
         }
     });
     ws.addEventListener('close', () => {
-        Electron.close();
+        CEF.close();
     });
     ws.addEventListener('error', e => {
         console.log(e);

@@ -17,7 +17,8 @@ interface Refs {
     container: Swish;
 }
 
-const container = swish('#popup-container');
+let container;
+window.addEventListener('load', e => container = swish('#popup-container'));
 
 abstract class Popup<T extends Module<any>> extends Module<Refs> {
     protected module: T;

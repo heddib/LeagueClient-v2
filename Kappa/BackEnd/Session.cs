@@ -119,7 +119,7 @@ namespace Kappa.BackEnd {
 
             patcher.FinishWAD();
 
-            var info = new InfoService(this);
+            var info = new InfoService(this, patcher);
         }
 
         internal Riot.Services.AccountService AccountService { get; }
@@ -200,6 +200,7 @@ namespace Kappa.BackEnd {
                 } catch (InvocationException x) when (x.RootCause is ClientVersionMismatchException) {
                     var inner = (ClientVersionMismatchException) x.RootCause;
                     clientVersion = (string) inner.SubstitutionArguments[1];
+                    Log("Patch (DDragon outdated): " + clientVersion);
                 }
             } while (session == null);
 
