@@ -1,5 +1,5 @@
 import Module         from './../ui/module';
-import * as Tabs      from './../ui/tabs';
+import * as Tabs      from './../uikit/tabs';
 import * as Assets    from './../../frontend/assets';
 import { Champions }  from './../../backend/services';
 import * as Summoner  from './../../frontend/summoner';

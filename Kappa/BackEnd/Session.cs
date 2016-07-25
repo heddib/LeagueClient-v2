@@ -44,6 +44,8 @@ namespace Kappa.BackEnd {
         private static string rtmpLogFile;
         private static string logFile;
 
+        private static LogService.Log rtmpLog;
+
         internal static RiotAPI RiotAPI { get; private set; }
         internal event EventHandler Authed;
         internal event EventHandler<HandledEventArgs<object>> InternalMessageReceived;
@@ -297,6 +299,8 @@ namespace Kappa.BackEnd {
         #region | Static Methods |
 
         public static void Initialize() {
+            rtmpLog = BackEndServer.LogService.CreateLog("RTMP");
+
             logFile = Path.Combine(AppData, "logs", "client", DateTime.Now.ToString("M-d H-mm") + ".txt");
             Directory.CreateDirectory(Path.GetDirectoryName(logFile));
 #if DEBUG
@@ -333,7 +337,7 @@ namespace Kappa.BackEnd {
                 json = lcds.Payload;
 
                 var att = lcds.GetType().GetCustomAttribute<LcdsServiceAttribute>();
-                BackEndServer.Log("Async", att.Service + "." + att.Method, new JSONObject {
+                rtmpLog.Write("Async", att.Service + "." + att.Method, new JSONObject {
                     ["type"] = "async_proxy",
                     ["body"] = lcds.Payload
                 });
@@ -341,7 +345,7 @@ namespace Kappa.BackEnd {
             else {
                 json = JSONSerializer.Serialize(msg);
 
-                BackEndServer.Log("Async", msg.GetType().Name, new JSONObject {
+                rtmpLog.Write("Async", msg.GetType().Name, new JSONObject {
                     ["type"] = "async",
                     ["body"] = json
                 });
@@ -357,7 +361,7 @@ namespace Kappa.BackEnd {
         [Conditional("DEBUG")]
         internal static void RtmpLogInvoke(string service, string method, object[] args, object response) {
             if (service == "lcdsServiceProxy" && method == "call") return;//skip LCDS invocations
-            BackEndServer.Log("Invoke", service + "." + method, new JSONObject {
+            rtmpLog.Write("Invoke", service + "." + method, new JSONObject {
                 ["type"] = "invoke",
                 ["args"] = JSONSerializer.Serialize(args),
                 ["return"] = JSONSerializer.Serialize(response)
@@ -376,7 +380,7 @@ namespace Kappa.BackEnd {
 
         [Conditional("DEBUG")]
         internal static void RtmpLogLcds(string service, string method, string args, string payload) {
-            BackEndServer.Log("Invoke", service + "." + method, new JSONObject {
+            rtmpLog.Write("Invoke", service + "." + method, new JSONObject {
                 ["type"] = "invoke_proxy",
                 ["args"] = JSONParser.Parse(args),
                 ["return"] = JSONParser.Parse(payload ?? "{}")

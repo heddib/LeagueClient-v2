@@ -40,6 +40,7 @@ namespace Kappa {
         private void Start() {
             front.Build(@"..\..\FrontEnd", @"C:\Users\max\desktop\assets");
 
+            Session.Log($"Starting at host {BackEndServer.HostName}...");
             var kappa = new Session();
             front.Start(BackEndServer.HostName);
             kappa.Start().Wait();

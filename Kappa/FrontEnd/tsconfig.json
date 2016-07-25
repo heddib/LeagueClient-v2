@@ -8,6 +8,9 @@
     "files": [
         "declare/discord.d.ts",
         "declare/domain.d.ts",
+        // "declare/react.d.ts",
+        // "declare/react-dom.d.ts",
+        
         "client/ui/swish.ts",
         "client/ui/jsx.ts",
         

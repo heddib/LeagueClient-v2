@@ -112,7 +112,7 @@ export default class ChatFriend2 extends React.Component<Props, Refs> {
         this.data = this.props.friend;
 
         return (
-            <module class="chatfriend3" onClick={ this.onClick }>
+            <module class="sidebar-friend" onClick={ this.onClick }>
                 <div class="icon">
                     <img ref="icon"/>
                 </div>

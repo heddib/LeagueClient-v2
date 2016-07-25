@@ -1,4 +1,4 @@
-import Module        from './module';
+import Module        from './../ui/module';
 
 const template = (
     <module class="tooltip">

@@ -1,5 +1,5 @@
 import http         from './../util/http';
-import Patcher      from './../client/patcher/launcher';
+// import Patcher      from './../client/patcher/launcher';
 
 import { Assets as Service }   from './../backend/services';
 
@@ -79,11 +79,11 @@ export const gamedata: {
     summoners: Domain.GameData.SummonerSpellDetails[];
     wardskins: Domain.GameData.WardSkinSummary[];
     maps: Domain.GameData.MapSummary[];
-} = <any>{};
+} = {} as any;
 
 (function check() {
-    Patcher.required().then(required => {
-        if (required) return setTimeout(check, 1000)
+    // Patcher.required().then(required => {
+        // if (required) return setTimeout(check, 1000)
 
         Service.masteries().then(m => gamedata.masteries = m);
         Service.runes().then(m => gamedata.runes = m);
@@ -98,7 +98,7 @@ export const gamedata: {
             }, 5000);
         });
         Service.summonerspells().then(m => gamedata.summoners = m);;
-    });
+    // });
 })();
 
 export const login = {

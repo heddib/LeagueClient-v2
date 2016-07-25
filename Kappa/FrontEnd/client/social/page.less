@@ -4,11 +4,18 @@ module.social-page {
 
     > .left {
         .flex-padd();
+        display: flex;
+        flex-direction: column;
+
+        > .list {
+            overflow-y: auto;
+            padding: 15px 15px 0 15px;
+        }
     }
 
     > .right {
         .flex-padd();
-        padding-right: 15px;
+        padding: 0 15px;
         display: flex;
         flex-direction: column;
 

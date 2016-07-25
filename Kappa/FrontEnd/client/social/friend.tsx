@@ -99,7 +99,7 @@ export default class ChatFriend2 extends React.Component<Props, Refs> {
         this.data = this.props.friend;
 
         return (
-            <module class="chatfriend2" onClick={ this.onClick }>
+            <module class="social-friend" onClick={ this.onClick }>
                 <div class="status-outline"/>
                 <div class="icon">
                     <img ref="icon"/>

@@ -25,17 +25,26 @@ function match(item) {
 let socket;
 let logHistory = [];
 let currentNode;
+let logKey;
 function connect() {
     if (socket) socket.close();
     $$('#log').empty();
 
-    socket = new WebSocket(`ws://${window.location.host}/log`, 'protocolTwo');
-    socket.addEventListener('message', e => append(JSON.parse(e.data)));
-    $$.http('/logs').get(http => {
-        var list = http.json.logs;
-        for (let i = 0; i < list.length; i++) {
-            append(list[i]);
-        }
+    socket = new WebSocket(`ws://${window.location.host}/kappa/logs`, 'protocolTwo');
+    socket.addEventListener('message', e => {
+        var data = JSON.parse(e.data);
+        if (data.name == logKey)
+            append(data.entry);
+    });
+    $$.http('/kappa/logs/categories').get(http => {
+        logKey = http.json.value[1];
+        $$.http('/kappa/logs/log').post([logKey], http => {
+            debugger;
+            var list = http.json.value.entries;
+            for (let i = 0; i < list.length; i++) {
+                append(list[i]);
+            }
+        });
     });
 }
 

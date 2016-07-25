@@ -1,6 +1,6 @@
 import Module        from './../../ui/module';
-import Popup         from './../../ui/popup';
-import * as Tooltip  from './../../ui/tooltip';
+import Popup         from './../../uikit/popup';
+import * as Tooltip  from './../../uikit/tooltip';
 import * as Defer    from './../../../frontend/defer';
 import * as Assets   from './../../../frontend/assets';
 

@@ -50,12 +50,15 @@ namespace Kappa.BackEnd.Server {
 
                 #region Dispatch
                 try {
-                    string str;
-                    using (var mem = new MemoryStream((int) context.Request.ContentLength64)) {
-                        context.Request.InputStream.CopyTo(mem);
-                        str = Encoding.UTF8.GetString(mem.ToArray());
+                    var rawArgs = new JSONArray();
+                    if (context.Request.ContentLength64 > 0) {
+                        string str;
+                        using (var mem = new MemoryStream((int) context.Request.ContentLength64)) {
+                            context.Request.InputStream.CopyTo(mem);
+                            str = Encoding.UTF8.GetString(mem.ToArray());
+                        }
+                        rawArgs = JSONParser.ParseArray(str);
                     }
-                    var rawArgs = JSONParser.ParseArray(str);
 
                     var types = endpoint.Method.GetParameters();
                     var changed = new object[rawArgs.Count];

@@ -162,7 +162,7 @@ module React {
                         continue;
                     }
 
-                    if (key.startsWith('class-')) {
+                    if (key.startsWith(classPrefix)) {
                         var name = key.substring(classPrefix.length);
                         if (this.props[key]) node.classList.add(name);
                         continue;

@@ -173,6 +173,18 @@ export default class Lobby extends Module<Refs> {
     private renderSlot(list: Domain.Game.LobbyMember[], index: number, me: Domain.Game.LobbyMember, icon: number) {
         let member = list[index];
 
+        // let node = React.template(
+        //     <div class="member" id="member-{{id}}">
+        //         <div class="member-icon" style={{ backgroundImage: 'url("' + Assets.summoner.icon(icon) + '");' }}/>
+        //         <div class="member-icon" style={{ backgroundImage: React.url(Assets.summoner.icon(icon)) }}/>
+        //         <span class="member-name">{{ name }}</span>
+        //         <div class="member-roles">
+        //             <div class="role1 role-{{role1}}"></div>
+        //             <div class="role2 role-{{role2}}"></div>
+        //         </div>
+        //     </div>
+        // );
+
         var data = {
             id: member.id,
             // class: mySlot == slot.slotId ? 'me' : 'friend',

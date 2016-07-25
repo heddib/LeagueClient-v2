@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading;
 using System.Net;
@@ -11,16 +10,15 @@ using Kappa.BackEnd.Server.Diagnostics;
 namespace Kappa.BackEnd.Server {
     public static class BackEndServer {
         public static Thread MainThread { get; private set; }
+        public static LogService LogService { get; private set; }
 
+        private static LogService.Log log;
         private static HttpListener server;
         private static WebSocket clientAsync;
-        private static WebSocket logAsync;
-        private static List<LogItem> log = new List<LogItem>();
 
         private static List<HttpService> services = new List<HttpService>();
 
         public static IEnumerable<HttpService> Services => services;
-        public static IEnumerable<LogItem> Logs => log;
 
         public static string HostName { get; private set; }
 
@@ -31,14 +29,15 @@ namespace Kappa.BackEnd.Server {
             HostName = "localhost:" + ((IPEndPoint) tmp.LocalEndpoint).Port;
 
             tmp.Stop();
+
+            var docs = new DocumentationService();
+            AddService(docs);
+
+            LogService = new LogService();
+            log = LogService.CreateLog("REST");
         }
 
         public static void Start() {
-            var docService = new DocumentationService();
-            var logService = new LogService();
-            AddService(docService);
-            AddService(logService);
-
             server = new HttpListener();
             server.Prefixes.Add($"http://{HostName}/");
 
@@ -58,14 +57,6 @@ namespace Kappa.BackEnd.Server {
             Send("async", json);
         }
 
-        public static async void Log(string category, string summary, JSONValue content) {
-            var item = new LogItem(category, summary, content);
-            var json = item.Serialize().ToJSON();
-            log.Add(item);
-            if (logAsync != null)
-                await logAsync.Send(json);
-        }
-
         public static async void Stop() {
             MainThread.Abort();
             server.Stop();
@@ -73,8 +64,6 @@ namespace Kappa.BackEnd.Server {
             try {
                 if (clientAsync != null)
                     await clientAsync.Close(WebSocketCloseStatus.Empty);
-                if (logAsync != null)
-                    await logAsync.Close(WebSocketCloseStatus.Empty);
             } catch {
                 // ignored
             }
@@ -89,57 +78,60 @@ namespace Kappa.BackEnd.Server {
                     var context = server.GetContext();
 
                     ThreadPool.QueueUserWorkItem(o => {
+                        var handled = false;
+                        var json = false;
+
                         try {
-                            if (context.Request.IsWebSocketRequest) {
-                                HandleWebSocketRequest(context);
-                                return;
+                            if (context.Request.Url.LocalPath == "/async") {
+                                HandleAsyncConnection(context);
+                                handled = true;
                             }
 
-                            using (context.Response) {
-                                var handled = false;
-                                foreach (var service in services) {
-                                    if (!context.Request.Url.LocalPath.StartsWith(service.BaseUrl)) continue;
-                                    try {
-                                        handled = service.Handle(context);
-                                    } catch (HttpListenerException x) when (x.ErrorCode == 1236) {
-                                        //Connection closed
-                                        return;
-                                    }
-                                    if (handled) break;
+                            foreach (var service in services) {
+                                if (!context.Request.Url.LocalPath.StartsWith(service.BaseUrl)) continue;
+                                try {
+                                    handled = service.Handle(context);
+                                } catch (HttpListenerException x) when (x.ErrorCode == 1236) {
+                                    //Connection closed
+                                    return;
                                 }
-
-                                if (!handled) {
-                                    context.Response.StatusCode = 404;
+                                if (handled) {
+                                    json = service is JSONService;
+                                    break;
                                 }
                             }
-                        } catch (HttpListenerException) { }
+
+                            if (!handled) {
+                                context.Response.StatusCode = 404;
+                            }
+                        } catch (HttpListenerException) {
+                            //Ignore//
+                        } finally {
+                            try {
+                                if (!context.Request.IsWebSocketRequest || !handled) {
+                                    context.Response.Close();
+                                }
+                            } catch (ObjectDisposedException) {
+                                //Ignore
+                            }
+                        }
+
+                        log.Write(json ? "REST" : "Request", context.Request.Url.LocalPath, new JSONObject {
+                            ["handled"] = handled
+                        });
                     });
                 }
             } catch (HttpListenerException x) when (x.ErrorCode == 1 || x.ErrorCode == 995) { }
         }
 
-        private static async void HandleWebSocketRequest(HttpListenerContext context) {
-            var raw = await context.AcceptWebSocketAsync("protocolTwo");
-            var socket = new WebSocket(raw.WebSocket);
-            switch (context.Request.Url.LocalPath) {
-            case "/async":
-                if (clientAsync != null) {
-                    context.Response.StatusCode = 400;
-                }
-
-                clientAsync = socket;
-                clientAsync.OnClose += (s, e) => clientAsync = null;
-                break;
-
-            case "/log":
-                if (logAsync != null) {
-                    context.Response.StatusCode = 400;
-                }
-
-                logAsync = socket;
-                logAsync.OnClose += (s, e) => logAsync = null;
-                break;
+        private static async void HandleAsyncConnection(HttpListenerContext context) {
+            if (clientAsync != null) {
+                context.Response.StatusCode = 400;
             }
+
+            var raw = await context.AcceptWebSocketAsync("protocolTwo");
+            clientAsync = new WebSocket(raw.WebSocket);
+            clientAsync.OnClose += (s, e) => clientAsync = null;
         }
 
 

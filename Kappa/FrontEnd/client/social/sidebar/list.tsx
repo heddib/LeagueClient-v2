@@ -43,6 +43,8 @@ export default class SocialSidebar extends React.Component<Props, Refs> {
         Chat.update.on(list => this.onFriendsUpdate(list));
         Chat.message.on(msg => this.onMessage(msg.user, msg));
         if (Chat.list()) this.onFriendsUpdate(Chat.list());
+
+        setInterval(() => this.tick(), 1000);
     }
 
     private onFriendsUpdate(list) {

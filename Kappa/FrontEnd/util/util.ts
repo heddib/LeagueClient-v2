@@ -194,11 +194,11 @@ function guid() {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
 
-module guid {
+namespace guid {
     export const empty = '00000000-0000-0000-0000-000000000000';
 }
 
-module Util {
+namespace Util {
     let preloadContainer: HTMLElement;
     let callbacks: { [url: string]: Function } = {};
 
@@ -275,5 +275,13 @@ module Util {
                 if (preloadContainer) load(url);
             }
         });
+    }
+
+    export function style(...args: any[]) {
+        var style = {};
+        for (var arg of args)
+            for (var key in arg)
+                style[key] = arg[key];
+        return style;
     }
 }

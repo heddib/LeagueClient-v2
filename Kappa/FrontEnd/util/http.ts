@@ -33,7 +33,6 @@ class HttpRequest {
 
     public get status() { return this._base.status; }
     public get text() { return this._base.responseText; }
-    public get xml() { return new Swish(this._base.responseXML); }
     public get json() {
         if (!this._json) this._json = JSON.parse(this.text);
         return this._json;
