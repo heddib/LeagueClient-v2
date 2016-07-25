@@ -8,6 +8,7 @@ using Kappa.BackEnd.Server.Patcher;
 using MFroehlich.League.Assets;
 
 namespace Kappa.BackEnd.Server.Diagnostics {
+    [Docs("group", "Diagnostics")]
     public class InfoService : JSONService {
         private PatcherService patcher;
         private Session session;

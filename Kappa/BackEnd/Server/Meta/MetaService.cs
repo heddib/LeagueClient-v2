@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 
 namespace Kappa.BackEnd.Server.Meta {
+    [Docs("group", "Meta")]
     public class MetaService : JSONService {
         private Session session;
         public MetaService(Session session) : base("/meta") {

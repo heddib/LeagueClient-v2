@@ -5,6 +5,7 @@ using MFroehlich.Parsing.JSON;
 using System.Net;
 
 namespace Kappa.BackEnd.Server.Diagnostics {
+    [Docs("group", "Diagnostics")]
     public class LogService : JSONService {
         private WebSocket socket;
         private Dictionary<string, Log> logs = new Dictionary<string, Log>();
@@ -21,7 +22,7 @@ namespace Kappa.BackEnd.Server.Diagnostics {
         private async void LogOnWritten(object sender, LogItem logItem) {
             if (socket != null) {
                 var json = new JSONObject {
-                    ["name"] = ((Log)sender).Name,
+                    ["name"] = ((Log) sender).Name,
                     ["entry"] = logItem
                 };
                 await socket.Send(json.ToJSON());

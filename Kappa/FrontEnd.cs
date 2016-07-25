@@ -59,7 +59,6 @@ namespace Kappa {
 
         [Conditional("BUILD_UI")]
         public void Build(string contentRoot, string assetsRoot) {
-            Debug.WriteLine("Building...");
             string src = Path.Combine(contentRoot, @"client\client.less");
             string dst = Path.Combine(contentRoot, "bin", "compiled.css");
 

@@ -4,6 +4,7 @@ using Kappa.Settings;
 using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Meta {
+    [Docs("group", "Meta")]
     public class SettingsService : JSONService {
         private Settings settings;
         private Session session;

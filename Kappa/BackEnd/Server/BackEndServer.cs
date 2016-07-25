@@ -116,9 +116,11 @@ namespace Kappa.BackEnd.Server {
                             }
                         }
 
+#if DEBUG
                         log.Write(json ? "REST" : "Request", context.Request.Url.LocalPath, new JSONObject {
                             ["handled"] = handled
                         });
+#endif
                     });
                 }
             } catch (HttpListenerException x) when (x.ErrorCode == 1 || x.ErrorCode == 995) { }
@@ -144,24 +146,6 @@ namespace Kappa.BackEnd.Server {
                 if (clientAsync != null)
                     await clientAsync.Send(bytes);
             } catch (ObjectDisposedException) { } catch (SocketException) { }
-        }
-    }
-
-    public class LogItem : JSONSerializable {
-        [JSONField("category")]
-        public string Category { get; }
-        [JSONField("summary")]
-        public string Summary { get; }
-        [JSONField("content")]
-        public JSONValue Content { get; }
-        [JSONField("time")]
-        public DateTime Time { get; }
-
-        public LogItem(string category, string summary, JSONValue content) {
-            Category = category;
-            Summary = summary;
-            Content = content;
-            Time = DateTime.Now;
         }
     }
 

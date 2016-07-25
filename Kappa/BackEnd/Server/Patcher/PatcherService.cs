@@ -16,6 +16,7 @@ using LeagueSharp.Archives;
 using LeagueSharp.RADS;
 
 namespace Kappa.BackEnd.Server.Patcher {
+    [Docs("group", "Patcher")]
     public class PatcherService : JSONService {
         public List<string> WADs { get; } = new List<string>();
         public string WADVersion { get; private set; }

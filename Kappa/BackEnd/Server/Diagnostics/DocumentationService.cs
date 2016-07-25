@@ -16,6 +16,7 @@ namespace Kappa.BackEnd.Server.Diagnostics {
                             where j != null
                             from e in j.Endpoints
                             select e;
+
             foreach (var endpoint in endpoints) {
                 var json = new JSONObject {
                     ["path"] = endpoint.Key.Substring("/kappa".Length),

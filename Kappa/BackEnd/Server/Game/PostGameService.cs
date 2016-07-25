@@ -9,6 +9,7 @@ using Kappa.Riot.Domain.JSON;
 using MFroehlich.Parsing.JSON;
 
 namespace Kappa.BackEnd.Server.Game {
+    [Docs("group", "Post Game")]
     public class PostGameService : JSONService {
         private Session session;
         private ChatRoomService rooms;

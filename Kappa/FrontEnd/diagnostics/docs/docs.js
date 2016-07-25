@@ -1,9 +1,16 @@
-$$.on('load', () => {
-    $$('#source-input').on('keydown', e => {
-        if (e.keyCode == 13) {
-            fetch();
-        }
+Array.prototype.orderby = function (handler) {
+    let dst = this.slice();
+    dst.sort((a, b) => {
+        let vA = handler(a);
+        let vB = handler(b);
+        if (vA > vB) return 1;
+        if (vA < vB) return -1;
+        return 0;
     });
+    return dst;
+};
+
+$$.on('load', () => {
     $$('#invoke').css('display', 'none');
     $$('#invoke-button').on('click', invoke);
     $$('#exit-button').on('click', () => $$('#invoke').css('display', 'none'));
@@ -27,7 +34,7 @@ function build(data) {
     $$('#list').empty();
     $$('#title').text = data.name;
     var groups = {};
-    for (let endpoint of data.endpoints) {
+    for (let endpoint of data.endpoints.orderby(d => d.group)) {
         let node = template('endpoint', endpoint);
         node.on('click', () => show(endpoint));
         if (!endpoint.group)

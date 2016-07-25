@@ -225,6 +225,14 @@ declare namespace Domain {
             level: number;
             icon: number;
         }
+        interface Me {
+            name: string;
+            icon: number;
+            ip: number;
+            rp: number;
+            summonerId: number;
+            accountId: number;
+        }
     }
     export namespace GameData {
         export interface ChampionDetails {
@@ -522,3 +530,4 @@ declare namespace Domain {
         }
     }
 }
+

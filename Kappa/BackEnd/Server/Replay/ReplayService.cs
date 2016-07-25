@@ -3,6 +3,7 @@ using System.IO;
 using Kappa.Riot.Domain;
 
 namespace Kappa.BackEnd.Server.Replay {
+    [Docs("group", "Replay")]
     public class ReplayService : JSONService {
         private List<long> saved = new List<long>();
         private string directory;
