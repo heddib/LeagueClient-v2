@@ -137,6 +137,16 @@ export default class SocialSidebar extends React.Component<Props, Refs> {
         }
     }
 
+    private onChatKeyUp(s: Swish, e: KeyboardEvent) {
+        if (e.keyCode == 13) {
+            var text = this.refs.chatInput.value;
+            this.refs.chatInput.value = '';
+            if (text) {
+                Chat.send(this.selected, text);
+            }
+        }
+    }
+
     private tick() {
         for (let user in this.friends) {
             this.friends[user].tick();
@@ -181,7 +191,7 @@ export default class SocialSidebar extends React.Component<Props, Refs> {
                     </div>
                     <div ref="messageList" class="message-list"/>
                     <div class="chat-input">
-                        <input ref="chatInput" type="text"/>
+                        <input ref="chatInput" type="text" onKeyUp={ this.onChatKeyUp }/>
                     </div>
                 </div>
             </module>

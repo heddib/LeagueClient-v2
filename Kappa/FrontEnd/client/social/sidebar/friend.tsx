@@ -101,7 +101,8 @@ export default class ChatFriend2 extends React.Component<Props, Refs> {
     }
 
     private onClick(s: Swish, e: MouseEvent) {
-        this.props.onSelected();
+        if (!this.inviting)
+            this.props.onSelected();
     }
 
     private onInvite(s: Swish, e: MouseEvent) {
@@ -127,8 +128,8 @@ export default class ChatFriend2 extends React.Component<Props, Refs> {
                     </div>
                 </div>
                 <svg class="invite-button" onClick={ this.onInvite }>
-                    <line x1="16" y1="0" x2="16" y2="32" stroke="#EEEEEE" stroke-width="4" />
-                    <line x1="0" y1="16" x2="32" y2="16" stroke="#EEEEEE" stroke-width="4" />
+                    <line x1="16" y1="0" x2="16" y2="32"/>
+                    <line x1="0" y1="16" x2="32" y2="16"/>
                 </svg>
             </module>
         );

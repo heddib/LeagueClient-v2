@@ -16,59 +16,6 @@ const MonthNames = [
     "July", "August", "September", "October", "November", "December"
 ];
 
-var template = (
-    <module class="matchsummary">
-        <div class="card" data-ref="card">
-            <div class="spells">
-                <img data-ref="spell1"/>
-                <img data-ref="spell2"/>
-            </div>
-            <div class="text">
-                <span data-ref="type"></span>
-                <span class="result" data-ref="result"></span>
-            </div>
-        </div>
-        <div class="center">
-            <x-flexpadd/>
-            <div class="items">
-                <img data-ref="item0"/>
-                <img data-ref="item1"/>
-                <img data-ref="item2"/>
-                <img data-ref="item3"/>
-                <img data-ref="item4"/>
-                <img data-ref="item5"/>
-                <img data-ref="item6"/>
-            </div>
-            <x-flexpadd/>
-            <div class="stats">
-                <span class="kda" data-ref="kda"></span>
-                <div class="minions">
-                    <span data-ref="minions"></span>
-                    <span class="icon"></span>
-                </div>
-                <div class="gold">
-                    <span data-ref="gold"></span>
-                    <span class="icon"></span>
-                </div>
-            </div>
-            <x-flexpadd/>
-        </div>
-        <x-flexpadd/>
-        <div class="info">
-            <div class="ip">
-                <span data-ref="ip"></span>
-                <span> IP</span>
-            </div>
-            <div class="map">
-                <span data-ref="map"></span>
-            </div>
-            <div class="date">
-                <span data-ref="date"></span>
-            </div>
-        </div>
-    </module>
-);
-
 interface Props {
     summ: Domain.Summoner.SummonerSummary;
     game: Domain.MatchHistory.MatchDetails;

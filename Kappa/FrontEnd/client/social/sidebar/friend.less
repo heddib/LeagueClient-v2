@@ -39,22 +39,34 @@ module.sidebar-friend {
     > .invite-button {
         position: absolute;
         top: 16px;
-        right: 16px;
+        right: 8px;
         width: 32px;
         height: 32px;
-        display: none;
         cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 100ms;
+
+        &:hover {
+            -webkit-filter: drop-shadow(0 0 10px white);
+        }
+
+        line {
+            stroke: @textcolor;
+            stroke-width: 4px;
+        }
     }
 
     &.inviting {
         cursor: default;
         
         > .invite-button {
-            display: initial;
+            opacity: 1;
+            pointer-events: initial;
         }
     }
 
-    &:hover {
+    &:hover:not(.inviting) {
         background: lighten(@backgroundcolor, 10%);
     }
 

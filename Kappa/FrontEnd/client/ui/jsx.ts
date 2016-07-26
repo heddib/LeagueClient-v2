@@ -116,6 +116,49 @@ module React {
         onWaiting: 'waiting',
         onWheel: 'wheel',
     }
+    const svgs = [
+        'svg',
+        'circle',
+        'clipPath',
+        'defs',
+        'ellipse',
+        'feBlend',
+        'feColorMatrix',
+        'feComponentTransfer',
+        'feComposite',
+        'feConvolveMatrix',
+        'feDiffuseLighting',
+        'feDisplacementMap',
+        'feFlood',
+        'feGaussianBlur',
+        'feImage',
+        'feMerge',
+        'feMergeNode',
+        'feMorphology',
+        'feOffset',
+        'feSpecularLighting',
+        'feTile',
+        'feTurbulence',
+        'filter',
+        'foreignObject',
+        'g',
+        'image',
+        'line',
+        'linearGradient',
+        'mask',
+        'path',
+        'pattern',
+        'polygon',
+        'polyline',
+        'radialGradient',
+        'rect',
+        'stop',
+        'symbol',
+        'text',
+        'tspan',
+        'use',
+
+    ]
     export abstract class Component<P, R> {
         private _refs: R;
         private _props: P & Attributes;
@@ -153,7 +196,11 @@ module React {
             }
 
             if (typeof this.name == 'string') {
-                let node = document.createElement(this.name as string);
+                let node;
+                if (svgs.contains(this.name as string))
+                    node = document.createElementNS('http://www.w3.org/2000/svg', this.name as string);
+                else
+                    node = document.createElement(this.name as string);
 
                 for (let key in this.props) {
                     if (events[key]) {
@@ -198,7 +245,7 @@ module React {
     }
 
     function addElement(parent: HTMLElement, child, self, refs) {
-        if (child instanceof HTMLElement) {
+        if (child instanceof HTMLElement || child instanceof SVGElement) {
             parent.appendChild(child);
             return;
         }
