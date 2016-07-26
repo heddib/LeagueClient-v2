@@ -198,6 +198,22 @@ declare namespace Domain {
             points: number;
             maxPoints: number;
         }
+        interface Invitation {
+            state: string;
+            type: string;
+            id: string;
+            from: {
+                id: number;
+                name: string;
+            };
+            game: {
+                map: number;
+                type: string;
+                mode: string;
+                queue: number;
+                config: number;
+            }
+        }
     }
     export namespace Patcher {
         export interface PatcherState {

@@ -2240,4 +2240,12 @@ namespace Kappa.Riot.Domain {
         [SerializedName("profileIconId")]
         public int ProfileIconId { get; set; }
     }
+
+    [Serializable, SerializedName("com.riotgames.platform.gameinvite.contract.RemovedFromLobbyNotification")]
+    public class RemovedFromLobbyNotification {
+        [SerializedName("removalReason")]
+        public string RemovalReason { get; set; }
+        [SerializedName("removalReasonAsString")]
+        public string RemovalReasonAsString { get; set; }
+    }
 }

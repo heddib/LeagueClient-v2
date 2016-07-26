@@ -1,5 +1,5 @@
 import http         from './../util/http';
-// import Patcher      from './../client/patcher/launcher';
+import Patcher      from './../client/patcher/launcher';
 
 import { Assets as Service }   from './../backend/services';
 
@@ -8,9 +8,9 @@ class Queue {
     get key() { return this._key; }
     get display() { return this._display; }
 
-    private _id: any;
-    private _key: any;
-    private _display: any;
+    private _id: number;
+    private _key: string;
+    private _display: string;
 
     constructor(key, id, display) {
         this._key = key;
@@ -82,8 +82,8 @@ export const gamedata: {
 } = {} as any;
 
 (function check() {
-    // Patcher.required().then(required => {
-        // if (required) return setTimeout(check, 1000)
+    Patcher.required().then(required => {
+        if (required) return setTimeout(check, 1000)
 
         Service.masteries().then(m => gamedata.masteries = m);
         Service.runes().then(m => gamedata.runes = m);
@@ -98,7 +98,7 @@ export const gamedata: {
             }, 5000);
         });
         Service.summonerspells().then(m => gamedata.summoners = m);;
-    // });
+    });
 })();
 
 export const login = {
@@ -156,7 +156,7 @@ export const summoner = {
     }
 };
 
-export function getQueueType(key: string | number) {
+export function getQueueType(key: string | number): Queue {
     if (typeof key == 'number')
         return queuesById[key];
     else
