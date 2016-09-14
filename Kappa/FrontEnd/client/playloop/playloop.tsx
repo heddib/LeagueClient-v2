@@ -48,7 +48,7 @@ export const featuredNames = {
     70: 'One for All',
     75: 'Hexakill',
     76: 'URF',
-    96: 'Ascension',
+    // 96: 'Ascension',
     98: 'Twisted Treeline Hexakill',
     300: 'Legend of the Poro King',
     // 317: 'Definitely not Dominion'
@@ -126,7 +126,7 @@ export default class Page extends Module<Refs> {
             mod.node.on('click', () => this.choose(queue.map, queue));
             mod.node.setClass(featured, 'featured');
             if (featured) {
-                dst.prepend(mod.node);
+                dst.insert(mod.node, 1);
             } else {
                 dst.append(mod.node);
             }

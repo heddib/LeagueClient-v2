@@ -155,7 +155,19 @@ namespace Kappa.BackEnd.Server.Patcher {
                 var rawManifest = web.DownloadString(region.SolutionManifest(SolutionName, version));
                 manifest = rawManifest.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-                solutionTarget = Path.Combine(RADS, "solutions", SolutionName, "releases", version);
+                var releases = Path.Combine(RADS, "solutions", SolutionName, "releases");
+                solutionTarget = Path.Combine(releases, version);
+
+                if (Directory.Exists(releases)) {
+                    var newest = (from dir in Directory.EnumerateDirectories(releases)
+                                  let ver = Version.Parse(Path.GetFileName(dir))
+                                  orderby ver descending
+                                  select dir).FirstOrDefault();
+
+                    if (Directory.Exists(newest) && newest != solutionTarget)
+                        Directory.Move(newest, solutionTarget);
+                }
+
                 Directory.CreateDirectory(solutionTarget);
 
                 File.WriteAllText(Path.Combine(solutionTarget, "solutionmanifest"), rawManifest);
@@ -199,7 +211,7 @@ namespace Kappa.BackEnd.Server.Patcher {
                 var src = copy.Item2;
                 try {
                     Directory.CreateDirectory(Path.GetDirectoryName(dst));
-                    File.Copy(src, dst);
+                    File.Copy(src, dst, true);
                 } catch {
                     //
                 }

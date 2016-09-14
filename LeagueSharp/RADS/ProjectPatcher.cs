@@ -174,6 +174,9 @@ namespace LeagueSharp.RADS {
                     if (!raf.HasFile(pair.Key))
                         yield return pair.Value;
                 }
+                else if (pair.Value.MetaData.Type == FileType.COPY_TO_SLN) {
+                    yield return pair.Value;
+                }
                 else {
                     ManifestFile oldFile;
                     if (!old.AllFiles.TryGetValue(pair.Key, out oldFile) || !oldFile.ChecksumEquals(pair.Value)) {

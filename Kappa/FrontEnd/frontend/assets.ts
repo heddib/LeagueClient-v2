@@ -27,7 +27,7 @@ let queuesByKey: { [key: string]: Queue } = {};
 
 Service.info().then(i => info = i);
 
-    /* Init Queues */ {
+/* Init Queues */ {
     let all_queues = [
         new Queue('CUSTOM', 0, 'Custom'),
         new Queue('NORMAL_3x3', 8, 'Normal 3v3'),
